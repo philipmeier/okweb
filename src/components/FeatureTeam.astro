@@ -1,29 +1,52 @@
----
+ï»¿---
 const perks = [
-  { icon: '??', title: 'Project-Level Budgets', body: 'Fund each project independently. Set credit limits per project, not per account. Your horror film and beverage ad never share a pool.' },
-  { icon: '??', title: 'Role-Based Permissions', body: 'Control who can generate, edit titles, manage members, or start workflows — all per project.' },
-  { icon: '???', title: 'Credit Policy Controls', body: 'Choose whether team members draw from project credits first, personal credits, or project-only.' },
-  { icon: '??', title: 'Full Activity Tracking', body: 'See who generated what, when, with which model, and at what cost. Complete audit trail per project.' },
-  { icon: '??', title: 'Shared Reference Library', body: 'Team members access the same character refs, style guides, and uploaded assets across every role.' },
+  { 
+    iconPath: 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
+    title: 'Project-Level Budgets', 
+    body: 'Fund each project independently. Set credit limits per project, not per account. Your horror film and beverage ad never share a pool.' 
+  },
+  { 
+    iconPath: 'M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z',
+    title: 'Role-Based Permissions', 
+    body: 'Control who can generate, edit titles, manage members, or start workflows &mdash; all per project.' 
+  },
+  { 
+    iconPath: 'M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4',
+    title: 'Credit Policy Controls', 
+    body: 'Choose whether team members draw from project credits first, personal credits, or project-only.' 
+  },
+  { 
+    iconPath: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01',
+    title: 'Full Activity Tracking', 
+    body: 'See who generated what, when, with which model, and at what cost. Complete audit trail per project.' 
+  },
+  { 
+    iconPath: 'M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z',
+    title: 'Shared Reference Library', 
+    body: 'Team members access the same character refs, style guides, and uploaded assets across every role.' 
+  },
 ];
 ---
 <section class="section" aria-labelledby="team-heading">
   <div class="sect-head reveal">
     <span class="sect-label">Team Orchestration</span>
     <h2 id="team-heading">Create With Your Team. <span class="grad-text">Keep Control of Your Project.</span></h2>
-    <p>Project owners set budgets and permissions at the <strong>project level</strong> — not the account level. Your horror film and your beverage commercial don&rsquo;t share a credit pool.</p>
+    <p>Project owners set budgets and permissions at the <strong>project level</strong> &mdash; not the account level. Your horror film and your beverage commercial don&rsquo;t share a credit pool.</p>
   </div>
 
-  <!-- Bento grid — 2-col large + 3-col small -->
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 reveal">
-
-    <!-- Large feature card (spans 2) -->
-    <div class="lg:col-span-2 glass p-8 flex flex-col justify-between min-h-[260px] relative overflow-hidden">
-      <div class="absolute right-0 top-0 w-48 h-48 pointer-events-none"
-        style="background:radial-gradient(ellipse at 100% 0%, rgba(56,189,248,0.08) 0%, transparent 70%);"></div>
+    <!-- Large feature card spans 2 cols -->
+    <div class="lg:col-span-2 glass p-8 flex flex-col justify-between min-h-[280px] relative overflow-hidden">
+      <div class="absolute right-0 top-0 w-64 h-64 pointer-events-none"
+        style="background:radial-gradient(ellipse at 100% 0%, rgba(56,189,248,0.07) 0%, transparent 70%);"></div>
       <div>
-        <div class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-5"
-          style="background:var(--accent-subtle); border:1px solid rgba(56,189,248,0.2);">??</div>
+        <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-5"
+          style="background:var(--accent-subtle); border:1px solid rgba(56,189,248,0.2);">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+            stroke="#38bdf8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+          </svg>
+        </div>
         <h3 class="text-2xl font-bold mb-3" style="font-family:var(--font-display);">
           Only 10zebra: Budgets Per Project
         </h3>
@@ -40,7 +63,7 @@ const perks = [
     </div>
 
     <!-- Team image card -->
-    <div class="glass overflow-hidden min-h-[260px]">
+    <div class="glass overflow-hidden min-h-[280px]">
       <img
         src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=520&fit=crop&q=80"
         alt="Team collaboration workspace"
@@ -52,9 +75,15 @@ const perks = [
     <!-- Small perk cards -->
     {perks.map((p) => (
       <div class="glass p-5">
-        <div class="text-xl mb-3">{p.icon}</div>
+        <div class="w-9 h-9 rounded-lg flex items-center justify-center mb-3"
+          style="background:var(--accent-subtle); border:1px solid rgba(56,189,248,0.15);">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+            stroke="#38bdf8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d={p.iconPath}/>
+          </svg>
+        </div>
         <h4 class="font-bold text-sm mb-2" style="font-family:var(--font-display);">{p.title}</h4>
-        <p class="text-xs text-[var(--text-secondary)] leading-relaxed">{p.body}</p>
+        <p class="text-xs text-[var(--text-secondary)] leading-relaxed" set:html={p.body} />
       </div>
     ))}
   </div>

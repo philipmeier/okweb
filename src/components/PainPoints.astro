@@ -1,24 +1,27 @@
----
+ï»¿---
 const pains = [
   {
-    icon: '??',
+    iconPath: 'M12 2a10 10 0 100 20A10 10 0 0012 2zm0 3a1.5 1.5 0 110 3 1.5 1.5 0 010-3zm0 5a1.5 1.5 0 110 3 1.5 1.5 0 010-3zm0 5a1.5 1.5 0 110 3 1.5 1.5 0 010-3z',
+    iconColor: '#38bdf8',
     label: 'The Model Gamble',
     title: "You Can't Know Which Model Wins Until You Try",
-    body: "Kling nails faces but muddles motion. Veo gets motion but loses detail. You waste credits guessing — or worse, you never try the model that would've been perfect.",
+    body: "Kling nails faces but muddles motion. Veo gets motion but loses detail. You waste credits guessing &mdash; or worse, you never try the model that would've been perfect.",
     solution: "A/B generate from 8+ models on the same shot. Pick the best take. Keep the rest as backups.",
   },
   {
-    icon: '??',
+    iconPath: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z',
+    iconColor: '#818cf8',
     label: 'Team Chaos',
     title: "Your Team Burns Credits. You Lose Control.",
     body: "Your editor burns through the budget. Your client changes the brief mid-project. Nobody knows who generated what, or what it cost. Account-level limits don't help.",
-    solution: "Project-level budgets, role-based permissions, and full activity tracking — per project, not per account.",
+    solution: "Project-level budgets, role-based permissions, and full activity tracking &mdash; per project, not per account.",
   },
   {
-    icon: '??',
+    iconPath: 'M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
+    iconColor: '#34d399',
     label: 'Character Drift',
     title: "Your Character Looks Different in Every Shot",
-    body: "You spend 20 minutes getting the perfect character, then the next shot gives you a completely different person. You lose hours trying to force consistency across prompts.",
+    body: "You spend 20 minutes getting the perfect character, then the next shot gives you a completely different person. You lose hours trying to force consistency.",
     solution: "Image-first reference pipeline locks faces, wardrobes, and environments across every take, every shot, every model.",
   },
 ];
@@ -33,16 +36,19 @@ const pains = [
   <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
     {pains.map((p, i) => (
       <div class={`glass p-8 text-left reveal reveal-d${i+1}`}>
-        <div class="w-12 h-12 rounded-xl flex items-center justify-center text-xl mb-5"
-          style="background:var(--accent-subtle); border:1px solid rgba(56,189,248,0.15);">
-          {p.icon}
+        <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-5"
+          style={`background:var(--accent-subtle); border:1px solid rgba(56,189,248,0.15);`}>
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+            stroke={p.iconColor} stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d={p.iconPath}/>
+          </svg>
         </div>
         <div class="text-[0.7rem] uppercase tracking-[1.5px] text-[var(--text-muted)] font-semibold mb-2">{p.label}</div>
         <h3 class="font-bold text-lg mb-3" style="font-family:var(--font-display);">{p.title}</h3>
-        <p class="text-sm text-[var(--text-secondary)] mb-4 leading-relaxed">{p.body}</p>
+        <p class="text-sm text-[var(--text-secondary)] mb-4 leading-relaxed" set:html={p.body} />
         <div class="text-sm text-[var(--accent)] font-medium flex gap-1 items-start">
           <span class="shrink-0">&rarr;</span>
-          <span>{p.solution}</span>
+          <span set:html={p.solution} />
         </div>
       </div>
     ))}

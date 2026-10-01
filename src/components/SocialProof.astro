@@ -1,22 +1,22 @@
----
+﻿---
 const testimonials = [
   {
-    id: 'JL',
-    quote: '"I was jumping between Runway and Kling manually for every project. 10zebra lets me A/B both on the same shot in seconds. The character reference feature alone is worth it."',
-    name: 'Jamie L.',
-    title: 'Freelance Commercial Director',
+    id: "JL",
+    quote: "I was jumping between Runway and Kling manually for every project. 10zebra lets me A/B both on the same shot in seconds. The character reference feature alone is worth it.",
+    name: "Jamie L.",
+    title: "Freelance Commercial Director",
   },
   {
-    id: 'MR',
-    quote: '"The project budget controls are a game-changer. I fund each client project separately and my team can generate without me worrying about one project raiding another\'s credits."',
-    name: 'Marcus R.',
-    title: 'Creative Director, Digital Agency',
+    id: "MR",
+    quote: "The project budget controls are a game-changer. I fund each client project separately and my team can generate without me worrying about one project raiding another&rsquo;s credits.",
+    name: "Marcus R.",
+    title: "Creative Director, Digital Agency",
   },
   {
-    id: 'SK',
-    quote: '"The prompt history is huge. I can see exactly what settings produced our best takes, regenerate with a different model, and compare instantly. Saves hours of guesswork."',
-    name: 'Sara K.',
-    title: 'Performance Marketing Lead',
+    id: "SK",
+    quote: "The prompt history is huge. I can see exactly what settings produced our best takes, regenerate with a different model, and compare instantly. Saves hours of guesswork.",
+    name: "Sara K.",
+    title: "Performance Marketing Lead",
   },
 ];
 ---
@@ -26,7 +26,6 @@ const testimonials = [
     <h2 id="social-heading">Built for People Who <span class="grad-text">Make Things</span></h2>
   </div>
 
-  <!-- Stats row -->
   <div class="flex justify-center gap-16 flex-wrap mb-14 reveal">
     <div class="text-center">
       <div class="grad-text text-[2.5rem] font-black tracking-[-1px]" style="font-family:var(--font-display);" data-counter="50000">0</div>
@@ -46,11 +45,10 @@ const testimonials = [
     </div>
   </div>
 
-  <!-- Testimonials -->
   <div class="grid grid-cols-1 md:grid-cols-3 gap-6 reveal">
     {testimonials.map((t) => (
       <div class="glass p-6">
-        <p class="text-[0.92rem] italic text-[var(--text-secondary)] leading-relaxed mb-5">{t.quote}</p>
+        <p class="text-[0.92rem] italic text-[var(--text-secondary)] leading-relaxed mb-5">&ldquo;{t.quote}&rdquo;</p>
         <div class="flex items-center gap-3">
           <div class="w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold shrink-0"
             style="background:linear-gradient(135deg,var(--accent),var(--accent-secondary)); color:#0c0d10;">

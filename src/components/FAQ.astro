@@ -1,32 +1,32 @@
 ---
 const faqs = [
   {
-    q: 'How does 10zebra keep characters consistent across shots?',
-    a: '10zebra uses an image-first reference pipeline. You generate or upload a character portrait first, then use it as a locked visual anchor across all subsequent video prompts and camera angles. Models like Karakter also let you swap a person in an existing video using a single reference photo — preserving all original motion.',
+    q: "How does 10zebra keep characters consistent across shots?",
+    a: "10zebra uses an image-first reference pipeline. You generate or upload a character portrait first, then use it as a locked visual anchor across all subsequent video prompts and camera angles. Models like Karakter also let you swap a person in an existing video using a single reference photo &mdash; preserving all original motion.",
   },
   {
-    q: 'What AI video models does 10zebra support?',
-    a: '10zebra supports Kling 3.0, Google Veo 3, OpenAI Sora, Runway Gen-4, Grok, SeeDance 2.0, Wan, and Flux Pro — all within a single project workspace. You can generate multiple takes from different models on the same shot and pick the best one.',
+    q: "What AI video models does 10zebra support?",
+    a: "10zebra supports Kling 3.0, Google Veo 3, OpenAI Sora, Runway Gen-4, Grok, SeeDance 2.0, Wan, and Flux Pro &mdash; all within a single project workspace. You can generate multiple takes from different models on the same shot and pick the best one.",
   },
   {
-    q: 'Can I set a budget for a specific project?',
-    a: "Yes. Project owners can fund each project with its own credit pool and set spending policies per project. Team members draw from project credits, and owners control who can generate, edit, or manage members — all at the project level, not the account level. This means your client's ad campaign budget is completely separate from your internal project.",
+    q: "Can I set a budget for a specific project?",
+    a: "Yes. Project owners can fund each project with its own credit pool and set spending policies per project. Team members draw from project credits, and owners control who can generate, edit, or manage members &mdash; all at the project level, not the account level.",
   },
   {
-    q: "How does 10zebra's MCP server work?",
-    a: "10zebra's MCP server lets you generate AI video from Claude, ChatGPT, Cursor, or any MCP-compatible client. Your LLM sends generation requests to 10zebra's secure cloud pipeline, and the results land directly in your project — without exposing your local files or workspace. Project budgets and team permissions still apply.",
+    q: "How does 10zebra\u0027s MCP server work?",
+    a: "10zebra\u0027s MCP server lets you generate AI video from Claude, ChatGPT, Cursor, or any MCP-compatible client. Your LLM sends generation requests to 10zebra\u0027s secure cloud pipeline, and the results land directly in your project &mdash; without exposing your local files or workspace. Project budgets and team permissions still apply.",
   },
   {
-    q: 'How is 10zebra different from Runway or Higgsfield?',
-    a: 'Runway and Higgsfield are primarily generation tools — you prompt a model and get output. 10zebra is a production workspace: you generate takes from multiple models side-by-side, manage project-level budgets and team permissions, track full prompt history for every generation, and export finished sequences with audio.',
+    q: "How is 10zebra different from Runway or Higgsfield?",
+    a: "Runway and Higgsfield are primarily generation tools &mdash; you prompt a model and get output. 10zebra is a production workspace: you generate takes from multiple models side-by-side, manage project-level budgets and team permissions, track full prompt history for every generation, and export finished sequences with audio.",
   },
   {
-    q: 'Do I need a monthly subscription?',
-    a: 'No. Every account starts on the Pay-As-You-Go tier with 200 free trial credits — enough for approximately 5 Kling shots or 20 Grok clips. You can buy additional credit top-ups anytime with no recurring commitment. Credits you purchase never expire. Optional subscription plans (Maker $29/mo, Director $79/mo) add monthly credits and discounts.',
+    q: "Do I need a monthly subscription?",
+    a: "No. Every account starts on the Pay-As-You-Go tier with 200 free trial credits &mdash; enough for approximately 5 Kling shots or 20 Grok clips. You can buy additional credit top-ups anytime with no recurring commitment. Credits you purchase never expire. Optional subscription plans (Maker $29/mo, Director $79/mo) add monthly credits and discounts.",
   },
   {
-    q: 'How does prompt history and regeneration work?',
-    a: 'Every generation in 10zebra logs its exact prompt, model, settings, and reference images. You can view the full history for any take, regenerate with one click using the same or a different model, and compare outputs side-by-side.',
+    q: "How does prompt history and regeneration work?",
+    a: "Every generation in 10zebra logs its exact prompt, model, settings, and reference images. You can view the full history for any take, regenerate with one click using the same or a different model, and compare outputs side-by-side.",
   },
 ];
 ---
@@ -36,7 +36,7 @@ const faqs = [
   </div>
 
   <div class="max-w-3xl mx-auto reveal" id="faq-list">
-    {faqs.map((f, i) => (
+    {faqs.map((f) => (
       <div class="faq-item rounded-xl mb-3 overflow-hidden border border-[var(--border-subtle)] transition-colors hover:border-[var(--border-glow)]"
         style="background:var(--bg-card); backdrop-filter:blur(8px);">
         <button
@@ -48,7 +48,7 @@ const faqs = [
           <span class="faq-chev shrink-0 text-[0.8rem] text-[var(--text-muted)] transition-transform duration-300">&#9660;</span>
         </button>
         <div class="faq-ans max-h-0 overflow-hidden transition-all duration-400" style="transition:max-height 0.4s cubic-bezier(0.16,1,0.3,1);">
-          <div class="px-6 pb-5 text-sm text-[var(--text-secondary)] leading-relaxed">{f.a}</div>
+          <div class="px-6 pb-5 text-sm text-[var(--text-secondary)] leading-relaxed" set:html={f.a} />
         </div>
       </div>
     ))}
@@ -61,24 +61,23 @@ const faqs = [
 </section>
 
 <script>
-  document.querySelectorAll('.faq-q').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const item = btn.closest('.faq-item');
-      const ans = item.querySelector('.faq-ans');
-      const chev = item.querySelector('.faq-chev');
-      const isOpen = item.classList.contains('open');
-      // close all
-      document.querySelectorAll('.faq-item.open').forEach((el) => {
-        el.classList.remove('open');
-        el.querySelector('.faq-ans').style.maxHeight = '0';
-        el.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
-        el.querySelector('.faq-chev').style.transform = '';
+  document.querySelectorAll(".faq-q").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const item = btn.closest(".faq-item");
+      const ans = item.querySelector(".faq-ans");
+      const chev = item.querySelector(".faq-chev");
+      const isOpen = item.classList.contains("open");
+      document.querySelectorAll(".faq-item.open").forEach((el) => {
+        el.classList.remove("open");
+        el.querySelector(".faq-ans").style.maxHeight = "0";
+        el.querySelector(".faq-q").setAttribute("aria-expanded", "false");
+        el.querySelector(".faq-chev").style.transform = "";
       });
       if (!isOpen) {
-        item.classList.add('open');
-        ans.style.maxHeight = ans.scrollHeight + 'px';
-        btn.setAttribute('aria-expanded', 'true');
-        chev.style.transform = 'rotate(180deg)';
+        item.classList.add("open");
+        ans.style.maxHeight = ans.scrollHeight + "px";
+        btn.setAttribute("aria-expanded", "true");
+        chev.style.transform = "rotate(180deg)";
       }
     });
   });
