@@ -1,0 +1,94 @@
+---
+const testimonials = [
+  {
+    id: 'JL',
+    quote: '"I was jumping between Runway and Kling manually for every project. 10zebra lets me A/B both on the same shot in seconds. The character reference feature alone is worth it."',
+    name: 'Jamie L.',
+    title: 'Freelance Commercial Director',
+  },
+  {
+    id: 'MR',
+    quote: '"The project budget controls are a game-changer. I fund each client project separately and my team can generate without me worrying about one project raiding another\'s credits."',
+    name: 'Marcus R.',
+    title: 'Creative Director, Digital Agency',
+  },
+  {
+    id: 'SK',
+    quote: '"The prompt history is huge. I can see exactly what settings produced our best takes, regenerate with a different model, and compare instantly. Saves hours of guesswork."',
+    name: 'Sara K.',
+    title: 'Performance Marketing Lead',
+  },
+];
+---
+<section class="section" aria-labelledby="social-heading">
+  <div class="sect-head reveal">
+    <span class="sect-label">Trusted by Creators</span>
+    <h2 id="social-heading">Built for People Who <span class="grad-text">Make Things</span></h2>
+  </div>
+
+  <!-- Stats row -->
+  <div class="flex justify-center gap-16 flex-wrap mb-14 reveal">
+    <div class="text-center">
+      <div class="grad-text text-[2.5rem] font-black tracking-[-1px]" style="font-family:var(--font-display);" data-counter="50000">0</div>
+      <div class="text-sm text-[var(--text-muted)] mt-1">Video shots generated</div>
+    </div>
+    <div class="text-center">
+      <div class="grad-text text-[2.5rem] font-black tracking-[-1px]" style="font-family:var(--font-display);" data-counter="8">0</div>
+      <div class="text-sm text-[var(--text-muted)] mt-1">AI models in one workspace</div>
+    </div>
+    <div class="text-center">
+      <div class="grad-text text-[2.5rem] font-black tracking-[-1px]" style="font-family:var(--font-display);" data-counter="200">0</div>
+      <div class="text-sm text-[var(--text-muted)] mt-1">Free credits on signup</div>
+    </div>
+    <div class="text-center">
+      <div class="grad-text text-[2.5rem] font-black tracking-[-1px]" style="font-family:var(--font-display);">$0</div>
+      <div class="text-sm text-[var(--text-muted)] mt-1">Required to get started</div>
+    </div>
+  </div>
+
+  <!-- Testimonials -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 reveal">
+    {testimonials.map((t) => (
+      <div class="glass p-6">
+        <p class="text-[0.92rem] italic text-[var(--text-secondary)] leading-relaxed mb-5">{t.quote}</p>
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold shrink-0"
+            style="background:linear-gradient(135deg,var(--accent),var(--accent-secondary)); color:#0c0d10;">
+            {t.id}
+          </div>
+          <div>
+            <div class="text-sm font-semibold">{t.name}</div>
+            <div class="text-xs text-[var(--text-muted)]">{t.title}</div>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<script>
+  (function () {
+    const counters = document.querySelectorAll('[data-counter]');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        const target = parseInt(el.dataset.counter, 10);
+        const duration = 1500;
+        let startTime = null;
+        function animate(ts) {
+          if (!startTime) startTime = ts;
+          const progress = Math.min((ts - startTime) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          const current = Math.floor(eased * target);
+          el.textContent = current >= 1000 ? current.toLocaleString() + '+' : String(current);
+          if (progress < 1) requestAnimationFrame(animate);
+          else el.textContent = target >= 1000 ? target.toLocaleString() + '+' : String(target);
+        }
+        requestAnimationFrame(animate);
+        observer.unobserve(el);
+      });
+    }, { threshold: 0.5 });
+    counters.forEach((el) => observer.observe(el));
+  })();
+</script>

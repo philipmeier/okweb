@@ -1,0 +1,2471 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>10zebra | AI Video Production Workspace — Multi-Model, Team-Ready, Creator-Controlled</title>
+  <meta name="description"
+    content="Direct AI video like a producer. Generate across Kling, Veo, Runway, Sora & more from one workspace. Set project budgets, manage your team, keep characters consistent, and export to YouTube. Start free with 200 credits.">
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://10zebra.com/">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="10zebra — AI Video Production Workspace for Teams & Creators">
+  <meta property="og:description"
+    content="Direct AI video like a producer. Generate across 8+ AI models, manage project budgets, and export finished sequences — from one workspace.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://10zebra.com/">
+  <meta property="og:image" content="https://10zebra.com/assets/og-image.jpg">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="10zebra | AI Video Production Workspace">
+  <meta name="twitter:description"
+    content="One workspace. Eight AI models. Full storyboard control. Team budgets, character consistency, and YouTube export.">
+  <meta name="twitter:image" content="https://10zebra.com/assets/og-image.jpg">
+
+  <!-- Structured Data: Organization -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "10zebra",
+    "url": "https://10zebra.com",
+    "logo": "https://cdn.prod.website-files.com/63c08dc99cc1f6e207c35685/673d8f0ef64a98520b1354de_10zebra-watermark-white.png",
+    "sameAs": []
+  }
+  </script>
+
+  <!-- Structured Data: SoftwareApplication -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "10zebra",
+    "url": "https://10zebra.com",
+    "operatingSystem": "Web, iOS, Android",
+    "applicationCategory": "MultimediaApplication",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD",
+      "description": "200 Free Trial Credits on Pay-As-You-Go Plan — no subscription required."
+    },
+    "description": "10zebra is a web-based AI video production workspace that lets creators generate, direct, and assemble multi-shot video sequences using multiple AI models — including Kling, Veo, Runway, Sora, Grok, and SeeDance — from a single project. Features include project-level budgets, team role management, prompt history tracking, MCP server integration, and YouTube-ready export.",
+    "featureList": [
+      "Multi-model AI video generation (Kling, Veo, Runway, Sora, Grok, SeeDance, Wan, Flux)",
+      "Text-to-sequence: generate a full multi-shot storyboard from a single prompt",
+      "Character consistency engine using image references",
+      "Project-level budgets and team credit controls",
+      "Role-based permissions per project",
+      "Full prompt history and one-click regeneration",
+      "MCP server for Claude, ChatGPT, and Cursor integration",
+      "Storyboard produce view with scene ordering, audio, and video export",
+      "Take-level trim controls",
+      "Pay-as-you-go pricing with no mandatory subscription"
+    ]
+  }
+  </script>
+
+  <!-- Structured Data: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How does 10zebra maintain character consistency across shots?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "10zebra uses an image-first reference pipeline. You generate or upload a character portrait first, then use it as a locked visual anchor across all subsequent video prompts and camera angles. Models like Karakter also let you swap a person in an existing video using a single reference photo."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What AI video models does 10zebra support?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "10zebra supports Kling 3.0, Google Veo 3, OpenAI Sora, Runway Gen-4, Grok, SeeDance 2.0, Wan, and Flux Pro — all within a single project workspace. You can generate multiple takes from different models on the same shot and pick the best one."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I set a budget for a specific project?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Project owners can fund each project with its own credit pool and set spending policies. Team members draw from project credits, and owners control who can generate, edit, or manage members — all at the project level, not the account level."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does 10zebra's MCP server work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "10zebra's MCP server lets you generate AI video from Claude, ChatGPT, Cursor, or any MCP-compatible client. Your LLM sends generation requests to 10zebra's secure cloud pipeline, and the results land directly in your project — without exposing your local files or workspace."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do I need a monthly subscription to use 10zebra?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Every account starts on our Pay-As-You-Go tier with 200 free trial credits. You can buy additional credit top-ups whenever you need them without committing to a monthly subscription. Credits you purchase never expire."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is 10zebra different from Runway or Higgsfield?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Runway and Higgsfield are primarily single-model or model-aggregator tools without structured project management. 10zebra is a model-agnostic production workspace: you generate takes from multiple AI engines side-by-side, control project-level budgets and team permissions, track full prompt history for every generation, and export finished sequences — capabilities no individual model tool provides."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does prompt history and regeneration work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Every generation in 10zebra logs its exact prompt, model, settings, and reference images. You can view the full history for any take, one-click regenerate with the same or a different model, and compare outputs side-by-side to find what works best."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- Google Fonts — Montserrat (matches app) + Inter for body -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+
+  <style>
+    /* ================================================================
+       DESIGN SYSTEM
+       Rooted in the 10z app's neutral monochrome palette (#131417 base),
+       extended with subtle cool teal/cyan accents for differentiation.
+       Glassmorphism depth via backdrop-filter on surfaces.
+       ================================================================ */
+
+    @property --gradient-angle {
+      syntax: '<angle>';
+      initial-value: 0deg;
+      inherits: false;
+    }
+
+    :root {
+      /* Core — matches app tokens */
+      --bg-page: #0c0d10;
+      --bg-surface: #131417;
+      --bg-elevated: #1a1c21;
+      --bg-card: rgba(26, 28, 33, 0.6);
+      --bg-card-hover: rgba(39, 42, 50, 0.7);
+
+      /* Borders */
+      --border-subtle: rgba(46, 50, 59, 0.6);
+      --border-strong: #4b5260;
+      --border-glow: rgba(56, 189, 248, 0.15);
+
+      /* Accent — cool teal/cyan, NOT gold, NOT indigo-heavy */
+      --accent: #38bdf8;
+      /* Sky-400 */
+      --accent-dim: #0ea5e9;
+      /* Sky-500 */
+      --accent-glow: rgba(56, 189, 248, 0.25);
+      --accent-subtle: rgba(56, 189, 248, 0.08);
+      --accent-secondary: #818cf8;
+      /* Indigo-400 — secondary accent for gradients */
+
+      /* Text — matches app */
+      --text-primary: #f5f6f8;
+      --text-secondary: #a0a6b2;
+      --text-muted: #6b7280;
+
+      /* Typography */
+      --font-display: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+      /* Transitions */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg-page);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ================================================================
+       UTILITY CLASSES
+       ================================================================ */
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .container-wide {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    section {
+      padding: 6rem 0;
+      position: relative;
+    }
+
+    /* Scroll-triggered animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-delay-1 {
+      transition-delay: 0.1s;
+    }
+
+    .reveal-delay-2 {
+      transition-delay: 0.2s;
+    }
+
+    .reveal-delay-3 {
+      transition-delay: 0.3s;
+    }
+
+    .reveal-delay-4 {
+      transition-delay: 0.4s;
+    }
+
+    /* Glassmorphism card */
+    .glass {
+      background: var(--bg-card);
+      backdrop-filter: blur(20px) saturate(1.2);
+      -webkit-backdrop-filter: blur(20px) saturate(1.2);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+    }
+
+    .glass:hover {
+      border-color: var(--border-glow);
+      background: var(--bg-card-hover);
+    }
+
+    /* Animated gradient border */
+    .glow-border {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .glow-border::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      padding: 1px;
+      background: conic-gradient(from var(--gradient-angle), transparent 40%, var(--accent) 50%, var(--accent-secondary) 60%, transparent 70%);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      animation: rotate-gradient 6s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes rotate-gradient {
+      to {
+        --gradient-angle: 360deg;
+      }
+    }
+
+    /* Gradient text */
+    .gradient-text {
+      background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ================================================================
+       NAVIGATION
+       ================================================================ */
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 5%;
+      height: 60px;
+      position: sticky;
+      top: 0;
+      background: rgba(12, 13, 16, 0.8);
+      backdrop-filter: blur(16px) saturate(1.3);
+      -webkit-backdrop-filter: blur(16px) saturate(1.3);
+      border-bottom: 1px solid var(--border-subtle);
+      z-index: 1000;
+      transition: background 0.3s ease;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      text-decoration: none;
+      color: var(--text-primary);
+      max-width: 200px;
+    }
+
+    .logo-container img {
+      display: block;
+      width: 100%;
+    }
+
+    .logo-mark {
+      width: 28px;
+      height: 28px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 11px;
+      color: #0c0d10;
+      font-family: var(--font-display);
+    }
+
+    .logo-text {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .logo-text span {
+      color: var(--accent);
+    }
+
+    nav {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: color 0.2s;
+      font-family: var(--font-body);
+    }
+
+    nav a:hover {
+      color: var(--text-primary);
+    }
+
+    nav a.nav-accent {
+      color: var(--accent);
+    }
+
+    nav a.nav-accent:hover {
+      color: #7dd3fc;
+    }
+
+    .nav-btns {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .btn {
+      padding: 0.55rem 1.2rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-decoration: none;
+      transition: all 0.25s var(--ease-out);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      cursor: pointer;
+      font-family: var(--font-body);
+      border: none;
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-secondary);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--border-strong);
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #0c0d10;
+      font-weight: 700;
+    }
+
+    .btn-primary:hover {
+      background: #7dd3fc;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 25px rgba(56, 189, 248, 0.25);
+    }
+
+    .btn-large {
+      padding: 0.85rem 1.75rem;
+      font-size: 0.95rem;
+      border-radius: 10px;
+    }
+
+    /* ================================================================
+       HERO
+       ================================================================ */
+
+    .hero {
+      text-align: center;
+      padding: 6rem 0 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Ambient glow behind hero */
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -200px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 600px;
+      background: radial-gradient(ellipse, rgba(56, 189, 248, 0.06) 0%, rgba(129, 140, 248, 0.04) 40%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero>* {
+      position: relative;
+      z-index: 1;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.3rem 0.9rem;
+      background: var(--accent-subtle);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      color: var(--accent);
+      border-radius: 50px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      margin-bottom: 2rem;
+      letter-spacing: 0.01em;
+      font-family: var(--font-body);
+    }
+
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-dot {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.3;
+      }
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      line-height: 1.1;
+      font-weight: 800;
+      margin-bottom: 1.25rem;
+      letter-spacing: -1.5px;
+    }
+
+    .hero-sub {
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      max-width: 680px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.7;
+    }
+
+    .hero-ctas {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.75rem;
+    }
+
+    .hero-note {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 3rem;
+    }
+
+    /* Hero media */
+    .hero-media {
+      position: relative;
+      width: 100%;
+      max-width: 960px;
+      aspect-ratio: 16 / 9;
+      max-height: 500px;
+      margin: 0 auto;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--border-subtle);
+      box-shadow:
+        0 0 0 1px rgba(56, 189, 248, 0.05),
+        0 25px 80px -15px rgba(0, 0, 0, 0.8),
+        0 0 60px -10px rgba(56, 189, 248, 0.08);
+      background: var(--bg-surface);
+    }
+
+    .hero-media video,
+    .hero-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* AEO blurb */
+    .definition-blurb {
+      background: var(--bg-card);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border-subtle);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 12px 12px 0;
+      padding: 1.25rem 1.5rem;
+      max-width: 800px;
+      margin: 2.5rem auto 0;
+      text-align: left;
+    }
+
+    .definition-blurb p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.75;
+    }
+
+    .definition-blurb strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    /* ================================================================
+       MODEL TICKER
+       ================================================================ */
+
+    .model-ticker {
+      padding: 2.5rem 0;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .model-ticker-label {
+      text-align: center;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-bottom: 1.25rem;
+    }
+
+    .ticker-track {
+      display: flex;
+      gap: 2rem;
+      animation: ticker-scroll 30s linear infinite;
+      width: max-content;
+    }
+
+    .ticker-track:hover {
+      animation-play-state: paused;
+    }
+
+    @keyframes ticker-scroll {
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+    .ticker-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      white-space: nowrap;
+      transition: all 0.3s;
+      flex-shrink: 0;
+    }
+
+    .ticker-item:hover {
+      border-color: var(--accent);
+      color: var(--text-primary);
+      background: var(--accent-subtle);
+    }
+
+    .ticker-icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 4px;
+      background: var(--bg-elevated);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+    }
+
+    /* ================================================================
+       SECTION HEADERS
+       ================================================================ */
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .section-header h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+      font-weight: 800;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.5px;
+      line-height: 1.15;
+    }
+
+    .section-header p {
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    .section-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 2.5px;
+      color: var(--accent);
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+
+    /* ================================================================
+       PAIN POINTS
+       ================================================================ */
+
+    .pain-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .pain-card {
+      padding: 2rem;
+      text-align: left;
+      transition: all 0.3s var(--ease-out);
+    }
+
+    .pain-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: var(--accent-subtle);
+      border: 1px solid rgba(56, 189, 248, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .pain-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .pain-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .pain-card p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .pain-solution {
+      font-size: 0.85rem;
+      color: var(--accent);
+      font-weight: 500;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.4rem;
+    }
+
+    .pain-solution::before {
+      content: '→';
+      flex-shrink: 0;
+    }
+
+    /* ================================================================
+       SPLIT SECTIONS (feature deep-dives)
+       ================================================================ */
+
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .split.reverse .split-visual {
+      order: -1;
+    }
+
+    .split-text h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3vw, 2.25rem);
+      font-weight: 800;
+      margin-bottom: 1rem;
+      line-height: 1.15;
+      letter-spacing: -0.5px;
+    }
+
+    .split-text p {
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+
+    .feature-list {
+      list-style: none;
+      margin-bottom: 1.5rem;
+    }
+
+    .feature-list li {
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .feature-list li strong {
+      color: var(--text-primary);
+    }
+
+    .check-icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--accent-subtle);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+      color: var(--accent);
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .diff-callout {
+      background: var(--accent-subtle);
+      border: 1px solid rgba(56, 189, 248, 0.15);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+
+    .diff-callout strong {
+      color: var(--accent);
+    }
+
+    .split-visual {
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-surface);
+      position: relative;
+    }
+
+    .split-visual img {
+      width: 100%;
+      display: block;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      background: var(--bg-elevated);
+    }
+
+    /* ================================================================
+       WORKFLOW TABS (sandbox demo)
+       ================================================================ */
+
+    .sandbox {
+      padding: 2rem;
+    }
+
+    .sandbox-tabs {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 1.5rem;
+    }
+
+    .tab-btn {
+      padding: 0.55rem 1.1rem;
+      background: transparent;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: var(--font-body);
+    }
+
+    .tab-btn:hover {
+      border-color: var(--border-strong);
+      color: var(--text-secondary);
+    }
+
+    .tab-btn.active {
+      background: var(--accent);
+      color: #0c0d10;
+      border-color: var(--accent);
+      font-weight: 600;
+    }
+
+    .sandbox-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .frame-card {
+      background: var(--bg-page);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+
+    .frame-card:hover {
+      border-color: var(--accent);
+    }
+
+    .frame-img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      background: var(--bg-elevated);
+      display: block;
+    }
+
+    .frame-body {
+      padding: 1rem;
+    }
+
+    .frame-title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 0.25rem;
+    }
+
+    .frame-desc {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* ================================================================
+       MCP SECTION
+       ================================================================ */
+
+    .mcp-section {
+      background: radial-gradient(ellipse at 50% 0%, rgba(56, 189, 248, 0.05) 0%, transparent 60%);
+    }
+
+    .mcp-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .mcp-visual {
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .mcp-diagram {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    .mcp-node {
+      padding: 0.75rem 1.5rem;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-align: center;
+      width: 100%;
+      max-width: 280px;
+    }
+
+    .mcp-node-llm {
+      background: rgba(129, 140, 248, 0.1);
+      border: 1px solid rgba(129, 140, 248, 0.25);
+      color: var(--accent-secondary);
+    }
+
+    .mcp-node-mcp {
+      background: var(--accent-subtle);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      color: var(--accent);
+    }
+
+    .mcp-node-10z {
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      color: var(--text-primary);
+    }
+
+    .mcp-node-output {
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      color: #34d399;
+    }
+
+    .mcp-arrow {
+      color: var(--text-muted);
+      font-size: 1.25rem;
+      line-height: 1;
+    }
+
+    .mcp-quote {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 10px 10px 0;
+      padding: 1rem 1.25rem;
+      margin-top: 1.5rem;
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      font-style: italic;
+    }
+
+    /* ================================================================
+       COMPARISON TABLE
+       ================================================================ */
+
+    .compare-wrapper {
+      overflow-x: auto;
+    }
+
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+
+    .compare-table th {
+      text-align: left;
+      padding: 0.85rem 1rem;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border-subtle);
+      font-weight: 600;
+    }
+
+    .compare-table th.col-10z {
+      color: var(--accent);
+    }
+
+    .compare-table td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid rgba(46, 50, 59, 0.4);
+      color: var(--text-muted);
+      vertical-align: middle;
+    }
+
+    .compare-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .compare-table .col-feature {
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    .compare-table .yes {
+      color: #34d399;
+      font-weight: 600;
+    }
+
+    .compare-table .no {
+      color: var(--text-muted);
+    }
+
+    .compare-table .partial {
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    .compare-table td.col-10z {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .compare-group-label td {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--text-muted);
+      font-weight: 700;
+      padding-top: 1.25rem;
+      border-bottom: 1px solid var(--border-subtle);
+      background: rgba(255, 255, 255, 0.01);
+    }
+
+    /* ================================================================
+       PRICING
+       ================================================================ */
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .price-card {
+      padding: 2.5rem 2rem;
+      position: relative;
+      transition: all 0.3s var(--ease-out);
+    }
+
+    .price-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .price-card.featured {
+      border-color: var(--accent);
+    }
+
+    .price-card.featured::after {
+      content: 'MOST POPULAR';
+      position: absolute;
+      top: -11px;
+      right: 20px;
+      background: var(--accent);
+      color: #0c0d10;
+      font-size: 0.65rem;
+      font-weight: 800;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    .price-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    .price-tier-desc {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-top: 0.25rem;
+    }
+
+    .price-val {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin: 1rem 0;
+      letter-spacing: -1px;
+    }
+
+    .price-val span {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    .credit-anchor {
+      font-size: 0.78rem;
+      color: #34d399;
+      font-weight: 600;
+      margin-bottom: 1.25rem;
+      display: block;
+    }
+
+    /* ================================================================
+       SOCIAL PROOF
+       ================================================================ */
+
+    .stats-row {
+      display: flex;
+      justify-content: center;
+      gap: 4rem;
+      flex-wrap: wrap;
+      margin-bottom: 3.5rem;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      font-weight: 800;
+      letter-spacing: -1px;
+    }
+
+    .stat-label {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .testimonial-card {
+      padding: 1.5rem;
+    }
+
+    .testimonial-text {
+      font-size: 0.92rem;
+      line-height: 1.65;
+      color: var(--text-secondary);
+      margin-bottom: 1.25rem;
+      font-style: italic;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .author-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: #0c0d10;
+      flex-shrink: 0;
+    }
+
+    .author-name {
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .author-title {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    /* ================================================================
+       FAQ (Accordion)
+       ================================================================ */
+
+    .faq-list {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      margin-bottom: 0.75rem;
+      overflow: hidden;
+      background: var(--bg-card);
+      backdrop-filter: blur(8px);
+      transition: border-color 0.2s;
+    }
+
+    .faq-item:hover {
+      border-color: var(--border-glow);
+    }
+
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-align: left;
+      padding: 1.25rem 1.5rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .faq-question:hover {
+      color: var(--accent);
+    }
+
+    .faq-chevron {
+      transition: transform 0.3s var(--ease-out);
+      flex-shrink: 0;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .faq-item.open .faq-chevron {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s var(--ease-out), padding 0.3s;
+    }
+
+    .faq-item.open .faq-answer {
+      max-height: 500px;
+    }
+
+    .faq-answer-inner {
+      padding: 0 1.5rem 1.25rem;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+
+    /* ================================================================
+       FINAL CTA
+       ================================================================ */
+
+    .final-cta {
+      text-align: center;
+      padding: 6rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .final-cta::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 400px;
+      background: radial-gradient(ellipse, rgba(56, 189, 248, 0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .final-cta>* {
+      position: relative;
+      z-index: 1;
+    }
+
+    .final-cta h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+      font-weight: 800;
+      margin-bottom: 1rem;
+      letter-spacing: -0.5px;
+    }
+
+    .final-cta p {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+    }
+
+    .final-cta-note {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 0.75rem;
+    }
+
+    /* ================================================================
+       FOOTER
+       ================================================================ */
+
+    footer {
+      padding: 4rem 0 2rem;
+      background: var(--bg-page);
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr repeat(4, 1fr);
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-brand p {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-top: 1rem;
+      max-width: 280px;
+      line-height: 1.6;
+    }
+
+    .footer-col h4 {
+      font-family: var(--font-display);
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .footer-col a {
+      display: block;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.82rem;
+      margin-bottom: 0.5rem;
+      transition: color 0.2s;
+    }
+
+    .footer-col a:hover {
+      color: var(--text-primary);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 2rem;
+    }
+
+    /* ================================================================
+       RESPONSIVE
+       ================================================================ */
+
+    @media (max-width: 900px) {
+      .split {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .split.reverse .split-visual {
+        order: 0;
+      }
+
+      .pain-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .mcp-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      nav {
+        display: none;
+      }
+
+      .stats-row {
+        gap: 2rem;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .hero h1 {
+        font-size: 1.85rem;
+        letter-spacing: -0.5px;
+      }
+
+      .hero-ctas {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .final-cta h2 {
+        font-size: 1.65rem;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Section dividers — subtle gradient lines */
+    .section-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border-subtle) 20%, var(--border-subtle) 80%, transparent);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ========================================
+       HEADER
+       ======================================== -->
+  <header>
+    <a href="/" class="logo-container" aria-label="10zebra home">
+      <img
+        src="https://cdn.prod.website-files.com/63c08dc99cc1f6e207c35685/673d8f0ef64a98520b1354de_10zebra-watermark-white.png"
+        title="10zebra" />
+    </a>
+    <nav aria-label="Main navigation">
+      <a href="/features">Features</a>
+      <a href="/models">AI Models</a>
+      <a href="/pricing">Pricing</a>
+      <a href="/resources">Resources</a>
+      <a href="/mcp" class="nav-accent">MCP</a>
+    </nav>
+    <div class="nav-btns">
+      <a href="/login" class="btn btn-ghost" id="nav-login-btn">Log In</a>
+      <a href="/signup" class="btn btn-primary" id="nav-signup-btn">Start Free</a>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ========================================
+         HERO
+         ======================================== -->
+    <div class="container">
+      <section class="hero" aria-labelledby="hero-heading">
+
+        <div class="badge">
+          <span class="badge-dot"></span>
+          MCP Server — Generate from Claude, ChatGPT &amp; Cursor
+        </div>
+
+        <h1 id="hero-heading">
+          Direct AI Video Like a Producer.<br>
+          <span class="gradient-text">Not a Prompter.</span>
+        </h1>
+
+        <p class="hero-sub">
+          One workspace. Eight AI models. Full storyboard control.<br>
+          Set project budgets, manage your team, keep characters consistent,
+          and export finished sequences — from script to final cut.
+        </p>
+
+        <div class="hero-ctas">
+          <a href="/signup" class="btn btn-primary btn-large" id="hero-signup-btn">Start Free — 200 Credits</a>
+          <a href="/demo" class="btn btn-ghost btn-large" id="hero-demo-btn">Watch the Demo →</a>
+        </div>
+        <p class="hero-note">No subscription required · Purchased credits never expire</p>
+
+        <div class="hero-media glow-border">
+          <video autoplay loop muted playsinline
+            poster="https://images.unsplash.com/photo-1536240478700-b869070f9279?w=1200&h=675&fit=crop&q=80">
+            <source src="https://assets.mixkit.co/videos/1222/1222-720.mp4" type="video/mp4">
+            Your browser does not support HTML5 video.
+          </video>
+        </div>
+
+        <article class="definition-blurb reveal" aria-label="What is 10zebra">
+          <p>
+            <strong>10zebra</strong> is a web-based AI video production workspace for creators, agencies, and
+            filmmakers.
+            Unlike single-model tools, 10zebra lets you generate takes from
+            <strong>multiple AI engines side-by-side</strong> within the same shot — then pick the best one.
+            Its <strong>text-to-sequence engine</strong> turns a single prompt into a full multi-shot storyboard,
+            while <strong>project-level budgets</strong> and <strong>team permissions</strong> give owners complete
+            control over costs and collaboration — at the project level, not the account level.
+          </p>
+        </article>
+
+      </section>
+    </div>
+
+    <!-- ========================================
+         MODEL TICKER
+         ======================================== -->
+    <div class="model-ticker" aria-label="Supported AI models">
+      <p class="model-ticker-label">Generate · Compare · Pick the Best Take</p>
+      <div class="ticker-track" id="ticker-track">
+        <!-- Duplicated for seamless loop -->
+        <div class="ticker-item"><span class="ticker-icon">K</span> Kling 3.0</div>
+        <div class="ticker-item"><span class="ticker-icon">V</span> Google Veo 3</div>
+        <div class="ticker-item"><span class="ticker-icon">S</span> OpenAI Sora</div>
+        <div class="ticker-item"><span class="ticker-icon">R</span> Runway Gen-4</div>
+        <div class="ticker-item"><span class="ticker-icon">G</span> Grok</div>
+        <div class="ticker-item"><span class="ticker-icon">SD</span> SeeDance 2.0</div>
+        <div class="ticker-item"><span class="ticker-icon">W</span> Wan</div>
+        <div class="ticker-item"><span class="ticker-icon">F</span> Flux Pro</div>
+        <!-- Duplicate set -->
+        <div class="ticker-item"><span class="ticker-icon">K</span> Kling 3.0</div>
+        <div class="ticker-item"><span class="ticker-icon">V</span> Google Veo 3</div>
+        <div class="ticker-item"><span class="ticker-icon">S</span> OpenAI Sora</div>
+        <div class="ticker-item"><span class="ticker-icon">R</span> Runway Gen-4</div>
+        <div class="ticker-item"><span class="ticker-icon">G</span> Grok</div>
+        <div class="ticker-item"><span class="ticker-icon">SD</span> SeeDance 2.0</div>
+        <div class="ticker-item"><span class="ticker-icon">W</span> Wan</div>
+        <div class="ticker-item"><span class="ticker-icon">F</span> Flux Pro</div>
+      </div>
+    </div>
+
+    <!-- ========================================
+         PAIN POINTS
+         ======================================== -->
+    <div class="container">
+      <section aria-labelledby="pain-heading">
+        <div class="section-header reveal">
+          <span class="section-label">Why 10zebra Exists</span>
+          <h2 id="pain-heading">The Problem With AI Video Today</h2>
+          <p>Every AI model has strengths. None of them give you production control.</p>
+        </div>
+
+        <div class="pain-grid">
+          <div class="glass pain-card reveal reveal-delay-1">
+            <div class="pain-icon">🎰</div>
+            <div class="pain-label">The Model Gamble</div>
+            <h3>You Can't Know Which Model Wins Until You Try</h3>
+            <p>Kling nails faces but muddles motion. Veo gets motion but loses detail. You waste credits guessing — or
+              worse, you never try the model that would've been perfect.</p>
+            <div class="pain-solution">A/B generate from 8+ models on the same shot. Pick the best take. Keep the rest
+              as backups.</div>
+          </div>
+
+          <div class="glass pain-card reveal reveal-delay-2">
+            <div class="pain-icon">👥</div>
+            <div class="pain-label">Team Chaos</div>
+            <h3>Your Team Burns Credits. You Lose Control.</h3>
+            <p>Your editor burns through the budget. Your client changes the brief mid-project. Nobody knows who
+              generated what, or what it cost. Account-level limits don't help.</p>
+            <div class="pain-solution">Project-level budgets, role-based permissions, and full activity tracking — per
+              project, not per account.</div>
+          </div>
+
+          <div class="glass pain-card reveal reveal-delay-3">
+            <div class="pain-icon">🎭</div>
+            <div class="pain-label">Character Drift</div>
+            <h3>Your Character Looks Different in Every Shot</h3>
+            <p>You spend 20 minutes getting the perfect character, then the next shot gives you a completely different
+              person. You lose hours trying to force consistency across prompts.</p>
+            <div class="pain-solution">Image-first reference pipeline locks faces, wardrobes, and environments across
+              every take, every shot, every model.</div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- ========================================
+         FEATURE: MULTI-MODEL WORKSPACE
+         ======================================== -->
+    <div class="container">
+      <section aria-labelledby="multimodel-heading">
+        <div class="split reveal">
+          <div class="split-text">
+            <span class="section-label">Multi-Model Generation</span>
+            <h2 id="multimodel-heading">Every AI Model. One Shot. <span class="gradient-text">You Pick the
+                Winner.</span></h2>
+            <p>Stop switching tabs between Runway, Kling, and Sora. Generate the same shot across every model from a
+              single workspace — then pick the best take and move on.</p>
+            <ul class="feature-list">
+              <li><span class="check-icon">✓</span> <strong>Side-by-side generation</strong> — render the same prompt
+                across Kling, Veo, Sora, Runway, Grok, and more in one click.</li>
+              <li><span class="check-icon">✓</span> <strong>Take-based workflow</strong> — every generation is a "take."
+                Keep your favorites, discard the rest, regenerate anytime.</li>
+              <li><span class="check-icon">✓</span> <strong>Text-to-sequence</strong> — describe your scene once.
+                10zebra auto-splits it into structured shots and generates each one.</li>
+              <li><span class="check-icon">✓</span> <strong>Prompt history tracking</strong> — every take logs its exact
+                prompt, model, settings, and references. Regenerate with one click.</li>
+            </ul>
+          </div>
+          <div class="split-visual">
+            <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=700&h=525&fit=crop&q=80"
+              alt="10zebra multi-model workspace showing side-by-side video generation" loading="lazy">
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- ========================================
+         FEATURE: TEAM ORCHESTRATION & BUDGETS
+         ======================================== -->
+    <div class="container">
+      <section aria-labelledby="team-heading">
+        <div class="split reverse reveal">
+          <div class="split-text">
+            <span class="section-label">Team Orchestration</span>
+            <h2 id="team-heading">Create With Your Team. <span class="gradient-text">Keep Control of Your
+                Project.</span></h2>
+            <p>Project owners set budgets and permissions at the <strong>project level</strong> — not the account level.
+              Your horror film and your beverage commercial don't share a credit pool.</p>
+            <ul class="feature-list">
+              <li><span class="check-icon">✓</span> <strong>Project-level budgets</strong> — fund each project
+                independently. Set credit limits per project, not per account.</li>
+              <li><span class="check-icon">✓</span> <strong>Role-based permissions</strong> — control who can generate,
+                edit titles, manage members, or start workflows.</li>
+              <li><span class="check-icon">✓</span> <strong>Credit policy controls</strong> — choose whether team
+                members burn project credits first, personal credits, or project-only.</li>
+              <li><span class="check-icon">✓</span> <strong>Full activity tracking</strong> — see who generated what,
+                when, with which model, and at what cost.</li>
+              <li><span class="check-icon">✓</span> <strong>Shared reference library</strong> — team members access the
+                same character references, style guides, and uploaded assets.</li>
+            </ul>
+            <div class="diff-callout">
+              <strong>Only 10zebra:</strong> Runway's Team Plan pools credits at the account level. Higgsfield has no
+              team budgeting at all. 10zebra is the only workspace where project owners control costs project by
+              project.
+            </div>
+          </div>
+          <div class="split-visual">
+            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=700&h=525&fit=crop&q=80"
+              alt="Team collaboration workspace with project-level budget controls" loading="lazy">
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- ========================================
+         FEATURE: CHARACTER CONSISTENCY
+         ======================================== -->
+    <div class="container">
+      <section aria-labelledby="consistency-heading">
+        <div class="split reveal">
+          <div class="split-text">
+            <span class="section-label">Character Consistency</span>
+            <h2 id="consistency-heading">AI Characters That Stay <span class="gradient-text">Consistent Shot to
+                Shot</span></h2>
+            <p>When you prompt Kling or Runway directly, your character's face shifts between takes. 10zebra's
+              image-first reference pipeline locks it.</p>
+            <ul class="feature-list">
+              <li><span class="check-icon">✓</span> <strong>Reference portraits</strong> — generate a character image
+                once, then anchor every subsequent shot to it automatically.</li>
+              <li><span class="check-icon">✓</span> <strong>Character Swap</strong> — drop in a reference photo to
+                replace the person in any video while preserving all original motion.</li>
+              <li><span class="check-icon">✓</span> <strong>Environment locking</strong> — maintain lighting, color
+                palette, and art direction across your whole storyboard.</li>
+              <li><span class="check-icon">✓</span> <strong>Multi-reference editing</strong> — blend up to 3 references
+                (character, costume, environment) into a single new frame.</li>
+            </ul>
+          </div>
+          <div class="split-visual">
+            <img src="https://images.unsplash.com/photo-1616530940355-351fabd9524b?w=700&h=525&fit=crop&q=80"
+              alt="Character consistency across multiple AI-generated video shots" loading="lazy">
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- ========================================
+         FEATURE: PROMPT HISTORY & HYBRID CREATION
+         ======================================== -->
+    <div class="container">
+      <section aria-labelledby="tracking-heading">
+        <div class="split reverse reveal">
+          <div class="split-text">
+            <span class="section-label">Tracking & Hybrid Creation</span>
+            <h2 id="tracking-heading">Every Prompt. Every Model. <span class="gradient-text">Every Take. Tracked.</span>
+            </h2>
+            <p>Upload your own footage alongside AI-generated content. Reimagine uploaded assets with AI. And know
+              exactly what produced every result — so you can go back, compare, and iterate.</p>
+            <ul class="feature-list">
+              <li><span class="check-icon">✓</span> <strong>Complete prompt history</strong> — every generation logs its
+                exact prompt, model, settings, and reference images.</li>
+              <li><span class="check-icon">✓</span> <strong>One-click regeneration</strong> — regenerate any take with
+                the same or a different model instantly.</li>
+              <li><span class="check-icon">✓</span> <strong>Hybrid projects</strong> — mix uploaded footage with
+                AI-generated content in the same storyboard.</li>
+              <li><span class="check-icon">✓</span> <strong>Reimagine uploads</strong> — use AI to transform your
+                uploaded assets into new creative directions.</li>
+              <li><span class="check-icon">✓</span> <strong>Take-level trim controls</strong> — trim each clip to the
+                perfect moment before assembling your sequence.</li>
+            </ul>
+          </div>
+          <div class="split-visual">
+            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=700&h=525&fit=crop&q=80"
+              alt="Prompt history tracking and hybrid creation interface" loading="lazy">
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- ========================================
+         WORKFLOW DEMO (SANDBOX)
+         ======================================== -->
+    <div class="container">
+      <section aria-labelledby="sandbox-heading">
+        <div class="section-header reveal">
+          <span class="section-label">Workflows</span>
+          <h2 id="sandbox-heading">See How a Single Idea Becomes a <span class="gradient-text">Full Shot Sequence</span>
+          </h2>
+          <p>Select a workflow to see how 10zebra structures one concept into production-ready shots.</p>
+        </div>
+
+        <div class="glass sandbox reveal">
+          <div class="sandbox-tabs" role="tablist" aria-label="Workflow demos">
+            <button class="tab-btn active" role="tab" aria-selected="true" onclick="switchWorkflow('sequence', this)"
+              id="tab-sequence">Text-to-Sequence</button>
+            <button class="tab-btn" role="tab" aria-selected="false" onclick="switchWorkflow('swap', this)"
+              id="tab-swap">Character Swap</button>
+            <button class="tab-btn" role="tab" aria-selected="false" onclick="switchWorkflow('multiref', this)"
+              id="tab-multiref">Multi-Reference</button>
+            <button class="tab-btn" role="tab" aria-selected="false" onclick="switchWorkflow('produce', this)"
+              id="tab-produce">Produce &amp; Export</button>
+            <button class="tab-btn" role="tab" aria-selected="false" onclick="switchWorkflow('team', this)"
+              id="tab-team">Team Workflow</button>
+          </div>
+          <div class="sandbox-grid" id="sandbox-grid" role="tabpanel"></div>
+        </div>
+      </section>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- ========================================
+         MCP & LLM INTEGRATION
+         ======================================== -->
+    <div class="container">
+      <section class="mcp-section" aria-labelledby="mcp-heading">
+        <div class="mcp-layout reveal">
+          <div class="split-text">
+            <span class="section-label">MCP Integration</span>
+            <h2 id="mcp-heading">Your Secure AI Video Bot <span class="gradient-text">in the Cloud</span></h2>
+            <p>Connect 10zebra to Claude, ChatGPT, or Cursor via MCP. Generate video from your LLM workflow — without
+              exposing your files, your prompts, or your project data to the model.</p>
+            <ul class="feature-list">
+              <li><span class="check-icon">✓</span> <strong>MCP-compatible</strong> — works with Claude Desktop,
+                ChatGPT, Cursor, and any MCP client.</li>
+              <li><span class="check-icon">✓</span> <strong>Sandboxed generation</strong> — your local files and
+                workspace stay untouched. 10zebra generates in its own secure pipeline.</li>
+              <li><span class="check-icon">✓</span> <strong>All models accessible</strong> — leverage all 8+ AI models
+                through a single MCP endpoint.</li>
+              <li><span class="check-icon">✓</span> <strong>Project-aware</strong> — generations land directly in your
+                10zebra storyboard. Budgets and permissions still apply.</li>
+            </ul>
+            <div class="mcp-quote">
+              "Think of it like a dedicated claw machine in the cloud. Your LLM tells 10zebra what to grab — which
+              model, which prompt, which references — and 10zebra reaches in, generates the media, and delivers it back
+              to your project. Your computer stays untouched."
+            </div>
+          </div>
+          <div class="mcp-visual glass">
+            <div class="mcp-diagram">
+              <div class="mcp-node mcp-node-llm">🧠 Claude / ChatGPT / Cursor</div>
+              <div class="mcp-arrow">↓</div>
+              <div class="mcp-node mcp-node-mcp">🔌 MCP Server (Secure Bridge)</div>
+              <div class="mcp-arrow">↓</div>
+              <div class="mcp-node mcp-node-10z">⚡ 10zebra Cloud — 8+ AI Models</div>
+              <div class="mcp-arrow">↓</div>
+              <div class="mcp-node mcp-node-output">✅ Generated Media → Your Project</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- ========================================
+         COMPARISON TABLE
+         ======================================== -->
+    <div class="container">
+      <section aria-labelledby="compare-heading">
+        <div class="section-header reveal">
+          <span class="section-label">Comparison</span>
+          <h2 id="compare-heading">Why Teams Choose <span class="gradient-text">10zebra</span></h2>
+          <p>The only AI video workspace built for multi-model generation, project control, and team collaboration.</p>
+        </div>
+
+        <div class="compare-wrapper glass reveal" style="padding: 0.5rem;">
+          <table class="compare-table" aria-label="Feature comparison">
+            <thead>
+              <tr>
+                <th>Capability</th>
+                <th class="col-10z">10zebra</th>
+                <th>Runway</th>
+                <th>Higgsfield</th>
+                <th>Artlist</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Multi-Model -->
+              <tr class="compare-group-label">
+                <td colspan="5">Multi-Model Generation</td>
+              </tr>
+              <tr>
+                <td class="col-feature">Generate from 8+ models in one workspace</td>
+                <td class="yes col-10z">✓ 8+ models</td>
+                <td class="no">✗ Single model</td>
+                <td class="partial">Partial</td>
+                <td class="no">✗ Single model</td>
+              </tr>
+              <tr>
+                <td class="col-feature">A/B test models on the same shot</td>
+                <td class="yes col-10z">✓</td>
+                <td class="no">✗</td>
+                <td class="no">✗</td>
+                <td class="no">✗</td>
+              </tr>
+              <tr>
+                <td class="col-feature">Text-to-sequence (auto multi-shot storyboard)</td>
+                <td class="yes col-10z">✓</td>
+                <td class="no">✗</td>
+                <td class="no">✗</td>
+                <td class="no">✗</td>
+              </tr>
+
+              <!-- Team & Project Control -->
+              <tr class="compare-group-label">
+                <td colspan="5">Team &amp; Project Control</td>
+              </tr>
+              <tr>
+                <td class="col-feature">Project-level budget controls</td>
+                <td class="yes col-10z">✓ Per-project</td>
+                <td class="no">✗ Account-level</td>
+                <td class="no">✗</td>
+                <td class="no">✗</td>
+              </tr>
+              <tr>
+                <td class="col-feature">Role-based permissions per project</td>
+                <td class="yes col-10z">✓</td>
+                <td class="no">✗</td>
+                <td class="no">✗</td>
+                <td class="no">✗</td>
+              </tr>
+              <tr>
+                <td class="col-feature">Full prompt history &amp; one-click regen</td>
+                <td class="yes col-10z">✓</td>
+                <td class="no">✗</td>
+                <td class="no">✗</td>
+                <td class="no">✗</td>
+              </tr>
+
+              <!-- Production Pipeline -->
+              <tr class="compare-group-label">
+                <td colspan="5">Production Pipeline</td>
+              </tr>
+              <tr>
+                <td class="col-feature">Character consistency across shots</td>
+                <td class="yes col-10z">✓</td>
+                <td class="partial">Limited</td>
+                <td class="no">✗</td>
+                <td class="no">✗</td>
+              </tr>
+              <tr>
+                <td class="col-feature">Take-level trim + sequence export</td>
+                <td class="yes col-10z">✓</td>
+                <td class="no">✗</td>
+                <td class="no">✗</td>
+                <td class="no">✗</td>
+              </tr>
+              <tr>
+                <td class="col-feature">YouTube-ready video export</td>
+                <td class="yes col-10z">✓</td>
+                <td class="no">✗</td>
+                <td class="no">✗</td>
+                <td class="no">✗</td>
+              </tr>
+              <tr>
+                <td class="col-feature">MCP server integration</td>
+                <td class="yes col-10z">✓</td>
+                <td class="yes">✓</td>
+                <td class="yes">✓</td>
+                <td class="yes">✓</td>
+              </tr>
+
+              <!-- Pricing -->
+              <tr class="compare-group-label">
+                <td colspan="5">Pricing</td>
+              </tr>
+              <tr>
+                <td class="col-feature">No subscription required (PAYG)</td>
+                <td class="yes col-10z">✓ $0 to start</td>
+                <td class="no">✗ $15/mo min</td>
+                <td class="no">✗ $9/mo min</td>
+                <td class="no">✗ $14.99/mo</td>
+              </tr>
+              <tr>
+                <td class="col-feature">Purchased credits never expire</td>
+                <td class="yes col-10z">✓</td>
+                <td class="no">✗</td>
+                <td class="no">✗</td>
+                <td class="no">✗</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- ========================================
+         PRODUCE & EXPORT
+         ======================================== -->
+    <div class="container">
+      <section aria-labelledby="produce-heading">
+        <div class="split reveal">
+          <div class="split-text">
+            <span class="section-label">Produce & Export</span>
+            <h2 id="produce-heading">From Storyboard to <span class="gradient-text">YouTube in Minutes</span></h2>
+            <p>Arrange your best takes into a sequential storyboard, add background audio, trim each clip, and export
+              your final cut — ready for YouTube, social, or client delivery.</p>
+            <ul class="feature-list">
+              <li><span class="check-icon">✓</span> <strong>Scene management</strong> — organize shots into scenes. Drag
+                to reorder. Keep your narrative structure clean.</li>
+              <li><span class="check-icon">✓</span> <strong>Take-level trim</strong> — trim each clip to the perfect
+                moment before assembling your sequence.</li>
+              <li><span class="check-icon">✓</span> <strong>Background audio</strong> — add music or voiceover to your
+                final cut.</li>
+              <li><span class="check-icon">✓</span> <strong>One-click export</strong> — download your finished video or
+                share a preview link with your team or client.</li>
+            </ul>
+          </div>
+          <div class="split-visual">
+            <img src="https://images.unsplash.com/photo-1535016120720-40c646be5580?w=700&h=525&fit=crop&q=80"
+              alt="Video production timeline and export interface" loading="lazy">
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- ========================================
+         PRICING
+         ======================================== -->
+    <div class="container">
+      <section aria-labelledby="pricing-heading">
+        <div class="section-header reveal">
+          <span class="section-label">Pricing</span>
+          <h2 id="pricing-heading">Pay for What You Create. <span class="gradient-text">Nothing More.</span></h2>
+          <p>Start free with 200 credits. No subscription needed — buy more when you need them, or subscribe for stacked
+            discounts.</p>
+        </div>
+
+        <div class="pricing-grid reveal">
+          <div class="glass price-card" id="pricing-payg">
+            <h3>Pay-As-You-Go</h3>
+            <p class="price-tier-desc">Free trial + flexible top-ups</p>
+            <div class="price-val">$0 <span>/ month</span></div>
+            <span class="credit-anchor">200 free credits ≈ 5 Kling shots or 20 Grok clips</span>
+            <ul class="feature-list" style="margin-bottom: 1.5rem;">
+              <li><span class="check-icon">✓</span> 200 Free Trial Credits on signup</li>
+              <li><span class="check-icon">✓</span> <strong>No subscription — ever</strong></li>
+              <li><span class="check-icon">✓</span> Buy additional credits as needed</li>
+              <li><span class="check-icon">✓</span> Access to all AI models &amp; tools</li>
+              <li><span class="check-icon">✓</span> Purchased top-ups never expire</li>
+            </ul>
+            <a href="/signup" class="btn btn-ghost" id="pricing-payg-cta" style="width: 100%;">Get Started Free</a>
+          </div>
+
+          <div class="glass price-card featured" id="pricing-maker">
+            <h3>Maker</h3>
+            <p class="price-tier-desc">For active creators &amp; marketers</p>
+            <div class="price-val">$29 <span>/ month</span></div>
+            <span class="credit-anchor">1,200 credits/mo ≈ 30 Kling shots or 60 Veo 3 Fast clips</span>
+            <ul class="feature-list" style="margin-bottom: 1.5rem;">
+              <li><span class="check-icon">✓</span> 1,200 Monthly Credits (refreshes each cycle)</li>
+              <li><span class="check-icon">✓</span> <strong>15% Discount</strong> on all extra top-ups</li>
+              <li><span class="check-icon">✓</span> Top-up credits <strong>never expire</strong></li>
+              <li><span class="check-icon">✓</span> All AI models + priority queue</li>
+              <li><span class="check-icon">✓</span> Team collaboration features</li>
+            </ul>
+            <a href="/pricing" class="btn btn-primary" id="pricing-maker-cta" style="width: 100%;">Start Maker Plan</a>
+          </div>
+
+          <div class="glass price-card" id="pricing-director">
+            <h3>Director</h3>
+            <p class="price-tier-desc">For agencies &amp; video teams</p>
+            <div class="price-val">$79 <span>/ month</span></div>
+            <span class="credit-anchor">3,500 credits/mo ≈ 87 Kling shots or 175 Veo 3 Fast clips</span>
+            <ul class="feature-list" style="margin-bottom: 1.5rem;">
+              <li><span class="check-icon">✓</span> 3,500 Monthly Credits</li>
+              <li><span class="check-icon">✓</span> <strong>30% Discount</strong> on extra top-ups</li>
+              <li><span class="check-icon">✓</span> Top-up credits <strong>never expire</strong></li>
+              <li><span class="check-icon">✓</span> Project-level budget controls</li>
+              <li><span class="check-icon">✓</span> Shared reference library &amp; credit pools</li>
+            </ul>
+            <a href="/pricing" class="btn btn-ghost" id="pricing-director-cta" style="width: 100%;">View Director
+              Plan</a>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- ========================================
+         SOCIAL PROOF
+         ======================================== -->
+    <div class="container">
+      <section aria-labelledby="social-heading">
+        <div class="section-header reveal">
+          <span class="section-label">Trusted by Creators</span>
+          <h2 id="social-heading">Built for People Who <span class="gradient-text">Make Things</span></h2>
+        </div>
+
+        <div class="stats-row reveal">
+          <div class="stat-item">
+            <div class="stat-num gradient-text" data-target="50000">0</div>
+            <div class="stat-label">Video shots generated</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num gradient-text" data-target="8">0</div>
+            <div class="stat-label">AI models in one workspace</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num gradient-text" data-target="200">0</div>
+            <div class="stat-label">Free credits on signup</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num gradient-text">$0</div>
+            <div class="stat-label">Required to get started</div>
+          </div>
+        </div>
+
+        <div class="testimonials-grid reveal">
+          <div class="glass testimonial-card">
+            <p class="testimonial-text">"I was jumping between Runway and Kling manually for every project. 10zebra lets
+              me A/B both on the same shot in seconds. The character reference feature alone is worth it."</p>
+            <div class="testimonial-author">
+              <div class="author-avatar">JL</div>
+              <div>
+                <div class="author-name">Jamie L.</div>
+                <div class="author-title">Freelance Commercial Director</div>
+              </div>
+            </div>
+          </div>
+          <div class="glass testimonial-card">
+            <p class="testimonial-text">"The project budget controls are a game-changer. I fund each client project
+              separately and my team can generate without me worrying about one project raiding another's credits."</p>
+            <div class="testimonial-author">
+              <div class="author-avatar">MR</div>
+              <div>
+                <div class="author-name">Marcus R.</div>
+                <div class="author-title">Creative Director, Digital Agency</div>
+              </div>
+            </div>
+          </div>
+          <div class="glass testimonial-card">
+            <p class="testimonial-text">"The prompt history is huge. I can see exactly what settings produced our best
+              takes, regenerate with a different model, and compare instantly. Saves hours of guesswork."</p>
+            <div class="testimonial-author">
+              <div class="author-avatar">SK</div>
+              <div>
+                <div class="author-name">Sara K.</div>
+                <div class="author-title">Performance Marketing Lead</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- ========================================
+         FAQ (Accordion)
+         ======================================== -->
+    <div class="container">
+      <section aria-labelledby="faq-heading">
+        <div class="section-header reveal">
+          <h2 id="faq-heading">Frequently Asked Questions</h2>
+        </div>
+
+        <div class="faq-list reveal">
+
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
+              How does 10zebra keep characters consistent across shots?
+              <span class="faq-chevron">▼</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">10zebra uses an image-first reference pipeline. You generate or upload a
+                character portrait first, then use it as a locked visual anchor across all subsequent video prompts and
+                camera angles. Models like Karakter also let you swap a person in an existing video using a single
+                reference photo — preserving all original motion.</div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
+              What AI video models does 10zebra support?
+              <span class="faq-chevron">▼</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">10zebra supports Kling 3.0, Google Veo 3, OpenAI Sora, Runway Gen-4, Grok,
+                SeeDance 2.0, Wan, and Flux Pro — all within a single project workspace. You can generate multiple takes
+                from different models on the same shot and pick the best one.</div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
+              Can I set a budget for a specific project?
+              <span class="faq-chevron">▼</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">Yes. Project owners can fund each project with its own credit pool and set
+                spending policies per project. Team members draw from project credits, and owners control who can
+                generate, edit, or manage members — all at the project level, not the account level. This means your
+                client's ad campaign budget is completely separate from your internal project.</div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
+              How does 10zebra's MCP server work?
+              <span class="faq-chevron">▼</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">10zebra's MCP server lets you generate AI video from Claude, ChatGPT,
+                Cursor, or any MCP-compatible client. Your LLM sends generation requests to 10zebra's secure cloud
+                pipeline, and the results land directly in your project — without exposing your local files or
+                workspace. Project budgets and team permissions still apply to MCP-generated content.</div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
+              How is 10zebra different from Runway or Higgsfield?
+              <span class="faq-chevron">▼</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">Runway and Higgsfield are primarily generation tools — you prompt a model
+                and get output. 10zebra is a production workspace: you generate takes from multiple models side-by-side,
+                manage project-level budgets and team permissions, track full prompt history for every generation, and
+                export finished sequences with audio. No individual model tool gives you that level of production
+                control.</div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
+              Do I need a monthly subscription?
+              <span class="faq-chevron">▼</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">No. Every account starts on the Pay-As-You-Go tier with 200 free trial
+                credits — enough for approximately 5 Kling shots or 20 Grok clips. You can buy additional credit top-ups
+                anytime with no recurring commitment. Credits you purchase never expire. Optional subscription plans
+                (Maker $29/mo, Director $79/mo) add monthly credit allowances and top-up discounts.</div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
+              How does prompt history and regeneration work?
+              <span class="faq-chevron">▼</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">Every generation in 10zebra logs its exact prompt, model, settings, and
+                reference images. You can view the full history for any take, regenerate with one click using the same
+                or a different model, and compare outputs side-by-side. This makes it easy to find what works and
+                iterate without starting from scratch.</div>
+            </div>
+          </div>
+
+          <div style="text-align: center; margin-top: 1.5rem;">
+            <a href="/faq" id="faq-all-link"
+              style="color: var(--accent); font-weight: 600; text-decoration: none; font-size: 0.9rem;">View All FAQs
+              &amp; Knowledge Base →</a>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  </main>
+
+  <!-- ========================================
+       FINAL CTA
+       ======================================== -->
+  <div class="final-cta">
+    <div class="container">
+      <h2>Start Your First Sequence Free.<br><span class="gradient-text">No Subscription Required.</span></h2>
+      <p>200 instant credits. All 8 models. Project budgets. Team controls. No credit card needed.</p>
+      <div style="display: flex; justify-content: center; gap: 0.75rem; flex-wrap: wrap;">
+        <a href="/signup" class="btn btn-primary btn-large" id="footer-cta-signup">Create Free Account</a>
+        <a href="/demo" class="btn btn-ghost btn-large" id="footer-cta-demo">Watch Demo First</a>
+      </div>
+      <p class="final-cta-note">Join creators already using Kling, Veo, Runway, Grok, and Sora — from one workspace.</p>
+    </div>
+  </div>
+
+  <!-- ========================================
+       FOOTER
+       ======================================== -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="/" class="logo-container" aria-label="10zebra home">
+            <img
+              src="https://cdn.prod.website-files.com/63c08dc99cc1f6e207c35685/673d8f0ef64a98520b1354de_10zebra-watermark-white.png"
+              title="10zebra" />
+          </a>
+          <p>The AI video production workspace — multi-model generation, character consistency, project budgets, team
+            collaboration, and YouTube-ready export from one place.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Features</h4>
+          <a href="/features/text-to-sequence">Text-to-Sequence</a>
+          <a href="/features/character-swap">Character Swap</a>
+          <a href="/features/multi-reference-edit">Multi-Reference Edit</a>
+          <a href="/features/produce-and-export">Produce &amp; Export</a>
+          <a href="/features/team-management">Team Management</a>
+        </div>
+        <div class="footer-col">
+          <h4>AI Models</h4>
+          <a href="/models/kling">Kling 3.0</a>
+          <a href="/models/veo">Google Veo 3</a>
+          <a href="/models/sora">OpenAI Sora</a>
+          <a href="/models/runway">Runway Gen-4</a>
+          <a href="/models/seedance">SeeDance 2.0</a>
+        </div>
+        <div class="footer-col">
+          <h4>Developers</h4>
+          <a href="/mcp">MCP Server</a>
+          <a href="/api">API Docs</a>
+          <a href="/integrations">Integrations</a>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <a href="/about">About 10zebra</a>
+          <a href="/pricing">Pricing &amp; Credits</a>
+          <a href="/resources">Resource Center</a>
+          <a href="/faq">FAQ &amp; Knowledge Base</a>
+          <a href="/demo">Interactive Demo</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 10zebra.com — Direct AI video like a producer. Not a prompter.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========================================
+       SCRIPTS
+       ======================================== -->
+  <script>
+    // ---- Scroll reveal animations ----
+    (function () {
+      var reveals = document.querySelectorAll('.reveal');
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+      reveals.forEach(function (el) { observer.observe(el); });
+    })();
+
+    // ---- Stat counter animation ----
+    (function () {
+      var statNums = document.querySelectorAll('.stat-num[data-target]');
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            var el = entry.target;
+            var target = parseInt(el.getAttribute('data-target'));
+            var duration = 1500;
+            var start = 0;
+            var startTime = null;
+
+            function animate(ts) {
+              if (!startTime) startTime = ts;
+              var progress = Math.min((ts - startTime) / duration, 1);
+              var eased = 1 - Math.pow(1 - progress, 3);
+              var current = Math.floor(eased * target);
+              el.textContent = current >= 1000 ? current.toLocaleString() + '+' : current;
+              if (progress < 1) requestAnimationFrame(animate);
+              else el.textContent = target >= 1000 ? target.toLocaleString() + '+' : target;
+            }
+            requestAnimationFrame(animate);
+            observer.unobserve(el);
+          }
+        });
+      }, { threshold: 0.5 });
+      statNums.forEach(function (el) { observer.observe(el); });
+    })();
+
+    // ---- Workflow sandbox tabs ----
+    var workflows = {
+      'sequence': [
+        { title: 'Prompt → Shot 1: The Hook', desc: 'One input prompt. 10zebra auto-generates the opening hook shot — close-up, high tension.', img: 'https://images.unsplash.com/photo-1485846234645-a62644f84728?w=400&h=250&fit=crop&q=75' },
+        { title: 'Auto → Shot 2: The Scene', desc: 'Middle shot created automatically — same characters, next beat of the story.', img: 'https://images.unsplash.com/photo-1536240478700-b869070f9279?w=400&h=250&fit=crop&q=75' },
+        { title: 'Auto → Shot 3: The CTA', desc: 'Closing shot with consistent setting and characters — ready to export.', img: 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=400&h=250&fit=crop&q=75' }
+      ],
+      'swap': [
+        { title: 'Original Video', desc: 'Source video with original talent — any Kling, Runway, or uploaded clip.', img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=250&fit=crop&q=75' },
+        { title: 'Reference Photo', desc: 'Drop in a single reference portrait of the new character to swap in.', img: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=250&fit=crop&q=75' },
+        { title: 'Swapped Output', desc: 'Same motion, same background — new character. Generated with Karakter.', img: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=250&fit=crop&q=75' }
+      ],
+      'multiref': [
+        { title: 'Ref 1: Character', desc: 'Character portrait — locks face and wardrobe across the edit.', img: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400&h=250&fit=crop&q=75' },
+        { title: 'Ref 2: Environment', desc: 'Environment reference — location and lighting locked in.', img: 'https://images.unsplash.com/photo-1519608487953-e999c86e7455?w=400&h=250&fit=crop&q=75' },
+        { title: 'Generated Output', desc: 'Character placed in setting — coherent, production-ready keyframe.', img: 'https://images.unsplash.com/photo-1518834107812-67b0b7c58434?w=400&h=250&fit=crop&q=75' }
+      ],
+      'produce': [
+        { title: 'Select Best Takes', desc: 'Review takes from multiple models. Pick the winner for each shot in your sequence.', img: 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=400&h=250&fit=crop&q=75' },
+        { title: 'Arrange & Trim', desc: 'Drag shots into order. Trim each clip. Add background audio.', img: 'https://images.unsplash.com/photo-1535016120720-40c646be5580?w=400&h=250&fit=crop&q=75' },
+        { title: 'Export to YouTube', desc: 'One-click export — download your finished video or share a preview link.', img: 'https://images.unsplash.com/photo-1611162616475-46b635cb6868?w=400&h=250&fit=crop&q=75' }
+      ],
+      'team': [
+        { title: 'Owner Funds Project', desc: 'Project owner sets a credit budget and adds team members with specific roles.', img: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=250&fit=crop&q=75' },
+        { title: 'Team Generates', desc: 'Members generate takes using project credits. Prompt history logged automatically.', img: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=400&h=250&fit=crop&q=75' },
+        { title: 'Owner Reviews', desc: 'Owner reviews takes, checks costs, selects best outputs, and exports the final cut.', img: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=400&h=250&fit=crop&q=75' }
+      ]
+    };
+
+    function switchWorkflow(key, btn) {
+      document.querySelectorAll('.tab-btn').forEach(function (b) {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+      });
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
+
+      var grid = document.getElementById('sandbox-grid');
+      grid.innerHTML = '';
+
+      workflows[key].forEach(function (frame) {
+        var card = document.createElement('div');
+        card.className = 'frame-card';
+        card.innerHTML =
+          '<img class="frame-img" src="' + frame.img + '" alt="' + frame.title + '" loading="lazy">' +
+          '<div class="frame-body">' +
+          '<div class="frame-title">' + frame.title + '</div>' +
+          '<div class="frame-desc">' + frame.desc + '</div>' +
+          '</div>';
+        grid.appendChild(card);
+      });
+    }
+
+    // ---- FAQ Accordion ----
+    function toggleFaq(button) {
+      var item = button.closest('.faq-item');
+      var isOpen = item.classList.contains('open');
+
+      // Close all
+      document.querySelectorAll('.faq-item.open').forEach(function (openItem) {
+        openItem.classList.remove('open');
+        openItem.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+      });
+
+      // Toggle clicked
+      if (!isOpen) {
+        item.classList.add('open');
+        button.setAttribute('aria-expanded', 'true');
+      }
+    }
+
+    // ---- Init ----
+    document.addEventListener('DOMContentLoaded', function () {
+      switchWorkflow('sequence', document.querySelector('.tab-btn.active'));
+    });
+  </script>
+
+</body>
+
+</html>

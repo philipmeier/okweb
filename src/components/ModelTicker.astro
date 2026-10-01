@@ -1,0 +1,27 @@
+---
+const models = [
+  { abbr: 'K',  name: 'Kling 3.0' },
+  { abbr: 'V',  name: 'Google Veo 3' },
+  { abbr: 'S',  name: 'OpenAI Sora' },
+  { abbr: 'R',  name: 'Runway Gen-4' },
+  { abbr: 'G',  name: 'Grok' },
+  { abbr: 'SD', name: 'SeeDance 2.0' },
+  { abbr: 'W',  name: 'Wan' },
+  { abbr: 'F',  name: 'Flux Pro' },
+];
+---
+<div class="py-10 overflow-hidden border-b border-[var(--border-subtle)]" aria-label="Supported AI models">
+  <p class="text-center text-[0.72rem] uppercase tracking-[2px] text-[var(--text-muted)] font-semibold mb-5">
+    Generate &middot; Compare &middot; Pick the Best Take
+  </p>
+  <div class="ticker-anim">
+    {[...models, ...models].map((m) => (
+      <div class="flex items-center gap-2 px-4 py-2 rounded-lg border border-[var(--border-subtle)] text-sm font-medium text-[var(--text-secondary)] whitespace-nowrap shrink-0 cursor-default transition-all hover:border-[var(--accent)] hover:text-[var(--text-primary)] hover:bg-[var(--accent-subtle)]"
+        style="background:rgba(255,255,255,0.03);"
+      >
+        <span class="w-5 h-5 rounded text-[10px] flex items-center justify-center font-bold bg-[var(--bg-elevated)]">{m.abbr}</span>
+        {m.name}
+      </div>
+    ))}
+  </div>
+</div>

@@ -1,0 +1,10 @@
+04:56:40 [vite] connected.
+04:56:40 [types] Generated 8ms
+04:56:40 [vite] connected.
+ astro  v7.3.5 ready in 3067 ms
+┃ Local    http://localhost:4321/
+┃ Network  use --host to expose
+04:56:40 watching for file changes...
+04:56:42 [vite] [optimizer] bundling dependencies...
+04:57:59 [200] / 203ms
+04:58:37 [200] / 4ms

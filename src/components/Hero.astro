@@ -1,0 +1,75 @@
+---
+---
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden" aria-labelledby="hero-heading">
+
+  <!-- Fullscreen background video -->
+  <div class="absolute inset-0 z-0">
+    <video
+      autoplay loop muted playsinline
+      class="w-full h-full object-cover"
+      poster="https://images.unsplash.com/photo-1536240478700-b869070f9279?w=1920&h=1080&fit=crop&q=80"
+    >
+      <source src="https://assets.mixkit.co/videos/1222/1222-720.mp4" type="video/mp4" />
+    </video>
+    <!-- Dark overlay -->
+    <div class="absolute inset-0" style="background:linear-gradient(to bottom, rgba(12,13,16,0.65) 0%, rgba(12,13,16,0.5) 40%, rgba(12,13,16,0.8) 100%);"></div>
+    <!-- Ambient accent glow -->
+    <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse 80% 60% at 50% 30%, rgba(56,189,248,0.08) 0%, transparent 70%);"></div>
+  </div>
+
+  <!-- Hero content -->
+  <div class="relative z-10 text-center px-6 max-w-4xl mx-auto pb-24 pt-20">
+
+    <div class="badge inline-flex mx-auto">
+      <span class="pulse-dot"></span>
+      MCP Server &mdash; Generate from Claude, ChatGPT &amp; Cursor
+    </div>
+
+    <h1 id="hero-heading"
+      class="font-display text-5xl md:text-6xl lg:text-7xl font-black leading-[1.05] tracking-[-2px] mb-5 drop-shadow-lg"
+      style="font-family:var(--font-display);">
+      Direct AI Video Like a Producer.<br />
+      <span class="grad-text">Not a Prompter.</span>
+    </h1>
+
+    <p class="text-lg md:text-xl text-[var(--text-secondary)] max-w-2xl mx-auto mb-8 leading-relaxed drop-shadow">
+      One workspace. Eight AI models. Full storyboard control.<br />
+      Set project budgets, manage your team, keep characters consistent,
+      and export finished sequences &mdash; from script to final cut.
+    </p>
+
+    <div class="hero-ctas flex justify-center gap-3 flex-wrap mb-3">
+      <a href="/signup" class="btn btn-primary btn-lg" id="hero-signup-btn">Start Free &mdash; 200 Credits</a>
+      <a href="/demo" class="btn btn-ghost btn-lg" id="hero-demo-btn">Watch the Demo &rarr;</a>
+    </div>
+    <p class="text-xs text-[var(--text-muted)]">No subscription required &middot; Purchased credits never expire</p>
+
+  </div>
+
+  <!-- Bottom fade into page -->
+  <div class="absolute bottom-0 left-0 right-0 h-32 z-10 pointer-events-none"
+    style="background:linear-gradient(to bottom, transparent, var(--bg-page));"></div>
+
+  <!-- Definition blurb anchored just below fold -->
+</section>
+
+<!-- AEO blurb — sits below hero, above ticker -->
+<div class="wrap">
+  <article
+    class="reveal mx-auto max-w-3xl mb-12 rounded-r-xl px-6 py-5 text-left text-sm leading-relaxed text-[var(--text-secondary)]"
+    style="background:var(--bg-card); backdrop-filter:blur(12px); border:1px solid var(--border-subtle); border-left:3px solid var(--accent);"
+    aria-label="What is 10zebra"
+  >
+    <p>
+      <strong class="text-[var(--text-primary)] font-semibold">10zebra</strong> is a web-based AI video production workspace
+      for creators, agencies, and filmmakers. Unlike single-model tools, 10zebra lets you generate takes from
+      <strong class="text-[var(--text-primary)] font-semibold">multiple AI engines side-by-side</strong> within the same shot —
+      then pick the best one. Its
+      <strong class="text-[var(--text-primary)] font-semibold">text-to-sequence engine</strong> turns a single prompt into a
+      full multi-shot storyboard, while
+      <strong class="text-[var(--text-primary)] font-semibold">project-level budgets</strong> and
+      <strong class="text-[var(--text-primary)] font-semibold">team permissions</strong>
+      give owners complete control over costs and collaboration.
+    </p>
+  </article>
+</div>

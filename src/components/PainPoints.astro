@@ -1,0 +1,50 @@
+---
+const pains = [
+  {
+    icon: '??',
+    label: 'The Model Gamble',
+    title: "You Can't Know Which Model Wins Until You Try",
+    body: "Kling nails faces but muddles motion. Veo gets motion but loses detail. You waste credits guessing — or worse, you never try the model that would've been perfect.",
+    solution: "A/B generate from 8+ models on the same shot. Pick the best take. Keep the rest as backups.",
+  },
+  {
+    icon: '??',
+    label: 'Team Chaos',
+    title: "Your Team Burns Credits. You Lose Control.",
+    body: "Your editor burns through the budget. Your client changes the brief mid-project. Nobody knows who generated what, or what it cost. Account-level limits don't help.",
+    solution: "Project-level budgets, role-based permissions, and full activity tracking — per project, not per account.",
+  },
+  {
+    icon: '??',
+    label: 'Character Drift',
+    title: "Your Character Looks Different in Every Shot",
+    body: "You spend 20 minutes getting the perfect character, then the next shot gives you a completely different person. You lose hours trying to force consistency across prompts.",
+    solution: "Image-first reference pipeline locks faces, wardrobes, and environments across every take, every shot, every model.",
+  },
+];
+---
+<section class="section" aria-labelledby="pain-heading">
+  <div class="sect-head reveal">
+    <span class="sect-label">Why 10zebra Exists</span>
+    <h2 id="pain-heading">The Problem With AI Video Today</h2>
+    <p>Every AI model has strengths. None of them give you production control.</p>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    {pains.map((p, i) => (
+      <div class={`glass p-8 text-left reveal reveal-d${i+1}`}>
+        <div class="w-12 h-12 rounded-xl flex items-center justify-center text-xl mb-5"
+          style="background:var(--accent-subtle); border:1px solid rgba(56,189,248,0.15);">
+          {p.icon}
+        </div>
+        <div class="text-[0.7rem] uppercase tracking-[1.5px] text-[var(--text-muted)] font-semibold mb-2">{p.label}</div>
+        <h3 class="font-bold text-lg mb-3" style="font-family:var(--font-display);">{p.title}</h3>
+        <p class="text-sm text-[var(--text-secondary)] mb-4 leading-relaxed">{p.body}</p>
+        <div class="text-sm text-[var(--accent)] font-medium flex gap-1 items-start">
+          <span class="shrink-0">&rarr;</span>
+          <span>{p.solution}</span>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>

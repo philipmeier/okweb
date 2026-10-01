@@ -1,0 +1,93 @@
+---
+const plans = [
+  {
+    id: 'payg',
+    name: 'Pay-As-You-Go',
+    desc: 'Free trial + flexible top-ups',
+    price: '$0',
+    period: '/ month',
+    credit: '200 free credits ˜ 5 Kling shots or 20 Grok clips',
+    features: [
+      '200 Free Trial Credits on signup',
+      'No subscription — ever',
+      'Buy additional credits as needed',
+      'Access to all AI models & tools',
+      'Purchased top-ups never expire',
+    ],
+    cta: 'Get Started Free',
+    ctaHref: '/signup',
+    btnClass: 'btn-ghost',
+    featured: false,
+  },
+  {
+    id: 'maker',
+    name: 'Maker',
+    desc: 'For active creators & marketers',
+    price: '$29',
+    period: '/ month',
+    credit: '1,200 credits/mo ˜ 30 Kling shots or 60 Veo 3 Fast clips',
+    features: [
+      '1,200 Monthly Credits (refreshes each cycle)',
+      '15% Discount on all extra top-ups',
+      'Top-up credits never expire',
+      'All AI models + priority queue',
+      'Team collaboration features',
+    ],
+    cta: 'Start Maker Plan',
+    ctaHref: '/pricing',
+    btnClass: 'btn-primary',
+    featured: true,
+  },
+  {
+    id: 'director',
+    name: 'Director',
+    desc: 'For agencies & video teams',
+    price: '$79',
+    period: '/ month',
+    credit: '3,500 credits/mo ˜ 87 Kling shots or 175 Veo 3 Fast clips',
+    features: [
+      '3,500 Monthly Credits',
+      '30% Discount on extra top-ups',
+      'Top-up credits never expire',
+      'Project-level budget controls',
+      'Shared reference library & credit pools',
+    ],
+    cta: 'View Director Plan',
+    ctaHref: '/pricing',
+    btnClass: 'btn-ghost',
+    featured: false,
+  },
+];
+---
+<section class="section" aria-labelledby="pricing-heading">
+  <div class="sect-head reveal">
+    <span class="sect-label">Pricing</span>
+    <h2 id="pricing-heading">Pay for What You Create. <span class="grad-text">Nothing More.</span></h2>
+    <p>Start free with 200 credits. No subscription needed — buy more when you need them, or subscribe for stacked discounts.</p>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 reveal">
+    {plans.map((p) => (
+      <div class={`glass relative flex flex-col transition-all duration-300 hover:-translate-y-1 ${p.featured ? 'border-[var(--accent)]' : ''}`}
+        id={`pricing-${p.id}`}
+        style="padding:2.5rem 2rem;">
+        {p.featured && (
+          <div class="absolute -top-[11px] right-5 text-[0.65rem] font-black px-2 py-1 rounded uppercase tracking-[0.5px]"
+            style="background:var(--accent); color:#0c0d10;">Most Popular</div>
+        )}
+        <h3 class="text-xl font-bold mb-1" style="font-family:var(--font-display);">{p.name}</h3>
+        <p class="text-sm text-[var(--text-muted)] mb-3">{p.desc}</p>
+        <div class="text-[2.5rem] font-black tracking-[-1px] mb-2" style="font-family:var(--font-display);">
+          {p.price} <span class="text-[0.9rem] text-[var(--text-muted)] font-normal">{p.period}</span>
+        </div>
+        <span class="text-xs font-semibold mb-5 block" style="color:#34d399;">{p.credit}</span>
+        <ul class="feat-list flex-1">
+          {p.features.map((f) => (
+            <li><span class="check-icon">&#10003;</span> <span>{f}</span></li>
+          ))}
+        </ul>
+        <a href={p.ctaHref} class={`btn ${p.btnClass} btn-full mt-4`} id={`pricing-${p.id}-cta`}>{p.cta}</a>
+      </div>
+    ))}
+  </div>
+</section>

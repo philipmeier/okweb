@@ -1,0 +1,100 @@
+---
+---
+<section class="section" aria-labelledby="sandbox-heading">
+  <div class="sect-head reveal">
+    <span class="sect-label">Workflows</span>
+    <h2 id="sandbox-heading">See How a Single Idea Becomes a <span class="grad-text">Full Shot Sequence</span></h2>
+    <p>Select a workflow to see how 10zebra structures one concept into production-ready shots.</p>
+  </div>
+
+  <div class="glass p-8 reveal" id="workflow-sandbox">
+    <div class="flex gap-2 flex-wrap justify-center mb-8 pb-6 border-b border-[var(--border-subtle)]"
+      role="tablist" aria-label="Workflow demos">
+      <button class="tab-btn active" role="tab" aria-selected="true" data-workflow="sequence" id="tab-sequence">Text-to-Sequence</button>
+      <button class="tab-btn" role="tab" aria-selected="false" data-workflow="swap" id="tab-swap">Character Swap</button>
+      <button class="tab-btn" role="tab" aria-selected="false" data-workflow="multiref" id="tab-multiref">Multi-Reference</button>
+      <button class="tab-btn" role="tab" aria-selected="false" data-workflow="produce" id="tab-produce">Produce &amp; Export</button>
+      <button class="tab-btn" role="tab" aria-selected="false" data-workflow="team" id="tab-team">Team Workflow</button>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-5" id="sandbox-grid" role="tabpanel"></div>
+  </div>
+</section>
+
+<style>
+  .tab-btn {
+    padding: 0.55rem 1.1rem;
+    background: transparent;
+    border: 1px solid var(--border-subtle);
+    color: var(--text-muted);
+    border-radius: 8px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: var(--font-body);
+  }
+  .tab-btn:hover { border-color: var(--border-strong); color: var(--text-secondary); }
+  .tab-btn.active { background: var(--accent); color: #0c0d10; border-color: var(--accent); font-weight: 600; }
+  .frame-card { background: var(--bg-page); border: 1px solid var(--border-subtle); border-radius: 10px; overflow: hidden; transition: border-color 0.2s; }
+  .frame-card:hover { border-color: var(--accent); }
+  .frame-img { width: 100%; height: 150px; object-fit: cover; display: block; }
+  .frame-body { padding: 1rem; }
+  .frame-title { font-size: 0.82rem; font-weight: 700; color: var(--accent); margin-bottom: 0.25rem; }
+  .frame-desc { font-size: 0.78rem; color: var(--text-muted); line-height: 1.5; }
+</style>
+
+<script>
+  const workflows = {
+    sequence: [
+      { title: 'Prompt ? Shot 1: The Hook',   desc: 'One input prompt. 10zebra auto-generates the opening hook shot — close-up, high tension.', img: 'https://images.unsplash.com/photo-1485846234645-a62644f84728?w=400&h=250&fit=crop&q=75' },
+      { title: 'Auto ? Shot 2: The Scene',     desc: 'Middle shot created automatically — same characters, next beat of the story.',              img: 'https://images.unsplash.com/photo-1536240478700-b869070f9279?w=400&h=250&fit=crop&q=75' },
+      { title: 'Auto ? Shot 3: The CTA',       desc: 'Closing shot with consistent setting and characters — ready to export.',                    img: 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=400&h=250&fit=crop&q=75' },
+    ],
+    swap: [
+      { title: 'Original Video',  desc: 'Source video with original talent — any Kling, Runway, or uploaded clip.',           img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=250&fit=crop&q=75' },
+      { title: 'Reference Photo', desc: 'Drop in a single reference portrait of the new character to swap in.',               img: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=250&fit=crop&q=75' },
+      { title: 'Swapped Output',  desc: 'Same motion, same background — new character. Generated with Karakter.',             img: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=250&fit=crop&q=75' },
+    ],
+    multiref: [
+      { title: 'Ref 1: Character',   desc: 'Character portrait — locks face and wardrobe across the edit.',                      img: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400&h=250&fit=crop&q=75' },
+      { title: 'Ref 2: Environment', desc: 'Environment reference — location and lighting locked in.',                           img: 'https://images.unsplash.com/photo-1519608487953-e999c86e7455?w=400&h=250&fit=crop&q=75' },
+      { title: 'Generated Output',   desc: 'Character placed in setting — coherent, production-ready keyframe.',                 img: 'https://images.unsplash.com/photo-1518834107812-67b0b7c58434?w=400&h=250&fit=crop&q=75' },
+    ],
+    produce: [
+      { title: 'Select Best Takes', desc: 'Review takes from multiple models. Pick the winner for each shot.',                  img: 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=400&h=250&fit=crop&q=75' },
+      { title: 'Arrange & Trim',    desc: 'Drag shots into order. Trim each clip. Add background audio.',                       img: 'https://images.unsplash.com/photo-1535016120720-40c646be5580?w=400&h=250&fit=crop&q=75' },
+      { title: 'Export to YouTube', desc: 'One-click export — download your finished video or share a preview link.',           img: 'https://images.unsplash.com/photo-1611162616475-46b635cb6868?w=400&h=250&fit=crop&q=75' },
+    ],
+    team: [
+      { title: 'Owner Funds Project', desc: 'Project owner sets a credit budget and adds team members with specific roles.',    img: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=250&fit=crop&q=75' },
+      { title: 'Team Generates',      desc: 'Members generate takes using project credits. Prompt history logged automatically.',img: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=400&h=250&fit=crop&q=75' },
+      { title: 'Owner Reviews',       desc: 'Owner reviews takes, checks costs, selects best outputs, and exports the final cut.',img: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=400&h=250&fit=crop&q=75' },
+    ],
+  };
+
+  function renderWorkflow(key) {
+    const grid = document.getElementById('sandbox-grid');
+    if (!grid) return;
+    grid.innerHTML = '';
+    (workflows[key] || []).forEach((frame) => {
+      const card = document.createElement('div');
+      card.className = 'frame-card';
+      card.innerHTML =
+        `<img class="frame-img" src="${frame.img}" alt="${frame.title}" loading="lazy">` +
+        `<div class="frame-body"><div class="frame-title">${frame.title}</div><div class="frame-desc">${frame.desc}</div></div>`;
+      grid.appendChild(card);
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    renderWorkflow('sequence');
+    document.querySelectorAll('.tab-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach((b) => { b.classList.remove('active'); b.setAttribute('aria-selected', 'false'); });
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+        renderWorkflow(btn.dataset.workflow);
+      });
+    });
+  });
+</script>

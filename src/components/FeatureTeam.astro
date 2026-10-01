@@ -1,0 +1,61 @@
+---
+const perks = [
+  { icon: '??', title: 'Project-Level Budgets', body: 'Fund each project independently. Set credit limits per project, not per account. Your horror film and beverage ad never share a pool.' },
+  { icon: '??', title: 'Role-Based Permissions', body: 'Control who can generate, edit titles, manage members, or start workflows — all per project.' },
+  { icon: '???', title: 'Credit Policy Controls', body: 'Choose whether team members draw from project credits first, personal credits, or project-only.' },
+  { icon: '??', title: 'Full Activity Tracking', body: 'See who generated what, when, with which model, and at what cost. Complete audit trail per project.' },
+  { icon: '??', title: 'Shared Reference Library', body: 'Team members access the same character refs, style guides, and uploaded assets across every role.' },
+];
+---
+<section class="section" aria-labelledby="team-heading">
+  <div class="sect-head reveal">
+    <span class="sect-label">Team Orchestration</span>
+    <h2 id="team-heading">Create With Your Team. <span class="grad-text">Keep Control of Your Project.</span></h2>
+    <p>Project owners set budgets and permissions at the <strong>project level</strong> — not the account level. Your horror film and your beverage commercial don&rsquo;t share a credit pool.</p>
+  </div>
+
+  <!-- Bento grid — 2-col large + 3-col small -->
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 reveal">
+
+    <!-- Large feature card (spans 2) -->
+    <div class="lg:col-span-2 glass p-8 flex flex-col justify-between min-h-[260px] relative overflow-hidden">
+      <div class="absolute right-0 top-0 w-48 h-48 pointer-events-none"
+        style="background:radial-gradient(ellipse at 100% 0%, rgba(56,189,248,0.08) 0%, transparent 70%);"></div>
+      <div>
+        <div class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-5"
+          style="background:var(--accent-subtle); border:1px solid rgba(56,189,248,0.2);">??</div>
+        <h3 class="text-2xl font-bold mb-3" style="font-family:var(--font-display);">
+          Only 10zebra: Budgets Per Project
+        </h3>
+        <p class="text-[var(--text-secondary)] text-sm leading-relaxed mb-4">
+          Runway&rsquo;s Team Plan pools credits at the account level. Higgsfield has no team budgeting at all.
+          10zebra is the only workspace where project owners control costs <em>project by project</em> &mdash;
+          so one overrun never bleeds into another client&rsquo;s budget.
+        </p>
+      </div>
+      <div class="flex gap-3 flex-wrap">
+        <a href="/signup" class="btn btn-primary btn-lg" id="team-signup-btn">Start Free &mdash; 200 Credits</a>
+        <a href="/features/team-management" class="btn btn-ghost btn-lg">Learn More &rarr;</a>
+      </div>
+    </div>
+
+    <!-- Team image card -->
+    <div class="glass overflow-hidden min-h-[260px]">
+      <img
+        src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=520&fit=crop&q=80"
+        alt="Team collaboration workspace"
+        class="w-full h-full object-cover"
+        loading="lazy"
+      />
+    </div>
+
+    <!-- Small perk cards -->
+    {perks.map((p) => (
+      <div class="glass p-5">
+        <div class="text-xl mb-3">{p.icon}</div>
+        <h4 class="font-bold text-sm mb-2" style="font-family:var(--font-display);">{p.title}</h4>
+        <p class="text-xs text-[var(--text-secondary)] leading-relaxed">{p.body}</p>
+      </div>
+    ))}
+  </div>
+</section>
