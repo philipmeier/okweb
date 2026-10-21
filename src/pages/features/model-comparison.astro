@@ -1,0 +1,144 @@
+---
+import FeatureLandingLayout from "../../layouts/FeatureLandingLayout.astro";
+import ModelComparisonMockup from "../../components/features/ModelComparisonMockup.astro";
+
+const stats = [
+  { value: "8+", label: "Integrated AI Engines", detail: "Kling, Grok, Seedance, Veo, Sora" },
+  { value: "1 Prompt", label: "Multi-Model Fanout", detail: "Zero tab switching required" },
+  { value: "100%", label: "Seed & History Retention", detail: "Exact camera & prompt audit logs" },
+  { value: "0ms Delay", label: "Synchronized Live Scrub", detail: "Compare takes frame-by-frame" }
+];
+
+const workflowSteps = [
+  {
+    step: "Step 01",
+    title: "Draft Single Prompt & Reference",
+    description: "Write your cinematic direction once. Attach reference portraits or environment keys if desired.",
+    tag: "Master Direction"
+  },
+  {
+    step: "Step 02",
+    title: "Select Competing Model Matrix",
+    description: "Check the boxes for Kling 3.0, Grok Imagine, Seedance 2.0, or Google Veo 3. 10zebra queues parallel generations.",
+    tag: "Parallel Render"
+  },
+  {
+    step: "Step 03",
+    title: "Scrub, Compare & Promote Take",
+    description: "Inspect takes side-by-side in the live synchronized preview interface. Click 'Select Take' to lock the winner into your timeline.",
+    tag: "Winner Selected"
+  }
+];
+
+const features = [
+  {
+    title: "Model-Specific Strengths, Single Interface",
+    description: "Every AI video model has distinct advantages. Don't limit your creative vision to the biases of a single proprietary engine.",
+    bullets: [
+      "<strong>Kling 3.0:</strong> Unmatched facial micro-expressions, skin fidelity, and natural human emotion.",
+      "<strong>Grok Imagine:</strong> High-dynamic camera movement, kinetic action, and punchy cyberpunk contrast.",
+      "<strong>Seedance 2.0:</strong> Continuous 12-second extended shots with fluid character choreography.",
+      "<strong>Google Veo 3:</strong> Photorealistic physical lighting, anamorphic lens flares, and natural physics."
+    ],
+    tag: "Engine Diversity"
+  },
+  {
+    title: "Synchronized Live Preview Interface",
+    description: "Evaluating takes shouldn't require downloading four 150MB MP4 files and scrubbing them in QuickTime.",
+    bullets: [
+      "<strong>Hover & scrub:</strong> Glide your cursor across any take card to preview motion instantly.",
+      "<strong>Dual-take sync:</strong> Play two takes side-by-side with locked playback heads to spot artifacts.",
+      "<strong>Take inspector:</strong> Click to view generation speed, exact token cost, camera prompts, and seed numbers.",
+      "<strong>Favorite & archive:</strong> Star candidate takes, hide discards, and share candidate links with clients."
+    ],
+    tag: "Producer UX"
+  }
+];
+
+const comparisonItems = [
+  {
+    feature: "Prompting Workflow",
+    zebra: "Type prompt once; fan out across 4+ models simultaneously",
+    competitor: "Open 4 different web apps, copy-paste prompts manually",
+    zebraAdvantage: true
+  },
+  {
+    feature: "Take Comparison",
+    zebra: "Unified live scrub preview with side-by-side playback head sync",
+    competitor: "Download separate video files and compare manually",
+    zebraAdvantage: true
+  },
+  {
+    feature: "Credit Tracking",
+    zebra: "Unified credit balance with per-model breakdown and project caps",
+    competitor: "4 separate $30-$95/mo recurring subscriptions",
+    zebraAdvantage: true
+  },
+  {
+    feature: "Prompt History & Seeds",
+    zebra: "All prompt variants, seeds, and reference weights logged in shot history",
+    competitor: "Scattered discord messages or fragmented history tabs",
+    zebraAdvantage: true
+  }
+];
+
+const faqs = [
+  {
+    question: "Do I need separate subscriptions for Kling, Runway, and Grok?",
+    answer: "No! 10zebra handles all API integrations and licenses directly. You only need a 10zebra balance, and you can generate across all supported models from your single credit pool."
+  },
+  {
+    question: "How do I choose which models to generate with?",
+    answer: "In the 10zebra prompt bar, click the model selection dropdown. You can toggle on any combination of models (e.g. Kling + Grok + Seedance), and 10zebra will queue all takes concurrently."
+  },
+  {
+    question: "Can I adjust parameters like aspect ratio or motion scale per model?",
+    answer: "Yes. While your master prompt and reference images are shared across the comparison, you can expand the Inspector Drawer to tweak model-specific settings like guidance scale, motion sliders, or duration (e.g. 5s vs 12s)."
+  },
+  {
+    question: "How does the live preview work?",
+    answer: "10zebra streams low-latency optimized video proxies directly into the canvas. You can scrub through takes with your cursor or hit spacebar to synchronize playback across all active takes."
+  }
+];
+
+const relatedFeatures = [
+  {
+    title: "Character Swap & 10z Agent",
+    description: "Take the winner of your model comparison and swap the character identity with 100% motion lock.",
+    href: "/features/character-swap",
+    badge: "Continuity"
+  },
+  {
+    title: "Text-to-Sequence",
+    description: "Generate a full multi-shot sequence across your favorite models with a single prompt.",
+    href: "/features/text-to-sequence",
+    badge: "Story Engine"
+  },
+  {
+    title: "Publish to YouTube",
+    description: "Assemble your winning takes on the timeline and export directly to YouTube in 1 click.",
+    href: "/features/publish-to-youtube",
+    badge: "Distribution"
+  }
+];
+---
+
+<FeatureLandingLayout
+  title="Side-by-Side Model Comparison | 10zebra AI Video Workspace"
+  description="Compare Kling, Grok, Seedance, and Veo side-by-side with the same prompt and reference. Review via live synchronized preview and select the perfect take."
+  eyebrow="MULTI-MODEL COMPARISON"
+  headline="Side-by-Side Model Comparisons:"
+  headlineHighlight="You Pick the Winner."
+  subheadline="Stop switching between Runway, Kling, and Grok. Use the same prompt and reference photo across the latest AI video models simultaneously, inspect takes in a synchronized live preview, and promote the winning shot to your storyboard."
+  badgeText="New: Seedance 2.0 & Grok Video Added"
+  stats={stats}
+  workflowSteps={workflowSteps}
+  features={features}
+  comparisonItems={comparisonItems}
+  faqs={faqs}
+  relatedFeatures={relatedFeatures}
+>
+  <div slot="hero-visual">
+    <ModelComparisonMockup />
+  </div>
+</FeatureLandingLayout>

@@ -1,8 +1,527 @@
-﻿---
-import PlaceholderPage from "../layouts/PlaceholderPage.astro";
 ---
-<PlaceholderPage
-  title="Features"
-  label="Features Overview"
-  description="Explore all of 10zebra's production features &mdash; multi-model generation, character consistency, team budgets, and YouTube-ready export."
-/>
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import FinalCTA from "../components/FinalCTA.astro";
+import ModelComparisonMockup from "../components/features/ModelComparisonMockup.astro";
+import CharacterSwapMockup from "../components/features/CharacterSwapMockup.astro";
+import QuickStartToolsExplorer from "../components/features/QuickStartToolsExplorer.astro";
+import ProjectBudgetMockup from "../components/features/ProjectBudgetMockup.astro";
+import YouTubeExportMockup from "../components/features/YouTubeExportMockup.astro";
+
+const categories = [
+  { id: "all", label: "All Features" },
+  { id: "multi-model", label: "Multi-Model & Comparison" },
+  { id: "character", label: "Character Consistency" },
+  { id: "quick-tools", label: "Quick Start Tools" },
+  { id: "teams", label: "Teams & Project Budgets" },
+  { id: "export", label: "Export & YouTube" },
+];
+
+const featureGrid = [
+  {
+    category: "multi-model",
+    title: "Side-by-Side Model Comparison",
+    badge: "Flagship",
+    description: "Prompt Kling, Grok, Seedance, Veo, and Sora simultaneously. Compare takes in a synchronized live preview and pick the winning shot.",
+    href: "/features/model-comparison",
+    icon: "M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+  },
+  {
+    category: "character",
+    title: "Text-to-Sequence Generation",
+    badge: "Story Engine",
+    description: "Generate multiple cohesive shots with a single prompt. Auto-split narrative beats into chronological shots with matching art direction.",
+    href: "/features/text-to-sequence",
+    icon: "M4 6h16M4 10h16M4 14h16M4 18h16"
+  },
+  {
+    category: "character",
+    title: "Character Swap & 10z Agent",
+    badge: "Zero Drift",
+    description: "Regenerate an existing take with a new character reference photo, or deploy the 10z Agent to batch swap all takes across your entire project.",
+    href: "/features/character-swap",
+    icon: "M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+  },
+  {
+    category: "teams",
+    title: "Project-Level Budget Management",
+    badge: "Cost Shield",
+    description: "Control project budgets and configure teams per project, not per account. Keep client billing clean with zero cross-project budget bleed.",
+    href: "/features/project-management",
+    icon: "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+  },
+  {
+    category: "quick-tools",
+    title: "Pre-Built Quick Start Tools",
+    badge: "6 Engines",
+    description: "From a Script (3-30 shots), Three Acts (60s arc), Make an Ad, Explore Locations, Explore Expressions, and Grok (9:16 social microdrama).",
+    href: "/features/quick-start-tools",
+    icon: "M13 10V3L4 14h7v7l9-11h-7z"
+  },
+  {
+    category: "teams",
+    title: "Collaborative Team Storyboard",
+    badge: "Live Sync",
+    description: "Work with your team all in one storyboard. Story settings, camera guidelines, and reference locks persist while all generated media is shared.",
+    href: "/features/collaborative-storyboard",
+    icon: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+  },
+  {
+    category: "export",
+    title: "Direct 1-Click YouTube Publishing",
+    badge: "Instant Publish",
+    description: "Assemble timeline sequences, trim takes, add background audio, and publish directly to YouTube without downloading a single gigabyte locally.",
+    href: "/features/publish-to-youtube",
+    icon: "M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
+  },
+  {
+    category: "character",
+    title: "Multi-Reference Editing",
+    badge: "Composition Lock",
+    description: "Blend up to 3 separate references (character portrait, lighting environment, and wardrobe styling) into a single cohesive frame.",
+    href: "/features/multi-reference-edit",
+    icon: "M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+  }
+];
+
+const comparisonData = [
+  {
+    feature: "Multi-Model Generation",
+    zebra: "Kling, Grok, Seedance, Veo, Sora, Runway in 1 prompt",
+    competitor: "Locked to 1 proprietary engine",
+    winner: true
+  },
+  {
+    feature: "Model Comparison",
+    zebra: "Side-by-side synchronized live take previewer",
+    competitor: "Must switch tabs and copy-paste prompts",
+    winner: true
+  },
+  {
+    feature: "Project-Level Budgets",
+    zebra: "Independent credit pools per project & team",
+    competitor: "Pooled account-wide (1 mistake drains all)",
+    winner: true
+  },
+  {
+    feature: "Batch Character Swap",
+    zebra: "10z Agent swaps character across all project takes",
+    competitor: "Manual single-frame inpainting only",
+    winner: true
+  },
+  {
+    feature: "From a Script Fanout",
+    zebra: "3, 5, 10, 20, or 30 cohesive shots from 1 prompt",
+    competitor: "Generate 1 clip at a time manually",
+    winner: true
+  },
+  {
+    feature: "Team Storyboard Sync",
+    zebra: "Shared takes & media with locked global story rules",
+    competitor: "Individual isolated creator accounts",
+    winner: true
+  },
+  {
+    feature: "YouTube Direct Publishing",
+    zebra: "1-Click OAuth upload with audio mixdown & metadata",
+    competitor: "Download locally then upload manually",
+    winner: true
+  }
+];
+---
+
+<Layout
+  title="10zebra Feature Hub | The Complete AI Video Production Suite"
+  description="Explore 10zebra's production features: side-by-side multi-model comparisons (Kling, Grok, Seedance), text-to-sequence, character swap with 10z agent, isolated project budgets, 6 quick-start tools, and 1-click YouTube publishing."
+>
+  <Header />
+
+  <main class="feature-hub">
+    <!-- HERO SECTION -->
+    <section class="relative pt-16 pb-20 lg:pt-24 lg:pb-28 overflow-hidden">
+      <!-- Glow background -->
+      <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[850px] h-[450px] pointer-events-none rounded-full"
+        style="background: radial-gradient(ellipse at center, rgba(249,115,22,0.15) 0%, rgba(251,191,36,0.05) 50%, transparent 75%); filter: blur(70px);">
+      </div>
+
+      <div class="wrap relative z-10 text-center">
+        <div class="badge inline-flex mx-auto mb-5">
+          <span class="pulse-dot"></span>
+          <span>10zebra Production Ecosystem</span>
+        </div>
+
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.1] mb-6 max-w-4xl mx-auto" style="font-family: var(--font-display);">
+          The Complete Feature Hub: <br />
+          <span class="grad-text">From First Prompt to Final YouTube Cut</span>
+        </h1>
+
+        <p class="text-lg sm:text-xl text-[var(--text-secondary)] max-w-2xl mx-auto mb-10 leading-relaxed">
+          Stop juggling disconnected single-model subscriptions. Direct AI video like a producer:
+          compare models side-by-side, automate character continuity, lock project budgets, and publish without leaving your storyboard.
+        </p>
+
+        <div class="flex justify-center gap-4 flex-wrap mb-16">
+          <a href="/signup" class="btn btn-primary btn-lg shadow-xl shadow-orange-500/20" id="hub-hero-cta">
+            Start Free &mdash; 200 Credits
+          </a>
+          <a href="#quick-start-section" class="btn btn-ghost btn-lg">
+            Explore 6 Quick-Start Tools &darr;
+          </a>
+        </div>
+
+        <!-- Key Metrics Bar -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 p-5 rounded-2xl glass border border-[var(--border-subtle)] text-left">
+          <div class="p-3">
+            <div class="text-3xl font-black grad-text" style="font-family: var(--font-display);">8+</div>
+            <div class="text-sm font-bold text-[var(--text-primary)]">AI Video Engines</div>
+            <div class="text-xs text-[var(--text-muted)]">Kling, Grok, Seedance, Veo, Sora</div>
+          </div>
+          <div class="p-3 border-l border-[var(--border-subtle)]">
+            <div class="text-3xl font-black grad-text" style="font-family: var(--font-display);">30 Shots</div>
+            <div class="text-sm font-bold text-[var(--text-primary)]">From 1 Script Prompt</div>
+            <div class="text-xs text-[var(--text-muted)]">Instant multi-take storyboard</div>
+          </div>
+          <div class="p-3 border-l border-[var(--border-subtle)]">
+            <div class="text-3xl font-black grad-text" style="font-family: var(--font-display);">$0 Bleed</div>
+            <div class="text-sm font-bold text-[var(--text-primary)]">Project Budget Isolation</div>
+            <div class="text-xs text-[var(--text-muted)]">Independent credit pools</div>
+          </div>
+          <div class="p-3 border-l border-[var(--border-subtle)]">
+            <div class="text-3xl font-black grad-text" style="font-family: var(--font-display);">1 Click</div>
+            <div class="text-sm font-bold text-[var(--text-primary)]">Direct to YouTube</div>
+            <div class="text-xs text-[var(--text-muted)]">No local file rendering</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE FEATURE DIRECTORY -->
+    <section class="section border-t border-[var(--border-subtle)] bg-[rgba(19,20,23,0.3)]" id="directory">
+      <div class="wrap">
+        <div class="sect-head reveal">
+          <span class="sect-label">Feature Directory</span>
+          <h2>Explore by Production Phase</h2>
+          <p>Filter through our creator tools to discover how 10zebra powers every stage of your workflow.</p>
+        </div>
+
+        <!-- Filter Bar -->
+        <div class="flex items-center justify-center gap-2 flex-wrap mb-10 reveal" id="filter-bar">
+          {categories.map((c) => (
+            <button
+              class={`filter-btn px-4 py-2 rounded-full text-xs font-semibold transition-all ${c.id === 'all' ? 'active bg-[var(--accent)] text-[#0c0d10] font-bold shadow-lg shadow-orange-500/20' : 'bg-[#14161c] text-[var(--text-secondary)] border border-[var(--border-subtle)] hover:text-[var(--text-primary)]'}`}
+              data-filter={c.id}
+            >
+              {c.label}
+            </button>
+          ))}
+        </div>
+
+        <!-- Features Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 reveal" id="features-grid">
+          {featureGrid.map((item) => (
+            <a 
+              href={item.href} 
+              class="feature-card glass p-6 rounded-2xl flex flex-col justify-between no-underline group hover:border-[var(--accent)] transition-all"
+              data-cat={item.category}
+            >
+              <div>
+                <div class="flex items-center justify-between mb-4">
+                  <div class="w-10 h-10 rounded-xl bg-[var(--accent-subtle)] border border-[rgba(249,115,22,0.25)] flex items-center justify-center text-[var(--accent)]">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d={item.icon}/>
+                    </svg>
+                  </div>
+                  <span class="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded bg-[var(--accent-subtle)] text-[var(--accent)] border border-[rgba(249,115,22,0.2)]">
+                    {item.badge}
+                  </span>
+                </div>
+
+                <h3 class="text-lg font-bold text-[var(--text-primary)] group-hover:text-[var(--accent)] transition-colors mb-2" style="font-family: var(--font-display);">
+                  {item.title}
+                </h3>
+
+                <p class="text-xs text-[var(--text-secondary)] leading-relaxed mb-4">
+                  {item.description}
+                </p>
+              </div>
+
+              <div class="text-xs font-semibold text-[var(--accent)] flex items-center gap-1 group-hover:translate-x-1 transition-transform pt-2 border-t border-[var(--border-subtle)]">
+                Explore feature &rarr;
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- FLAGSHIP 1: SIDE-BY-SIDE MODEL COMPARISON -->
+    <section class="section border-t border-[var(--border-subtle)]" id="model-comparison">
+      <div class="wrap">
+        <div class="split reveal mb-10">
+          <div class="split-text">
+            <span class="sect-label">Multi-Model Studio</span>
+            <h2>Side-by-Side Model Comparisons: <span class="grad-text">You Pick the Winner</span></h2>
+            <p>
+              Stop opening 5 browser tabs to compare video models. With 10zebra, you use the exact same prompt and reference photo across Kling 3.0, Grok, Seedance 2.0, Veo 3, and Sora simultaneously.
+            </p>
+            <ul class="feat-list">
+              <li><span class="check-icon">&#10003;</span> <span><strong>Live synchronized preview</strong> &mdash; scrub and compare multiple takes in real time without downloading files.</span></li>
+              <li><span class="check-icon">&#10003;</span> <span><strong>Take-based iteration</strong> &mdash; keep favorite takes, archive rejects, and re-prompt with adjusted camera parameters.</span></li>
+              <li><span class="check-icon">&#10003;</span> <span><strong>Complete prompt &amp; seed history</strong> &mdash; exact model versions, guidance scales, and reference weights are saved automatically.</span></li>
+            </ul>
+            <div class="flex items-center gap-4 mt-6">
+              <a href="/features/model-comparison" class="btn btn-primary">
+                View Model Comparison Page &rarr;
+              </a>
+              <span class="text-xs text-[var(--text-muted)]">Includes Kling, Grok, Seedance &amp; Veo</span>
+            </div>
+          </div>
+
+          <div class="split-visual p-0 bg-transparent border-0">
+            <div class="p-4 rounded-xl bg-orange-500/5 border border-orange-500/20 mb-4">
+              <span class="text-xs font-bold text-[var(--accent)] block mb-1">PRODUCER INSIGHT</span>
+              <p class="text-xs text-[var(--text-secondary)] leading-relaxed">
+                Kling leads in facial fidelity, Grok excels at dynamic kinetic action, and Seedance delivers long 12-second continuous motion. 10zebra lets you deploy each model where it shines.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Comparison Mockup Component -->
+        <div class="reveal">
+          <ModelComparisonMockup />
+        </div>
+      </div>
+    </section>
+
+    <!-- FLAGSHIP 2: CHARACTER SWAP & 10Z AGENT -->
+    <section class="section border-t border-[var(--border-subtle)] bg-[rgba(19,20,23,0.3)]" id="character-swap">
+      <div class="wrap">
+        <div class="split reverse reveal mb-10">
+          <div class="split-text">
+            <span class="sect-label">Character Continuity</span>
+            <h2>Character Swap: <span class="grad-text">Single Take or Project-Wide with 10z Agent</span></h2>
+            <p>
+              When your director decides to change the lead talent, traditional AI workflows require you to re-generate everything from scratch and pray the camera motion matches. 
+              10zebra eliminates that nightmare.
+            </p>
+            <ul class="feat-list">
+              <li><span class="check-icon">&#10003;</span> <span><strong>Instant Take Swap</strong> &mdash; regenerate an existing take with a new character reference while preserving 100% of the original camera motion and lighting.</span></li>
+              <li><span class="check-icon">&#10003;</span> <span><strong>10z Agent Automation</strong> &mdash; instruct the 10z agent to regenerate all selected takes across your entire project with a new character identity.</span></li>
+              <li><span class="check-icon">&#10003;</span> <span><strong>Multi-Reference Blending</strong> &mdash; anchor character face, wardrobe, and environment lighting independently.</span></li>
+            </ul>
+            <div class="flex items-center gap-4 mt-6">
+              <a href="/features/character-swap" class="btn btn-primary">
+                View Character Swap Page &rarr;
+              </a>
+              <a href="/features/multi-reference-edit" class="btn btn-ghost">
+                Multi-Reference Edit &rarr;
+              </a>
+            </div>
+          </div>
+
+          <div class="split-visual p-0 bg-transparent border-0">
+            <div class="p-4 rounded-xl bg-orange-500/5 border border-orange-500/20 mb-4">
+              <span class="text-xs font-bold text-[var(--accent)] block mb-1">THE 10Z AGENT ADVANTAGE</span>
+              <p class="text-xs text-[var(--text-secondary)] leading-relaxed">
+                The built-in 10z Agent indexes your entire project storyboard, locates every take containing the target character, and submits parallel background renders &mdash; updating your whole cut in minutes.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Character Swap Mockup Component -->
+        <div class="reveal">
+          <CharacterSwapMockup />
+        </div>
+      </div>
+    </section>
+
+    <!-- FLAGSHIP 3: QUICK-START STORY ENGINES -->
+    <section class="section border-t border-[var(--border-subtle)]" id="quick-start-section">
+      <div class="wrap">
+        <div class="sect-head reveal">
+          <span class="sect-label">Rapid Storytelling</span>
+          <h2>Pre-Built Quick Start Tools</h2>
+          <p>
+            Don't stare at an empty prompt box. Choose from our 6 pre-built quick start tools to kickstart your production immediately.
+          </p>
+        </div>
+
+        <div class="reveal mb-12">
+          <QuickStartToolsExplorer initialTool="from-script" />
+        </div>
+
+        <div class="text-center reveal">
+          <a href="/features/quick-start-tools" class="btn btn-ghost btn-lg">
+            Read Full Quick Start Tools Documentation &rarr;
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FLAGSHIP 4: PROJECT-LEVEL MANAGEMENT & TEAMS -->
+    <section class="section border-t border-[var(--border-subtle)] bg-[rgba(19,20,23,0.3)]" id="project-management">
+      <div class="wrap">
+        <div class="split reveal mb-10">
+          <div class="split-text">
+            <span class="sect-label">Production Orchestration</span>
+            <h2>Project-Level Budgets: <span class="grad-text">Teams Per Project, Not Account</span></h2>
+            <p>
+              In Runway, your team shares one giant pool of account credits. A junior artist experimenting with slow-motion Veo can accidentally burn through a commercial client's entire monthly budget in an afternoon.
+            </p>
+            <ul class="feat-list">
+              <li><span class="check-icon">&#10003;</span> <span><strong>Hard project budget shields</strong> &mdash; allocate exact credit budgets to Project A and Project B. Zero spillover.</span></li>
+              <li><span class="check-icon">&#10003;</span> <span><strong>Credit draw rules</strong> &mdash; choose whether team members draw from project credits, personal credits, or project-only.</span></li>
+              <li><span class="check-icon">&#10003;</span> <span><strong>Granular audit trail</strong> &mdash; see every generation, who prompted it, which model was used, and exact cost.</span></li>
+            </ul>
+            <div class="flex items-center gap-4 mt-6">
+              <a href="/features/project-management" class="btn btn-primary">
+                Explore Project Budgets &rarr;
+              </a>
+              <a href="/features/collaborative-storyboard" class="btn btn-ghost">
+                Collaborative Storyboard &rarr;
+              </a>
+            </div>
+          </div>
+
+          <div class="split-visual p-0 bg-transparent border-0">
+            <div class="p-4 rounded-xl bg-orange-500/5 border border-orange-500/20 mb-4">
+              <span class="text-xs font-bold text-[var(--accent)] block mb-1">COLLABORATIVE STORYBOARD</span>
+              <p class="text-xs text-[var(--text-secondary)] leading-relaxed">
+                Work with your team all in one storyboard canvas. Story settings and camera preferences are saved globally, while media, takes, and variations are shared in real-time.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project Budget & Team Mockup -->
+        <div class="reveal">
+          <ProjectBudgetMockup />
+        </div>
+      </div>
+    </section>
+
+    <!-- FLAGSHIP 5: PRODUCE & YOUTUBE DIRECT PUBLISHING -->
+    <section class="section border-t border-[var(--border-subtle)]" id="publish-to-youtube">
+      <div class="wrap">
+        <div class="split reverse reveal mb-10">
+          <div class="split-text">
+            <span class="sect-label">Post-Production &amp; Distribution</span>
+            <h2>Publish to YouTube: <span class="grad-text">Without Ever Leaving 10z</span></h2>
+            <p>
+              Why download 4K video clips to your local hard drive, open Premiere to stitch them together, render a master file, and manually upload it to YouTube? 
+              10zebra handles the entire assembly pipeline in the cloud.
+            </p>
+            <ul class="feat-list">
+              <li><span class="check-icon">&#10003;</span> <span><strong>Visual Sequence Arranger</strong> &mdash; drag and drop your chosen takes into chronological scenes.</span></li>
+              <li><span class="check-icon">&#10003;</span> <span><strong>Take-Level Trim</strong> &mdash; scrub and set in/out points for every clip to guarantee tight narrative pacing.</span></li>
+              <li><span class="check-icon">&#10003;</span> <span><strong>Background Audio Mixing</strong> &mdash; add cinematic score, voiceover, or SFX directly into the master cut.</span></li>
+              <li><span class="check-icon">&#10003;</span> <span><strong>1-Click YouTube Direct Push</strong> &mdash; set title, tags, description, and privacy (Public, Unlisted, Private) and publish straight from 10z.</span></li>
+            </ul>
+            <div class="flex items-center gap-4 mt-6">
+              <a href="/features/publish-to-youtube" class="btn btn-primary">
+                View YouTube Publishing Feature &rarr;
+              </a>
+            </div>
+          </div>
+
+          <div class="split-visual p-0 bg-transparent border-0">
+            <div class="p-4 rounded-xl bg-orange-500/5 border border-orange-500/20 mb-4">
+              <span class="text-xs font-bold text-[var(--accent)] block mb-1">CLOUD INGEST EFFICIENCY</span>
+              <p class="text-xs text-[var(--text-secondary)] leading-relaxed">
+                Zero local rendering bottleneck. 10zebra sends your assembled sequence directly from cloud storage to YouTube's ingest API.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- YouTube Export Mockup -->
+        <div class="reveal">
+          <YouTubeExportMockup />
+        </div>
+      </div>
+    </section>
+
+    <!-- COMPETITIVE COMPARISON MATRIX -->
+    <section class="section border-t border-[var(--border-subtle)] bg-[rgba(19,20,23,0.4)]">
+      <div class="wrap">
+        <div class="sect-head reveal">
+          <span class="sect-label">The Studio Advantage</span>
+          <h2>10zebra vs Standalone AI Platforms</h2>
+          <p>See why creative agencies, studios, and production teams choose 10zebra over single-tool subscriptions.</p>
+        </div>
+
+        <div class="glass rounded-2xl overflow-hidden border border-[var(--border-subtle)] reveal">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-sm border-collapse">
+              <thead>
+                <tr class="border-b border-[var(--border-subtle)] bg-[var(--bg-elevated)]">
+                  <th class="p-5 font-semibold text-[var(--text-secondary)] w-1/4">Production Capability</th>
+                  <th class="p-5 font-bold text-[var(--text-muted)] w-3/8">Standalone Tools (Runway, Higgsfield, Luma)</th>
+                  <th class="p-5 font-bold text-[var(--accent)] w-3/8 bg-orange-500/5">10zebra Unified Studio</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-[var(--border-subtle)]">
+                {comparisonData.map((row) => (
+                  <tr class="hover:bg-white/[0.02] transition-colors">
+                    <td class="p-5 font-bold text-[var(--text-primary)]">
+                      {row.feature}
+                    </td>
+                    <td class="p-5 text-[var(--text-muted)]">
+                      <div class="flex items-start gap-2">
+                        <span class="text-rose-400 font-bold shrink-0 mt-0.5">✕</span>
+                        <span>{row.competitor}</span>
+                      </div>
+                    </td>
+                    <td class="p-5 text-[var(--text-primary)] bg-orange-500/5 font-semibold">
+                      <div class="flex items-start gap-2">
+                        <span class="text-[var(--accent)] font-bold shrink-0 mt-0.5">✓</span>
+                        <span>{row.zebra}</span>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <FinalCTA />
+  </main>
+
+  <Footer />
+</Layout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.feature-card');
+
+    filterBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const filter = btn.getAttribute('data-filter');
+
+        filterBtns.forEach((b) => {
+          b.classList.remove('active', 'bg-[var(--accent)]', 'text-[#0c0d10]', 'font-bold', 'shadow-lg', 'shadow-orange-500/20');
+          b.classList.add('bg-[#14161c]', 'text-[var(--text-secondary)]');
+        });
+
+        btn.classList.add('active', 'bg-[var(--accent)]', 'text-[#0c0d10]', 'font-bold', 'shadow-lg', 'shadow-orange-500/20');
+        btn.classList.remove('bg-[#14161c]', 'text-[var(--text-secondary)]');
+
+        cards.forEach((card) => {
+          const cat = card.getAttribute('data-cat');
+          if (filter === 'all' || cat === filter) {
+            (card as HTMLElement).style.display = 'flex';
+          } else {
+            (card as HTMLElement).style.display = 'none';
+          }
+        });
+      });
+    });
+  });
+</script>

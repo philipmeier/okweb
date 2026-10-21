@@ -1,0 +1,142 @@
+---
+import FeatureLandingLayout from "../../layouts/FeatureLandingLayout.astro";
+import ProjectBudgetMockup from "../../components/features/ProjectBudgetMockup.astro";
+
+const stats = [
+  { value: "$0 Bleed", label: "Cross-Project Isolation", detail: "Projects never share credit balances" },
+  { value: "Per Project", label: "Team Membership", detail: "Assign roles & budgets individually" },
+  { value: "100%", label: "Generation Audit Trail", detail: "Know who generated what & at what cost" },
+  { value: "Real-Time", label: "Shared Storyboard Sync", detail: "Takes & media visible to all members" }
+];
+
+const workflowSteps = [
+  {
+    step: "Step 01",
+    title: "Create Project & Set Hard Budget Cap",
+    description: "Launch a new project workspace (e.g. 'Client Beverage Commercial'). Allocate a specific credit budget that cannot be exceeded.",
+    tag: "Budget Shield"
+  },
+  {
+    step: "Step 02",
+    title: "Assign Team Roles & Spending Rules",
+    description: "Invite directors, animators, and clients. Set spending rules: project-only credits, personal-first, or director approval required.",
+    tag: "Access Control"
+  },
+  {
+    step: "Step 03",
+    title: "Collaborate in Shared Storyboard",
+    description: "All team members work within the same live storyboard. Camera settings and references are saved, while generated takes stream to the shared bin.",
+    tag: "Live Collaboration"
+  }
+];
+
+const features = [
+  {
+    title: "Why Account-Level Pooling Fails Creative Teams",
+    description: "In competitors like Runway or Midjourney, team subscriptions pool all credits at the account root. One team member's experimentation drains the budget for everyone.",
+    bullets: [
+      "<strong>Independent project vaults:</strong> Project A ($500) and Project B ($2,000) have distinct credit accounts.",
+      "<strong>Client billing accuracy:</strong> Directly attribute costs to specific client invoices without manually deciphering messy usage logs.",
+      "<strong>Zero surprise overages:</strong> Projects automatically pause or require manager approval when the designated threshold is reached."
+    ],
+    tag: "Cost Governance"
+  },
+  {
+    title: "Collaborative Team Storyboard Canvas",
+    description: "Video production is fundamentally collaborative. 10zebra gives your team a shared creative hub rather than isolated personal silos.",
+    bullets: [
+      "<strong>Global story rules:</strong> Art direction, aspect ratios, color grading, and lens characteristics are locked once by the director.",
+      "<strong>Live media streaming:</strong> As soon as an artist generates a take, it appears in real-time in the project's take bin.",
+      "<strong>Role-based actions:</strong> Decide who can trigger expensive high-resolution generations vs who can leave notes and arrange takes."
+    ],
+    tag: "Team Storyboard"
+  }
+];
+
+const comparisonItems = [
+  {
+    feature: "Credit Budgeting Scope",
+    zebra: "Budgets isolated per project; zero risk of one project draining another",
+    competitor: "Account-level shared pool; one user can exhaust the entire monthly allowance",
+    zebraAdvantage: true
+  },
+  {
+    feature: "Team Member Assignments",
+    zebra: "Add team members with specific roles per project",
+    competitor: "All-or-nothing organization access with full account visibility",
+    zebraAdvantage: true
+  },
+  {
+    feature: "Audit & Cost Attribution",
+    zebra: "Timestamped ledger of who prompted, which model was used, and exact cost",
+    competitor: "Vague monthly usage bar with no per-project breakdown",
+    zebraAdvantage: true
+  },
+  {
+    feature: "Shared Creative Assets",
+    zebra: "Shared reference portraits, storyboard cards, and real-time take pool",
+    competitor: "Every user has their own private library; requires manual sharing",
+    zebraAdvantage: true
+  }
+];
+
+const faqs = [
+  {
+    question: "Can I add freelance contractors to just one project?",
+    answer: "Yes! You can invite freelancers or external agency partners to a specific project with assigned credit allowances. They will have zero visibility into your other client projects or overall account finances."
+  },
+  {
+    question: "What happens when a project reaches its credit budget?",
+    answer: "The project enters a review state where team members can still organize, trim, and review existing takes, but new generations are paused until the project owner increases the credit allocation or enables personal credit draw."
+  },
+  {
+    question: "How does the shared storyboard handle simultaneous edits?",
+    answer: "10zebra uses real-time state synchronization. If your director reorders shots on the timeline while an artist generates alternative takes in Kling, changes reflect immediately for everyone without conflicts."
+  },
+  {
+    question: "Do team members need their own paid subscriptions?",
+    answer: "No. Team members can join for free. As long as the project owner funds the project credit pool, invited collaborators can generate and edit within the project's limits."
+  }
+];
+
+const relatedFeatures = [
+  {
+    title: "Collaborative Team Storyboard",
+    description: "Explore how the shared storyboard canvas keeps creative teams aligned in real time.",
+    href: "/features/collaborative-storyboard",
+    badge: "Collaboration"
+  },
+  {
+    title: "Side-by-Side Model Comparison",
+    description: "Let your team compare takes across Kling, Grok, and Seedance within budget limits.",
+    href: "/features/model-comparison",
+    badge: "Studio"
+  },
+  {
+    title: "Publish to YouTube",
+    description: "Export the approved client cut straight to YouTube without downloading locally.",
+    href: "/features/publish-to-youtube",
+    badge: "Distribution"
+  }
+];
+---
+
+<FeatureLandingLayout
+  title="Project-Level Management & Budgets | 10zebra Team AI Video"
+  description="Control project budgets and configure teams per project, not per account. Keep client billing clean with zero cross-project credit bleed."
+  eyebrow="TEAM & PROJECT GOVERNANCE"
+  headline="Project-Level Management:"
+  headlineHighlight="Control Budgets Per Project, Not Per Account."
+  subheadline="Runway pools credits across your entire company, risking catastrophic overruns. 10zebra isolates budgets and teams per project &mdash; so your indie film, commercial ad, and internal tests never share a single dollar."
+  badgeText="Only 10zebra: Project-Isolated Budgets"
+  stats={stats}
+  workflowSteps={workflowSteps}
+  features={features}
+  comparisonItems={comparisonItems}
+  faqs={faqs}
+  relatedFeatures={relatedFeatures}
+>
+  <div slot="hero-visual">
+    <ProjectBudgetMockup />
+  </div>
+</FeatureLandingLayout>

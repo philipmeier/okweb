@@ -1,8 +1,112 @@
 ---
-import PlaceholderPage from "../../layouts/PlaceholderPage.astro";
+import FeatureLandingLayout from "../../layouts/FeatureLandingLayout.astro";
+import YouTubeExportMockup from "../../components/features/YouTubeExportMockup.astro";
+
+const stats = [
+  { value: "Timeline", label: "Multi-Shot Sequencing", detail: "Drag-and-drop scene assembly" },
+  { value: "Direct", label: "YouTube Publishing", detail: "1-Click cloud OAuth upload" },
+  { value: "Trimming", label: "Take In/Out Control", detail: "Precision frame cut points" },
+  { value: "Audio", label: "Integrated Score & Voice", detail: "Cloud soundtrack mixing" }
+];
+
+const workflowSteps = [
+  {
+    step: "Step 01",
+    title: "Arrange Chosen Takes",
+    description: "Drag takes into chronological order to construct your narrative sequence.",
+    tag: "Timeline"
+  },
+  {
+    step: "Step 02",
+    title: "Trim & Mix Audio",
+    description: "Trim clips to remove extraneous frames and add high-definition soundtrack audio.",
+    tag: "Polish"
+  },
+  {
+    step: "Step 03",
+    title: "Export or Publish",
+    description: "Publish directly to YouTube in 1 click or download the master 4K MP4 file.",
+    tag: "Delivery"
+  }
+];
+
+const features = [
+  {
+    title: "Sequential Storyboard Assembly",
+    description: "Turn your scattered AI takes into a cohesive film cut without jumping to another software.",
+    bullets: [
+      "<strong>Drag & drop reordering:</strong> Organize shots into scenes and test different narrative beats.",
+      "<strong>Take-level trimming:</strong> Tighten shot pacing by setting precise in and out cut markers.",
+      "<strong>Full preview playback:</strong> Watch the entire sequence play smoothly from start to finish."
+    ],
+    tag: "Timeline"
+  },
+  {
+    title: "Direct YouTube & Cloud Distribution",
+    description: "Skip the tedious process of downloading gigabytes of video to your hard drive just to re-upload to YouTube.",
+    bullets: [
+      "<strong>1-Click YouTube integration:</strong> Connect your channel and publish public, unlisted, or private videos instantly.",
+      "<strong>Integrated audio mastering:</strong> Add background music tracks that automatically sync with your cut.",
+      "<strong>Team & client preview links:</strong> Send private review URLs with timestamped feedback."
+    ],
+    tag: "Distribution"
+  }
+];
+
+const comparisonItems = [
+  {
+    feature: "Timeline Assembly",
+    zebra: "Built-in sequential timeline with take trimming and audio integration",
+    competitor: "Raw video gallery; requires exporting to Premiere or Final Cut",
+    zebraAdvantage: true
+  },
+  {
+    feature: "YouTube Publishing",
+    zebra: "1-Click direct OAuth push from cloud to YouTube channel",
+    competitor: "Download locally, open YouTube Studio, upload manually",
+    zebraAdvantage: true
+  }
+];
+
+const faqs = [
+  {
+    question: "Can I download the raw clips as well as the stitched master?",
+    answer: "Yes. You have full ownership of all assets. You can download individual high-res takes or the complete stitched timeline sequence anytime."
+  }
+];
+
+const relatedFeatures = [
+  {
+    title: "Publish to YouTube",
+    description: "Learn more about the direct YouTube publishing pipeline.",
+    href: "/features/publish-to-youtube",
+    badge: "Distribution"
+  },
+  {
+    title: "Side-by-Side Model Comparison",
+    description: "Compare takes across Kling, Grok, and Seedance.",
+    href: "/features/model-comparison",
+    badge: "Models"
+  }
+];
 ---
-<PlaceholderPage
-  title="Produce & Export"
-  label="Feature"
-  description="Arrange your best takes, trim each clip, add background audio, and export your finished sequence — YouTube-ready in minutes."
-/>
+
+<FeatureLandingLayout
+  title="Produce & Export | 10zebra AI Video Timeline & YouTube"
+  description="Arrange takes into a sequence, trim clips, add background audio, and publish directly to YouTube without leaving 10zebra."
+  eyebrow="PRODUCTION & EXPORT"
+  headline="Produce &amp; Export:"
+  headlineHighlight="From Storyboard to YouTube in Minutes."
+  subheadline="Assemble your best takes into a sequential storyboard, add background audio, trim each clip, and export your final cut &mdash; ready for YouTube, social, or client delivery."
+  badgeText="End-to-End Post Production"
+  stats={stats}
+  workflowSteps={workflowSteps}
+  features={features}
+  comparisonItems={comparisonItems}
+  faqs={faqs}
+  relatedFeatures={relatedFeatures}
+>
+  <div slot="hero-visual">
+    <YouTubeExportMockup />
+  </div>
+</FeatureLandingLayout>

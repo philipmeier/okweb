@@ -1,8 +1,190 @@
 ---
-import PlaceholderPage from "../../layouts/PlaceholderPage.astro";
+import FeatureLandingLayout from "../../layouts/FeatureLandingLayout.astro";
+
+const stats = [
+  { value: "30 Shots", label: "Max Sequence Density", detail: "Generate 3, 5, 10, 20, or 30 shots" },
+  { value: "1 Prompt", label: "Master Input", detail: "Natural language script or scene outline" },
+  { value: "100%", label: "Style Continuity", detail: "Preserves palette, lighting, & camera rules" },
+  { value: "Parallel", label: "Multi-Model Queue", detail: "All shots generate concurrently" }
+];
+
+const workflowSteps = [
+  {
+    step: "Step 01",
+    title: "Paste Your Scene Description",
+    description: "Describe your scene concept, full script segment, or action beat in plain, natural English.",
+    tag: "Script Ingest"
+  },
+  {
+    step: "Step 02",
+    title: "10zebra Deconstructs Narrative Beats",
+    description: "The sequence engine analyzes dramatic arcs and breaks your text into sequential camera shots (Hook, Wide, Medium, Closeup, Resolution).",
+    tag: "Beat Breakdown"
+  },
+  {
+    step: "Step 03",
+    title: "Parallel Storyboard Assembly",
+    description: "All shots are queued across your chosen models simultaneously. Review, trim, and reorder them on your live storyboard timeline.",
+    tag: "Full Storyboard"
+  }
+];
+
+const features = [
+  {
+    title: "Narrative Beat Deconstruction",
+    description: "Single-shot AI generation leaves you with random, disconnected clips that don't cut together. Text-to-Sequence thinks like a film director.",
+    bullets: [
+      "<strong>Automatic shot variation:</strong> Alternates establishing wide shots, mid-action coverage, and intimate reaction closeups.",
+      "<strong>Visual taste locking:</strong> Holds color grade, time of day, weather condition, and camera lens characteristics constant across every shot.",
+      "<strong>Narrative progression:</strong> Each shot logically follows the previous beat, creating a true cinematic narrative arc."
+    ],
+    tag: "Directorial AI"
+  },
+  {
+    title: "Configurable Shot Density (3 to 30 Shots)",
+    description: "Whether you need a quick 3-act TikTok microdrama or a full 30-shot commercial storyboard, Text-to-Sequence scales seamlessly.",
+    bullets: [
+      "<strong>3-Shot micro sequence:</strong> Perfect for rapid concept pitches, social hooks, or 3-act 60-second shorts.",
+      "<strong>10-Shot standard storyboard:</strong> The industry sweet spot for TV commercials, brand spots, and music video treatments.",
+      "<strong>30-Shot extended reel:</strong> Complete episodic sequences and narrative film scenes generated from a single screenplay prompt."
+    ],
+    tag: "Scalability"
+  }
+];
+
+const comparisonItems = [
+  {
+    feature: "Prompting Multi-Shot Storyboards",
+    zebra: "Type one master script prompt; auto-generates up to 30 cohesive sequential shots",
+    competitor: "Must prompt 30 individual times manually, guessing camera angles each time",
+    zebraAdvantage: true
+  },
+  {
+    feature: "Visual Continuity Across Shots",
+    zebra: "Global scene parameters (lighting, palette, weather) locked across the entire sequence",
+    competitor: "Every prompt produces wild shifts in art direction, wardrobe, and tone",
+    zebraAdvantage: true
+  },
+  {
+    feature: "Shot Pacing & Cinematic Language",
+    zebra: "Directorial prompts incorporate standard Hollywood coverage (Establishing, Mid, OTS, Closeup)",
+    competitor: "Generic text prompts output monotonous repetitive camera angles",
+    zebraAdvantage: true
+  },
+  {
+    feature: "Timeline Assembly",
+    zebra: "Generated sequence automatically drops into an editable sequential storyboard timeline",
+    competitor: "Generations are dumped into an unorganized media grid",
+    zebraAdvantage: true
+  }
+];
+
+const faqs = [
+  {
+    question: "Can I edit individual shots within a generated sequence?",
+    answer: "Yes! Every shot in the sequence is an independent take card in your storyboard. You can edit an individual shot's prompt, change its AI model (e.g. use Kling for an actor closeup and Grok for a car chase), or regenerate alternate takes anytime."
+  },
+  {
+    question: "How does 10zebra ensure characters look the same across shots?",
+    answer: "Text-to-Sequence anchors all generated shots to your project's global character reference images. When 10zebra generates shot prompts, it carries forward character descriptors and reference image embeddings automatically."
+  },
+  {
+    question: "Can I import a screenplay formatted with scene headings?",
+    answer: "Yes! Paste standard screenplay text (e.g., EXT. CITY STREET - NIGHT) or freeform prose. The engine extracts scene parameters, character actions, and dialogue to structure the visual storyboard."
+  },
+  {
+    question: "What models can I use for Text-to-Sequence?",
+    answer: "You can use any of 10zebra's supported video engines, including Kling 3.0, Seedance 2.0, Grok, and OpenAI Sora. You can even generate the sequence across multiple models concurrently."
+  }
+];
+
+const relatedFeatures = [
+  {
+    title: "Quick Start Tools: From a Script",
+    description: "Explore the dedicated script tool with 3, 5, 10, 20, and 30-shot multipliers.",
+    href: "/features/quick-start-tools",
+    badge: "Tool"
+  },
+  {
+    title: "Character Swap & 10z Agent",
+    description: "Swap characters across your newly generated sequence with a single click.",
+    href: "/features/character-swap",
+    badge: "Continuity"
+  },
+  {
+    title: "Publish to YouTube",
+    description: "Take your finished sequence, trim clips, add audio, and publish directly.",
+    href: "/features/publish-to-youtube",
+    badge: "Export"
+  }
+];
 ---
-<PlaceholderPage
-  title="Text-to-Sequence"
-  label="Feature"
-  description="Describe your scene once. 10zebra auto-splits it into a full multi-shot storyboard and generates each shot independently."
-/>
+
+<FeatureLandingLayout
+  title="Text-to-Sequence Generation | 10zebra Multi-Shot AI Video"
+  description="Generate multiple cohesive shots with a single prompt. Auto-deconstruct scripts into sequential camera angles with matching art direction and lighting."
+  eyebrow="STORYBOARD AUTOMATION"
+  headline="Text-to-Sequence:"
+  headlineHighlight="One Prompt. Multiple Cohesive Shots."
+  subheadline="Stop prompting one disconnected clip at a time. Describe your scene once, and 10zebra automatically breaks it into structured, sequential cinematic shots &mdash; locking camera direction, lighting, and characters from hook to payoff."
+  badgeText="Single-Prompt Narrative Engine"
+  stats={stats}
+  workflowSteps={workflowSteps}
+  features={features}
+  comparisonItems={comparisonItems}
+  faqs={faqs}
+  relatedFeatures={relatedFeatures}
+>
+  <div slot="hero-visual">
+    <!-- Interactive Multi-Shot Sequence Visual -->
+    <div class="rounded-xl bg-[#0e1014] border border-[var(--border-subtle)] p-4 text-left">
+      <div class="flex items-center justify-between pb-3 border-b border-[var(--border-subtle)] mb-4 text-xs">
+        <div class="flex items-center gap-2">
+          <span class="px-2 py-0.5 rounded bg-[var(--accent-subtle)] text-[var(--accent)] font-mono font-bold uppercase text-[10px]">
+            Input Prompt
+          </span>
+          <span class="text-[var(--text-secondary)] font-mono text-[11px] truncate max-w-xs">
+            "A motorcycle courier racing through rainy neon streets to deliver a confidential briefcase"
+          </span>
+        </div>
+        <span class="text-emerald-400 font-mono text-[11px] font-bold">1 Prompt &rarr; 4 Shots</span>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-3">
+        <div class="rounded-lg overflow-hidden border border-[var(--border-subtle)] bg-[#14161c]">
+          <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?w=280&h=175&fit=crop&q=80" alt="Shot 1" class="w-full aspect-video object-cover"/>
+          <div class="p-2 text-[10px]">
+            <span class="font-bold text-[var(--accent)] block">Shot 01: The Hook</span>
+            <span class="text-[var(--text-muted)]">Extreme closeup on helmet visor reflecting neon rain.</span>
+          </div>
+        </div>
+        <div class="rounded-lg overflow-hidden border border-[var(--border-subtle)] bg-[#14161c]">
+          <img src="https://images.unsplash.com/photo-1536240478700-b869070f9279?w=280&h=175&fit=crop&q=80" alt="Shot 2" class="w-full aspect-video object-cover"/>
+          <div class="p-2 text-[10px]">
+            <span class="font-bold text-[var(--accent)] block">Shot 02: Wide Action</span>
+            <span class="text-[var(--text-muted)]">Low tracking camera following high-speed bike through traffic.</span>
+          </div>
+        </div>
+        <div class="rounded-lg overflow-hidden border border-[var(--border-subtle)] bg-[#14161c]">
+          <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=280&h=175&fit=crop&q=80" alt="Shot 3" class="w-full aspect-video object-cover"/>
+          <div class="p-2 text-[10px]">
+            <span class="font-bold text-[var(--accent)] block">Shot 03: Conflict</span>
+            <span class="text-[var(--text-muted)]">Sudden skid at police roadblock, sparks flying off asphalt.</span>
+          </div>
+        </div>
+        <div class="rounded-lg overflow-hidden border border-[var(--border-subtle)] bg-[#14161c]">
+          <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=280&h=175&fit=crop&q=80" alt="Shot 4" class="w-full aspect-video object-cover"/>
+          <div class="p-2 text-[10px]">
+            <span class="font-bold text-[var(--accent)] block">Shot 04: Resolution</span>
+            <span class="text-[var(--text-muted)]">Courier slips into dark alley, briefcase securely handcuffed.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-2.5 rounded-lg bg-orange-950/20 border border-orange-500/20 text-[11px] text-[var(--text-secondary)] flex items-center justify-between">
+        <span>Continuous lighting, rain physics, and art direction locked automatically.</span>
+        <span class="text-[var(--accent)] font-semibold font-mono">Sequence Ready ✓</span>
+      </div>
+    </div>
+  </div>
+</FeatureLandingLayout>

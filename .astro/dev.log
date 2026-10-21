@@ -1,11 +1,28 @@
-13:54:47 [vite] connected.
-13:54:47 [types] Generated 9ms
-13:54:47 [vite] connected.
- astro  v7.3.5 ready in 3528 ms
+02:46:43 [vite] connected.
+02:46:43 [types] Generated 8ms
+02:46:43 [vite] connected.
+ astro  v7.3.5 ready in 3711 ms
 ┃ Local    http://localhost:4321/
 ┃ Network  use --host to expose
-13:54:47 watching for file changes...
-13:54:52 [200] / 249ms
-13:55:14 [200] / 7ms
-14:08:09 [200] / 8ms
-14:23:12 [200] / 6ms
+02:46:43 watching for file changes...
+02:46:47 [200] / 114ms
+02:46:47 [200] / 114ms
+02:48:20 [200] /features 24ms
+02:48:26 [200] /models 9ms
+02:48:27 [200] /features 2ms
+02:48:29 [200] / 4ms
+03:21:39 [watch] /src/styles/global.css
+03:21:39 [watch] /src/styles/global.css
+03:21:52 [200] /features 25ms
+03:22:03 [404] /features/model-comparison 7ms
+03:22:07 [200] /features/character-swap 32ms
+03:22:11 [200] /features 2ms
+03:22:16 [200] / 5ms
+03:22:21 [200] /features 2ms
+03:22:28 [200] /features/text-to-sequence 19ms
+03:22:36 [200] /features/multi-reference-edit 17ms
+03:22:42 [404] /ai-models/kling 1ms
+03:22:48 [200] /models/kling 16ms
+03:24:39 [200] /features 3ms
+03:24:43 [200] /features 2ms
+03:26:27 [200] /features 3ms

@@ -1,0 +1,253 @@
+---
+interface Props {
+  initialTool?: string;
+}
+
+const { initialTool = "from-script" } = Astro.props;
+
+const tools = [
+  {
+    id: "from-script",
+    name: "From a Script",
+    tag: "Multi-Shot Engine",
+    icon: "M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z",
+    headline: "Turn Any Screenplay or Outline into 3 to 30 Cohesive Shots",
+    summary: "Paste a script, treatment, or dialogue snippet. Choose your target shot count (3, 5, 10, 20, or 30 shots). 10zebra parses the narrative beats, generates cohesive prompts, and queues parallel takes.",
+    route: "/t/from-script",
+    shotCountOptions: ["3 Shots", "5 Shots", "10 Shots (Default)", "20 Shots", "30 Shots"],
+    samplePrompt: "INT. COFFEE SHOP - MORNING. A tired detective reviews surveillance stills while rain pounds the glass. The barista sets down a cup with a handwritten warning: 'They know you are here.'",
+    systemPromptRule: "Create a compelling visual narrative for this script. Create an opening image that includes motion and invites a question, then sequence subsequent beats chronologically.",
+    previewImage: "https://images.unsplash.com/photo-1485846234645-a62644f84728?w=700&h=420&fit=crop&q=80",
+    keyDetail: "Customizable shot density: 3, 5, 10, 20, up to 30 continuous shots."
+  },
+  {
+    id: "three-acts",
+    name: "Three Acts",
+    tag: "60-Second Short",
+    icon: "M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z",
+    headline: "Classic 3-Act Dramatic Arc in 3 Synchronized Scenes",
+    summary: "Break your story idea into Act I (Setup / Hook), Act II (Confrontation / Crisis), and Act III (Climax / Payoff). 10zebra locks visual taste, lighting, weather, and camera language across all 3 acts.",
+    route: "/t/three-acts",
+    shotCountOptions: ["3 Narrative Acts (Fixed)"],
+    samplePrompt: "A street violinist discovers their instrument case contains a mysterious encrypted hard drive. In scene two, dark sedans corner them in an underground tunnel. In scene three, they escape into a crowded subway station.",
+    systemPromptRule: "Hold constant: Visual taste, Lighting, Camera, Narrative tone, Time, Weather. Include: 'Edit: fast paced cuts that advance the narrative'.",
+    previewImage: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=700&h=420&fit=crop&q=80",
+    keyDetail: "Guaranteed 3-act narrative continuity with constant lighting and camera rules."
+  },
+  {
+    id: "make-an-ad",
+    name: "Make An Ad",
+    tag: "Commercial / Brand",
+    icon: "M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z",
+    headline: "Commercial-Grade Product & Brand Storyboards",
+    summary: "Built for advertising agencies and marketing teams. Emphasizes expert cinematography, crisp brand presence, high-energy editing cuts, and consistent product scale across every frame.",
+    route: "/t/ad",
+    shotCountOptions: ["3 Scenes (Ad Standard)"],
+    samplePrompt: "An advertisement for [HydraSpark Athletic Drink] where an ultramarathon runner pushes through desert heat at sunrise, splashing chilled electrolyte water in macro slow-motion.",
+    systemPromptRule: "Using compact language of expertise in cinematography, modern commercial art direction, and VFX, complete scene description holding brand aesthetic constant.",
+    previewImage: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=700&h=420&fit=crop&q=80",
+    keyDetail: "Optimized for brand aesthetics, product macro closeups, and rapid commercial cuts."
+  },
+  {
+    id: "locations",
+    name: "Explore Locations",
+    tag: "Environment Reference",
+    icon: "M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7",
+    headline: "Build a Cinematic Location Bible Without Character Distraction",
+    summary: "Generate comprehensive environment reference packs: wide establishing shots, medium architectural framing, and novel angles (aerial, low floor perspective, dutch tilt) with zero human character bleed.",
+    route: "/t/locations",
+    shotCountOptions: ["3, 5, or 10 Location Angles"],
+    samplePrompt: "A brutalist concrete library nestled in a damp Pacific Northwest redwood forest, massive floor-to-ceiling glass, moss-covered cantilevered balconies, foggy diffused morning light.",
+    systemPromptRule: "Remove all descriptions of people and characters. Focus purely on environments, objects, lighting, architecture, and the natural world.",
+    previewImage: "https://images.unsplash.com/photo-1519608487953-e999c86e7455?w=700&h=420&fit=crop&q=80",
+    keyDetail: "Environment-only prompt sanitizer prevents unwanted character generation."
+  },
+  {
+    id: "expressions",
+    name: "Explore Expressions",
+    tag: "Character Acting",
+    icon: "M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z",
+    headline: "Lock Identity While Unlocking Deep Emotional Spectrum",
+    summary: "Upload a character portrait reference. Explore subtle micro-expressions, conflicted reactions, and emotional nuances where posture masks or contradicts overt facial expressions.",
+    route: "/t/expressions",
+    shotCountOptions: ["3, 5, or 10 Expressions"],
+    samplePrompt: "Detective Elena Vance receives news that her partner survived the bombing. Masking relief behind stoic professional composure, but her hand trembles slightly as she lowers the phone.",
+    systemPromptRule: "Lock 20-word character identity description. Add micro-details about posture, gaze, subtle muscle tensions, and emotional contradictions.",
+    previewImage: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=700&h=420&fit=crop&q=80",
+    keyDetail: "Anchored to reference photo with emotion-specific prompt engineering."
+  },
+  {
+    id: "grok",
+    name: "Grok",
+    tag: "9:16 Social Microdrama",
+    icon: "M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z",
+    headline: "Social-Optimized Vertical Video (9:16) for TikTok, Reels & Shorts",
+    summary: "Crafted specifically for viral social video. Native vertical composition, rapid narrative hooks, tight character closeups, dynamic mobile camera movement, and punchy on-screen dialogue.",
+    route: "/t/grok",
+    shotCountOptions: ["3 Scenes (Vertical Optimized)"],
+    samplePrompt: "Vertical microdrama: High school prodigy discovers an ancient cipher carved underneath the principal's desk. Dynamic handheld push-in, whispers dialogue 'It is not a school... it is a lock.'",
+    systemPromptRule: "Framing appropriate to vertical video (9:16). Include dynamic camera motion plausible from mobile video. Character closeups with snappy dialogue.",
+    previewImage: "https://images.unsplash.com/photo-1616530940355-351fabd9524b?w=700&h=420&fit=crop&q=80",
+    keyDetail: "Built from the ground up for 9:16 vertical social feeds and episodic microdramas."
+  }
+];
+---
+
+<div class="quick-start-tools-explorer w-full" id="quick-start-tools-explorer">
+  <!-- Tools Navigation Pill Tabs -->
+  <div class="flex items-center gap-2 overflow-x-auto pb-4 mb-6 border-b border-[var(--border-subtle)] scrollbar-thin">
+    {tools.map((t, idx) => (
+      <button 
+        class={`tool-tab-btn px-4 py-2.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all flex items-center gap-2 ${t.id === initialTool ? 'active bg-[var(--accent)] text-[#0c0d10] font-bold shadow-lg shadow-orange-500/20' : 'bg-[#14161c] text-[var(--text-secondary)] border border-[var(--border-subtle)] hover:text-[var(--text-primary)] hover:border-[var(--border-strong)]'}`}
+        data-tool-id={t.id}
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={t.icon} />
+        </svg>
+        <span>{t.name}</span>
+        <span class={`text-[9px] uppercase px-1.5 py-0.2 rounded font-mono ${t.id === initialTool ? 'bg-black/30 text-[#0c0d10]' : 'bg-white/5 text-[var(--text-muted)]'}`}>
+          {t.tag}
+        </span>
+      </button>
+    ))}
+  </div>
+
+  <!-- Tool Content Panels -->
+  {tools.map((tool) => (
+    <div 
+      class={`tool-content-panel ${tool.id === initialTool ? 'block' : 'hidden'} glass rounded-2xl p-6 sm:p-8 border border-[var(--border-subtle)] transition-all`}
+      id={`panel-${tool.id}`}
+    >
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <!-- Left: Tool Details & Prompt Spec -->
+        <div class="lg:col-span-7">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-xs font-mono uppercase tracking-wider text-[var(--accent)] font-bold">10z Quick-Start Engine</span>
+            <span class="text-xs text-[var(--text-muted)]">&middot; Route: <code class="text-[11px] font-mono text-amber-300">{tool.route}</code></span>
+          </div>
+
+          <h3 class="text-2xl sm:text-3xl font-black mb-3 text-[var(--text-primary)]" style="font-family: var(--font-display);">
+            {tool.headline}
+          </h3>
+
+          <p class="text-sm text-[var(--text-secondary)] leading-relaxed mb-6">
+            {tool.summary}
+          </p>
+
+          <!-- Shot Count Options Pill Bar (Directly from 10z ComposableStart codebase) -->
+          <div class="mb-5 p-3 rounded-xl bg-[#121418] border border-[var(--border-subtle)]">
+            <div class="text-[11px] font-mono uppercase text-[var(--text-muted)] mb-2 flex items-center justify-between">
+              <span>Shot Count Multiplier Options:</span>
+              <span class="text-emerald-400 font-bold">Single-Prompt Fanout</span>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              {tool.shotCountOptions.map((opt, i) => (
+                <span class={`px-2.5 py-1 rounded text-xs font-mono font-medium ${i === 2 || (tool.shotCountOptions.length === 1 && i === 0) ? 'bg-[var(--accent)] text-[#0c0d10] font-bold' : 'bg-[#1a1c22] text-[var(--text-secondary)] border border-white/5'}`}>
+                  {opt}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <!-- Sample Prompt Box -->
+          <div class="space-y-3 mb-6">
+            <div class="p-3.5 rounded-lg bg-[#0e1014] border border-[var(--border-subtle)] text-xs">
+              <span class="text-[10px] font-mono uppercase text-[var(--accent)] block mb-1">User Starter Input:</span>
+              <p class="text-[var(--text-primary)] font-mono leading-relaxed italic">
+                "{tool.samplePrompt}"
+              </p>
+            </div>
+
+            <div class="p-3 rounded-lg bg-orange-950/20 border border-orange-500/20 text-xs">
+              <span class="text-[10px] font-mono uppercase text-orange-400 block mb-0.5">10z Narrative Director Rule:</span>
+              <p class="text-[11px] text-[var(--text-secondary)] leading-relaxed">
+                {tool.systemPromptRule}
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-4">
+            <a href="/signup" class="btn btn-primary" id={`try-tool-${tool.id}`}>
+              Launch {tool.name} Free &rarr;
+            </a>
+            <span class="text-xs text-[var(--text-muted)]">
+              {tool.keyDetail}
+            </span>
+          </div>
+        </div>
+
+        <!-- Right: Visual Simulation Card -->
+        <div class="lg:col-span-5">
+          <div class="relative rounded-xl overflow-hidden border border-[var(--border-subtle)] bg-[#0e1014] shadow-2xl group">
+            <div class="relative aspect-[4/3] overflow-hidden bg-black">
+              <img 
+                src={tool.previewImage} 
+                alt={tool.name + " preview output"} 
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+              
+              <div class="absolute top-3 left-3 px-2 py-0.5 rounded text-[10px] font-bold bg-black/80 backdrop-blur-md text-white border border-white/10">
+                TOOL: {tool.name.toUpperCase()}
+              </div>
+
+              <div class="absolute bottom-3 left-3 right-3 text-left">
+                <span class="text-[10px] font-mono uppercase tracking-wider text-[var(--accent)] font-bold block mb-1">
+                  Generated Storyboard Result
+                </span>
+                <p class="text-xs text-white/90 line-clamp-2">
+                  {tool.samplePrompt}
+                </p>
+              </div>
+            </div>
+
+            <div class="p-3 bg-[#14161c] border-t border-[var(--border-subtle)] flex items-center justify-between text-[11px] text-[var(--text-secondary)]">
+              <span>Ready in Storyboard Canvas</span>
+              <span class="text-emerald-400 font-semibold">1-Click Regenerate</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  ))}
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const tabs = document.querySelectorAll('.tool-tab-btn');
+    const panels = document.querySelectorAll('.tool-content-panel');
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const targetId = tab.getAttribute('data-tool-id');
+
+        tabs.forEach((t) => {
+          t.classList.remove('active', 'bg-[var(--accent)]', 'text-[#0c0d10]', 'font-bold', 'shadow-lg', 'shadow-orange-500/20');
+          t.classList.add('bg-[#14161c]', 'text-[var(--text-secondary)]', 'border', 'border-[var(--border-subtle)]');
+          const pill = t.querySelector('span:last-child');
+          if (pill) {
+            pill.className = 'text-[9px] uppercase px-1.5 py-0.2 rounded font-mono bg-white/5 text-[var(--text-muted)]';
+          }
+        });
+
+        tab.classList.add('active', 'bg-[var(--accent)]', 'text-[#0c0d10]', 'font-bold', 'shadow-lg', 'shadow-orange-500/20');
+        tab.classList.remove('bg-[#14161c]', 'text-[var(--text-secondary)]');
+        const activePill = tab.querySelector('span:last-child');
+        if (activePill) {
+          activePill.className = 'text-[9px] uppercase px-1.5 py-0.2 rounded font-mono bg-black/30 text-[#0c0d10]';
+        }
+
+        panels.forEach((p) => {
+          p.classList.add('hidden');
+          p.classList.remove('block');
+        });
+
+        const activePanel = document.getElementById(`panel-${targetId}`);
+        if (activePanel) {
+          activePanel.classList.remove('hidden');
+          activePanel.classList.add('block');
+        }
+      });
+    });
+  });
+</script>

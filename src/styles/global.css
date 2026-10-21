@@ -23,14 +23,14 @@
     /* Borders */
     --border-subtle: rgba(46, 50, 59, 0.6);
     --border-strong: #4b5260;
-    --border-glow:   rgba(56, 189, 248, 0.15);
+    --border-glow:   rgba(249, 115, 22, 0.18);
 
-    /* Accent — cool teal/cyan */
-    --accent:           #38bdf8;
-    --accent-dim:       #0ea5e9;
-    --accent-glow:      rgba(56, 189, 248, 0.25);
-    --accent-subtle:    rgba(56, 189, 248, 0.08);
-    --accent-secondary: #818cf8;
+    /* Accent — burnt orange */
+    --accent:           #f97316;
+    --accent-dim:       #ea580c;
+    --accent-glow:      rgba(249, 115, 22, 0.25);
+    --accent-subtle:    rgba(249, 115, 22, 0.08);
+    --accent-secondary: #fbbf24;
 
     /* Text */
     --text-primary:   #f5f6f8;
@@ -162,9 +162,9 @@
   font-weight: 700;
 }
 .btn-primary:hover {
-  background: #7dd3fc;
+  background: #fb923c;
   transform: translateY(-1px);
-  box-shadow: 0 8px 25px rgba(56,189,248,0.25);
+  box-shadow: 0 8px 25px rgba(249, 115, 22, 0.28);
 }
 
 /* Section label (eyebrow) */
@@ -213,7 +213,7 @@
   width: 18px; height: 18px;
   border-radius: 50%;
   background: var(--accent-subtle);
-  border: 1px solid rgba(56,189,248,0.25);
+  border: 1px solid rgba(249, 115, 22, 0.25);
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0; margin-top: 2px;
   color: var(--accent); font-size: 10px; font-weight: 700;
@@ -222,7 +222,7 @@
 /* Diff callout box */
 .diff-callout {
   background: var(--accent-subtle);
-  border: 1px solid rgba(56,189,248,0.15);
+  border: 1px solid rgba(249, 115, 22, 0.15);
   border-radius: 10px;
   padding: 1rem 1.25rem;
   font-size: 0.85rem;
@@ -288,7 +288,7 @@
   gap: 0.5rem;
   padding: 0.3rem 0.9rem;
   background: var(--accent-subtle);
-  border: 1px solid rgba(56,189,248,0.2);
+  border: 1px solid rgba(249, 115, 22, 0.25);
   color: var(--accent);
   border-radius: 50px;
   font-size: 0.78rem;

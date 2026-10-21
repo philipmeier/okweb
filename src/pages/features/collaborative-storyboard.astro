@@ -1,0 +1,132 @@
+---
+import FeatureLandingLayout from "../../layouts/FeatureLandingLayout.astro";
+import ProjectBudgetMockup from "../../components/features/ProjectBudgetMockup.astro";
+
+const stats = [
+  { value: "1 Canvas", label: "Shared Team Storyboard", detail: "Real-time state synchronization" },
+  { value: "Saved", label: "Global Story Directives", detail: "Lenses, lighting, and palette persist" },
+  { value: "100%", label: "Live Media Sharing", detail: "Takes immediately appear in team bin" },
+  { value: "Role-Based", label: "Permission Hierarchy", detail: "Owner, Director, Artist, Viewer" }
+];
+
+const workflowSteps = [
+  {
+    step: "Step 01",
+    title: "Director Sets Global Art Rules",
+    description: "Define the visual bible: aspect ratio, camera package, lighting tone, color grading, and locked reference portraits.",
+    tag: "Visual Rules"
+  },
+  {
+    step: "Step 02",
+    title: "Team Generates into Shared Bin",
+    description: "Artists prompt individual shots or entire sequences. All generated takes stream live into the project's centralized bin.",
+    tag: "Live Takes"
+  },
+  {
+    step: "Step 03",
+    title: "Review, Select & Timeline Cut",
+    description: "Directors star preferred takes, leave feedback, and arrange winning shots on the master timeline ready for export.",
+    tag: "Master Assembly"
+  }
+];
+
+const features = [
+  {
+    title: "Saved Story Settings & Preferences",
+    description: "When multiple artists work on different shots in traditional AI tools, visual coherence falls apart. In 10zebra, directorial preferences are locked globally.",
+    bullets: [
+      "<strong>Camera & lens standards:</strong> Lock 35mm anamorphic, depth of field, and aspect ratio across all generations.",
+      "<strong>Shared reference library:</strong> Character portraits, environment bibles, and costume guides are instantly accessible to all members.",
+      "<strong>Saved prompt templates:</strong> Create standardized prompt starters that teammates can use for cohesive shot generation."
+    ],
+    tag: "Directorial Control"
+  },
+  {
+    title: "Shared Takes & Real-Time Synchronization",
+    description: "No more downloading video files to upload to Frame.io or Google Drive. Everything happens inside your live 10zebra canvas.",
+    bullets: [
+      "<strong>Instant take streaming:</strong> Generations appear for all team members the moment the AI video model finishes rendering.",
+      "<strong>Director approval workflows:</strong> Star takes to designate them as the active cut, keeping alternative takes preserved as backups.",
+      "<strong>Audit trail transparency:</strong> Full visibility into who prompted each shot, which AI model was used, and exact token costs."
+    ],
+    tag: "Real-Time Sync"
+  }
+];
+
+const comparisonItems = [
+  {
+    feature: "Team Collaboration Environment",
+    zebra: "All teammates work inside one synchronized visual storyboard canvas",
+    competitor: "Individual isolated user accounts with fragmented Slack sharing",
+    zebraAdvantage: true
+  },
+  {
+    feature: "Directorial Consistency Rules",
+    zebra: "Story settings, camera directives, and references are saved globally for the project",
+    competitor: "Every user prompts in isolation with divergent styles and inconsistent faces",
+    zebraAdvantage: true
+  },
+  {
+    feature: "Media Storage & Organization",
+    zebra: "All takes automatically organized by shot number and chronological scene",
+    competitor: "Flat media gallery with unorganized, unlinked video files",
+    zebraAdvantage: true
+  }
+];
+
+const faqs = [
+  {
+    question: "Can multiple team members generate takes simultaneously?",
+    answer: "Yes! 10zebra is built on high-concurrency cloud queues. Multiple artists can prompt different shots or different AI models (e.g. Kling, Seedance, Grok) at the same time without blocking each other."
+  },
+  {
+    question: "Do story preferences override individual prompt creativity?",
+    answer: "Story preferences provide a unified baseline (e.g. camera lens, lighting palette) so the final cut looks cohesive. Teammates can still customize specific shot actions, angles, and emotional cues."
+  },
+  {
+    question: "How do client approvals work in the collaborative storyboard?",
+    answer: "You can generate a password-protected Storyboard Client Link. Clients can review the sequence, watch takes side-by-side, and leave approval checkmarks without needing a 10zebra account."
+  }
+];
+
+const relatedFeatures = [
+  {
+    title: "Project-Level Budgets",
+    description: "Learn how independent project credit vaults protect your budget while collaborating.",
+    href: "/features/project-management",
+    badge: "Budgets"
+  },
+  {
+    title: "Publish to YouTube",
+    description: "Export the team's approved cut directly to YouTube in 1 click.",
+    href: "/features/publish-to-youtube",
+    badge: "Export"
+  },
+  {
+    title: "Side-by-Side Model Comparison",
+    description: "Compare takes across multiple models with your team in live preview.",
+    href: "/features/model-comparison",
+    badge: "Comparison"
+  }
+];
+---
+
+<FeatureLandingLayout
+  title="Collaborative Team Storyboard | 10zebra Multi-User Studio"
+  description="Work with your team all in one storyboard canvas. Story settings and camera preferences are saved globally while all takes and media are shared in real-time."
+  eyebrow="TEAM PRODUCTION WORKSPACE"
+  headline="Collaborative Team Interface:"
+  headlineHighlight="One Shared Storyboard. Zero Friction."
+  subheadline="Bring your director, artists, and editors into a single live storyboard canvas. Story settings and art direction rules persist globally, while all takes and generations stream into a shared creative pool in real time."
+  badgeText="Live Multi-User Storyboard"
+  stats={stats}
+  workflowSteps={workflowSteps}
+  features={features}
+  comparisonItems={comparisonItems}
+  faqs={faqs}
+  relatedFeatures={relatedFeatures}
+>
+  <div slot="hero-visual">
+    <ProjectBudgetMockup />
+  </div>
+</FeatureLandingLayout>

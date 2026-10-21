@@ -1,0 +1,151 @@
+---
+---
+
+<div class="project-budget-mockup w-full rounded-xl overflow-hidden bg-[#0e1014] border border-[var(--border-subtle)] shadow-2xl">
+  <!-- Header Bar -->
+  <div class="bg-[#16181e] px-4 py-3 border-b border-[var(--border-subtle)] flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="w-3 h-3 rounded-full bg-rose-500/80"></span>
+      <span class="w-3 h-3 rounded-full bg-amber-500/80"></span>
+      <span class="w-3 h-3 rounded-full bg-emerald-500/80"></span>
+      <span class="text-xs font-mono text-[var(--text-muted)] ml-2">Workspace &middot; Multi-Project Budget Isolation Engine</span>
+    </div>
+    <span class="text-[11px] font-mono text-[var(--accent)] font-semibold flex items-center gap-1">
+      <span class="w-1.5 h-1.5 rounded-full bg-[var(--accent)]"></span>
+      No Cross-Project Bleed
+    </span>
+  </div>
+
+  <div class="p-4 sm:p-6 bg-[#0a0b0e]">
+    <!-- Budget Comparison Callout -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+      <!-- Project A: Commercial Client -->
+      <div class="rounded-xl border border-emerald-500/30 bg-[#121418] p-4 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-24 h-24 bg-emerald-500/5 rounded-bl-full pointer-events-none"></div>
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+            <span class="font-bold text-sm text-[var(--text-primary)]">Project #1: "Apex Sports Commercial"</span>
+          </div>
+          <span class="text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-emerald-950/60 text-emerald-400 border border-emerald-500/30 font-bold">
+            Budget Capped
+          </span>
+        </div>
+
+        <div class="space-y-3 mb-4">
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <span class="text-[var(--text-secondary)]">Project Credit Allocation:</span>
+              <span class="font-mono text-emerald-400 font-bold">320 / 500 Credits Used (64%)</span>
+            </div>
+            <div class="w-full h-2 rounded-full bg-[#1e2028] overflow-hidden">
+              <div class="h-full bg-gradient-to-r from-emerald-500 to-teal-400 rounded-full" style="width: 64%"></div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2 text-[11px] pt-1 border-t border-[var(--border-subtle)] text-[var(--text-muted)]">
+            <div>
+              <span class="text-[var(--text-secondary)] block font-medium">Assigned Team:</span>
+              <span>3 Designers + 1 Director</span>
+            </div>
+            <div>
+              <span class="text-[var(--text-secondary)] block font-medium">Policy Rule:</span>
+              <span class="text-emerald-300">Project Credits Only</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-[11px] text-[var(--text-secondary)] bg-black/40 p-2.5 rounded-lg border border-white/5 flex items-center justify-between">
+          <span>Active Storyboard: 12 Takes Selected</span>
+          <span class="text-emerald-400 font-mono font-bold">$180 Remaining</span>
+        </div>
+      </div>
+
+      <!-- Project B: Indie Sci-Fi Film -->
+      <div class="rounded-xl border border-amber-500/30 bg-[#121418] p-4 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-24 h-24 bg-amber-500/5 rounded-bl-full pointer-events-none"></div>
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+            <span class="font-bold text-sm text-[var(--text-primary)]">Project #2: "Nebula Protocol Pilot"</span>
+          </div>
+          <span class="text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-amber-950/60 text-amber-400 border border-amber-500/30 font-bold">
+            Independent Pool
+          </span>
+        </div>
+
+        <div class="space-y-3 mb-4">
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <span class="text-[var(--text-secondary)]">Project Credit Allocation:</span>
+              <span class="font-mono text-amber-400 font-bold">1,840 / 2,500 Credits Used (73%)</span>
+            </div>
+            <div class="w-full h-2 rounded-full bg-[#1e2028] overflow-hidden">
+              <div class="h-full bg-gradient-to-r from-amber-500 to-orange-400 rounded-full" style="width: 73%"></div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2 text-[11px] pt-1 border-t border-[var(--border-subtle)] text-[var(--text-muted)]">
+            <div>
+              <span class="text-[var(--text-secondary)] block font-medium">Assigned Team:</span>
+              <span>Director + VFX Lead + Sound</span>
+            </div>
+            <div>
+              <span class="text-[var(--text-secondary)] block font-medium">Policy Rule:</span>
+              <span class="text-amber-300">Project-First, Personal Spillover</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-[11px] text-[var(--text-secondary)] bg-black/40 p-2.5 rounded-lg border border-white/5 flex items-center justify-between">
+          <span>Active Storyboard: 48 Takes Selected</span>
+          <span class="text-amber-400 font-mono font-bold">$660 Remaining</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Collaborative Storyboard Status -->
+    <div class="rounded-xl border border-[var(--border-subtle)] bg-[#14161c] p-4">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[var(--border-subtle)]">
+        <div class="flex items-center gap-2">
+          <div class="w-7 h-7 rounded-lg bg-[var(--accent-subtle)] border border-[rgba(249,115,22,0.3)] flex items-center justify-center text-[var(--accent)] font-bold text-xs">
+            10z
+          </div>
+          <div>
+            <h4 class="text-xs font-bold text-[var(--text-primary)]">Shared Project Storyboard &amp; Live Sync</h4>
+            <p class="text-[10px] text-[var(--text-muted)]">Story settings and camera directives saved &middot; Media and takes shared in real time</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <div class="flex -space-x-2">
+            <span class="w-6 h-6 rounded-full bg-orange-600 text-[10px] font-bold flex items-center justify-center text-white ring-2 ring-[#14161c]">PM</span>
+            <span class="w-6 h-6 rounded-full bg-sky-600 text-[10px] font-bold flex items-center justify-center text-white ring-2 ring-[#14161c]">AL</span>
+            <span class="w-6 h-6 rounded-full bg-emerald-600 text-[10px] font-bold flex items-center justify-center text-white ring-2 ring-[#14161c]">JR</span>
+          </div>
+          <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950/40 px-2 py-0.5 rounded border border-emerald-500/20">3 Editing Now</span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-3 text-xs">
+        <div class="p-2.5 rounded-lg bg-[#0e1014] border border-[var(--border-subtle)]">
+          <span class="text-[10px] font-mono uppercase text-[var(--accent)] font-bold block mb-1">Global Story Rules</span>
+          <p class="text-[11px] text-[var(--text-secondary)]">Anamorphic 2.39:1, Golden Hour lighting, Kodak 5219 grade locked for all team members.</p>
+        </div>
+        <div class="p-2.5 rounded-lg bg-[#0e1014] border border-[var(--border-subtle)]">
+          <span class="text-[10px] font-mono uppercase text-emerald-400 font-bold block mb-1">Real-Time Take Pool</span>
+          <p class="text-[11px] text-[var(--text-secondary)]">Whenever an editor generates a take in Grok or Kling, it appears live in the shared bin.</p>
+        </div>
+        <div class="p-2.5 rounded-lg bg-[#0e1014] border border-[var(--border-subtle)]">
+          <span class="text-[10px] font-mono uppercase text-amber-400 font-bold block mb-1">Audit Trail</span>
+          <p class="text-[11px] text-[var(--text-secondary)]">Full timestamped log of who prompted which shot, which AI engine was used, and exact cost.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Comparison Callout -->
+  <div class="bg-[#121418] px-4 py-3 border-t border-[var(--border-subtle)] flex items-center justify-between text-xs text-[var(--text-muted)]">
+    <span>Compare: Runway and Higgsfield pool all credits at the account root. One rogue experiment drains the whole team.</span>
+    <span class="text-[var(--accent)] font-semibold shrink-0 ml-2">10z Project Shield &rarr;</span>
+  </div>
+</div>

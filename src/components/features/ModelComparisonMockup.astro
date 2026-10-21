@@ -1,0 +1,160 @@
+---
+interface Props {
+  interactive?: boolean;
+}
+
+const { interactive = true } = Astro.props;
+
+const models = [
+  {
+    id: "kling",
+    name: "Kling 3.0",
+    badge: "Cinema Face Fidelity",
+    speed: "24s",
+    cost: "12 credits",
+    color: "#f97316",
+    image: "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=600&h=380&fit=crop&q=80",
+    caption: "Take #01: Hyper-realistic skin textures, micro-facial expressions, low-light volumetric fog."
+  },
+  {
+    id: "grok",
+    name: "Grok Imagine",
+    badge: "High Dynamic Action",
+    speed: "18s",
+    cost: "10 credits",
+    color: "#38bdf8",
+    image: "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=600&h=380&fit=crop&q=80",
+    caption: "Take #02: Bold contrast, kinetic camera pan, gritty neon cyberpunk grade."
+  },
+  {
+    id: "seedance",
+    name: "Seedance 2.0",
+    badge: "12s Extended Sequence",
+    speed: "35s",
+    cost: "15 credits",
+    color: "#a855f7",
+    image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=600&h=380&fit=crop&q=80",
+    caption: "Take #03: Fluid body choreography, long uninterrupted continuous camera push."
+  },
+  {
+    id: "veo",
+    name: "Google Veo 3",
+    badge: "Cinematic Lighting",
+    speed: "29s",
+    cost: "14 credits",
+    color: "#10b981",
+    image: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=600&h=380&fit=crop&q=80",
+    caption: "Take #04: Photorealistic lens flare, anamorphic depth of field, warm golden hour."
+  }
+];
+---
+
+<div class="model-comparison-mockup w-full rounded-xl overflow-hidden bg-[#0e1014] border border-[var(--border-subtle)] shadow-2xl">
+  <!-- Top Bar / App Header -->
+  <div class="bg-[#16181e] px-4 py-3 border-b border-[var(--border-subtle)] flex flex-wrap items-center justify-between gap-3">
+    <div class="flex items-center gap-2">
+      <span class="w-3 h-3 rounded-full bg-rose-500/80"></span>
+      <span class="w-3 h-3 rounded-full bg-amber-500/80"></span>
+      <span class="w-3 h-3 rounded-full bg-emerald-500/80"></span>
+      <span class="text-xs font-mono text-[var(--text-muted)] ml-2">Shot 03 / Multi-Take Comparison (4 Models)</span>
+    </div>
+    <div class="flex items-center gap-2">
+      <span class="text-[11px] font-semibold text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-500/30 flex items-center gap-1">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        Live Preview Synced
+      </span>
+      <button class="text-xs font-semibold px-2.5 py-1 rounded bg-[var(--accent)] text-[#0c0d10] hover:bg-orange-400 transition-colors">
+        Batch Re-prompt
+      </button>
+    </div>
+  </div>
+
+  <!-- Shared Prompt & Reference Banner -->
+  <div class="bg-[#121418] p-3.5 border-b border-[var(--border-subtle)] text-xs flex flex-col md:flex-row md:items-center justify-between gap-3">
+    <div class="flex items-start md:items-center gap-2.5 overflow-hidden">
+      <span class="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded bg-[var(--accent-subtle)] text-[var(--accent)] border border-[rgba(249,115,22,0.3)] shrink-0">
+        MASTER PROMPT
+      </span>
+      <p class="text-[var(--text-primary)] font-mono text-[11px] truncate">
+        "Cyberpunk detective enters rain-slicked alleyway, neon signage reflected in wet asphalt, anamorphic 35mm lens, atmospheric mist"
+      </p>
+    </div>
+    <div class="flex items-center gap-2 text-[var(--text-muted)] shrink-0 text-[11px]">
+      <span class="text-[var(--text-secondary)] font-medium">Locked Reference:</span>
+      <span class="px-2 py-0.5 rounded bg-[var(--bg-elevated)] border border-[var(--border-subtle)] text-[var(--text-primary)]">
+        detective_hero_ref.png
+      </span>
+    </div>
+  </div>
+
+  <!-- Side-by-Side Takes Grid -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 p-3 gap-3 bg-[#0a0b0e]">
+    {models.map((m, idx) => (
+      <div 
+        class={`take-card relative rounded-lg overflow-hidden border transition-all duration-300 group cursor-pointer ${idx === 0 ? 'border-[var(--accent)] ring-1 ring-[var(--accent)]' : 'border-[var(--border-subtle)] hover:border-[var(--border-strong)]'}`}
+        data-model-id={m.id}
+      >
+        <!-- Take Header -->
+        <div class="bg-[#14161c] px-3 py-2 flex items-center justify-between border-b border-[var(--border-subtle)]">
+          <div class="flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full" style={`background-color: ${m.color}`}></span>
+            <span class="font-bold text-xs text-[var(--text-primary)]">{m.name}</span>
+          </div>
+          <span class="text-[10px] font-mono text-[var(--text-muted)]">{m.speed}</span>
+        </div>
+
+        <!-- Video Simulation Box -->
+        <div class="relative aspect-video overflow-hidden bg-black">
+          <img 
+            src={m.image} 
+            alt={m.name + " generation"} 
+            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+            loading="lazy"
+          />
+          <!-- Badge overlay -->
+          <div class="absolute top-2 left-2 px-1.5 py-0.5 rounded text-[10px] font-semibold bg-black/75 backdrop-blur-sm text-[var(--text-primary)] border border-white/10">
+            {m.badge}
+          </div>
+
+          <!-- Selected Take Indicator on Kling -->
+          {idx === 0 && (
+            <div class="absolute top-2 right-2 px-2 py-0.5 rounded text-[10px] font-bold bg-[var(--accent)] text-[#0c0d10] flex items-center gap-1 shadow-lg">
+              <span>★</span> ACTIVE TAKE
+            </div>
+          )}
+
+          <!-- Hover Overlay Play -->
+          <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+            <div class="w-10 h-10 rounded-full bg-[var(--accent)] text-[#0c0d10] flex items-center justify-center shadow-lg">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 fill-current ml-0.5" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Caption / Footer -->
+        <div class="p-2.5 bg-[#14161c] text-[11px] flex flex-col justify-between min-h-[75px]">
+          <p class="text-[var(--text-secondary)] line-clamp-2 leading-relaxed">
+            {m.caption}
+          </p>
+          <div class="flex items-center justify-between pt-2 border-t border-[var(--border-subtle)] text-[10px]">
+            <span class="text-[var(--text-muted)]">{m.cost}</span>
+            <button class={`font-bold transition-colors ${idx === 0 ? 'text-[var(--accent)]' : 'text-[var(--text-muted)] group-hover:text-[var(--text-primary)]'}`}>
+              {idx === 0 ? 'Selected for Cut ✓' : 'Select Take →'}
+            </button>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <!-- Bottom Comparison Callout -->
+  <div class="bg-[#121418] px-4 py-2.5 border-t border-[var(--border-subtle)] flex items-center justify-between text-xs text-[var(--text-muted)]">
+    <div class="flex items-center gap-2">
+      <span class="text-[var(--accent)] font-bold">PRODUCER VIEW:</span>
+      <span>Inspect prompt differences, seed numbers, and camera trajectories across all 4 takes simultaneously.</span>
+    </div>
+    <span class="font-mono text-[11px] text-[var(--text-secondary)] hidden sm:inline">1 Click to Promote Take</span>
+  </div>
+</div>

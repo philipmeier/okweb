@@ -1,8 +1,132 @@
 ---
-import PlaceholderPage from "../../layouts/PlaceholderPage.astro";
+import FeatureLandingLayout from "../../layouts/FeatureLandingLayout.astro";
+
+const stats = [
+  { value: "3 References", label: "Multi-Anchor Blending", detail: "Face, wardrobe & environment" },
+  { value: "Zero Drift", label: "Identity Stability", detail: "Locked facial structure" },
+  { value: "8+ Engines", label: "Model Compatibility", detail: "Flux, Kling, Veo, Seedance" },
+  { value: "100%", label: "Art Direction Control", detail: "Color grade & lighting anchored" }
+];
+
+const workflowSteps = [
+  {
+    step: "Step 01",
+    title: "Slot Reference Image 1: Character",
+    description: "Upload a clean portrait to lock your actor's face, skin texture, and features.",
+    tag: "Character Anchor"
+  },
+  {
+    step: "Step 02",
+    title: "Slot Reference Image 2: Environment",
+    description: "Upload a location photo to lock architectural structure, lighting angle, and mood.",
+    tag: "Environment Anchor"
+  },
+  {
+    step: "Step 03",
+    title: "Slot Reference Image 3 & Generate",
+    description: "Optionally add wardrobe or color grading reference. 10zebra blends all three anchors into a coherent frame.",
+    tag: "Unified Output"
+  }
+];
+
+const features = [
+  {
+    title: "Multi-Reference Anchor Pipeline",
+    description: "Single-reference generation forces an AI model to guess everything else. Multi-Reference Editing gives you discrete control over every visual element.",
+    bullets: [
+      "<strong>Discrete reference weighting:</strong> Balance character facial weight vs location architectural weight independently.",
+      "<strong>Costume & styling locks:</strong> Keep complex wardrobing or sci-fi armor consistent across multiple scenes.",
+      "<strong>Lighting integration:</strong> The character naturally adopts the volumetric lighting and shadows of the environment reference."
+    ],
+    tag: "Visual Composition"
+  },
+  {
+    title: "Keyframe to Video Generation",
+    description: "Once your multi-reference keyframe is perfected, seamlessly promote it to motion generation.",
+    bullets: [
+      "<strong>Direct video handoff:</strong> Send approved multi-reference frames to Kling 3.0 or Seedance 2.0 as initial motion anchors.",
+      "<strong>Eliminates hallucinations:</strong> Starting video from an approved multi-ref keyframe prevents character warping and costume drift."
+    ],
+    tag: "Motion Pipeline"
+  }
+];
+
+const comparisonItems = [
+  {
+    feature: "Reference Image Slots",
+    zebra: "Up to 3 distinct references (Character + Location + Style/Wardrobe) blended coherently",
+    competitor: "Single image prompt only, which conflates character identity with background",
+    zebraAdvantage: true
+  },
+  {
+    feature: "Video Generation Handoff",
+    zebra: "Promote multi-reference keyframe directly into Kling or Seedance video takes",
+    competitor: "Must manually save image, re-upload, and recreate prompts from scratch",
+    zebraAdvantage: true
+  }
+];
+
+const faqs = [
+  {
+    question: "How do I avoid reference clashes when blending 3 images?",
+    answer: "10zebra's reference engine allows you to adjust individual influence weights (e.g., 0.8 for Character Face, 0.5 for Wardrobe, 0.7 for Environment Lighting), ensuring the model harmonizes them without visual seams."
+  }
+];
+
+const relatedFeatures = [
+  {
+    title: "Character Swap & 10z Agent",
+    description: "Swap actors across existing video takes while preserving camera motion.",
+    href: "/features/character-swap",
+    badge: "Continuity"
+  },
+  {
+    title: "Side-by-Side Model Comparison",
+    description: "Compare video takes across Kling, Grok, and Seedance.",
+    href: "/features/model-comparison",
+    badge: "Models"
+  }
+];
 ---
-<PlaceholderPage
-  title="Multi-Reference Edit"
-  label="Feature"
-  description="Blend up to 3 reference images — character, costume, and environment — into a single coherent AI-generated frame."
-/>
+
+<FeatureLandingLayout
+  title="Multi-Reference Editing | 10zebra AI Video Workspace"
+  description="Blend up to 3 references (character, costume, environment) into a single cohesive frame with zero identity drift."
+  eyebrow="MULTI-REFERENCE COMPOSITION"
+  headline="Multi-Reference Editing:"
+  headlineHighlight="Face, Costume & Setting in 1 Frame."
+  subheadline="Stop compromising between character consistency and environment realism. Blend up to 3 distinct visual references into a single cohesive keyframe, then hand off directly to video generation."
+  badgeText="3-Point Visual Anchor"
+  stats={stats}
+  workflowSteps={workflowSteps}
+  features={features}
+  comparisonItems={comparisonItems}
+  faqs={faqs}
+  relatedFeatures={relatedFeatures}
+>
+  <div slot="hero-visual">
+    <!-- Visual 3-slot reference breakdown -->
+    <div class="rounded-xl bg-[#0e1014] border border-[var(--border-subtle)] p-5 text-left">
+      <div class="text-xs font-mono uppercase text-[var(--accent)] font-bold mb-3">
+        3-Way Reference Fusion
+      </div>
+      <div class="grid grid-cols-3 gap-2.5 mb-4">
+        <div class="rounded-lg overflow-hidden border border-[var(--border-subtle)] bg-[#14161c]">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&h=200&fit=crop&q=80" alt="Ref 1" class="w-full aspect-square object-cover"/>
+          <div class="p-1.5 text-[10px] text-center font-bold text-[var(--text-secondary)]">Ref 1: Character</div>
+        </div>
+        <div class="rounded-lg overflow-hidden border border-[var(--border-subtle)] bg-[#14161c]">
+          <img src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?w=200&h=200&fit=crop&q=80" alt="Ref 2" class="w-full aspect-square object-cover"/>
+          <div class="p-1.5 text-[10px] text-center font-bold text-[var(--text-secondary)]">Ref 2: Location</div>
+        </div>
+        <div class="rounded-lg overflow-hidden border border-[var(--border-subtle)] bg-[#14161c]">
+          <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=200&h=200&fit=crop&q=80" alt="Ref 3" class="w-full aspect-square object-cover"/>
+          <div class="p-1.5 text-[10px] text-center font-bold text-[var(--text-secondary)]">Ref 3: Lighting</div>
+        </div>
+      </div>
+      <div class="p-3 rounded-lg bg-[#14161c] border border-[var(--accent)] text-xs text-center font-bold text-[var(--accent)]">
+        &darr; Coherent Composite Output Keyframe &darr;
+      </div>
+    </div>
+  </div>
+</FeatureLandingLayout>

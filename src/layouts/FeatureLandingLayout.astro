@@ -1,0 +1,416 @@
+---
+import Layout from "./Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import FinalCTA from "../components/FinalCTA.astro";
+
+interface StatItem {
+  value: string;
+  label: string;
+  detail?: string;
+}
+
+interface WorkflowStep {
+  step: string;
+  title: string;
+  description: string;
+  tag?: string;
+}
+
+interface FeatureItem {
+  title: string;
+  description: string;
+  bullets: string[];
+  tag?: string;
+  icon?: string;
+}
+
+interface ComparisonRow {
+  feature: string;
+  zebra: string;
+  competitor: string;
+  zebraAdvantage?: boolean;
+}
+
+interface FaqItem {
+  question: string;
+  answer: string;
+}
+
+interface RelatedFeature {
+  title: string;
+  description: string;
+  href: string;
+  badge?: string;
+}
+
+interface Props {
+  title: string;
+  description: string;
+  eyebrow: string;
+  headline: string;
+  headlineHighlight: string;
+  subheadline: string;
+  badgeText?: string;
+  stats?: StatItem[];
+  primaryCta?: { label: string; href: string };
+  secondaryCta?: { label: string; href: string };
+  workflowTitle?: string;
+  workflowSubtitle?: string;
+  workflowSteps?: WorkflowStep[];
+  features?: FeatureItem[];
+  comparisonTitle?: string;
+  competitorLabel?: string;
+  zebraLabel?: string;
+  comparisonItems?: ComparisonRow[];
+  faqs?: FaqItem[];
+  relatedFeatures?: RelatedFeature[];
+}
+
+const {
+  title,
+  description,
+  eyebrow,
+  headline,
+  headlineHighlight,
+  subheadline,
+  badgeText = "Feature Deep-Dive",
+  stats = [],
+  primaryCta = { label: "Start Free with 200 Credits", href: "/signup" },
+  secondaryCta = { label: "Explore Feature Hub", href: "/features" },
+  workflowTitle = "How It Works in 10zebra",
+  workflowSubtitle = "From single direction to production-ready take in seconds.",
+  workflowSteps = [],
+  features = [],
+  comparisonTitle = "Why 10zebra vs Standalone AI Platforms",
+  competitorLabel = "Single-Model AI Tools",
+  zebraLabel = "10zebra Production Suite",
+  comparisonItems = [],
+  faqs = [],
+  relatedFeatures = [],
+} = Astro.props;
+---
+
+<Layout title={title} description={description}>
+  <Header />
+
+  <main class="feature-page overflow-hidden">
+    <!-- Breadcrumb bar -->
+    <nav class="border-b border-[var(--border-subtle)] bg-[rgba(12,13,16,0.6)] py-3 backdrop-blur-md" aria-label="Breadcrumb">
+      <div class="wrap flex items-center gap-2 text-xs text-[var(--text-muted)]">
+        <a href="/" class="hover:text-[var(--text-primary)] transition-colors no-underline">Home</a>
+        <span class="text-[var(--text-muted)] opacity-40">/</span>
+        <a href="/features" class="hover:text-[var(--text-primary)] transition-colors no-underline">Features</a>
+        <span class="text-[var(--text-muted)] opacity-40">/</span>
+        <span class="text-[var(--accent)] font-medium truncate">{headline}</span>
+      </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="relative pt-16 pb-20 lg:pt-20 lg:pb-28">
+      <!-- Ambient Glow Behind Hero -->
+      <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] pointer-events-none rounded-full"
+        style="background: radial-gradient(ellipse at center, rgba(249,115,22,0.12) 0%, rgba(251,191,36,0.04) 50%, transparent 75%); filter: blur(60px);">
+      </div>
+
+      <div class="wrap">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <!-- Text Column -->
+          <div class="lg:col-span-6 reveal">
+            {badgeText && (
+              <div class="badge mb-4">
+                <span class="pulse-dot"></span>
+                <span>{badgeText}</span>
+              </div>
+            )}
+
+            <span class="sect-label">{eyebrow}</span>
+
+            <h1 class="text-4xl sm:text-5xl lg:text-5xl font-black tracking-tight leading-[1.1] mb-6" style="font-family: var(--font-display);">
+              {headline} <span class="grad-text">{headlineHighlight}</span>
+            </h1>
+
+            <p class="text-lg text-[var(--text-secondary)] leading-relaxed mb-8 max-w-xl">
+              {subheadline}
+            </p>
+
+            <div class="flex flex-wrap gap-4 items-center mb-8">
+              <a href={primaryCta.href} class="btn btn-primary btn-lg shadow-lg hover:shadow-orange-500/20" id="feature-primary-cta">
+                <span>{primaryCta.label}</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                </svg>
+              </a>
+              <a href={secondaryCta.href} class="btn btn-ghost btn-lg" id="feature-secondary-cta">
+                {secondaryCta.label}
+              </a>
+            </div>
+
+            <!-- Quick Trust Micro-copy -->
+            <div class="flex items-center gap-6 text-xs text-[var(--text-muted)] border-t border-[var(--border-subtle)] pt-4">
+              <div class="flex items-center gap-2">
+                <span class="text-[var(--accent)] font-bold">✓</span> No subscription required
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-[var(--accent)] font-bold">✓</span> Free 200 credits
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-[var(--accent)] font-bold">✓</span> Team-ready
+              </div>
+            </div>
+          </div>
+
+          <!-- Visual Column / Slot -->
+          <div class="lg:col-span-6 reveal reveal-d1">
+            <div class="relative">
+              <!-- Backing frame decoration -->
+              <div class="absolute -inset-1 rounded-2xl bg-gradient-to-r from-orange-500/20 to-amber-500/10 blur-xl opacity-75"></div>
+              
+              <div class="relative glass rounded-2xl p-2 sm:p-4 border border-[var(--border-subtle)] overflow-hidden shadow-2xl">
+                <slot name="hero-visual">
+                  <!-- Default Visual Fallback -->
+                  <div class="aspect-video w-full rounded-xl bg-[var(--bg-elevated)] flex flex-col items-center justify-center p-8 text-center border border-[var(--border-subtle)]">
+                    <div class="w-16 h-16 rounded-2xl bg-orange-500/10 border border-orange-500/30 flex items-center justify-center text-[var(--accent)] mb-4">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                      </svg>
+                    </div>
+                    <span class="text-sm font-semibold text-[var(--text-primary)] mb-1">Production Interface Preview</span>
+                    <span class="text-xs text-[var(--text-muted)] max-w-sm">Direct AI models, inspect prompt metadata, and test takes in the 10zebra workspace.</span>
+                  </div>
+                </slot>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Key Stats Bar (if provided) -->
+        {stats.length > 0 && (
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16 pt-12 border-t border-[var(--border-subtle)] reveal">
+            {stats.map((stat) => (
+              <div class="glass p-5 rounded-xl text-center md:text-left">
+                <div class="text-2xl sm:text-3xl font-black text-[var(--text-primary)] mb-1" style="font-family: var(--font-display);">
+                  <span class="grad-text">{stat.value}</span>
+                </div>
+                <div class="text-sm font-semibold text-[var(--text-primary)]">{stat.label}</div>
+                {stat.detail && <div class="text-xs text-[var(--text-muted)] mt-1">{stat.detail}</div>}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
+
+    <!-- INTERACTIVE DEMO / PLAYGROUND SLOT -->
+    <slot name="interactive-demo" />
+
+    <!-- WORKFLOW PROCESS SECTION -->
+    {workflowSteps.length > 0 && (
+      <section class="section border-t border-[var(--border-subtle)] bg-[rgba(19,20,23,0.4)]">
+        <div class="wrap">
+          <div class="sect-head reveal">
+            <span class="sect-label">Step-by-Step</span>
+            <h2>{workflowTitle}</h2>
+            <p>{workflowSubtitle}</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 reveal">
+            {workflowSteps.map((step, idx) => (
+              <div class="glass p-6 rounded-xl relative flex flex-col justify-between hover:border-[var(--accent)] transition-all">
+                <div class="absolute -top-3 left-6 px-3 py-0.5 rounded-full text-xs font-black uppercase tracking-wider bg-[var(--accent)] text-[#0c0d10]">
+                  {step.step || `Step 0${idx + 1}`}
+                </div>
+                <div class="pt-3">
+                  <div class="flex items-center justify-between mb-3">
+                    <h3 class="text-lg font-bold text-[var(--text-primary)]" style="font-family: var(--font-display);">
+                      {step.title}
+                    </h3>
+                    {step.tag && (
+                      <span class="text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded bg-[var(--accent-subtle)] text-[var(--accent)] border border-[rgba(249,115,22,0.2)]">
+                        {step.tag}
+                      </span>
+                    )}
+                  </div>
+                  <p class="text-sm text-[var(--text-secondary)] leading-relaxed">
+                    {step.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- FEATURE PILLARS / DEEP DIVE -->
+    {features.length > 0 && (
+      <section class="section">
+        <div class="wrap">
+          <div class="sect-head reveal">
+            <span class="sect-label">Deep Dive</span>
+            <h2>Built for Serious <span class="grad-text">Production Control</span></h2>
+            <p>Every tool in 10zebra is designed around creative decision making, not random guessing.</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 reveal">
+            {features.map((feat) => (
+              <div class="glass p-8 rounded-2xl relative flex flex-col justify-between group hover:border-[var(--accent)] transition-all">
+                <div>
+                  <div class="flex items-center justify-between mb-4">
+                    <div class="w-12 h-12 rounded-xl flex items-center justify-center bg-[var(--accent-subtle)] border border-[rgba(249,115,22,0.25)] text-[var(--accent)]">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                      </svg>
+                    </div>
+                    {feat.tag && (
+                      <span class="text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full bg-[rgba(249,115,22,0.1)] text-[var(--accent)] border border-[rgba(249,115,22,0.25)]">
+                        {feat.tag}
+                      </span>
+                    )}
+                  </div>
+
+                  <h3 class="text-2xl font-bold mb-3 text-[var(--text-primary)]" style="font-family: var(--font-display);">
+                    {feat.title}
+                  </h3>
+
+                  <p class="text-sm text-[var(--text-secondary)] leading-relaxed mb-6">
+                    {feat.description}
+                  </p>
+
+                  <ul class="space-y-2 mb-6">
+                    {feat.bullets.map((bullet) => (
+                      <li class="flex items-start gap-2.5 text-xs sm:text-sm text-[var(--text-secondary)]">
+                        <span class="check-icon flex-shrink-0 mt-0.5">✓</span>
+                        <span set:html={bullet} />
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- CUSTOM CONTENT SLOT -->
+    <slot />
+
+    <!-- COMPETITIVE COMPARISON SECTION -->
+    {comparisonItems.length > 0 && (
+      <section class="section border-t border-[var(--border-subtle)] bg-[rgba(19,20,23,0.3)]">
+        <div class="wrap">
+          <div class="sect-head reveal">
+            <span class="sect-label">The Difference</span>
+            <h2>{comparisonTitle}</h2>
+            <p>Why production teams migrate to 10zebra instead of using standalone generators.</p>
+          </div>
+
+          <div class="glass rounded-2xl overflow-hidden border border-[var(--border-subtle)] reveal">
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-sm border-collapse">
+                <thead>
+                  <tr class="border-b border-[var(--border-subtle)] bg-[var(--bg-elevated)]">
+                    <th class="p-4 sm:p-5 font-semibold text-[var(--text-secondary)] w-1/3">Capability</th>
+                    <th class="p-4 sm:p-5 font-bold text-[var(--text-muted)] w-1/3">{competitorLabel}</th>
+                    <th class="p-4 sm:p-5 font-bold text-[var(--accent)] w-1/3 bg-orange-500/5">{zebraLabel}</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-[var(--border-subtle)]">
+                  {comparisonItems.map((item) => (
+                    <tr class="hover:bg-white/[0.02] transition-colors">
+                      <td class="p-4 sm:p-5 font-medium text-[var(--text-primary)]">
+                        {item.feature}
+                      </td>
+                      <td class="p-4 sm:p-5 text-[var(--text-muted)]">
+                        <div class="flex items-center gap-2">
+                          <span class="text-rose-400 font-bold">✕</span>
+                          <span>{item.competitor}</span>
+                        </div>
+                      </td>
+                      <td class="p-4 sm:p-5 text-[var(--text-primary)] bg-orange-500/5 font-semibold">
+                        <div class="flex items-center gap-2">
+                          <span class="text-[var(--accent)] font-bold">✓</span>
+                          <span>{item.zebra}</span>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- FAQ SECTION -->
+    {faqs.length > 0 && (
+      <section class="section border-t border-[var(--border-subtle)]">
+        <div class="wrap max-w-4xl">
+          <div class="sect-head reveal">
+            <span class="sect-label">Got Questions?</span>
+            <h2>Frequently Asked Questions</h2>
+            <p>Everything you need to know about this feature and how it works.</p>
+          </div>
+
+          <div class="space-y-4 reveal">
+            {faqs.map((faq) => (
+              <details class="glass rounded-xl p-5 group border border-[var(--border-subtle)] cursor-pointer">
+                <summary class="font-bold text-[var(--text-primary)] text-base flex justify-between items-center list-none select-none">
+                  <span>{faq.question}</span>
+                  <span class="text-[var(--accent)] transition-transform group-open:rotate-180">↓</span>
+                </summary>
+                <div class="mt-4 pt-4 border-t border-[var(--border-subtle)] text-sm text-[var(--text-secondary)] leading-relaxed" set:html={faq.answer} />
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- RELATED FEATURES -->
+    {relatedFeatures.length > 0 && (
+      <section class="section border-t border-[var(--border-subtle)] bg-[rgba(19,20,23,0.2)]">
+        <div class="wrap">
+          <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8">
+            <div>
+              <span class="sect-label">More in the Workspace</span>
+              <h2 class="text-2xl sm:text-3xl font-bold" style="font-family: var(--font-display);">
+                Explore Complementary <span class="grad-text">Production Tools</span>
+              </h2>
+            </div>
+            <a href="/features" class="mt-4 sm:mt-0 text-sm font-semibold text-[var(--accent)] hover:text-orange-400 no-underline flex items-center gap-1">
+              View all features &rarr;
+            </a>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {relatedFeatures.map((rel) => (
+              <a href={rel.href} class="glass p-6 rounded-xl block no-underline group hover:border-[var(--accent)] transition-all">
+                {rel.badge && (
+                  <span class="text-[10px] font-bold uppercase tracking-wider text-[var(--accent)] px-2 py-0.5 rounded bg-[var(--accent-subtle)] border border-[rgba(249,115,22,0.2)] inline-block mb-3">
+                    {rel.badge}
+                  </span>
+                )}
+                <h3 class="text-lg font-bold text-[var(--text-primary)] group-hover:text-[var(--accent)] transition-colors mb-2" style="font-family: var(--font-display);">
+                  {rel.title}
+                </h3>
+                <p class="text-xs text-[var(--text-muted)] leading-relaxed">
+                  {rel.description}
+                </p>
+                <div class="mt-4 text-xs font-semibold text-[var(--text-primary)] group-hover:text-[var(--accent)] flex items-center gap-1">
+                  Learn more &rarr;
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <FinalCTA />
+  </main>
+
+  <Footer />
+</Layout>

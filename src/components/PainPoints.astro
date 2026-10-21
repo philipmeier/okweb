@@ -1,8 +1,8 @@
-﻿---
+---
 const pains = [
   {
     iconPath: 'M12 2a10 10 0 100 20A10 10 0 0012 2zm0 3a1.5 1.5 0 110 3 1.5 1.5 0 010-3zm0 5a1.5 1.5 0 110 3 1.5 1.5 0 010-3zm0 5a1.5 1.5 0 110 3 1.5 1.5 0 010-3z',
-    iconColor: '#38bdf8',
+    iconColor: '#f97316',
     label: 'The Model Gamble',
     title: "You Can't Know Which Model Wins Until You Try",
     body: "Kling nails faces but muddles motion. Veo gets motion but loses detail. You waste credits guessing &mdash; or worse, you never try the model that would've been perfect.",
@@ -10,7 +10,7 @@ const pains = [
   },
   {
     iconPath: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z',
-    iconColor: '#818cf8',
+    iconColor: '#fbbf24',
     label: 'Team Chaos',
     title: "Your Team Burns Credits. You Lose Control.",
     body: "Your editor burns through the budget. Your client changes the brief mid-project. Nobody knows who generated what, or what it cost. Account-level limits don't help.",
@@ -37,7 +37,7 @@ const pains = [
     {pains.map((p, i) => (
       <div class={`glass p-8 text-left reveal reveal-d${i+1}`}>
         <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-5"
-          style={`background:var(--accent-subtle); border:1px solid rgba(56,189,248,0.15);`}>
+          style={`background:var(--accent-subtle); border:1px solid rgba(249,115,22,0.2);`}>
           <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
             stroke={p.iconColor} stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
             <path d={p.iconPath}/>

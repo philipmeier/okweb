@@ -1,0 +1,136 @@
+---
+import FeatureLandingLayout from "../../layouts/FeatureLandingLayout.astro";
+import YouTubeExportMockup from "../../components/features/YouTubeExportMockup.astro";
+
+const stats = [
+  { value: "1 Click", label: "Direct YouTube Publish", detail: "Direct cloud ingest pipeline" },
+  { value: "0 GB", label: "Local Disk Space Used", detail: "Zero downloads or local stitching" },
+  { value: "1080p / 4K", label: "Master Video Quality", detail: "Clean 60fps sequence export" },
+  { value: "Audio", label: "Integrated Score & SFX", detail: "Multi-track audio ducking" }
+];
+
+const workflowSteps = [
+  {
+    step: "Step 01",
+    title: "Assemble Takes on Timeline",
+    description: "Drag and drop your chosen takes into chronological sequence. Reorder scenes with simple visual handles.",
+    tag: "Timeline Cut"
+  },
+  {
+    step: "Step 02",
+    title: "Trim Clips & Mix Audio",
+    description: "Fine-tune in/out points on each shot to guarantee fast narrative pacing. Layer background music or voiceover.",
+    tag: "Post-Production"
+  },
+  {
+    step: "Step 03",
+    title: "Publish Directly to YouTube",
+    description: "Add video title, description, tags, and select privacy status (Public, Unlisted, Private). Click publish and let 10zebra stream it straight to your channel.",
+    tag: "Direct Publish"
+  }
+];
+
+const features = [
+  {
+    title: "Cloud-to-YouTube Direct Pipeline",
+    description: "Rendering high-resolution AI video sequences on a local laptop takes heavy compute, eats storage, and creates endless file management headaches. 10zebra eliminates the middleman.",
+    bullets: [
+      "<strong>Direct OAuth YouTube integration:</strong> Connect your YouTube channel once with secure OAuth permissions.",
+      "<strong>Zero local render lag:</strong> Sequence rendering happens directly in 10zebra's cloud servers and streams straight to YouTube's ingest API.",
+      "<strong>Automatic model attribution:</strong> Generate formatted description copy crediting the AI models, seeds, and creative team automatically."
+    ],
+    tag: "Cloud Distribution"
+  },
+  {
+    title: "In-Browser Storyboard Trimming & Audio Track",
+    description: "You don't need a heavy NLE like Premiere or DaVinci Resolve just to trim a few seconds off an AI shot.",
+    bullets: [
+      "<strong>Take-level trimming:</strong> Scrub through the timeline and set precise in and out points for every video generation.",
+      "<strong>Background audio mixing:</strong> Upload WAV or MP3 audio tracks and duck volume levels during dialogue moments.",
+      "<strong>Instant client review:</strong> Share unlisted YouTube preview links or internal 10zebra preview URLs with one click."
+    ],
+    tag: "Timeline Polish"
+  }
+];
+
+const comparisonItems = [
+  {
+    feature: "YouTube Publishing Workflow",
+    zebra: "Publish to YouTube directly from 10zebra in 1 click via cloud ingest",
+    competitor: "Download separate clips, stitch in Premiere, render 2GB MP4, upload manually",
+    zebraAdvantage: true
+  },
+  {
+    feature: "Local Storage Consumption",
+    zebra: "0 GB stored locally; everything managed and streamed in the cloud",
+    competitor: "Massive local hard drive clutter with dozens of raw take files",
+    zebraAdvantage: true
+  },
+  {
+    feature: "Timeline Assembly & Trimming",
+    zebra: "Built-in sequence arranger with take trimming and background audio",
+    competitor: "No timeline editor; generates isolated disconnected clips",
+    zebraAdvantage: true
+  }
+];
+
+const faqs = [
+  {
+    question: "Do I need to leave my computer open while the video publishes to YouTube?",
+    answer: "No. Once you click 'Publish to YouTube', 10zebra's cloud workers stitch the sequence, apply the audio mix, and stream the file directly to YouTube in the background. You can close your browser tab immediately."
+  },
+  {
+    question: "Can I publish videos as 'Unlisted' for client review?",
+    answer: "Yes! You can choose Public, Unlisted, or Private. Unlisted is ideal for sharing preview links with clients, agency stakeholders, or creative directors before making the video public."
+  },
+  {
+    question: "Can I download the assembled MP4 file to my computer as well?",
+    answer: "Absolutely. While direct YouTube publishing is the fastest method, you can also download the full 1080p or 4K stitched video file to your local computer anytime."
+  },
+  {
+    question: "Does 10zebra support custom thumbnails for YouTube?",
+    answer: "Yes. You can pick any generated keyframe from your storyboard or upload a custom image file to set as your YouTube thumbnail directly before publishing."
+  }
+];
+
+const relatedFeatures = [
+  {
+    title: "Side-by-Side Model Comparison",
+    description: "Compare takes across Kling, Grok, and Seedance before assembling your final cut.",
+    href: "/features/model-comparison",
+    badge: "Comparison"
+  },
+  {
+    title: "Text-to-Sequence",
+    description: "Generate multi-shot storyboards ready to trim and publish to YouTube.",
+    href: "/features/text-to-sequence",
+    badge: "Story"
+  },
+  {
+    title: "Quick Start Tools: Grok Social",
+    description: "Create vertical 9:16 microdramas optimized for YouTube Shorts and TikTok.",
+    href: "/features/quick-start-tools",
+    badge: "Shorts"
+  }
+];
+---
+
+<FeatureLandingLayout
+  title="Publish to YouTube Directly | 10zebra Cloud AI Video Export"
+  description="Publish finished AI video storyboards directly to YouTube without leaving 10zebra. Timeline sequence assembly, clip trimming, audio tracks, and 1-click cloud publishing."
+  eyebrow="POST-PRODUCTION & DISTRIBUTION"
+  headline="Publish to YouTube:"
+  headlineHighlight="Without Ever Leaving 10zebra."
+  subheadline="Assemble your favorite takes into a sequential timeline, trim clips to perfection, add background music, and publish directly to your YouTube channel with 1 click &mdash; zero local video downloads required."
+  badgeText="Direct YouTube Cloud Publishing"
+  stats={stats}
+  workflowSteps={workflowSteps}
+  features={features}
+  comparisonItems={comparisonItems}
+  faqs={faqs}
+  relatedFeatures={relatedFeatures}
+>
+  <div slot="hero-visual">
+    <YouTubeExportMockup />
+  </div>
+</FeatureLandingLayout>

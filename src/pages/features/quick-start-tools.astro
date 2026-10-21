@@ -1,0 +1,232 @@
+---
+import FeatureLandingLayout from "../../layouts/FeatureLandingLayout.astro";
+import QuickStartToolsExplorer from "../../components/features/QuickStartToolsExplorer.astro";
+
+const stats = [
+  { value: "6 Engines", label: "Pre-Built Story Tools", detail: "Script, 3-Act, Ad, Locations, Expressions, Grok" },
+  { value: "3 to 30", label: "Shot Fanout Range", detail: "Generate full storyboards in 1 click" },
+  { value: "9:16 & 16:9", label: "Social & Cinema Framing", detail: "Optimized aspect ratio presets" },
+  { value: "100%", label: "Directorial Prompt Logic", detail: "Pre-tuned cinematic syntax & camera rules" }
+];
+
+const workflowSteps = [
+  {
+    step: "Step 01",
+    title: "Choose Your Story Engine",
+    description: "Select From a Script, Three Acts, Make an Ad, Explore Locations, Explore Expressions, or Grok Social.",
+    tag: "Select Tool"
+  },
+  {
+    step: "Step 02",
+    title: "Input Core Narrative Parameters",
+    description: "Paste a script segment, describe an ad concept, or upload a character portrait. Select desired shot multiplier (up to 30 shots).",
+    tag: "Narrative Input"
+  },
+  {
+    step: "Step 03",
+    title: "Directorial Prompts & Takes Generated",
+    description: "10zebra's system prompts structure Hollywood-grade cinematic variables (lighting, grade, camera type, motion, coverage) and queue all takes.",
+    tag: "Storyboard Ready"
+  }
+];
+
+const features = [
+  {
+    title: "From a Script: 3 to 30 Cohesive Shots From One Prompt",
+    description: "Drop in your raw script, screenplay, or story outline. Select your target shot count &mdash; 3, 5, 10, 20, or up to 30 shots. 10zebra automatically extracts dramatic beats and queues a complete visual storyboard.",
+    bullets: [
+      "<strong>Configurable density:</strong> Generate a quick 3-shot teaser or a full 30-shot scene from one single paste.",
+      "<strong>Dramatic pacing:</strong> Begins with an attention-grabbing hook shot and sequences subsequent actions logically.",
+      "<strong>Parallel generation:</strong> All shots generate in parallel across your preferred AI video engines."
+    ],
+    tag: "Script Engine"
+  },
+  {
+    title: "Three Acts: 60-Second Dramatic Short",
+    description: "Master the timeless three-act storytelling structure in 60 seconds. 10zebra breaks your prompt into Act I (Setup), Act II (Conflict), and Act III (Payoff).",
+    bullets: [
+      "<strong>Constant world rules:</strong> Visual taste, lighting, camera type, narrative tone, time of day, and weather are held strictly constant.",
+      "<strong>Pacing rule:</strong> System prompt embeds 'Edit: fast paced cuts that advance the narrative' to guarantee momentum.",
+      "<strong>Perfect for pitch reels:</strong> Turn story concepts into complete 3-beat visual treatments in under 60 seconds."
+    ],
+    tag: "Dramatic Structure"
+  },
+  {
+    title: "Make An Ad: Commercial-Grade Art Direction",
+    description: "Engineered specifically for brands and advertising agencies. Generates three high-impact commercial scenes that spotlight product scale and aesthetic.",
+    bullets: [
+      "<strong>Cinematic commercial language:</strong> Utilizes compact diction from modern advertising, cinematography, and high-end printmaking.",
+      "<strong>Consistent brand mood:</strong> Preserves grade, lighting, and product focus across all cuts.",
+      "<strong>Fast commercial editing:</strong> Structured specifically for high-energy promotional pacing."
+    ],
+    tag: "Commercials"
+  },
+  {
+    title: "Grok: Native 9:16 Social Microdramas",
+    description: "Social media video demands different rules than cinema. The Grok tool produces punchy vertical video optimized for TikTok, Instagram Reels, and YouTube Shorts.",
+    bullets: [
+      "<strong>Native 9:16 vertical composition:</strong> Zero cropping or pillar-boxing artifacts.",
+      "<strong>Mobile camera movement:</strong> Dynamic push-ins, pans, and handheld energy typical of viral social content.",
+      "<strong>Dialogue & closeups:</strong> Snappy character closeups with dialogue prompts that hook viewers before they swipe."
+    ],
+    tag: "Social 9:16"
+  },
+  {
+    title: "Explore Locations: Environment Bibles Without Character Drift",
+    description: "Build a rich location library for your film or commercial without characters cluttering the background.",
+    bullets: [
+      "<strong>Character stripping:</strong> Prompts are sanitized to remove all human descriptions, focusing purely on architecture and nature.",
+      "<strong>Varied shot coverage:</strong> Generates wide establishing views, medium architectural perspectives, and novel angles (aerial, ground, dutch tilt).",
+      "<strong>Reference consistency:</strong> Use generated environments to anchor future scene backgrounds."
+    ],
+    tag: "Environments"
+  },
+  {
+    title: "Explore Expressions: Emotional Spectrum with Face Lock",
+    description: "Direct your AI actor through complex emotional beats while keeping their face 100% consistent.",
+    bullets: [
+      "<strong>Reference anchored:</strong> Upload a character portrait to lock facial identity across all variations.",
+      "<strong>Subtle emotional nuance:</strong> Explore micro-expressions where posture or gaze subtly contradicts overt emotions.",
+      "<strong>Camera angle consistency:</strong> Generates matching closeups and medium shots across the entire emotional arc."
+    ],
+    tag: "Character Acting"
+  }
+];
+
+const comparisonItems = [
+  {
+    feature: "Prompt Preparation",
+    zebra: "6 pre-built story tools with expert cinematic grammar baked into the system prompts",
+    competitor: "Empty text box; you must manually write 100-word prompt engineering recipes",
+    zebraAdvantage: true
+  },
+  {
+    feature: "Script Breakdown Capacity",
+    zebra: "Drop a script; choose 3, 5, 10, 20, or 30 cohesive sequential shots in 1 click",
+    competitor: "Zero script understanding; you must break down and prompt every shot manually",
+    zebraAdvantage: true
+  },
+  {
+    feature: "Vertical Social Optimization",
+    zebra: "Dedicated 9:16 microdrama engine with mobile camera kinematics and snappy dialogue",
+    competitor: "Only basic aspect ratio toggle without social-tailored pacing or framing",
+    zebraAdvantage: true
+  },
+  {
+    feature: "Environment Isolation",
+    zebra: "Explore Locations automatically removes character descriptions to keep backdrops pure",
+    competitor: "Models frequently insert unwanted random background people and faces",
+    zebraAdvantage: true
+  }
+];
+
+const faqs = [
+  {
+    question: "How many shots can I generate at once from a script?",
+    answer: "In the 'From a Script' tool, you can select 3, 5, 10, 20, or up to 30 shots from a single script paste. 10zebra decomposes the narrative into sequential beats and renders them concurrently."
+  },
+  {
+    question: "What makes the 'Make an Ad' tool different from standard prompting?",
+    answer: "The 'Make an Ad' tool embeds high-level commercial art direction prompts: holding lighting, camera, time, weather, and grade strictly constant across three narrative scenes, with fast-paced cuts that emphasize product presence and brand vibe."
+  },
+  {
+    question: "Can I combine quick start tools together?",
+    answer: "Yes! A common workflow is: 1) Generate your setting in Explore Locations, 2) Lock your actor's emotional range in Explore Expressions, and 3) Feed both into 'From a Script' or 'Three Acts' to generate your complete storyboard."
+  },
+  {
+    question: "Do quick start tools cost extra credits?",
+    answer: "No. Quick start tools only consume the standard credits for the video models you choose to generate with (e.g. Kling, Seedance, Grok). The prompt structuring and directorial system prompts are included for free."
+  }
+];
+
+const relatedFeatures = [
+  {
+    title: "Side-by-Side Model Comparison",
+    description: "Run your quick-start prompts across Kling, Grok, and Seedance at the same time.",
+    href: "/features/model-comparison",
+    badge: "Multi-Model"
+  },
+  {
+    title: "Text-to-Sequence",
+    description: "Deep dive into how 10zebra translates single prompts into multi-shot storyboards.",
+    href: "/features/text-to-sequence",
+    badge: "Story"
+  },
+  {
+    title: "Publish to YouTube",
+    description: "Arrange your quick-start shots into a timeline and export directly to YouTube.",
+    href: "/features/publish-to-youtube",
+    badge: "Distribution"
+  }
+];
+---
+
+<FeatureLandingLayout
+  title="Quick Start Tools | 10zebra Pre-Built AI Video Story Engines"
+  description="Accelerate your production with 6 pre-built quick start tools: From a Script (3-30 shots), Three Acts (60s arc), Make an Ad, Explore Locations, Explore Expressions, and Grok 9:16."
+  eyebrow="PRE-BUILT STORY ENGINES"
+  headline="Quick Start Tools:"
+  headlineHighlight="From Idea to Storyboard in Seconds."
+  subheadline="Never start from a blank prompt again. Choose from our 6 pre-built quick start tools &mdash; designed around Hollywood cinematic grammar, commercial advertising frameworks, and viral social microdramas."
+  badgeText="6 Pre-Tuned Story Engines"
+  stats={stats}
+  workflowSteps={workflowSteps}
+  features={features}
+  comparisonItems={comparisonItems}
+  faqs={faqs}
+  relatedFeatures={relatedFeatures}
+>
+  <div slot="hero-visual">
+    <!-- Quick start tools hero teaser -->
+    <div class="rounded-xl bg-[#0e1014] border border-[var(--border-subtle)] p-5 text-left">
+      <div class="flex items-center justify-between pb-3 border-b border-[var(--border-subtle)] mb-4">
+        <span class="text-xs font-mono uppercase text-[var(--accent)] font-bold">10zebra Pre-Built Engine Suite</span>
+        <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-500/20">6 Tools Active</span>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 mb-4">
+        <div class="p-3 rounded-lg bg-[#14161c] border border-[var(--border-subtle)]">
+          <div class="text-xs font-bold text-[var(--text-primary)] mb-0.5">From a Script</div>
+          <div class="text-[10px] text-[var(--accent)] font-mono">3 to 30 Shots</div>
+        </div>
+        <div class="p-3 rounded-lg bg-[#14161c] border border-[var(--border-subtle)]">
+          <div class="text-xs font-bold text-[var(--text-primary)] mb-0.5">Three Acts</div>
+          <div class="text-[10px] text-[var(--accent)] font-mono">60s Narrative Arc</div>
+        </div>
+        <div class="p-3 rounded-lg bg-[#14161c] border border-[var(--border-subtle)]">
+          <div class="text-xs font-bold text-[var(--text-primary)] mb-0.5">Make An Ad</div>
+          <div class="text-[10px] text-[var(--accent)] font-mono">Commercial Cuts</div>
+        </div>
+        <div class="p-3 rounded-lg bg-[#14161c] border border-[var(--border-subtle)]">
+          <div class="text-xs font-bold text-[var(--text-primary)] mb-0.5">Explore Locations</div>
+          <div class="text-[10px] text-[var(--accent)] font-mono">Environment Bible</div>
+        </div>
+        <div class="p-3 rounded-lg bg-[#14161c] border border-[var(--border-subtle)]">
+          <div class="text-xs font-bold text-[var(--text-primary)] mb-0.5">Explore Expressions</div>
+          <div class="text-[10px] text-[var(--accent)] font-mono">Acting &amp; Micro-Emotions</div>
+        </div>
+        <div class="p-3 rounded-lg bg-[#14161c] border border-[var(--border-subtle)]">
+          <div class="text-xs font-bold text-[var(--text-primary)] mb-0.5">Grok Social</div>
+          <div class="text-[10px] text-[var(--accent)] font-mono">9:16 Microdramas</div>
+        </div>
+      </div>
+
+      <div class="text-xs text-[var(--text-secondary)] leading-relaxed bg-[#121418] p-3 rounded-lg border border-white/5">
+        Each engine includes pre-calibrated system prompts with precise cinematography, lens types, lighting conditions, and camera movement syntax.
+      </div>
+    </div>
+  </div>
+
+  <!-- Interactive Explorer Section Slot -->
+  <section class="section border-t border-[var(--border-subtle)] bg-[rgba(19,20,23,0.3)]">
+    <div class="wrap">
+      <div class="sect-head">
+        <span class="sect-label">Interactive Tool Sandbox</span>
+        <h2>Test All 6 Story Engines</h2>
+        <p>Explore prompts, shot options, and sample outputs for each tool below.</p>
+      </div>
+
+      <QuickStartToolsExplorer initialTool="from-script" />
+    </div>
+  </section>
+</FeatureLandingLayout>

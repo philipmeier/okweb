@@ -1,8 +1,122 @@
 ---
-import PlaceholderPage from "../../layouts/PlaceholderPage.astro";
+import FeatureLandingLayout from "../../layouts/FeatureLandingLayout.astro";
+import ProjectBudgetMockup from "../../components/features/ProjectBudgetMockup.astro";
+
+const stats = [
+  { value: "Per Project", label: "Budget & Team Controls", detail: "Isolate finances per client" },
+  { value: "Zero", label: "Shared Account Risk", detail: "No rogue teammate drain" },
+  { value: "Real-Time", label: "Shared Storyboard Canvas", detail: "Synced takes & camera rules" },
+  { value: "100%", label: "Audit Log Transparency", detail: "Complete model & cost ledger" }
+];
+
+const workflowSteps = [
+  {
+    step: "Step 01",
+    title: "Create Project & Set Credit Limit",
+    description: "Launch a dedicated workspace for each client or production. Fund it with a hard credit cap.",
+    tag: "Budget Shield"
+  },
+  {
+    step: "Step 02",
+    title: "Invite Teammates with Custom Roles",
+    description: "Grant Director, Animator, or Viewer access. Specify whether they draw from project or personal credits.",
+    tag: "Permissions"
+  },
+  {
+    step: "Step 03",
+    title: "Produce Together in One Canvas",
+    description: "Camera directions, art rules, and reference portraits are saved globally; takes stream into a shared bin.",
+    tag: "Live Canvas"
+  }
+];
+
+const features = [
+  {
+    title: "Project-Level Budgets: True Client Separation",
+    description: "Stop sharing one messy credit pool. Allocate precise credit amounts per client project, track burn rates in real time, and bill with 100% precision.",
+    bullets: [
+      "<strong>Hard budget caps:</strong> Automatically stop generations when a project's allocated credits run out.",
+      "<strong>Project-specific billing:</strong> Export exact itemized ledgers showing model usage, seeds, and costs.",
+      "<strong>Freelancer safe:</strong> Add contractors to one project without exposing company-wide finances."
+    ],
+    tag: "Cost Control"
+  },
+  {
+    title: "Collaborative Team Storyboard",
+    description: "Eliminate the chaos of passing MP4 files over Slack. Work inside one synchronized visual storyboard.",
+    bullets: [
+      "<strong>Global style locking:</strong> Lock camera angles, aspect ratio, and color palette project-wide.",
+      "<strong>Real-time take streaming:</strong> Generations made by any teammate immediately appear in the shared bin.",
+      "<strong>Director review:</strong> Star winning takes and assemble the timeline while artists continue generating."
+    ],
+    tag: "Team Workflow"
+  }
+];
+
+const comparisonItems = [
+  {
+    feature: "Credit Budgeting Scope",
+    zebra: "Budgets isolated per project; zero risk of one project draining another",
+    competitor: "Account-level shared pool; one user can exhaust the entire monthly allowance",
+    zebraAdvantage: true
+  },
+  {
+    feature: "Team Member Assignments",
+    zebra: "Add team members with specific roles per project",
+    competitor: "All-or-nothing organization access with full account visibility",
+    zebraAdvantage: true
+  },
+  {
+    feature: "Audit & Cost Attribution",
+    zebra: "Timestamped ledger of who prompted, which model was used, and exact cost",
+    competitor: "Vague monthly usage bar with no per-project breakdown",
+    zebraAdvantage: true
+  }
+];
+
+const faqs = [
+  {
+    question: "How do project budgets protect my studio from overruns?",
+    answer: "Every project in 10zebra has its own dedicated credit bank. Even if an editor tests multiple takes in Veo 3 or Sora, they can never spend more than the credits you allocated to that specific project."
+  },
+  {
+    question: "Can clients review takes without spending credits?",
+    answer: "Yes. You can invite clients with a Viewer role or send them a password-protected Storyboard Review link where they can scrub takes, leave feedback, and approve cuts without generation permissions."
+  }
+];
+
+const relatedFeatures = [
+  {
+    title: "Collaborative Storyboard",
+    description: "Deep dive into real-time collaborative production and saved story preferences.",
+    href: "/features/collaborative-storyboard",
+    badge: "Collaboration"
+  },
+  {
+    title: "Side-by-Side Model Comparison",
+    description: "Compare takes across Kling, Grok, and Seedance inside your project.",
+    href: "/features/model-comparison",
+    badge: "Studio"
+  }
+];
 ---
-<PlaceholderPage
-  title="Team Management"
-  label="Feature"
-  description="Add teammates, set project-level budgets, assign roles, and track who generated what — all scoped to the project, not the account."
-/>
+
+<FeatureLandingLayout
+  title="Team Management & Project Budgets | 10zebra AI Video"
+  description="Control project budgets and manage creative teams per project. Prevent cross-project credit bleed and collaborate in real-time storyboards."
+  eyebrow="TEAM & PROJECT MANAGEMENT"
+  headline="Team Management &amp; Project Budgets:"
+  headlineHighlight="Zero Credit Bleed. Total Control."
+  subheadline="Fund each project independently, assign roles per production, and collaborate in a shared storyboard canvas where story settings are saved and generated media is shared in real time."
+  badgeText="Studio Governance"
+  stats={stats}
+  workflowSteps={workflowSteps}
+  features={features}
+  comparisonItems={comparisonItems}
+  faqs={faqs}
+  relatedFeatures={relatedFeatures}
+>
+  <div slot="hero-visual">
+    <ProjectBudgetMockup />
+  </div>
+</FeatureLandingLayout>

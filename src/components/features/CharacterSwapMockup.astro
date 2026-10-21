@@ -1,0 +1,110 @@
+---
+---
+
+<div class="character-swap-mockup w-full rounded-xl overflow-hidden bg-[#0e1014] border border-[var(--border-subtle)] shadow-2xl">
+  <!-- Top bar -->
+  <div class="bg-[#16181e] px-4 py-3 border-b border-[var(--border-subtle)] flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="w-3 h-3 rounded-full bg-rose-500/80"></span>
+      <span class="w-3 h-3 rounded-full bg-amber-500/80"></span>
+      <span class="w-3 h-3 rounded-full bg-emerald-500/80"></span>
+      <span class="text-xs font-mono text-[var(--text-muted)] ml-2">Character Swap Engine &middot; Project-Wide Consistency</span>
+    </div>
+    <div class="flex items-center gap-2">
+      <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30 flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+        10z Agent Ready
+      </span>
+    </div>
+  </div>
+
+  <div class="p-4 sm:p-6 grid grid-cols-1 md:grid-cols-12 gap-5 items-center bg-[#0a0b0e]">
+    <!-- Original Video Take -->
+    <div class="md:col-span-4 rounded-xl border border-[var(--border-subtle)] bg-[#14161c] p-3 text-left">
+      <div class="flex items-center justify-between mb-2">
+        <span class="text-[11px] font-mono uppercase tracking-wider text-[var(--text-muted)]">Source Take (Kling 3.0)</span>
+        <span class="text-[10px] px-1.5 py-0.5 rounded bg-white/5 text-[var(--text-secondary)]">Motion Locked</span>
+      </div>
+      <div class="relative aspect-video rounded-lg overflow-hidden mb-2 bg-black">
+        <img 
+          src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=450&h=300&fit=crop&q=80" 
+          alt="Original actor in video take" 
+          class="w-full h-full object-cover"
+        />
+        <div class="absolute bottom-2 left-2 text-[10px] font-mono bg-black/80 px-2 py-0.5 rounded text-white/90">
+          Original Talent: Actor A
+        </div>
+      </div>
+      <p class="text-[11px] text-[var(--text-secondary)] leading-relaxed">
+        Full 8-second camera dolly with complex hand gesture and dynamic head turn.
+      </p>
+    </div>
+
+    <!-- Center Swap Action / Reference Photo -->
+    <div class="md:col-span-4 flex flex-col items-center text-center px-2">
+      <div class="w-full max-w-[200px] mb-3">
+        <div class="text-[10px] font-mono text-[var(--text-muted)] uppercase mb-1">New Reference Photo</div>
+        <div class="relative rounded-xl overflow-hidden border-2 border-[var(--accent)] shadow-lg shadow-orange-500/10 aspect-square">
+          <img 
+            src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&h=300&fit=crop&q=80" 
+            alt="New character reference photo" 
+            class="w-full h-full object-cover"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end justify-center p-2">
+            <span class="text-[10px] font-bold text-white tracking-wide">Target Character B</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action buttons -->
+      <div class="w-full space-y-2">
+        <div class="text-xs text-[var(--accent)] font-semibold flex items-center justify-center gap-1">
+          <span>Preserves 100% Motion &amp; Lighting</span>
+        </div>
+        <div class="p-2 rounded-lg bg-[var(--accent-subtle)] border border-[rgba(249,115,22,0.3)] text-left">
+          <div class="text-[11px] font-bold text-[var(--text-primary)] flex items-center gap-1.5 mb-1">
+            <span class="text-[var(--accent)]">⚡</span> 10z Agent Automation:
+          </div>
+          <p class="text-[10px] text-[var(--text-secondary)] leading-tight">
+            Apply character swap across <strong>all 18 selected takes</strong> in this project with 1 click.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Resulting Swapped Output Take -->
+    <div class="md:col-span-4 rounded-xl border border-[var(--accent)] ring-1 ring-[var(--accent)]/50 bg-[#14161c] p-3 text-left">
+      <div class="flex items-center justify-between mb-2">
+        <span class="text-[11px] font-mono uppercase tracking-wider text-[var(--accent)] font-bold">Swapped Take Result</span>
+        <span class="text-[10px] px-2 py-0.5 rounded bg-[var(--accent)] text-[#0c0d10] font-black">Zero Drift</span>
+      </div>
+      <div class="relative aspect-video rounded-lg overflow-hidden mb-2 bg-black">
+        <img 
+          src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=450&h=300&fit=crop&q=80" 
+          alt="Swapped character with identical video motion" 
+          class="w-full h-full object-cover"
+        />
+        <div class="absolute bottom-2 left-2 text-[10px] font-mono bg-black/80 px-2 py-0.5 rounded text-orange-300">
+          Character B: Exact Original Dolly
+        </div>
+        <div class="absolute top-2 right-2 text-xs font-bold bg-emerald-500 text-black px-1.5 py-0.5 rounded">
+          Motion Preserved ✓
+        </div>
+      </div>
+      <p class="text-[11px] text-[var(--text-secondary)] leading-relaxed">
+        Exact same lighting, background, and head movement &mdash; new identity flawlessly grafted.
+      </p>
+    </div>
+  </div>
+
+  <!-- Agent Execution Banner -->
+  <div class="bg-[#121418] px-4 py-3 border-t border-[var(--border-subtle)] flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+    <div class="flex items-center gap-2 text-[var(--text-secondary)]">
+      <span class="text-amber-400">★</span>
+      <span><strong>Batch Project Mode:</strong> The 10z agent scans your storyboard, identifies all cuts featuring Character A, and schedules parallel background re-renders.</span>
+    </div>
+    <span class="px-2.5 py-1 rounded bg-[var(--bg-elevated)] border border-[var(--border-subtle)] text-[var(--text-primary)] font-mono text-[11px] shrink-0">
+      Project Agent: Active
+    </span>
+  </div>
+</div>

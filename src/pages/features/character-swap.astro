@@ -1,8 +1,142 @@
 ---
-import PlaceholderPage from "../../layouts/PlaceholderPage.astro";
+import FeatureLandingLayout from "../../layouts/FeatureLandingLayout.astro";
+import CharacterSwapMockup from "../../components/features/CharacterSwapMockup.astro";
+
+const stats = [
+  { value: "100%", label: "Motion Preservation", detail: "Retains exact camera dolly & posture" },
+  { value: "1 Click", label: "Project-Wide Agent Swap", detail: "Automated batch storyboard re-render" },
+  { value: "Zero", label: "Face Drift Across Shots", detail: "Locked identity via reference portrait" },
+  { value: "12s", label: "Full Motion Sequences", detail: "Compatible with long takes & Seedance" }
+];
+
+const workflowSteps = [
+  {
+    step: "Step 01",
+    title: "Pick Your Source Take",
+    description: "Select any existing AI generation from your storyboard or upload an external live-action video clip.",
+    tag: "Source Clip"
+  },
+  {
+    step: "Step 02",
+    title: "Upload Target Reference Photo",
+    description: "Drop in a single portrait photograph of the new character or actor you want to cast in the scene.",
+    tag: "Identity Anchor"
+  },
+  {
+    step: "Step 03",
+    title: "Swap Single Shot or Deploy 10z Agent",
+    description: "Execute a single take swap, or command the 10z Agent to automatically propagate the new character across every selected shot in your project.",
+    tag: "Batch Automation"
+  }
+];
+
+const features = [
+  {
+    title: "Single Take Character Swap: Perfect Motion Lock",
+    description: "Traditional AI generation changes the actor's face and posture with every prompt iteration. Character Swap preserves everything that made the original take great.",
+    bullets: [
+      "<strong>Preserves camera dynamics:</strong> Sweeping crane moves, handheld pans, and push-ins remain identical.",
+      "<strong>Preserves physical acting:</strong> Hand gestures, head turns, posture, and facial expressions stay locked to the source video.",
+      "<strong>Matches scene illumination:</strong> The new character seamlessly adopts the ambient lighting, shadows, and color grade of the original environment."
+    ],
+    tag: "Motion Lock"
+  },
+  {
+    title: "The 10z Project Agent: Automated Project-Wide Swaps",
+    description: "Re-casting a project in traditional AI workflows takes days of re-prompting and manual matching. The 10z Agent automates the entire process in background tasks.",
+    bullets: [
+      "<strong>Project-wide detection:</strong> The 10z agent scans your entire timeline and storyboard to identify all takes featuring the original character.",
+      "<strong>Parallel batch rendering:</strong> Automatically queues swap generations in the background using project credits.",
+      "<strong>Non-destructive versioning:</strong> Original takes are safely preserved as alternative takes so you can revert or A/B test with clients anytime."
+    ],
+    tag: "10z Agent"
+  }
+];
+
+const comparisonItems = [
+  {
+    feature: "Re-Casting an Existing Scene",
+    zebra: "Drop reference photo; 100% of camera motion & timing is preserved",
+    competitor: "Re-prompt from scratch; character face, motion, and background change",
+    zebraAdvantage: true
+  },
+  {
+    feature: "Project-Wide Character Updates",
+    zebra: "10z Agent propagates new character across all selected storyboard takes",
+    competitor: "Must manually re-create every individual shot one by one",
+    zebraAdvantage: true
+  },
+  {
+    feature: "Motion Artifacts & Drift",
+    zebra: "Trained motion transfer preserves micro-gestures and physical eyelines",
+    competitor: "Face-swapping overlays look robotic with detached necks and mismatched grades",
+    zebraAdvantage: true
+  },
+  {
+    feature: "External Video Support",
+    zebra: "Upload live-action footage or footage from any AI tool to swap characters",
+    competitor: "Restricted strictly to the platform's internal proprietary generator",
+    zebraAdvantage: true
+  }
+];
+
+const faqs = [
+  {
+    question: "How does Character Swap differ from standard face swap tools?",
+    answer: "Standard face swaps simply paste a 2D face cutout onto a moving body, leading to harsh neck seams and mismatched lighting. 10zebra's Character Swap regenerates the volumetric character mesh &mdash; preserving natural head turns, muscle tension, hair physics, and environmental illumination."
+  },
+  {
+    question: "What kind of reference image gives the best swap quality?",
+    answer: "A well-lit, front-facing or 3/4 angle portrait photograph with clear view of the eyes, nose, and facial structure. You only need one high-resolution reference photo."
+  },
+  {
+    question: "How does the 10z Agent perform project-wide character swaps?",
+    answer: "Inside your Project Settings or Storyboard, click 'Batch Character Swap with 10z Agent'. Upload your target character portrait, select which scenes or characters to replace, and confirm. The agent will schedule parallel generation tasks across your project without disturbing your active workspace."
+  },
+  {
+    question: "Can I swap characters on uploaded real-world videos?",
+    answer: "Yes! You can upload an MP4 of a real human actor performing a stunt or monologue, upload a reference portrait, and 10zebra will render the scene with your synthetic or animated character in their place."
+  }
+];
+
+const relatedFeatures = [
+  {
+    title: "Multi-Reference Edit",
+    description: "Blend up to 3 references (character, environment, and costume) into a single keyframe.",
+    href: "/features/multi-reference-edit",
+    badge: "Styling"
+  },
+  {
+    title: "Side-by-Side Model Comparison",
+    description: "Compare Kling, Grok, and Seedance takes side-by-side to find the best motion foundation.",
+    href: "/features/model-comparison",
+    badge: "Engines"
+  },
+  {
+    title: "Project-Level Budgets",
+    description: "Run large batch character swaps with confidence under hard project budget caps.",
+    href: "/features/project-management",
+    badge: "Governance"
+  }
+];
 ---
-<PlaceholderPage
-  title="Character Swap"
-  label="Feature"
-  description="Drop in a reference photo to replace the person in any AI-generated or uploaded video — preserving all original motion."
-/>
+
+<FeatureLandingLayout
+  title="Character Swap & 10z Agent | Consistent AI Video Characters"
+  description="Regenerate existing takes with a new character reference while preserving 100% of camera motion. Use the 10z Agent to batch swap characters across your entire project."
+  eyebrow="CHARACTER CONTINUITY"
+  headline="Character Swap &amp; 10z Agent:"
+  headlineHighlight="Zero Drift. 100% Motion Lock."
+  subheadline="Regenerate an existing take with a new character reference while preserving camera moves, lighting, and pacing. Or deploy the 10z Agent to automatically propagate the new character across all selected takes in your project."
+  badgeText="10z Agent Project Automation"
+  stats={stats}
+  workflowSteps={workflowSteps}
+  features={features}
+  comparisonItems={comparisonItems}
+  faqs={faqs}
+  relatedFeatures={relatedFeatures}
+>
+  <div slot="hero-visual">
+    <CharacterSwapMockup />
+  </div>
+</FeatureLandingLayout>
