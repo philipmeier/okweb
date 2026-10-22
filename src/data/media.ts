@@ -39,6 +39,15 @@ import creatorHost from '../assets/media/solutions/creator-host.jpg';
 import creatorCave from '../assets/media/solutions/creator-cave.jpg';
 import creatorSummit from '../assets/media/solutions/creator-summit.jpg';
 
+// Feature pages: one hero visual per feature (others reuse slots above)
+import featCharacterSwap from '../assets/media/features/character-swap.jpg';
+import featMultiReference from '../assets/media/features/multi-reference.jpg';
+import featQuickStart from '../assets/media/features/quick-start.jpg';
+import featStoryboard from '../assets/media/features/storyboard.jpg';
+import featBudgets from '../assets/media/features/project-budgets.jpg';
+import featTeam from '../assets/media/features/team.jpg';
+import featProduce from '../assets/media/features/produce-export.jpg';
+
 export interface MediaSlot {
   /** Stable ID — shown in the dev tag so the founder can find the slot here. */
   id: string;
@@ -209,6 +218,50 @@ export const media = {
     image: creatorSummit,
     alt: 'The same fox host celebrating on a mountain summit',
     brief: '16:9 loop, 5s. SAME host, thumbnail-worthy finale beat — ready to publish.',
+  }),
+
+  /* ---------- Feature pages (16:9; hero backdrop + hub cards) ---------- */
+  featCharacterSwap: slot({
+    id: 'feat-character-swap',
+    image: featCharacterSwap,
+    alt: 'Split-screen of the same shot with two different actors swapped in',
+    brief: '16:9 loop, 6s. Real Character Swap output: SAME take, original actor → swapped actor (wipe or split). Camera move and lighting must match exactly.',
+  }),
+  featMultiReference: slot({
+    id: 'feat-multi-reference',
+    image: featMultiReference,
+    alt: 'Woman in a crimson trench coat on a rainy neon rooftop',
+    brief: '16:9 still or loop. Multi-Reference result frame: character + wardrobe + location blended. Ideally show the 3 reference thumbnails → result.',
+  }),
+  featQuickStart: slot({
+    id: 'feat-quick-start',
+    image: featQuickStart,
+    alt: 'Black sports car drifting across a desert salt flat at golden hour',
+    brief: '16:9 loop, 6s. Output from a Quick Start tool (e.g. Make an Ad). Punchy, commercial, made in one click.',
+  }),
+  featStoryboard: slot({
+    id: 'feat-storyboard',
+    image: featStoryboard,
+    alt: 'Wall of printed film storyboard frames in a production office',
+    brief: '16:9. Screen capture of a real shared 10zebra storyboard (many shots, several collaborators), or a stylised storyboard wall.',
+  }),
+  featBudgets: slot({
+    id: 'feat-project-budgets',
+    image: featBudgets,
+    alt: 'Producer in a control room watching three different projects on three monitors',
+    brief: '16:9. Multiple client projects running side by side, each with its own budget. Real UI capture of Project settings → Budget preferred.',
+  }),
+  featTeam: slot({
+    id: 'feat-team',
+    image: featTeam,
+    alt: 'Creative team reviewing a shot together on a large studio screen',
+    brief: '16:9. Team reviewing shots together. Could be a real team using 10zebra, or a UI capture of the Team / roles panel.',
+  }),
+  featProduce: slot({
+    id: 'feat-produce-export',
+    image: featProduce,
+    alt: 'Editing desk with a cinematic frame above a multi-track timeline',
+    brief: '16:9 loop, 6s. Screen capture of 10zebra Produce view: arranging takes, trimming, adding a music bed, exporting.',
   }),
 };
 

@@ -1,0 +1,96 @@
+---
+/**
+ * ShiftList — "old way → 10zebra way" rows.
+ * Used by the feature template and /features hub. Optional `label` renders a
+ * small heading above each row (e.g. the capability being compared).
+ * Accent follows `--shift-accent` (defaults to brand orange).
+ */
+interface Item {
+  label?: string;
+  before: string;
+  after: string;
+}
+
+interface Props {
+  items: Item[];
+  beforeLabel?: string;
+  afterLabel?: string;
+  class?: string;
+}
+
+const { items, beforeLabel = "The old way", afterLabel = "With 10zebra", class: className = "" } = Astro.props;
+---
+
+<div class:list={["shift", className]}>
+  <div class="shift__head" aria-hidden="true">
+    <span>{beforeLabel}</span>
+    <span></span>
+    <span class="is-after">{afterLabel}</span>
+  </div>
+  <ul>
+    {items.map((item, i) => (
+      <li class={`reveal reveal-d${(i % 3) + 1}`}>
+        {item.label && <span class="shift__label">{item.label}</span>}
+        <div class="shift__row">
+          <div class="shift__before">
+            <span class="shift__mark shift__mark--x" aria-hidden="true">&#10005;</span>
+            <span><span class="sr-only">{beforeLabel}: </span>{item.before}</span>
+          </div>
+          <span class="shift__arrow" aria-hidden="true">&rarr;</span>
+          <div class="shift__after">
+            <span class="shift__mark shift__mark--check" aria-hidden="true">&#10003;</span>
+            <span><span class="sr-only">{afterLabel}: </span>{item.after}</span>
+          </div>
+        </div>
+      </li>
+    ))}
+  </ul>
+</div>
+
+<style>
+  .shift { --a: var(--shift-accent, var(--accent)); max-width: 1000px; margin: 0 auto; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .shift__head {
+    display: grid;
+    grid-template-columns: 1fr 1.25rem 1fr;
+    gap: 1rem;
+    padding: 0 0.25rem 0.75rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .shift__head .is-after { color: var(--a); }
+  .shift ul { list-style: none; display: grid; gap: 1rem; }
+  .shift__label { display: block; font-size: 0.78rem; font-weight: 700; color: var(--text-primary); margin: 0 0 0.45rem 0.25rem; }
+  .shift__row { display: grid; grid-template-columns: 1fr 1.25rem 1fr; gap: 1rem; align-items: stretch; }
+  .shift__before,
+  .shift__after {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 1rem 1.15rem;
+    border-radius: 14px;
+    font-size: 0.92rem;
+    line-height: 1.45;
+  }
+  .shift__before { color: var(--text-muted); background: rgba(255, 255, 255, 0.015); border: 1px dashed var(--border-subtle); }
+  .shift__after {
+    color: var(--text-primary);
+    font-weight: 600;
+    background: linear-gradient(90deg, color-mix(in srgb, var(--a) 10%, transparent), var(--bg-card));
+    border: 1px solid color-mix(in srgb, var(--a) 35%, transparent);
+    box-shadow: 0 10px 30px -18px color-mix(in srgb, var(--a) 60%, transparent);
+  }
+  .shift__mark { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; flex-shrink: 0; font-size: 0.7rem; font-weight: 800; }
+  .shift__mark--x { color: #f87171; background: rgba(248, 113, 113, 0.08); border: 1px solid rgba(248, 113, 113, 0.25); }
+  .shift__mark--check { color: #0c0d10; background: var(--a); }
+  .shift__arrow { align-self: center; color: var(--accent); font-size: 1.2rem; text-align: center; }
+
+  @media (max-width: 800px) {
+    .shift__head { display: none; }
+    .shift__row { grid-template-columns: 1fr; gap: 0.4rem; }
+    .shift__arrow { transform: rotate(90deg); justify-self: center; }
+  }
+</style>

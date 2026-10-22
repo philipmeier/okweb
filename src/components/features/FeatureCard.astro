@@ -1,0 +1,102 @@
+---
+/**
+ * FeatureCard — visual link card for a feature (image + badge + title + blurb).
+ * Used by the /features hub pipeline and "related features" on detail pages.
+ */
+import FeatureVisual from './FeatureVisual.astro';
+import type { FeatureRef } from '../../data/features';
+
+interface Props {
+  feature: FeatureRef;
+  class?: string;
+  /** Optional override for the blurb (e.g. page-specific related copy). */
+  blurb?: string;
+  id?: string;
+}
+
+const { feature: f, class: className = '', blurb, id } = Astro.props;
+---
+
+<a href={f.href} class:list={['fc', className]} id={id}>
+  <div class="fc__media">
+    <FeatureVisual feature={f} sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 380px" hideTag labels />
+    <span class="fc__badge">{f.badge}</span>
+  </div>
+  <div class="fc__body">
+    <div class="fc__title">
+      <span class="fc__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d={f.icon} /></svg>
+      </span>
+      <h3>{f.title}</h3>
+    </div>
+    <p>{blurb ?? f.blurb}</p>
+    <span class="fc__more">Explore <span aria-hidden="true">&rarr;</span></span>
+  </div>
+</a>
+
+<style>
+  .fc {
+    display: flex;
+    flex-direction: column;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid var(--border-subtle);
+    background: var(--bg-card);
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.4s var(--ease-out), border-color 0.3s, box-shadow 0.4s;
+  }
+  .fc:hover,
+  .fc:focus-visible {
+    transform: translateY(-4px);
+    border-color: rgba(249, 115, 22, 0.45);
+    box-shadow: 0 30px 60px -30px rgba(249, 115, 22, 0.35);
+    outline: none;
+  }
+  .fc__media { position: relative; aspect-ratio: 16 / 10; overflow: hidden; }
+  .fc__media :global(.media-slot__img) { transition: transform 1s var(--ease-out); }
+  .fc:hover .fc__media :global(.media-slot__img) { transform: scale(1.05); }
+  .fc__media::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(0deg, var(--bg-card) 0%, transparent 35%);
+    pointer-events: none;
+  }
+  .fc__badge {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    z-index: 3;
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #fff;
+    padding: 0.35rem 0.6rem;
+    border-radius: 999px;
+    background: rgba(12, 13, 16, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(8px);
+  }
+  .fc__body { display: flex; flex-direction: column; flex: 1; padding: 0.4rem 1.25rem 1.25rem; }
+  .fc__title { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.45rem; }
+  .fc__icon {
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    display: grid;
+    place-items: center;
+    color: var(--accent);
+    background: var(--accent-subtle);
+    border: 1px solid rgba(249, 115, 22, 0.22);
+  }
+  .fc__icon svg { width: 16px; height: 16px; }
+  .fc h3 { font-family: var(--font-display); font-size: 1.02rem; font-weight: 700; line-height: 1.25; }
+  .fc p { font-size: 0.86rem; color: var(--text-secondary); line-height: 1.55; margin-bottom: 1rem; }
+  .fc__more { margin-top: auto; font-size: 0.8rem; font-weight: 700; color: var(--text-primary); transition: color 0.2s; }
+  .fc__more span { display: inline-block; transition: transform 0.3s var(--ease-out); }
+  .fc:hover .fc__more { color: var(--accent); }
+  .fc:hover .fc__more span { transform: translateX(4px); }
+</style>

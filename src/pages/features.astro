@@ -1,493 +1,205 @@
 ---
+/**
+ * /features — Feature hub.
+ * Hero (copy + feature mosaic) → Stats → Pipeline (4 phases of visual feature cards)
+ * → Try it (tabbed interactive mockups) → By role (solutions) → Old way vs 10zebra → CTA.
+ * Feature titles, blurbs, and imagery come from src/data/features.ts.
+ */
 import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import FinalCTA from "../components/FinalCTA.astro";
+import FeatureVisual from "../components/features/FeatureVisual.astro";
+import FeatureCard from "../components/features/FeatureCard.astro";
+import SolutionCard from "../components/solutions/SolutionCard.astro";
+import ShiftList from "../components/shared/ShiftList.astro";
 import ModelComparisonMockup from "../components/features/ModelComparisonMockup.astro";
 import CharacterSwapMockup from "../components/features/CharacterSwapMockup.astro";
 import QuickStartToolsExplorer from "../components/features/QuickStartToolsExplorer.astro";
 import ProjectBudgetMockup from "../components/features/ProjectBudgetMockup.astro";
 import YouTubeExportMockup from "../components/features/YouTubeExportMockup.astro";
+import { features, featureEntries, phases, type PhaseKey } from "../data/features";
+import { solutions } from "../data/solutions";
 
-const categories = [
-  { id: "all", label: "All Features" },
-  { id: "multi-model", label: "Multi-Model & Comparison" },
-  { id: "character", label: "Character Consistency" },
-  { id: "quick-tools", label: "Quick Start Tools" },
-  { id: "teams", label: "Teams & Project Budgets" },
-  { id: "export", label: "Export & YouTube" },
+const phaseKeys = Object.keys(phases) as PhaseKey[];
+const byPhase = phaseKeys.map((key) => ({
+  key,
+  ...phases[key],
+  items: featureEntries.filter(([, f]) => f.phase === key).map(([, f]) => f),
+}));
+
+// Hero mosaic tiles (grid areas a–f)
+const mosaic = [
+  { area: "a", f: features.modelComparison },
+  { area: "b", f: features.characterSwap },
+  { area: "c", f: features.multiReference },
+  { area: "d", f: features.textToSequence },
+  { area: "e", f: features.quickStart },
+  { area: "f", f: features.collaborativeStoryboard },
 ];
 
-const featureGrid = [
-  {
-    category: "multi-model",
-    title: "Side-by-Side Model Comparison",
-    badge: "Flagship",
-    description: "Prompt Kling, Grok, Seedance, Veo, and Sora simultaneously. Compare takes in a synchronized live preview and pick the winning shot.",
-    href: "/features/model-comparison",
-    icon: "M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-  },
-  {
-    category: "character",
-    title: "Text-to-Sequence Generation",
-    badge: "Story Engine",
-    description: "Generate multiple cohesive shots with a single prompt. Auto-split narrative beats into chronological shots with matching art direction.",
-    href: "/features/text-to-sequence",
-    icon: "M4 6h16M4 10h16M4 14h16M4 18h16"
-  },
-  {
-    category: "character",
-    title: "Character Swap & 10z Agent",
-    badge: "Zero Drift",
-    description: "Regenerate an existing take with a new character reference photo, or deploy the 10z Agent to batch swap all takes across your entire project.",
-    href: "/features/character-swap",
-    icon: "M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-  },
-  {
-    category: "teams",
-    title: "Project-Level Budget Management",
-    badge: "Cost Shield",
-    description: "Control project budgets and configure teams per project, not per account. Keep client billing clean with zero cross-project budget bleed.",
-    href: "/features/project-management",
-    icon: "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-  },
-  {
-    category: "quick-tools",
-    title: "Pre-Built Quick Start Tools",
-    badge: "6 Engines",
-    description: "From a Script (3-30 shots), Three Acts (60s arc), Make an Ad, Explore Locations, Explore Expressions, and Grok (9:16 social microdrama).",
-    href: "/features/quick-start-tools",
-    icon: "M13 10V3L4 14h7v7l9-11h-7z"
-  },
-  {
-    category: "teams",
-    title: "Collaborative Team Storyboard",
-    badge: "Live Sync",
-    description: "Work with your team all in one storyboard. Story settings, camera guidelines, and reference locks persist while all generated media is shared.",
-    href: "/features/collaborative-storyboard",
-    icon: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
-  },
-  {
-    category: "export",
-    title: "Direct 1-Click YouTube Publishing",
-    badge: "Instant Publish",
-    description: "Assemble timeline sequences, trim takes, add background audio, and publish directly to YouTube without downloading a single gigabyte locally.",
-    href: "/features/publish-to-youtube",
-    icon: "M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
-  },
-  {
-    category: "character",
-    title: "Multi-Reference Editing",
-    badge: "Composition Lock",
-    description: "Blend up to 3 separate references (character portrait, lighting environment, and wardrobe styling) into a single cohesive frame.",
-    href: "/features/multi-reference-edit",
-    icon: "M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-  }
+// Interactive demos (mockups will be rebuilt to mirror the app — see docs/ROADMAP.md)
+const demos = [
+  { id: "compare", f: features.modelComparison, line: "Same prompt. Every model. You pick the take.", Comp: ModelComparisonMockup, props: {} },
+  { id: "swap", f: features.characterSwap, line: "Re-cast a finished take without re-shooting it.", Comp: CharacterSwapMockup, props: {} },
+  { id: "quickstart", f: features.quickStart, line: "Six launchpads, so you never start from a blank prompt.", Comp: QuickStartToolsExplorer, props: { initialTool: "from-script" } },
+  { id: "budgets", f: features.projectBudgets, line: "Every project gets its own budget, rules, and team.", Comp: ProjectBudgetMockup, props: {} },
+  { id: "publish", f: features.publishYouTube, line: "Cut, score, and publish straight from the storyboard.", Comp: YouTubeExportMockup, props: {} },
 ];
 
 const comparisonData = [
-  {
-    feature: "Multi-Model Generation",
-    zebra: "Kling, Grok, Seedance, Veo, Sora, Runway in 1 prompt",
-    competitor: "Locked to 1 proprietary engine",
-    winner: true
-  },
-  {
-    feature: "Model Comparison",
-    zebra: "Side-by-side synchronized live take previewer",
-    competitor: "Must switch tabs and copy-paste prompts",
-    winner: true
-  },
-  {
-    feature: "Project-Level Budgets",
-    zebra: "Independent credit pools per project & team",
-    competitor: "Pooled account-wide (1 mistake drains all)",
-    winner: true
-  },
-  {
-    feature: "Batch Character Swap",
-    zebra: "10z Agent swaps character across all project takes",
-    competitor: "Manual single-frame inpainting only",
-    winner: true
-  },
-  {
-    feature: "From a Script Fanout",
-    zebra: "3, 5, 10, 20, or 30 cohesive shots from 1 prompt",
-    competitor: "Generate 1 clip at a time manually",
-    winner: true
-  },
-  {
-    feature: "Team Storyboard Sync",
-    zebra: "Shared takes & media with locked global story rules",
-    competitor: "Individual isolated creator accounts",
-    winner: true
-  },
-  {
-    feature: "YouTube Direct Publishing",
-    zebra: "1-Click OAuth upload with audio mixdown & metadata",
-    competitor: "Download locally then upload manually",
-    winner: true
-  }
+  { label: "Multi-Model Generation", after: "Kling, Grok, Seedance, Veo, Sora, Runway in 1 prompt", before: "Locked to 1 proprietary engine" },
+  { label: "Model Comparison", after: "Side-by-side synchronized take previewer", before: "Switch tabs and copy-paste prompts" },
+  { label: "Project-Level Budgets", after: "Independent credit pools per project & team", before: "Pooled account-wide (1 mistake drains all)" },
+  { label: "Batch Character Swap", after: "10z Agent swaps a character across every take", before: "Manual single-frame inpainting only" },
+  { label: "From a Script Fanout", after: "3, 5, 10, 20, or 30 cohesive shots from 1 prompt", before: "Generate 1 clip at a time" },
+  { label: "Team Storyboard Sync", after: "Shared takes with locked story rules", before: "Isolated individual accounts" },
+  { label: "YouTube Publishing", after: "1-click publish with audio mixdown & metadata", before: "Download locally, then upload manually" },
 ];
 ---
 
 <Layout
   title="10zebra Feature Hub | The Complete AI Video Production Suite"
   description="Explore 10zebra's production features: side-by-side multi-model comparisons (Kling, Grok, Seedance), text-to-sequence, character swap with 10z agent, isolated project budgets, 6 quick-start tools, and 1-click YouTube publishing."
+  canonicalUrl="https://10zebra.com/features"
 >
   <Header />
 
-  <main class="feature-hub">
-    <!-- HERO SECTION -->
-    <section class="relative pt-16 pb-20 lg:pt-24 lg:pb-28 overflow-hidden">
-      <!-- Glow background -->
-      <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[850px] h-[450px] pointer-events-none rounded-full"
-        style="background: radial-gradient(ellipse at center, rgba(249,115,22,0.15) 0%, rgba(251,191,36,0.05) 50%, transparent 75%); filter: blur(70px);">
-      </div>
-
-      <div class="wrap relative z-10 text-center">
-        <div class="badge inline-flex mx-auto mb-5">
-          <span class="pulse-dot"></span>
-          <span>10zebra Production Ecosystem</span>
-        </div>
-
-        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.1] mb-6 max-w-4xl mx-auto" style="font-family: var(--font-display);">
-          The Complete Feature Hub: <br />
-          <span class="grad-text">From First Prompt to Final YouTube Cut</span>
-        </h1>
-
-        <p class="text-lg sm:text-xl text-[var(--text-secondary)] max-w-2xl mx-auto mb-10 leading-relaxed">
-          Stop juggling disconnected single-model subscriptions. Direct AI video like a producer:
-          compare models side-by-side, automate character continuity, lock project budgets, and publish without leaving your storyboard.
-        </p>
-
-        <div class="flex justify-center gap-4 flex-wrap mb-16">
-          <a href="/signup" class="btn btn-primary btn-lg shadow-xl shadow-orange-500/20" id="hub-hero-cta">
-            Start Free &mdash; 200 Credits
-          </a>
-          <a href="#quick-start-section" class="btn btn-ghost btn-lg">
-            Explore 6 Quick-Start Tools &darr;
-          </a>
-        </div>
-
-        <!-- Key Metrics Bar -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 p-5 rounded-2xl glass border border-[var(--border-subtle)] text-left">
-          <div class="p-3">
-            <div class="text-3xl font-black grad-text" style="font-family: var(--font-display);">8+</div>
-            <div class="text-sm font-bold text-[var(--text-primary)]">AI Video Engines</div>
-            <div class="text-xs text-[var(--text-muted)]">Kling, Grok, Seedance, Veo, Sora</div>
+  <main class="fh">
+    <!-- ================= HERO ================= -->
+    <section class="fh-hero" aria-labelledby="fh-heading">
+      <div class="fh-hero__glow" aria-hidden="true"></div>
+      <div class="wrap fh-hero__inner">
+        <div class="fh-hero__copy">
+          <span class="fh-kicker"><span class="fh-dot" aria-hidden="true"></span>Feature Hub</span>
+          <h1 id="fh-heading">Every Tool to <span class="grad-text">Direct AI Video</span>, Not Just Generate It</h1>
+          <p class="fh-hero__sub">Compare models, lock your cast, cut the edit, and keep every budget in check. One workspace, first prompt to final cut.</p>
+          <div class="fh-hero__ctas">
+            <a href="/signup" class="btn btn-primary btn-lg" id="hub-hero-cta">Start Free &mdash; 200 Credits</a>
+            <a href="#try" class="btn btn-ghost btn-lg" id="hub-try-cta">Try the Tools &darr;</a>
           </div>
-          <div class="p-3 border-l border-[var(--border-subtle)]">
-            <div class="text-3xl font-black grad-text" style="font-family: var(--font-display);">30 Shots</div>
-            <div class="text-sm font-bold text-[var(--text-primary)]">From 1 Script Prompt</div>
-            <div class="text-xs text-[var(--text-muted)]">Instant multi-take storyboard</div>
-          </div>
-          <div class="p-3 border-l border-[var(--border-subtle)]">
-            <div class="text-3xl font-black grad-text" style="font-family: var(--font-display);">$0 Bleed</div>
-            <div class="text-sm font-bold text-[var(--text-primary)]">Project Budget Isolation</div>
-            <div class="text-xs text-[var(--text-muted)]">Independent credit pools</div>
-          </div>
-          <div class="p-3 border-l border-[var(--border-subtle)]">
-            <div class="text-3xl font-black grad-text" style="font-family: var(--font-display);">1 Click</div>
-            <div class="text-sm font-bold text-[var(--text-primary)]">Direct to YouTube</div>
-            <div class="text-xs text-[var(--text-muted)]">No local file rendering</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- INTERACTIVE FEATURE DIRECTORY -->
-    <section class="section border-t border-[var(--border-subtle)] bg-[rgba(19,20,23,0.3)]" id="directory">
-      <div class="wrap">
-        <div class="sect-head reveal">
-          <span class="sect-label">Feature Directory</span>
-          <h2>Explore by Production Phase</h2>
-          <p>Filter through our creator tools to discover how 10zebra powers every stage of your workflow.</p>
+          <nav class="fh-phases" aria-label="Jump to phase">
+            {byPhase.map((p) => (
+              <a href={`#phase-${p.key}`}><b>{p.num}</b>{p.label}</a>
+            ))}
+          </nav>
         </div>
 
-        <!-- Filter Bar -->
-        <div class="flex items-center justify-center gap-2 flex-wrap mb-10 reveal" id="filter-bar">
-          {categories.map((c) => (
-            <button
-              class={`filter-btn px-4 py-2 rounded-full text-xs font-semibold transition-all ${c.id === 'all' ? 'active bg-[var(--accent)] text-[#0c0d10] font-bold shadow-lg shadow-orange-500/20' : 'bg-[#14161c] text-[var(--text-secondary)] border border-[var(--border-subtle)] hover:text-[var(--text-primary)]'}`}
-              data-filter={c.id}
-            >
-              {c.label}
-            </button>
-          ))}
-        </div>
-
-        <!-- Features Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 reveal" id="features-grid">
-          {featureGrid.map((item) => (
-            <a 
-              href={item.href} 
-              class="feature-card glass p-6 rounded-2xl flex flex-col justify-between no-underline group hover:border-[var(--accent)] transition-all"
-              data-cat={item.category}
-            >
-              <div>
-                <div class="flex items-center justify-between mb-4">
-                  <div class="w-10 h-10 rounded-xl bg-[var(--accent-subtle)] border border-[rgba(249,115,22,0.25)] flex items-center justify-center text-[var(--accent)]">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d={item.icon}/>
-                    </svg>
-                  </div>
-                  <span class="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded bg-[var(--accent-subtle)] text-[var(--accent)] border border-[rgba(249,115,22,0.2)]">
-                    {item.badge}
-                  </span>
-                </div>
-
-                <h3 class="text-lg font-bold text-[var(--text-primary)] group-hover:text-[var(--accent)] transition-colors mb-2" style="font-family: var(--font-display);">
-                  {item.title}
-                </h3>
-
-                <p class="text-xs text-[var(--text-secondary)] leading-relaxed mb-4">
-                  {item.description}
-                </p>
-              </div>
-
-              <div class="text-xs font-semibold text-[var(--accent)] flex items-center gap-1 group-hover:translate-x-1 transition-transform pt-2 border-t border-[var(--border-subtle)]">
-                Explore feature &rarr;
-              </div>
+        <div class="fh-mosaic" aria-label="Feature previews">
+          {mosaic.map(({ area, f }, i) => (
+            <a href={f.href} class="fh-tile" style={`grid-area:${area}; --i:${i}`}>
+              <FeatureVisual
+                feature={f}
+                single={area !== "a"}
+                labels={area === "a"}
+                sizes={area === "a" ? "(max-width: 1000px) 66vw, 420px" : "(max-width: 1000px) 33vw, 200px"}
+                eager
+                hideTag={area !== "a"}
+              />
+              <span class="fh-tile__label">{f.short}</span>
             </a>
           ))}
         </div>
       </div>
     </section>
 
-    <!-- FLAGSHIP 1: SIDE-BY-SIDE MODEL COMPARISON -->
-    <section class="section border-t border-[var(--border-subtle)]" id="model-comparison">
-      <div class="wrap">
-        <div class="split reveal mb-10">
-          <div class="split-text">
-            <span class="sect-label">Multi-Model Studio</span>
-            <h2>Side-by-Side Model Comparisons: <span class="grad-text">You Pick the Winner</span></h2>
-            <p>
-              Stop opening 5 browser tabs to compare video models. With 10zebra, you use the exact same prompt and reference photo across Kling 3.0, Grok, Seedance 2.0, Veo 3, and Sora simultaneously.
-            </p>
-            <ul class="feat-list">
-              <li><span class="check-icon">&#10003;</span> <span><strong>Live synchronized preview</strong> &mdash; scrub and compare multiple takes in real time without downloading files.</span></li>
-              <li><span class="check-icon">&#10003;</span> <span><strong>Take-based iteration</strong> &mdash; keep favorite takes, archive rejects, and re-prompt with adjusted camera parameters.</span></li>
-              <li><span class="check-icon">&#10003;</span> <span><strong>Complete prompt &amp; seed history</strong> &mdash; exact model versions, guidance scales, and reference weights are saved automatically.</span></li>
-            </ul>
-            <div class="flex items-center gap-4 mt-6">
-              <a href="/features/model-comparison" class="btn btn-primary">
-                View Model Comparison Page &rarr;
-              </a>
-              <span class="text-xs text-[var(--text-muted)]">Includes Kling, Grok, Seedance &amp; Veo</span>
+    <!-- ================= STATS ================= -->
+    <div class="wrap">
+      <div class="fh-stats glass reveal">
+        <div class="fh-stat"><div class="fh-stat__value grad-text">8+</div><div class="fh-stat__label">AI video models</div></div>
+        <div class="fh-stat"><div class="fh-stat__value grad-text">30</div><div class="fh-stat__label">shots from one script</div></div>
+        <div class="fh-stat"><div class="fh-stat__value grad-text">Per&#8209;Project</div><div class="fh-stat__label">budgets &amp; teams</div></div>
+        <div class="fh-stat"><div class="fh-stat__value grad-text">1&#8209;Click</div><div class="fh-stat__label">publish to YouTube</div></div>
+      </div>
+    </div>
+
+    <!-- ================= PIPELINE ================= -->
+    <section class="wrap section" aria-labelledby="fh-pipe-heading" id="pipeline">
+      <div class="sect-head reveal">
+        <span class="sect-label">The Pipeline</span>
+        <h2 id="fh-pipe-heading">Four Phases. <span class="grad-text">One Workspace.</span></h2>
+      </div>
+
+      <div class="fh-pipe">
+        {byPhase.map((p) => (
+          <div class="fh-phase" id={`phase-${p.key}`}>
+            <div class="fh-phase__rail reveal">
+              <span class="fh-phase__num">{p.num}</span>
+              <h3>{p.label}</h3>
+              <p>{p.line}</p>
+            </div>
+            <div class="fh-phase__cards" style={`--n:${p.items.length}`}>
+              {p.items.map((f, i) => <FeatureCard feature={f} class={`reveal reveal-d${i + 1}`} />)}
             </div>
           </div>
-
-          <div class="split-visual p-0 bg-transparent border-0">
-            <div class="p-4 rounded-xl bg-orange-500/5 border border-orange-500/20 mb-4">
-              <span class="text-xs font-bold text-[var(--accent)] block mb-1">PRODUCER INSIGHT</span>
-              <p class="text-xs text-[var(--text-secondary)] leading-relaxed">
-                Kling leads in facial fidelity, Grok excels at dynamic kinetic action, and Seedance delivers long 12-second continuous motion. 10zebra lets you deploy each model where it shines.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Interactive Comparison Mockup Component -->
-        <div class="reveal">
-          <ModelComparisonMockup />
-        </div>
+        ))}
       </div>
     </section>
 
-    <!-- FLAGSHIP 2: CHARACTER SWAP & 10Z AGENT -->
-    <section class="section border-t border-[var(--border-subtle)] bg-[rgba(19,20,23,0.3)]" id="character-swap">
-      <div class="wrap">
-        <div class="split reverse reveal mb-10">
-          <div class="split-text">
-            <span class="sect-label">Character Continuity</span>
-            <h2>Character Swap: <span class="grad-text">Single Take or Project-Wide with 10z Agent</span></h2>
-            <p>
-              When your director decides to change the lead talent, traditional AI workflows require you to re-generate everything from scratch and pray the camera motion matches. 
-              10zebra eliminates that nightmare.
-            </p>
-            <ul class="feat-list">
-              <li><span class="check-icon">&#10003;</span> <span><strong>Instant Take Swap</strong> &mdash; regenerate an existing take with a new character reference while preserving 100% of the original camera motion and lighting.</span></li>
-              <li><span class="check-icon">&#10003;</span> <span><strong>10z Agent Automation</strong> &mdash; instruct the 10z agent to regenerate all selected takes across your entire project with a new character identity.</span></li>
-              <li><span class="check-icon">&#10003;</span> <span><strong>Multi-Reference Blending</strong> &mdash; anchor character face, wardrobe, and environment lighting independently.</span></li>
-            </ul>
-            <div class="flex items-center gap-4 mt-6">
-              <a href="/features/character-swap" class="btn btn-primary">
-                View Character Swap Page &rarr;
-              </a>
-              <a href="/features/multi-reference-edit" class="btn btn-ghost">
-                Multi-Reference Edit &rarr;
-              </a>
-            </div>
-          </div>
-
-          <div class="split-visual p-0 bg-transparent border-0">
-            <div class="p-4 rounded-xl bg-orange-500/5 border border-orange-500/20 mb-4">
-              <span class="text-xs font-bold text-[var(--accent)] block mb-1">THE 10Z AGENT ADVANTAGE</span>
-              <p class="text-xs text-[var(--text-secondary)] leading-relaxed">
-                The built-in 10z Agent indexes your entire project storyboard, locates every take containing the target character, and submits parallel background renders &mdash; updating your whole cut in minutes.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Character Swap Mockup Component -->
-        <div class="reveal">
-          <CharacterSwapMockup />
-        </div>
-      </div>
-    </section>
-
-    <!-- FLAGSHIP 3: QUICK-START STORY ENGINES -->
-    <section class="section border-t border-[var(--border-subtle)]" id="quick-start-section">
+    <!-- ================= TRY IT ================= -->
+    <section class="section fh-try" aria-labelledby="fh-try-heading" id="try">
       <div class="wrap">
         <div class="sect-head reveal">
-          <span class="sect-label">Rapid Storytelling</span>
-          <h2>Pre-Built Quick Start Tools</h2>
-          <p>
-            Don't stare at an empty prompt box. Choose from our 6 pre-built quick start tools to kickstart your production immediately.
-          </p>
+          <span class="sect-label">Try It</span>
+          <h2 id="fh-try-heading">Take the Workspace <span class="grad-text">for a Spin</span></h2>
         </div>
 
-        <div class="reveal mb-12">
-          <QuickStartToolsExplorer initialTool="from-script" />
+        <div class="fh-tabs reveal" role="tablist" aria-label="Interactive feature demos">
+          {demos.map((d, i) => (
+            <button
+              type="button"
+              role="tab"
+              class="fh-tab"
+              id={`tab-${d.id}`}
+              aria-controls={`panel-demo-${d.id}`}
+              aria-selected={i === 0 ? "true" : "false"}
+              tabindex={i === 0 ? 0 : -1}
+            >
+              <span class="fh-tab__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d={d.f.icon} /></svg>
+              </span>
+              {d.f.short}
+            </button>
+          ))}
         </div>
 
-        <div class="text-center reveal">
-          <a href="/features/quick-start-tools" class="btn btn-ghost btn-lg">
-            Read Full Quick Start Tools Documentation &rarr;
-          </a>
-        </div>
+        {demos.map(({ id, f, line, Comp, props }, i) => (
+          <div class="fh-panel" role="tabpanel" id={`panel-demo-${id}`} aria-labelledby={`tab-${id}`} hidden={i !== 0}>
+            <div class="fh-panel__head">
+              <div>
+                <h3>{f.title}</h3>
+                <p>{line}</p>
+              </div>
+              <a href={f.href} class="btn btn-ghost">Explore {f.short} &rarr;</a>
+            </div>
+            <div class="fh-panel__demo">
+              <Comp {...props} />
+            </div>
+          </div>
+        ))}
       </div>
     </section>
 
-    <!-- FLAGSHIP 4: PROJECT-LEVEL MANAGEMENT & TEAMS -->
-    <section class="section border-t border-[var(--border-subtle)] bg-[rgba(19,20,23,0.3)]" id="project-management">
-      <div class="wrap">
-        <div class="split reveal mb-10">
-          <div class="split-text">
-            <span class="sect-label">Production Orchestration</span>
-            <h2>Project-Level Budgets: <span class="grad-text">Teams Per Project, Not Account</span></h2>
-            <p>
-              In Runway, your team shares one giant pool of account credits. A junior artist experimenting with slow-motion Veo can accidentally burn through a commercial client's entire monthly budget in an afternoon.
-            </p>
-            <ul class="feat-list">
-              <li><span class="check-icon">&#10003;</span> <span><strong>Hard project budget shields</strong> &mdash; allocate exact credit budgets to Project A and Project B. Zero spillover.</span></li>
-              <li><span class="check-icon">&#10003;</span> <span><strong>Credit draw rules</strong> &mdash; choose whether team members draw from project credits, personal credits, or project-only.</span></li>
-              <li><span class="check-icon">&#10003;</span> <span><strong>Granular audit trail</strong> &mdash; see every generation, who prompted it, which model was used, and exact cost.</span></li>
-            </ul>
-            <div class="flex items-center gap-4 mt-6">
-              <a href="/features/project-management" class="btn btn-primary">
-                Explore Project Budgets &rarr;
-              </a>
-              <a href="/features/collaborative-storyboard" class="btn btn-ghost">
-                Collaborative Storyboard &rarr;
-              </a>
-            </div>
-          </div>
-
-          <div class="split-visual p-0 bg-transparent border-0">
-            <div class="p-4 rounded-xl bg-orange-500/5 border border-orange-500/20 mb-4">
-              <span class="text-xs font-bold text-[var(--accent)] block mb-1">COLLABORATIVE STORYBOARD</span>
-              <p class="text-xs text-[var(--text-secondary)] leading-relaxed">
-                Work with your team all in one storyboard canvas. Story settings and camera preferences are saved globally, while media, takes, and variations are shared in real-time.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Project Budget & Team Mockup -->
-        <div class="reveal">
-          <ProjectBudgetMockup />
-        </div>
+    <!-- ================= BY ROLE ================= -->
+    <section class="wrap section" aria-labelledby="fh-role-heading">
+      <div class="sect-head reveal">
+        <span class="sect-label">By Role</span>
+        <h2 id="fh-role-heading">See the Tools <span class="grad-text">for Your Team</span></h2>
+      </div>
+      <div class="fh-roles">
+        {solutions.map((s, i) => <SolutionCard solution={s} variant="compact" class={`reveal reveal-d${i + 1}`} />)}
       </div>
     </section>
 
-    <!-- FLAGSHIP 5: PRODUCE & YOUTUBE DIRECT PUBLISHING -->
-    <section class="section border-t border-[var(--border-subtle)]" id="publish-to-youtube">
-      <div class="wrap">
-        <div class="split reverse reveal mb-10">
-          <div class="split-text">
-            <span class="sect-label">Post-Production &amp; Distribution</span>
-            <h2>Publish to YouTube: <span class="grad-text">Without Ever Leaving 10z</span></h2>
-            <p>
-              Why download 4K video clips to your local hard drive, open Premiere to stitch them together, render a master file, and manually upload it to YouTube? 
-              10zebra handles the entire assembly pipeline in the cloud.
-            </p>
-            <ul class="feat-list">
-              <li><span class="check-icon">&#10003;</span> <span><strong>Visual Sequence Arranger</strong> &mdash; drag and drop your chosen takes into chronological scenes.</span></li>
-              <li><span class="check-icon">&#10003;</span> <span><strong>Take-Level Trim</strong> &mdash; scrub and set in/out points for every clip to guarantee tight narrative pacing.</span></li>
-              <li><span class="check-icon">&#10003;</span> <span><strong>Background Audio Mixing</strong> &mdash; add cinematic score, voiceover, or SFX directly into the master cut.</span></li>
-              <li><span class="check-icon">&#10003;</span> <span><strong>1-Click YouTube Direct Push</strong> &mdash; set title, tags, description, and privacy (Public, Unlisted, Private) and publish straight from 10z.</span></li>
-            </ul>
-            <div class="flex items-center gap-4 mt-6">
-              <a href="/features/publish-to-youtube" class="btn btn-primary">
-                View YouTube Publishing Feature &rarr;
-              </a>
-            </div>
-          </div>
+    <div class="sect-divider"></div>
 
-          <div class="split-visual p-0 bg-transparent border-0">
-            <div class="p-4 rounded-xl bg-orange-500/5 border border-orange-500/20 mb-4">
-              <span class="text-xs font-bold text-[var(--accent)] block mb-1">CLOUD INGEST EFFICIENCY</span>
-              <p class="text-xs text-[var(--text-secondary)] leading-relaxed">
-                Zero local rendering bottleneck. 10zebra sends your assembled sequence directly from cloud storage to YouTube's ingest API.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- YouTube Export Mockup -->
-        <div class="reveal">
-          <YouTubeExportMockup />
-        </div>
+    <!-- ================= OLD WAY vs 10ZEBRA ================= -->
+    <section class="wrap section" aria-labelledby="fh-shift-heading">
+      <div class="sect-head reveal">
+        <span class="sect-label">The Studio Advantage</span>
+        <h2 id="fh-shift-heading">10zebra vs <span class="grad-text">Standalone AI Tools</span></h2>
       </div>
-    </section>
-
-    <!-- COMPETITIVE COMPARISON MATRIX -->
-    <section class="section border-t border-[var(--border-subtle)] bg-[rgba(19,20,23,0.4)]">
-      <div class="wrap">
-        <div class="sect-head reveal">
-          <span class="sect-label">The Studio Advantage</span>
-          <h2>10zebra vs Standalone AI Platforms</h2>
-          <p>See why creative agencies, studios, and production teams choose 10zebra over single-tool subscriptions.</p>
-        </div>
-
-        <div class="glass rounded-2xl overflow-hidden border border-[var(--border-subtle)] reveal">
-          <div class="overflow-x-auto">
-            <table class="w-full text-left text-sm border-collapse">
-              <thead>
-                <tr class="border-b border-[var(--border-subtle)] bg-[var(--bg-elevated)]">
-                  <th class="p-5 font-semibold text-[var(--text-secondary)] w-1/4">Production Capability</th>
-                  <th class="p-5 font-bold text-[var(--text-muted)] w-3/8">Standalone Tools (Runway, Higgsfield, Luma)</th>
-                  <th class="p-5 font-bold text-[var(--accent)] w-3/8 bg-orange-500/5">10zebra Unified Studio</th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-[var(--border-subtle)]">
-                {comparisonData.map((row) => (
-                  <tr class="hover:bg-white/[0.02] transition-colors">
-                    <td class="p-5 font-bold text-[var(--text-primary)]">
-                      {row.feature}
-                    </td>
-                    <td class="p-5 text-[var(--text-muted)]">
-                      <div class="flex items-start gap-2">
-                        <span class="text-rose-400 font-bold shrink-0 mt-0.5">✕</span>
-                        <span>{row.competitor}</span>
-                      </div>
-                    </td>
-                    <td class="p-5 text-[var(--text-primary)] bg-orange-500/5 font-semibold">
-                      <div class="flex items-start gap-2">
-                        <span class="text-[var(--accent)] font-bold shrink-0 mt-0.5">✓</span>
-                        <span>{row.zebra}</span>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
+      <ShiftList items={comparisonData} beforeLabel="Standalone tools (Runway, Higgsfield, Luma)" afterLabel="10zebra" />
     </section>
 
     <FinalCTA />
@@ -496,32 +208,236 @@ const comparisonData = [
   <Footer />
 </Layout>
 
+<style>
+  .fh-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 10px var(--accent); flex-shrink: 0; }
+
+  /* ---------- Hero ---------- */
+  .fh-hero { position: relative; padding: 5rem 0 6.5rem; overflow: hidden; }
+  .fh-hero__glow {
+    position: absolute;
+    top: -10%;
+    right: -5%;
+    width: 900px;
+    height: 600px;
+    background: radial-gradient(ellipse at center, rgba(249, 115, 22, 0.16), rgba(251, 191, 36, 0.05) 45%, transparent 70%);
+    filter: blur(60px);
+    pointer-events: none;
+  }
+  .fh-hero__inner { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 3.5rem; align-items: center; }
+  .fh-hero__copy > * { animation: fh-rise 0.8s var(--ease-out) both; }
+  .fh-hero__copy > *:nth-child(2) { animation-delay: 0.06s; }
+  .fh-hero__copy > *:nth-child(3) { animation-delay: 0.12s; }
+  .fh-hero__copy > *:nth-child(4) { animation-delay: 0.18s; }
+  .fh-hero__copy > *:nth-child(5) { animation-delay: 0.24s; }
+  @keyframes fh-rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+
+  .fh-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 0.4rem 0.8rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 1.25rem;
+  }
+  .fh-hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.3rem, 4.6vw, 3.7rem);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -1.8px;
+    margin-bottom: 1.1rem;
+  }
+  .fh-hero__sub { color: var(--text-secondary); font-size: 1.1rem; line-height: 1.65; margin-bottom: 1.75rem; max-width: 520px; }
+  .fh-hero__ctas { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1.75rem; }
+  .fh-phases { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .fh-phases a {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.45rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 0.45rem 0.8rem;
+    border-radius: 999px;
+    border: 1px solid var(--border-subtle);
+    background: var(--bg-card);
+    transition: border-color 0.25s, color 0.25s, transform 0.25s var(--ease-out);
+  }
+  .fh-phases a b { font: 700 0.68rem/1 ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--accent); }
+  .fh-phases a:hover { color: var(--text-primary); border-color: rgba(249, 115, 22, 0.45); transform: translateY(-2px); }
+
+  /* Mosaic */
+  .fh-mosaic {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr 1fr;
+    grid-template-rows: repeat(3, 150px);
+    grid-template-areas:
+      "a a b"
+      "a a c"
+      "d e f";
+    gap: 0.75rem;
+  }
+  .fh-tile {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.85);
+    animation: fh-tile-in 0.9s var(--ease-out) both;
+    animation-delay: calc(0.15s + var(--i) * 0.08s);
+    transition: transform 0.4s var(--ease-out), border-color 0.3s;
+  }
+  @keyframes fh-tile-in { from { opacity: 0; transform: translateY(20px) scale(0.97); } to { opacity: 1; transform: none; } }
+  .fh-tile:hover { transform: translateY(-4px); border-color: rgba(249, 115, 22, 0.55); }
+  .fh-tile :global(.media-slot__img) { transition: transform 1s var(--ease-out); }
+  .fh-tile:hover :global(.media-slot__img) { transform: scale(1.06); }
+  .fh-tile::after { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(12, 13, 16, 0.75), transparent 50%); pointer-events: none; }
+  .fh-tile__label {
+    position: absolute;
+    right: 0.6rem;
+    bottom: 0.55rem;
+    z-index: 3;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #fff;
+  }
+  .fh-tile[style*="grid-area:a"] .fh-tile__label { font-size: 0.85rem; }
+
+  /* ---------- Stats ---------- */
+  .fh-stats { position: relative; z-index: 3; margin-top: -3rem; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); padding: 1.6rem 1rem; }
+  .fh-stat { text-align: center; padding: 0 1rem; }
+  .fh-stat + .fh-stat { border-left: 1px solid var(--border-subtle); }
+  .fh-stat__value { font-family: var(--font-display); font-size: clamp(1.5rem, 2.6vw, 2.1rem); font-weight: 900; letter-spacing: -1px; line-height: 1.1; }
+  .fh-stat__label { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.35rem; }
+
+  /* ---------- Pipeline ---------- */
+  .fh-pipe { display: grid; gap: 4rem; }
+  .fh-phase { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 2.5rem; align-items: start; scroll-margin-top: 90px; }
+  .fh-phase__rail { position: sticky; top: 90px; padding-top: 0.5rem; border-top: 2px solid var(--accent); }
+  .fh-phase__num {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 3.5rem;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -2px;
+    margin: 0.75rem 0 0.4rem;
+    background: linear-gradient(180deg, rgba(249, 115, 22, 0.85), transparent);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .fh-phase__rail h3 { font-family: var(--font-display); font-size: 1.6rem; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 0.4rem; }
+  .fh-phase__rail p { font-size: 0.92rem; color: var(--text-secondary); line-height: 1.6; }
+  .fh-phase__cards { display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr)); gap: 1.1rem; }
+
+  /* ---------- Try it ---------- */
+  .fh-try { background: linear-gradient(180deg, transparent, rgba(19, 20, 23, 0.6) 12%, rgba(19, 20, 23, 0.6) 88%, transparent); }
+  .fh-tabs {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+  .fh-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font: 600 0.85rem/1 var(--font-body);
+    color: var(--text-secondary);
+    padding: 0.7rem 1rem;
+    border-radius: 999px;
+    border: 1px solid var(--border-subtle);
+    background: var(--bg-card);
+    cursor: pointer;
+    transition: color 0.25s, border-color 0.25s, background 0.25s, box-shadow 0.25s;
+  }
+  .fh-tab:hover { color: var(--text-primary); border-color: rgba(249, 115, 22, 0.35); }
+  .fh-tab[aria-selected="true"] {
+    color: #0c0d10;
+    background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+    border-color: transparent;
+    box-shadow: 0 10px 30px -10px rgba(249, 115, 22, 0.55);
+  }
+  .fh-tab:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .fh-tab__icon svg { width: 16px; height: 16px; display: block; }
+  .fh-panel { animation: fh-rise 0.5s var(--ease-out) both; }
+  .fh-panel[hidden] { display: none; }
+  .fh-panel__head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.25rem;
+  }
+  .fh-panel__head h3 { font-family: var(--font-display); font-size: 1.5rem; font-weight: 800; letter-spacing: -0.4px; margin-bottom: 0.25rem; }
+  .fh-panel__head p { color: var(--text-secondary); }
+
+  /* ---------- Roles ---------- */
+  .fh-roles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.1rem; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 1100px) {
+    .fh-roles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 1000px) {
+    .fh-hero__inner { grid-template-columns: 1fr; }
+    .fh-phase { grid-template-columns: 1fr; gap: 1.25rem; }
+    .fh-phase__rail { position: static; }
+    .fh-phase__num { font-size: 2.6rem; }
+  }
+  @media (max-width: 800px) {
+    .fh-hero { padding: 3.5rem 0 5.5rem; }
+    .fh-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 1.25rem; }
+    .fh-stat:nth-child(odd) { border-left: none; }
+    .fh-phase__cards { grid-template-columns: 1fr; }
+    .fh-mosaic { grid-template-rows: repeat(3, 110px); }
+  }
+  @media (max-width: 560px) {
+    .fh-mosaic {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 180px 110px 110px;
+      grid-template-areas: "a a" "b c" "d e";
+    }
+    .fh-tile[style*="grid-area:f"] { display: none; }
+    .fh-roles { grid-template-columns: 1fr; }
+    .fh-roles :global(.sc--compact) { aspect-ratio: 16 / 10; }
+    .fh-tab { padding: 0.6rem 0.8rem; font-size: 0.78rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .fh-hero__copy > *, .fh-tile, .fh-panel { animation: none; }
+  }
+</style>
+
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const cards = document.querySelectorAll('.feature-card');
-
-    filterBtns.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const filter = btn.getAttribute('data-filter');
-
-        filterBtns.forEach((b) => {
-          b.classList.remove('active', 'bg-[var(--accent)]', 'text-[#0c0d10]', 'font-bold', 'shadow-lg', 'shadow-orange-500/20');
-          b.classList.add('bg-[#14161c]', 'text-[var(--text-secondary)]');
-        });
-
-        btn.classList.add('active', 'bg-[var(--accent)]', 'text-[#0c0d10]', 'font-bold', 'shadow-lg', 'shadow-orange-500/20');
-        btn.classList.remove('bg-[#14161c]', 'text-[var(--text-secondary)]');
-
-        cards.forEach((card) => {
-          const cat = card.getAttribute('data-cat');
-          if (filter === 'all' || cat === filter) {
-            (card as HTMLElement).style.display = 'flex';
-          } else {
-            (card as HTMLElement).style.display = 'none';
-          }
-        });
-      });
+  // Accessible tabs for the interactive demos (arrow keys, Home/End).
+  const tabs = Array.from(document.querySelectorAll<HTMLButtonElement>(".fh-tab"));
+  const select = (tab: HTMLButtonElement, focus = false) => {
+    tabs.forEach((t) => {
+      const on = t === tab;
+      t.setAttribute("aria-selected", String(on));
+      t.tabIndex = on ? 0 : -1;
+      const panel = document.getElementById(t.getAttribute("aria-controls") || "");
+      if (panel) panel.hidden = !on;
+    });
+    if (focus) tab.focus();
+  };
+  tabs.forEach((tab, i) => {
+    tab.addEventListener("click", () => select(tab));
+    tab.addEventListener("keydown", (e) => {
+      const keys: Record<string, number> = { ArrowRight: i + 1, ArrowLeft: i - 1, Home: 0, End: tabs.length - 1 };
+      if (!(e.key in keys)) return;
+      e.preventDefault();
+      select(tabs[(keys[e.key] + tabs.length) % tabs.length], true);
     });
   });
 </script>
