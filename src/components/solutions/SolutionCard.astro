@@ -1,0 +1,195 @@
+---
+/**
+ * SolutionCard — persona card linking to /solutions/[slug].
+ * variant="feature": large card with workflow filmstrip (hub grid).
+ * variant="compact": image card with overlay copy (related solutions).
+ */
+import MediaSlot from '../MediaSlot.astro';
+import type { Solution } from '../../data/solutions';
+
+interface Props {
+  solution: Solution;
+  variant?: 'feature' | 'compact';
+  class?: string;
+}
+
+const { solution: s, variant = 'feature', class: className = '' } = Astro.props;
+const href = `/solutions/${s.slug}`;
+---
+
+{variant === 'feature' ? (
+  <a href={href} class:list={['sc sc--feature', className]} style={`--sol:${s.accent}`} id={`sc-${s.slug}`}>
+    <div class="sc-media">
+      <MediaSlot slot={s.media} class="sc-fill" sizes="(max-width: 900px) 100vw, 600px" widths={[480, 800, 1200]} />
+      <div class="sc-media__scrim" aria-hidden="true"></div>
+      <span class="sc-kicker"><span class="sc-dot" aria-hidden="true"></span>For {s.label}</span>
+    </div>
+    <div class="sc-body">
+      <h3>{s.headline}</h3>
+      <p>{s.summary}</p>
+      <ul class="sc-chips">{s.chips.map((c) => <li>{c}</li>)}</ul>
+      <div class="sc-strip" aria-hidden="true">
+        {s.workflow.map((w, i) => (
+          <div class="sc-strip__item">
+            <MediaSlot slot={w.media} class="sc-fill" sizes="160px" widths={[160, 320]} hideTag />
+            <span>{String(i + 1).padStart(2, '0')} · {w.title}</span>
+          </div>
+        ))}
+      </div>
+      <span class="sc-cta">Explore the {s.label.toLowerCase()} workflow <span aria-hidden="true">&rarr;</span></span>
+    </div>
+  </a>
+) : (
+  <a href={href} class:list={['sc sc--compact', className]} style={`--sol:${s.accent}`} id={`sc-compact-${s.slug}`}>
+    <MediaSlot slot={s.media} class="sc-fill" sizes="(max-width: 900px) 100vw, 400px" widths={[400, 800]} hideTag />
+    <div class="sc-compact__scrim" aria-hidden="true"></div>
+    <div class="sc-compact__copy">
+      <span class="sc-kicker sc-kicker--static"><span class="sc-dot" aria-hidden="true"></span>{s.label}</span>
+      <h3>{s.headline}</h3>
+      <span class="sc-cta">Explore <span aria-hidden="true">&rarr;</span></span>
+    </div>
+  </a>
+)}
+
+<style>
+  .sc {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    border-radius: 20px;
+    border: 1px solid var(--border-subtle);
+    background: var(--bg-card);
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.45s var(--ease-out), border-color 0.3s, box-shadow 0.45s var(--ease-out);
+  }
+  .sc:hover {
+    transform: translateY(-4px);
+    border-color: color-mix(in srgb, var(--sol) 45%, transparent);
+    box-shadow: 0 30px 60px -30px color-mix(in srgb, var(--sol) 45%, transparent);
+  }
+  .sc:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .sc :global(.sc-fill) { position: absolute; inset: 0; }
+  .sc :global(.media-slot__img) { transition: transform 1.2s var(--ease-out); }
+  .sc:hover :global(.media-slot__img) { transform: scale(1.05); }
+
+  .sc-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--sol);
+    box-shadow: 0 0 10px var(--sol);
+  }
+  .sc-kicker {
+    position: absolute;
+    left: 1.25rem;
+    bottom: 1rem;
+    z-index: 3;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.8px;
+    color: #fff;
+    padding: 0.4rem 0.75rem;
+    border-radius: 999px;
+    background: rgba(12, 13, 16, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(10px);
+  }
+  .sc-kicker--static { position: static; align-self: flex-start; margin-bottom: 0.75rem; }
+
+  .sc-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    transition: color 0.2s, gap 0.3s var(--ease-out);
+  }
+  .sc:hover .sc-cta { color: var(--accent); gap: 0.65rem; }
+
+  /* ---------- Feature variant ---------- */
+  .sc-media { position: relative; aspect-ratio: 16 / 9; overflow: hidden; }
+  .sc-media__scrim {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: linear-gradient(0deg, rgba(12, 13, 16, 0.75) 0%, transparent 45%);
+    pointer-events: none;
+  }
+  .sc-body { padding: 1.5rem 1.5rem 1.6rem; display: flex; flex-direction: column; flex: 1; }
+  .sc-body h3 {
+    font-family: var(--font-display);
+    font-size: 1.45rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    line-height: 1.15;
+    margin-bottom: 0.5rem;
+  }
+  .sc-body p { color: var(--text-secondary); font-size: 0.92rem; line-height: 1.6; margin-bottom: 1rem; }
+  .sc-chips { list-style: none; display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.25rem; }
+  .sc-chips li {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    padding: 0.3rem 0.65rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .sc-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; margin-bottom: 1.25rem; margin-top: auto; }
+  .sc-strip__item {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+  .sc-strip__item::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(0deg, rgba(12, 13, 16, 0.85) 0%, transparent 60%);
+  }
+  .sc-strip__item span {
+    position: absolute;
+    left: 0.5rem;
+    right: 0.5rem;
+    bottom: 0.4rem;
+    z-index: 2;
+    font-size: 0.62rem;
+    font-weight: 700;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* ---------- Compact variant ---------- */
+  .sc--compact { aspect-ratio: 4 / 5; justify-content: flex-end; }
+  .sc-compact__scrim {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(0deg, rgba(12, 13, 16, 0.92) 0%, rgba(12, 13, 16, 0.25) 55%, transparent 100%);
+  }
+  .sc-compact__copy { position: relative; z-index: 2; padding: 1.4rem; display: flex; flex-direction: column; }
+  .sc-compact__copy h3 {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.4px;
+    margin-bottom: 0.9rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sc, .sc :global(.media-slot__img) { transition: none; }
+    .sc:hover { transform: none; }
+  }
+</style>

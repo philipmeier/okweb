@@ -1,0 +1,727 @@
+---
+/**
+ * ProductTour — one tabbed section replacing the old MultiModel / Character /
+ * Tracking / ProduceExport / WorkflowSandbox blocks.
+ * Generate → Lock → Assemble → Export. Visuals are media-output compositions
+ * (swap media in src/data/media.ts). App-accurate UI mockups live on /features.
+ */
+import MediaSlot from './MediaSlot.astro';
+import { media } from '../data/media';
+
+const steps = [
+  {
+    id: 'generate',
+    num: '01',
+    short: 'Generate',
+    title: 'Generate across every model',
+    line: 'Render the same prompt in Kling, Veo, Sora, and Runway. Keep the best take.',
+    chips: ['Side-by-side takes', 'Text-to-sequence', 'Full prompt history'],
+    href: '/features/model-comparison',
+    stageLabel: 'Shot 03 · Coastal Drive · 4 takes',
+  },
+  {
+    id: 'lock',
+    num: '02',
+    short: 'Lock',
+    title: 'Lock characters & sets',
+    line: 'Anchor every shot to one reference. Face, wardrobe, and look stay put.',
+    chips: ['Reference portraits', 'Character swap', 'Multi-reference edit'],
+    href: '/features/character-swap',
+    stageLabel: 'Character · Mara · Reference locked',
+  },
+  {
+    id: 'assemble',
+    num: '03',
+    short: 'Assemble',
+    title: 'Assemble the sequence',
+    line: 'Arrange takes into scenes, trim each clip, and lay down audio.',
+    chips: ['Scene storyboard', 'Take-level trim', 'Mix real footage'],
+    href: '/features/collaborative-storyboard',
+    stageLabel: 'Scene 1 · Storyboard',
+  },
+  {
+    id: 'export',
+    num: '04',
+    short: 'Export',
+    title: 'Export the final cut',
+    line: 'Render, download, or publish to YouTube without leaving the workspace.',
+    chips: ['MP4 export', 'Publish to YouTube', 'Share preview links'],
+    href: '/features/produce-and-export',
+    stageLabel: 'Final cut · 1080p',
+  },
+];
+
+const takes = [
+  { slot: media.takeA, model: 'Kling 3.0' },
+  { slot: media.takeB, model: 'Veo 3', selected: true },
+  { slot: media.takeC, model: 'Sora' },
+  { slot: media.takeD, model: 'Runway Gen-4' },
+];
+
+const clips = [
+  { slot: media.shotWide, label: 'S1', dur: '4.0s', grow: 3 },
+  { slot: media.shotMedium, label: 'S2', dur: '3.2s', grow: 2.4, trim: true },
+  { slot: media.takeB, label: 'S3', dur: '2.8s', grow: 2 },
+  { slot: media.shotCloseup, label: 'S4', dur: '3.6s', grow: 2.8 },
+];
+
+// Deterministic waveform so SSR output is stable.
+const wave = Array.from({ length: 72 }, (_, i) =>
+  Math.round(22 + 60 * Math.abs(Math.sin(i * 0.55) * Math.cos(i * 0.21)) + (i % 5) * 3)
+);
+
+const thumbSizes = '(max-width: 900px) 50vw, 360px';
+---
+
+<section class="section" aria-labelledby="tour-heading" id="how-it-works">
+  <div class="sect-head reveal">
+    <span class="sect-label">How It Works</span>
+    <h2 id="tour-heading">From One Prompt to <span class="grad-text">Final Cut</span></h2>
+    <p>Four steps. Every model. One workspace.</p>
+  </div>
+
+  <div class="pt reveal" data-pt>
+    <!-- Step list -->
+    <div class="pt-steps" role="tablist" aria-label="Product tour steps" aria-orientation="vertical">
+      {steps.map((s, i) => (
+        <div class:list={['pt-step', { 'is-active': i === 0 }]}>
+          <button
+            type="button"
+            class="pt-step__btn"
+            role="tab"
+            id={`pt-tab-${s.id}`}
+            aria-controls={`pt-view-${s.id}`}
+            aria-selected={i === 0 ? 'true' : 'false'}
+            tabindex={i === 0 ? 0 : -1}
+          >
+            <span class="pt-step__num">{s.num}</span>
+            <span class="pt-step__title"><span class="pt-long">{s.title}</span><span class="pt-short">{s.short}</span></span>
+          </button>
+          <div class="pt-step__body">
+            <div>
+              <p>{s.line}</p>
+              <ul class="pt-chips">{s.chips.map((c) => <li>{c}</li>)}</ul>
+              <a href={s.href} class="pt-link" id={`pt-link-${s.id}`}>Learn more &rarr;</a>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Stage -->
+    <div class="pt-stage">
+      <div class="pt-stage__bar">
+        <span class="pt-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+        {steps.map((s, i) => (
+          <span class="pt-stage__label" data-label={s.id} hidden={i !== 0}>{s.stageLabel}</span>
+        ))}
+        <span class="pt-live" aria-hidden="true"><span class="pulse-dot"></span>Live</span>
+      </div>
+
+      <div class="pt-stage__body">
+        <!-- 01 GENERATE -->
+        <div class="pt-view is-in" role="tabpanel" id="pt-view-generate" aria-labelledby="pt-tab-generate" data-view="generate">
+          <div class="pt-prompt">
+            <span class="pt-prompt__icon" aria-hidden="true">&#10022;</span>
+            <span class="pt-prompt__text">Red vintage convertible on a coastal cliff road, golden-hour sunset</span>
+            <span class="pt-pill">4 models</span>
+          </div>
+          <div class="pt-takes">
+            {takes.map((t, i) => (
+              <figure class:list={['pt-take', { 'is-selected': t.selected }]} style={`--i:${i}`}>
+                <MediaSlot slot={t.slot} class="pt-fill" sizes={thumbSizes} widths={[360, 720]} />
+                <span class="pt-take__shimmer" aria-hidden="true"></span>
+                <figcaption>
+                  <span class="pt-model">{t.model}</span>
+                  {t.selected && <span class="pt-selected">&#9733; Selected</span>}
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+
+        <!-- 02 LOCK -->
+        <div class="pt-view" role="tabpanel" id="pt-view-lock" aria-labelledby="pt-tab-lock" data-view="lock" hidden>
+          <div class="pt-lock">
+            <figure class="pt-lock__ref" style="--i:0">
+              <MediaSlot slot={media.characterReference} class="pt-fill" sizes="(max-width: 900px) 40vw, 300px" widths={[300, 600]} />
+              <figcaption>
+                <span class="pt-model">Reference</span>
+                <span class="pt-lockchip"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg>Face locked</span>
+              </figcaption>
+            </figure>
+            <figure class="pt-lock__shot pt-lock__shot--main" style="--i:1">
+              <MediaSlot slot={media.shotWide} class="pt-fill" sizes={thumbSizes} widths={[480, 960]} />
+              <figcaption><span class="pt-model">Wide</span><span class="pt-match">&#10003; Match</span></figcaption>
+            </figure>
+            <figure class="pt-lock__shot" style="--i:2">
+              <MediaSlot slot={media.shotMedium} class="pt-fill" sizes={thumbSizes} widths={[360, 720]} />
+              <figcaption><span class="pt-model">Medium</span><span class="pt-match">&#10003;</span></figcaption>
+            </figure>
+            <figure class="pt-lock__shot" style="--i:3">
+              <MediaSlot slot={media.shotCloseup} class="pt-fill" sizes={thumbSizes} widths={[360, 720]} />
+              <figcaption><span class="pt-model">Close-up</span><span class="pt-match">&#10003;</span></figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <!-- 03 ASSEMBLE -->
+        <div class="pt-view" role="tabpanel" id="pt-view-assemble" aria-labelledby="pt-tab-assemble" data-view="assemble" hidden>
+          <div class="pt-asm">
+            <figure class="pt-asm__preview" style="--i:0">
+              <MediaSlot slot={media.shotWide} class="pt-fill" sizes="(max-width: 900px) 100vw, 760px" widths={[640, 1200]} />
+              <span class="pt-timecode">00:04:12 / 00:13:16</span>
+            </figure>
+            <div class="pt-timeline" style="--i:1">
+              <div class="pt-track">
+                <span class="pt-track__tag">V1</span>
+                <div class="pt-track__lane">
+                  {clips.map((c) => (
+                    <div class:list={['pt-clip', { 'is-trim': c.trim }]} style={`flex-grow:${c.grow}`}>
+                      <MediaSlot slot={c.slot} class="pt-fill" sizes="160px" widths={[160, 320]} hideTag />
+                      <span class="pt-clip__label">{c.label} · {c.dur}</span>
+                    </div>
+                  ))}
+                  <span class="pt-playhead" aria-hidden="true"></span>
+                </div>
+              </div>
+              <div class="pt-track">
+                <span class="pt-track__tag">A1</span>
+                <div class="pt-track__lane pt-wave" aria-hidden="true">
+                  {wave.map((h) => <i style={`height:${h}%`}></i>)}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 04 EXPORT -->
+        <div class="pt-view" role="tabpanel" id="pt-view-export" aria-labelledby="pt-tab-export" data-view="export" hidden>
+          <div class="pt-exp">
+            <figure class="pt-exp__player" style="--i:0">
+              <MediaSlot slot={media.takeB} class="pt-fill" sizes="(max-width: 900px) 100vw, 520px" widths={[520, 1040]} />
+              <span class="pt-play" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+              <span class="pt-scrub" aria-hidden="true"><i></i></span>
+            </figure>
+            <div class="pt-exp__card" style="--i:1">
+              <div class="pt-exp__title">Coastal Drive — Final Cut</div>
+              <dl class="pt-exp__meta">
+                <div><dt>Format</dt><dd>MP4 · 1080p</dd></div>
+                <div><dt>Length</dt><dd>0:13</dd></div>
+                <div><dt>Audio</dt><dd>Mixed</dd></div>
+              </dl>
+              <div class="pt-render">
+                <div class="pt-render__row">
+                  <span class="pt-render__state pt-render__state--busy">Rendering…</span>
+                  <span class="pt-render__state pt-render__state--done">&#10003; Ready to publish</span>
+                </div>
+                <div class="pt-render__track"><i></i></div>
+              </div>
+              <div class="pt-exp__actions">
+                <span class="pt-btn pt-btn--ghost">Download</span>
+                <span class="pt-btn pt-btn--yt"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M23 7.2a3 3 0 00-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 001 7.2 31 31 0 00.5 12 31 31 0 001 16.8a3 3 0 002.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 002.1-2.1 31 31 0 00.5-4.8 31 31 0 00-.5-4.8zM9.8 15.1V8.9l5.7 3.1-5.7 3.1z"/></svg>Publish</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pt-foot">
+    <a href="/features" id="pt-all-features">Explore all features &rarr;</a>
+  </div>
+</section>
+
+<style>
+  .pt-foot { text-align: center; margin-top: 2rem; }
+  .pt-foot a { color: var(--text-muted); font-size: 0.85rem; font-weight: 600; text-decoration: none; transition: color 0.2s; }
+  .pt-foot a:hover { color: var(--accent); }
+  .pt {
+    display: grid;
+    grid-template-columns: minmax(280px, 380px) 1fr;
+    gap: 2.5rem;
+    align-items: start;
+  }
+
+  /* ---------- Step list ---------- */
+  .pt-steps { display: flex; flex-direction: column; gap: 0.5rem; }
+  .pt-step {
+    border-radius: 14px;
+    border: 1px solid transparent;
+    transition: background 0.3s, border-color 0.3s;
+  }
+  .pt-step:hover { background: rgba(255, 255, 255, 0.02); }
+  .pt-step.is-active { background: var(--bg-card); border-color: var(--border-subtle); }
+  .pt-step__btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 1rem 1.1rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    color: var(--text-muted);
+    font-family: var(--font-display);
+    transition: color 0.25s;
+  }
+  .pt-step__btn:hover { color: var(--text-secondary); }
+  .pt-step__btn:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; border-radius: 14px; }
+  .pt-step.is-active .pt-step__btn { color: var(--text-primary); }
+  .pt-step__num {
+    font: 700 0.72rem/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    border: 1px solid var(--border-subtle);
+    color: var(--text-muted);
+    transition: all 0.3s;
+  }
+  .pt-step.is-active .pt-step__num {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #0c0d10;
+    box-shadow: 0 0 20px var(--accent-glow);
+  }
+  .pt-step__title { font-size: 1.02rem; font-weight: 700; letter-spacing: -0.2px; }
+  .pt-short { display: none; }
+
+  /* Accordion body (grid-rows trick for smooth height) */
+  .pt-step__body {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.45s var(--ease-out);
+  }
+  .pt-step.is-active .pt-step__body { grid-template-rows: 1fr; }
+  .pt-step__body > div { overflow: hidden; padding: 0 1.1rem 0 calc(1.1rem + 30px + 0.9rem); }
+  .pt-step.is-active .pt-step__body > div { padding-bottom: 1.15rem; }
+  .pt-step__body p { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.55; margin-bottom: 0.8rem; }
+  .pt-chips { list-style: none; display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.9rem; }
+  .pt-chips li {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--accent);
+    background: var(--accent-subtle);
+    border: 1px solid rgba(249, 115, 22, 0.2);
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+  }
+  .pt-link { font-size: 0.82rem; font-weight: 600; color: var(--text-primary); text-decoration: none; transition: color 0.2s; }
+  .pt-link:hover { color: var(--accent); }
+
+  /* ---------- Stage ---------- */
+  .pt-stage {
+    border-radius: 18px;
+    border: 1px solid var(--border-subtle);
+    background: linear-gradient(180deg, #121318 0%, #0d0e12 100%);
+    overflow: hidden;
+    box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.02) inset;
+    position: relative;
+  }
+  .pt-stage::before {
+    content: '';
+    position: absolute;
+    inset: -40% -10% auto auto;
+    width: 60%;
+    height: 80%;
+    background: radial-gradient(closest-side, rgba(249, 115, 22, 0.12), transparent);
+    pointer-events: none;
+  }
+  .pt-stage__bar {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 0.7rem 1rem;
+    border-bottom: 1px solid var(--border-subtle);
+    background: rgba(255, 255, 255, 0.015);
+    position: relative;
+  }
+  .pt-dots { display: inline-flex; gap: 6px; }
+  .pt-dots i { width: 9px; height: 9px; border-radius: 50%; background: #2a2d35; }
+  .pt-stage__label { font: 500 0.72rem/1 ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--text-muted); }
+  .pt-stage__label[hidden] { display: none; }
+  .pt-live {
+    margin-left: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--accent);
+  }
+  .pt-stage__body { padding: 1.1rem; position: relative; min-height: 460px; }
+  .pt-view[hidden] { display: none; }
+
+  /* Shared: entrance stagger when a view becomes active */
+  .pt-view.is-in [style*='--i'] { animation: pt-in 0.6s var(--ease-out) both; animation-delay: calc(var(--i) * 110ms); }
+  @keyframes pt-in { from { opacity: 0; transform: translateY(12px) scale(0.985); } to { opacity: 1; transform: none; } }
+
+  figure { margin: 0; position: relative; border-radius: 10px; overflow: hidden; background: var(--bg-elevated); }
+  .pt-stage :global(.pt-fill) { position: absolute; inset: 0; }
+  figcaption {
+    position: absolute;
+    left: 0.5rem;
+    right: 0.5rem;
+    bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.4rem;
+    z-index: 3;
+  }
+  .pt-model {
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: #fff;
+    padding: 0.25rem 0.55rem;
+    border-radius: 6px;
+    background: rgba(12, 13, 16, 0.72);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  /* ---------- 01 Generate ---------- */
+  .pt-prompt {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.7rem 0.85rem;
+    border-radius: 10px;
+    border: 1px solid var(--border-subtle);
+    background: rgba(255, 255, 255, 0.03);
+    margin-bottom: 0.9rem;
+  }
+  .pt-prompt__icon { color: var(--accent); font-size: 0.9rem; }
+  .pt-prompt__text { font-size: 0.82rem; color: var(--text-secondary); flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .pt-pill {
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: #0c0d10;
+    background: var(--accent);
+    padding: 0.2rem 0.55rem;
+    border-radius: 999px;
+    flex-shrink: 0;
+  }
+  .pt-takes { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+  .pt-take { aspect-ratio: 16 / 9; border: 1px solid var(--border-subtle); transition: transform 0.3s var(--ease-out); }
+  .pt-take:hover { transform: translateY(-2px); }
+  .pt-take.is-selected { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent), 0 12px 30px -10px var(--accent-glow); }
+  .pt-selected {
+    font-size: 0.66rem;
+    font-weight: 800;
+    color: #0c0d10;
+    background: var(--accent);
+    padding: 0.25rem 0.5rem;
+    border-radius: 6px;
+  }
+  /* "Generating" shimmer that clears per take */
+  .pt-take__shimmer {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: linear-gradient(110deg, #16181d 30%, #22252c 50%, #16181d 70%);
+    background-size: 220% 100%;
+    pointer-events: none;
+    opacity: 0;
+  }
+  .pt-view.is-in .pt-take__shimmer {
+    animation: pt-shimmer 0.9s linear, pt-clear 0.35s ease forwards;
+    animation-delay: 0s, calc(0.5s + var(--i) * 0.28s);
+    opacity: 1;
+  }
+  @keyframes pt-shimmer { from { background-position: 120% 0; } to { background-position: -120% 0; } }
+  @keyframes pt-clear { to { opacity: 0; visibility: hidden; } }
+
+  /* ---------- 02 Lock ---------- */
+  .pt-lock {
+    display: grid;
+    grid-template-columns: 0.72fr 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 0.75rem;
+  }
+  .pt-lock__ref { grid-row: 1 / span 2; min-height: 100%; border: 1px solid rgba(249, 115, 22, 0.45); }
+  .pt-lock__shot { aspect-ratio: 16 / 9; border: 1px solid var(--border-subtle); }
+  .pt-lock__shot--main { grid-column: 2 / span 2; }
+  .pt-lockchip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.64rem;
+    font-weight: 800;
+    color: #0c0d10;
+    background: var(--accent);
+    padding: 0.25rem 0.5rem;
+    border-radius: 6px;
+  }
+  .pt-match {
+    font-size: 0.66rem;
+    font-weight: 700;
+    color: #34d399;
+    background: rgba(12, 13, 16, 0.72);
+    border: 1px solid rgba(52, 211, 153, 0.35);
+    padding: 0.22rem 0.45rem;
+    border-radius: 6px;
+  }
+
+  /* ---------- 03 Assemble ---------- */
+  .pt-asm__preview { aspect-ratio: 16 / 7; border: 1px solid var(--border-subtle); margin-bottom: 0.9rem; }
+  .pt-timecode {
+    position: absolute;
+    right: 0.6rem;
+    bottom: 0.6rem;
+    z-index: 3;
+    font: 600 0.68rem/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+    color: #fff;
+    background: rgba(12, 13, 16, 0.72);
+    padding: 0.3rem 0.5rem;
+    border-radius: 6px;
+  }
+  .pt-timeline {
+    border: 1px solid var(--border-subtle);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.02);
+    padding: 0.6rem;
+    display: grid;
+    gap: 0.5rem;
+  }
+  .pt-track { display: flex; align-items: stretch; gap: 0.5rem; }
+  .pt-track__tag {
+    font: 700 0.62rem/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+    color: var(--text-muted);
+    width: 26px;
+    display: grid;
+    place-items: center;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.03);
+    flex-shrink: 0;
+  }
+  .pt-track__lane { flex: 1; display: flex; gap: 4px; position: relative; min-width: 0; }
+  .pt-clip {
+    position: relative;
+    height: 62px;
+    flex-basis: 0;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .pt-clip.is-trim { border: 2px solid var(--accent-secondary); }
+  .pt-clip.is-trim::before,
+  .pt-clip.is-trim::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 6px;
+    background: var(--accent-secondary);
+    z-index: 3;
+  }
+  .pt-clip.is-trim::before { left: 0; }
+  .pt-clip.is-trim::after { right: 0; }
+  .pt-clip__label {
+    position: absolute;
+    left: 0.4rem;
+    top: 0.35rem;
+    z-index: 2;
+    font: 700 0.6rem/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+    color: #fff;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+  }
+  .pt-playhead {
+    position: absolute;
+    top: -6px;
+    bottom: -6px;
+    left: 0;
+    width: 2px;
+    background: var(--accent);
+    box-shadow: 0 0 10px var(--accent);
+    z-index: 4;
+  }
+  .pt-playhead::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -4px;
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    background: var(--accent);
+  }
+  .pt-view.is-in .pt-playhead { animation: pt-play 7s linear infinite; }
+  @keyframes pt-play { from { left: 0; } to { left: calc(100% - 2px); } }
+  .pt-wave { height: 34px; align-items: center; gap: 2px; padding: 0 2px; }
+  .pt-wave i {
+    flex: 1;
+    border-radius: 2px;
+    background: linear-gradient(180deg, var(--accent-secondary), var(--accent));
+    opacity: 0.75;
+    min-height: 3px;
+  }
+
+  /* ---------- 04 Export ---------- */
+  .pt-exp { display: grid; grid-template-columns: 1.35fr 1fr; gap: 0.9rem; align-items: stretch; }
+  .pt-exp__player { aspect-ratio: 16 / 10; border: 1px solid var(--border-subtle); }
+  .pt-play {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.14);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    z-index: 3;
+    transition: transform 0.3s var(--ease-out), background 0.3s;
+  }
+  .pt-exp__player:hover .pt-play { transform: translate(-50%, -50%) scale(1.08); background: var(--accent); }
+  .pt-scrub { position: absolute; left: 0.75rem; right: 0.75rem; bottom: 0.75rem; height: 3px; border-radius: 3px; background: rgba(255, 255, 255, 0.2); z-index: 3; }
+  .pt-scrub i { display: block; height: 100%; width: 38%; border-radius: inherit; background: var(--accent); }
+  .pt-exp__card {
+    border: 1px solid var(--border-subtle);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.025);
+    padding: 1.1rem;
+    display: flex;
+    flex-direction: column;
+  }
+  .pt-exp__title { font-family: var(--font-display); font-weight: 700; font-size: 0.95rem; margin-bottom: 0.9rem; }
+  .pt-exp__meta { display: grid; gap: 0.5rem; margin-bottom: 1.1rem; }
+  .pt-exp__meta div { display: flex; justify-content: space-between; font-size: 0.78rem; border-bottom: 1px dashed var(--border-subtle); padding-bottom: 0.45rem; }
+  .pt-exp__meta dt { color: var(--text-muted); }
+  .pt-exp__meta dd { color: var(--text-primary); font-weight: 600; }
+  .pt-render { margin-bottom: 1.1rem; }
+  .pt-render__row { position: relative; height: 1.1rem; margin-bottom: 0.45rem; font-size: 0.75rem; font-weight: 700; }
+  .pt-render__state { position: absolute; left: 0; top: 0; }
+  .pt-render__state--busy { color: var(--text-secondary); }
+  .pt-render__state--done { color: #34d399; opacity: 0; }
+  .pt-render__track { height: 6px; border-radius: 6px; background: rgba(255, 255, 255, 0.06); overflow: hidden; }
+  .pt-render__track i { display: block; height: 100%; width: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--accent), #34d399); transform-origin: left; }
+  .pt-view.is-in .pt-render__track i { animation: pt-render 2.4s var(--ease-out) both 0.3s; }
+  .pt-view.is-in .pt-render__state--busy { animation: pt-fade-out 0.3s ease forwards 2.7s; }
+  .pt-view.is-in .pt-render__state--done { animation: pt-fade-in 0.4s ease forwards 2.8s; }
+  @keyframes pt-render { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  @keyframes pt-fade-out { to { opacity: 0; } }
+  @keyframes pt-fade-in { to { opacity: 1; } }
+  .pt-exp__actions { margin-top: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+  .pt-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 0.55rem 0.6rem;
+    border-radius: 8px;
+  }
+  .pt-btn--ghost { border: 1px solid var(--border-subtle); color: var(--text-secondary); }
+  .pt-btn--yt { background: #ff0033; color: #fff; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 1000px) {
+    .pt { grid-template-columns: 1fr; gap: 1.25rem; }
+    .pt-stage__body { min-height: 0; }
+
+    /* Steps → compact 4-tab row; active description sits right above the stage */
+    .pt-steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.4rem; }
+    .pt-step { display: contents; }
+    .pt-step__btn {
+      grid-row: 1;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0.45rem;
+      padding: 0.75rem 0.25rem;
+      border-radius: 12px;
+      border: 1px solid var(--border-subtle);
+      text-align: center;
+    }
+    .pt-step.is-active .pt-step__btn { background: var(--bg-card); border-color: rgba(249, 115, 22, 0.45); }
+    .pt-step__num { width: 26px; height: 26px; }
+    .pt-step__title { font-size: 0.8rem; }
+    .pt-long { display: none; }
+    .pt-short { display: inline; }
+    .pt-step__body { grid-row: 2; grid-column: 1 / -1; }
+    .pt-step__body > div { padding: 0 0.25rem; }
+    .pt-step.is-active .pt-step__body > div { padding: 0.9rem 0.25rem 0; }
+  }
+  @media (max-width: 600px) {
+    .pt-lock { grid-template-columns: 1fr 1fr; }
+    .pt-lock__ref { grid-row: auto; grid-column: 1 / span 2; aspect-ratio: 16 / 10; min-height: 0; }
+    .pt-lock__shot--main { grid-column: 1 / span 2; }
+    .pt-exp { grid-template-columns: 1fr; }
+    .pt-clip { height: 46px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .pt-view.is-in [style*='--i'],
+    .pt-view.is-in .pt-take__shimmer,
+    .pt-view.is-in .pt-playhead { animation: none; }
+    .pt-take__shimmer { display: none; }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-pt]').forEach((root) => {
+    const steps = Array.from(root.querySelectorAll<HTMLElement>('.pt-step'));
+    const tabs = steps.map((s) => s.querySelector<HTMLButtonElement>('.pt-step__btn')!);
+    const views = Array.from(root.querySelectorAll<HTMLElement>('.pt-view'));
+    const labels = Array.from(root.querySelectorAll<HTMLElement>('.pt-stage__label'));
+    let index = 0;
+
+    const activate = (next: number, focus = false) => {
+      index = (next + tabs.length) % tabs.length;
+      steps.forEach((s, n) => s.classList.toggle('is-active', n === index));
+      tabs.forEach((t, n) => {
+        t.setAttribute('aria-selected', String(n === index));
+        t.tabIndex = n === index ? 0 : -1;
+      });
+      labels.forEach((l, n) => (l.hidden = n !== index));
+      views.forEach((v, n) => {
+        const on = n === index;
+        v.hidden = !on;
+        v.classList.remove('is-in');
+        if (on) {
+          void v.offsetWidth; // restart entrance animations
+          v.classList.add('is-in');
+        }
+      });
+      if (focus) tabs[index].focus();
+    };
+
+    tabs.forEach((tab, n) => {
+      tab.addEventListener('click', () => activate(n));
+      tab.addEventListener('keydown', (e) => {
+        const keys: Record<string, number> = {
+          ArrowDown: index + 1, ArrowRight: index + 1,
+          ArrowUp: index - 1, ArrowLeft: index - 1,
+          Home: 0, End: tabs.length - 1,
+        };
+        if (e.key in keys) {
+          e.preventDefault();
+          activate(keys[e.key], true);
+        }
+      });
+    });
+
+    // Replay the first view's entrance once it scrolls into view.
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          activate(index);
+          io.disconnect();
+        }
+      },
+      { threshold: 0.35 }
+    );
+    io.observe(root);
+  });
+</script>

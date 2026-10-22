@@ -1,0 +1,575 @@
+---
+/**
+ * Solution landing template. All content comes from src/data/solutions.ts;
+ * media from src/data/media.ts. Sections:
+ * Hero → Stats → Before/After → Workflow → Tools → Testimonial → FAQ → Other solutions.
+ */
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import FinalCTA from "../../components/FinalCTA.astro";
+import MediaSlot from "../../components/MediaSlot.astro";
+import SolutionCard from "../../components/solutions/SolutionCard.astro";
+import { solutions, getSolution, type Solution } from "../../data/solutions";
+import { features } from "../../data/features";
+
+export function getStaticPaths() {
+  return solutions.map((solution) => ({ params: { slug: solution.slug } }));
+}
+
+const s = getSolution(Astro.params.slug as string) as Solution;
+const others = solutions.filter((o) => o.slug !== s.slug);
+const tools = s.features.map((key) => features[key]);
+const url = `https://10zebra.com/solutions/${s.slug}`;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "FAQPage",
+      mainEntity: s.faqs.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://10zebra.com/" },
+        { "@type": "ListItem", position: 2, name: "Solutions", item: "https://10zebra.com/solutions" },
+        { "@type": "ListItem", position: 3, name: s.label, item: url },
+      ],
+    },
+  ],
+};
+---
+
+<Layout title={s.seo.title} description={s.seo.description} canonicalUrl={url}>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
+  <Header />
+
+  <main style={`--sol:${s.accent}`}>
+    <!-- ================= HERO ================= -->
+    <section class="sp-hero" aria-labelledby="sp-heading">
+      <MediaSlot slot={s.media} class="sp-hero__media" sizes="100vw" widths={[768, 1280, 1920]} eager />
+      <div class="sp-hero__scrim" aria-hidden="true"></div>
+
+      <div class="wrap sp-hero__inner">
+        <div class="sp-hero__copy">
+          <nav class="sp-crumbs" aria-label="Breadcrumb">
+            <a href="/solutions">Solutions</a><span aria-hidden="true">/</span><span aria-current="page">{s.label}</span>
+          </nav>
+          <span class="sp-kicker"><span class="sp-dot" aria-hidden="true"></span>For {s.label}</span>
+          <h1 id="sp-heading">{s.pageTitle}</h1>
+          <p class="sp-hero__sub">{s.heroSub}</p>
+          <div class="sp-hero__ctas">
+            <a href="/signup" class="btn btn-primary btn-lg" id="sp-signup-btn">Start Free &mdash; 200 Credits</a>
+            <a href="/demo" class="btn btn-ghost btn-lg sp-ghost" id="sp-demo-btn">Watch the Demo &rarr;</a>
+          </div>
+          <ul class="sp-chips">{s.chips.map((c) => <li><span class="sp-dot" aria-hidden="true"></span>{c}</li>)}</ul>
+        </div>
+
+        <ol class="sp-film" aria-label="Workflow preview">
+          {s.workflow.map((w, i) => (
+            <li style={`--i:${i}`}>
+              <a href={`#step-${i + 1}`}>
+                <MediaSlot slot={w.media} class="sp-fill" sizes="220px" widths={[220, 440]} eager hideTag />
+                <span class="sp-film__label"><b>{String(i + 1).padStart(2, '0')}</b>{w.title}</span>
+              </a>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <!-- ================= STATS ================= -->
+    <div class="wrap">
+      <div class="sp-stats glass reveal">
+        {s.stats.map((st) => (
+          <div class="sp-stat">
+            <div class="sp-stat__value grad-text">{st.value}</div>
+            <div class="sp-stat__label">{st.label}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- ================= BEFORE / AFTER ================= -->
+    <section class="wrap section" aria-labelledby="sp-shift-heading">
+      <div class="sect-head reveal">
+        <span class="sect-label">The Shift</span>
+        <h2 id="sp-shift-heading">The Old Way vs. <span class="grad-text">the 10zebra Way</span></h2>
+      </div>
+      <ul class="sp-shift">
+        {s.pains.map((p, i) => (
+          <li class={`reveal reveal-d${i + 1}`}>
+            <div class="sp-before">
+              <span class="sp-mark sp-mark--x" aria-hidden="true">&#10005;</span>
+              <span><span class="sr-only">Before: </span>{p.before}</span>
+            </div>
+            <span class="sp-arrow" aria-hidden="true">&rarr;</span>
+            <div class="sp-after">
+              <span class="sp-mark sp-mark--check" aria-hidden="true">&#10003;</span>
+              <span><span class="sr-only">After: </span>{p.after}</span>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <div class="sect-divider"></div>
+
+    <!-- ================= WORKFLOW ================= -->
+    <section class="wrap section" aria-labelledby="sp-flow-heading">
+      <div class="sect-head reveal">
+        <span class="sect-label">The Workflow</span>
+        <h2 id="sp-flow-heading">How {s.label} <span class="grad-text">Work in 10zebra</span></h2>
+      </div>
+      <ol class="sp-flow">
+        {s.workflow.map((w, i) => (
+          <li class:list={['sp-step reveal', { 'is-flip': i % 2 === 1 }]} id={`step-${i + 1}`}>
+            <figure class="sp-step__media">
+              <MediaSlot slot={w.media} class="sp-fill" sizes="(max-width: 900px) 100vw, 640px" widths={[480, 800, 1280]} />
+              <span class="sp-step__tag">{w.tag}</span>
+            </figure>
+            <div class="sp-step__copy">
+              <span class="sp-step__num">{String(i + 1).padStart(2, '0')}</span>
+              <h3>{w.title}</h3>
+              <p>{w.body}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <div class="sect-divider"></div>
+
+    <!-- ================= TOOLS ================= -->
+    <section class="wrap section" aria-labelledby="sp-tools-heading">
+      <div class="sect-head reveal">
+        <span class="sect-label">Your Toolkit</span>
+        <h2 id="sp-tools-heading">Tools You'll Use <span class="grad-text">Most</span></h2>
+      </div>
+      <div class="sp-tools reveal">
+        {tools.map((t) => (
+          <a href={t.href} class="sp-tool glass">
+            <span class="sp-tool__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d={t.icon} /></svg>
+            </span>
+            <h3>{t.title}</h3>
+            <p>{t.blurb}</p>
+            <span class="sp-tool__more">Learn more &rarr;</span>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- ================= TESTIMONIAL ================= -->
+    <section class="wrap pb-24" aria-label="Customer story">
+      <!-- PLACEHOLDER testimonial — replace in src/data/solutions.ts -->
+      <figure class="sp-quote reveal">
+        <MediaSlot slot={s.workflow[2].media} class="sp-fill" sizes="100vw" widths={[800, 1400]} hideTag />
+        <div class="sp-quote__scrim" aria-hidden="true"></div>
+        <div class="sp-quote__body">
+          <span class="sp-quote__mark" aria-hidden="true">&ldquo;</span>
+          <blockquote>{s.testimonial.quote}</blockquote>
+          <figcaption>
+            <span class="sp-quote__avatar" aria-hidden="true">{s.testimonial.name.split(' ').map((n) => n[0]).join('')}</span>
+            <span>
+              <strong>{s.testimonial.name}</strong>
+              <span>{s.testimonial.title}, {s.testimonial.company}</span>
+            </span>
+          </figcaption>
+        </div>
+      </figure>
+    </section>
+
+    <div class="sect-divider"></div>
+
+    <!-- ================= FAQ ================= -->
+    <section class="wrap section" aria-labelledby="sp-faq-heading">
+      <div class="sect-head reveal">
+        <span class="sect-label">FAQ</span>
+        <h2 id="sp-faq-heading">Questions From {s.label}</h2>
+      </div>
+      <div class="sp-faq reveal">
+        {s.faqs.map((f, i) => (
+          <details open={i === 0}>
+            <summary>{f.q}<span class="sp-faq__chev" aria-hidden="true">+</span></summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <div class="sect-divider"></div>
+
+    <!-- ================= OTHER SOLUTIONS ================= -->
+    <section class="wrap section" aria-labelledby="sp-more-heading">
+      <div class="sect-head reveal">
+        <span class="sect-label">More Solutions</span>
+        <h2 id="sp-more-heading">Built for Other Teams, Too</h2>
+      </div>
+      <div class="sp-more">
+        {others.map((o, i) => <SolutionCard solution={o} variant="compact" class={`reveal reveal-d${i + 1}`} />)}
+      </div>
+      <p class="sp-more__foot"><a href="/solutions" id="sp-all-solutions">All solutions &rarr;</a></p>
+    </section>
+  </main>
+
+  <FinalCTA />
+  <Footer />
+</Layout>
+
+<style>
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .sp-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--sol);
+    box-shadow: 0 0 10px var(--sol);
+    flex-shrink: 0;
+  }
+  main :global(.sp-fill) { position: absolute; inset: 0; }
+
+  /* ---------- Hero ---------- */
+  .sp-hero {
+    position: relative;
+    min-height: min(92vh, 860px);
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+    padding: 7rem 0 6rem;
+  }
+  .sp-hero :global(.sp-hero__media) { position: absolute; inset: 0; z-index: 0; }
+  .sp-hero :global(.sp-hero__media .media-slot__img) { animation: sp-kenburns 14s ease-out both; }
+  @keyframes sp-kenburns { from { transform: scale(1.1); } to { transform: scale(1); } }
+  .sp-hero__scrim {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background:
+      linear-gradient(90deg, rgba(12, 13, 16, 0.94) 0%, rgba(12, 13, 16, 0.7) 38%, rgba(12, 13, 16, 0.15) 70%, rgba(12, 13, 16, 0.3) 100%),
+      linear-gradient(0deg, var(--bg-page) 0%, rgba(12, 13, 16, 0.2) 35%, rgba(12, 13, 16, 0.35) 100%);
+  }
+  .sp-hero__inner {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 3rem;
+    align-items: end;
+  }
+  .sp-hero__copy { max-width: 620px; }
+  .sp-hero__copy > * { animation: sp-rise 0.8s var(--ease-out) both; }
+  .sp-hero__copy > *:nth-child(2) { animation-delay: 0.06s; }
+  .sp-hero__copy > *:nth-child(3) { animation-delay: 0.12s; }
+  .sp-hero__copy > *:nth-child(4) { animation-delay: 0.18s; }
+  .sp-hero__copy > *:nth-child(5) { animation-delay: 0.24s; }
+  .sp-hero__copy > *:nth-child(6) { animation-delay: 0.3s; }
+  @keyframes sp-rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+
+  .sp-crumbs { display: flex; gap: 0.5rem; font-size: 0.78rem; color: var(--text-muted); margin-bottom: 1.25rem; }
+  .sp-crumbs a { color: var(--text-secondary); text-decoration: none; }
+  .sp-crumbs a:hover { color: var(--accent); }
+  .sp-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #fff;
+    padding: 0.4rem 0.8rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(10px);
+    margin-bottom: 1.25rem;
+  }
+  .sp-hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.3rem, 5vw, 4rem);
+    font-weight: 900;
+    line-height: 1.04;
+    letter-spacing: -2px;
+    margin-bottom: 1.1rem;
+    text-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+  }
+  .sp-hero__sub { color: var(--text-secondary); font-size: 1.12rem; line-height: 1.65; margin-bottom: 1.75rem; max-width: 540px; }
+  .sp-hero__ctas { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1.75rem; }
+  .sp-ghost { background: rgba(12, 13, 16, 0.4); backdrop-filter: blur(8px); }
+  .sp-chips { list-style: none; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .sp-chips li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 0.4rem 0.75rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+  }
+
+  .sp-film { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; width: 230px; }
+  .sp-film li { animation: sp-rise 0.8s var(--ease-out) both; animation-delay: calc(0.35s + var(--i) * 0.12s); }
+  .sp-film a {
+    position: relative;
+    display: block;
+    aspect-ratio: 16 / 9;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.8);
+    transition: transform 0.35s var(--ease-out), border-color 0.3s;
+  }
+  .sp-film a:hover { transform: translateX(-6px); border-color: color-mix(in srgb, var(--sol) 70%, transparent); }
+  .sp-film a::after { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(12, 13, 16, 0.85), transparent 60%); }
+  .sp-film__label {
+    position: absolute;
+    left: 0.6rem;
+    right: 0.6rem;
+    bottom: 0.5rem;
+    z-index: 2;
+    display: flex;
+    gap: 0.45rem;
+    align-items: baseline;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #fff;
+  }
+  .sp-film__label b { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--sol); }
+
+  /* ---------- Stats ---------- */
+  .sp-stats {
+    position: relative;
+    z-index: 3;
+    margin-top: -3rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 1.75rem 1rem;
+  }
+  .sp-stat { text-align: center; padding: 0 1rem; }
+  .sp-stat + .sp-stat { border-left: 1px solid var(--border-subtle); }
+  .sp-stat__value { font-family: var(--font-display); font-size: clamp(1.7rem, 3vw, 2.4rem); font-weight: 900; letter-spacing: -1px; line-height: 1.1; }
+  .sp-stat__label { font-size: 0.82rem; color: var(--text-muted); margin-top: 0.35rem; }
+
+  /* ---------- Before / After ---------- */
+  .sp-shift { list-style: none; max-width: 980px; margin: 0 auto; display: grid; gap: 0.9rem; }
+  .sp-shift li { display: grid; grid-template-columns: 1fr auto 1fr; align-items: stretch; gap: 1rem; }
+  .sp-before, .sp-after {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 1.15rem 1.25rem;
+    border-radius: 14px;
+    font-size: 0.98rem;
+    line-height: 1.45;
+  }
+  .sp-before {
+    color: var(--text-muted);
+    background: rgba(255, 255, 255, 0.015);
+    border: 1px dashed var(--border-subtle);
+  }
+  .sp-after {
+    color: var(--text-primary);
+    font-weight: 600;
+    background: linear-gradient(90deg, color-mix(in srgb, var(--sol) 10%, transparent), var(--bg-card));
+    border: 1px solid color-mix(in srgb, var(--sol) 35%, transparent);
+    box-shadow: 0 10px 30px -18px color-mix(in srgb, var(--sol) 60%, transparent);
+  }
+  .sp-mark {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    font-size: 0.75rem;
+    font-weight: 800;
+  }
+  .sp-mark--x { color: #f87171; background: rgba(248, 113, 113, 0.08); border: 1px solid rgba(248, 113, 113, 0.25); }
+  .sp-mark--check { color: #0c0d10; background: var(--sol); }
+  .sp-arrow { align-self: center; color: var(--accent); font-size: 1.25rem; }
+
+  /* ---------- Workflow ---------- */
+  .sp-flow { list-style: none; display: grid; gap: 4.5rem; position: relative; }
+  .sp-step { display: grid; grid-template-columns: 1.25fr 1fr; gap: 3.5rem; align-items: center; }
+  .sp-step.is-flip .sp-step__media { order: 2; }
+  .sp-step__media {
+    margin: 0;
+    position: relative;
+    aspect-ratio: 16 / 10;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid var(--border-subtle);
+    box-shadow: 0 40px 80px -40px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 255, 255, 0.02) inset;
+  }
+  .sp-step__media :global(.media-slot__img) { transition: transform 1.2s var(--ease-out); }
+  .sp-step__media:hover :global(.media-slot__img) { transform: scale(1.04); }
+  .sp-step__tag {
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+    z-index: 3;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #0c0d10;
+    background: var(--accent);
+    padding: 0.35rem 0.7rem;
+    border-radius: 8px;
+  }
+  .sp-step__num {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 4.5rem;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -3px;
+    background: linear-gradient(180deg, color-mix(in srgb, var(--sol) 80%, transparent), transparent);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem;
+  }
+  .sp-step__copy h3 {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 2.6vw, 2rem);
+    font-weight: 800;
+    letter-spacing: -0.6px;
+    line-height: 1.15;
+    margin-bottom: 0.75rem;
+  }
+  .sp-step__copy p { color: var(--text-secondary); font-size: 1.02rem; line-height: 1.7; max-width: 420px; }
+
+  /* ---------- Tools ---------- */
+  .sp-tools { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; }
+  .sp-tool { display: flex; flex-direction: column; padding: 1.5rem; text-decoration: none; color: inherit; transition: transform 0.35s var(--ease-out), border-color 0.3s; }
+  .sp-tool:hover { transform: translateY(-3px); }
+  .sp-tool__icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 11px;
+    display: grid;
+    place-items: center;
+    color: var(--accent);
+    background: var(--accent-subtle);
+    border: 1px solid rgba(249, 115, 22, 0.22);
+    margin-bottom: 1rem;
+  }
+  .sp-tool__icon svg { width: 21px; height: 21px; }
+  .sp-tool h3 { font-family: var(--font-display); font-size: 1rem; font-weight: 700; margin-bottom: 0.4rem; }
+  .sp-tool p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.55; margin-bottom: 1rem; }
+  .sp-tool__more { margin-top: auto; font-size: 0.8rem; font-weight: 700; color: var(--text-primary); transition: color 0.2s; }
+  .sp-tool:hover .sp-tool__more { color: var(--accent); }
+
+  /* ---------- Testimonial ---------- */
+  .sp-quote {
+    position: relative;
+    margin: 0;
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid var(--border-subtle);
+    min-height: 380px;
+    display: flex;
+    align-items: center;
+  }
+  .sp-quote__scrim {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(90deg, rgba(12, 13, 16, 0.95) 0%, rgba(12, 13, 16, 0.8) 45%, rgba(12, 13, 16, 0.35) 100%);
+  }
+  .sp-quote__body { position: relative; z-index: 2; padding: 3.5rem; max-width: 720px; }
+  .sp-quote__mark { display: block; font-family: Georgia, serif; font-size: 5rem; line-height: 0.6; color: var(--sol); margin-bottom: 1rem; }
+  .sp-quote blockquote {
+    font-family: var(--font-display);
+    font-size: clamp(1.3rem, 2.4vw, 1.75rem);
+    font-weight: 700;
+    line-height: 1.35;
+    letter-spacing: -0.4px;
+    margin-bottom: 1.75rem;
+  }
+  .sp-quote figcaption { display: flex; align-items: center; gap: 0.85rem; }
+  .sp-quote figcaption strong { display: block; font-size: 0.95rem; }
+  .sp-quote figcaption span span { display: block; font-size: 0.82rem; color: var(--text-secondary); }
+  .sp-quote__avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-weight: 800;
+    font-size: 0.85rem;
+    color: #0c0d10;
+    background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+  }
+
+  /* ---------- FAQ ---------- */
+  .sp-faq { max-width: 820px; margin: 0 auto; display: grid; gap: 0.7rem; }
+  .sp-faq details {
+    border-radius: 14px;
+    border: 1px solid var(--border-subtle);
+    background: var(--bg-card);
+    transition: border-color 0.3s;
+  }
+  .sp-faq details[open] { border-color: color-mix(in srgb, var(--sol) 35%, transparent); }
+  .sp-faq summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.15rem 1.4rem;
+    font-weight: 600;
+    font-size: 0.98rem;
+  }
+  .sp-faq summary::-webkit-details-marker { display: none; }
+  .sp-faq summary:hover { color: var(--accent); }
+  .sp-faq__chev { font-size: 1.3rem; color: var(--text-muted); transition: transform 0.3s var(--ease-out); flex-shrink: 0; }
+  .sp-faq details[open] .sp-faq__chev { transform: rotate(45deg); color: var(--accent); }
+  .sp-faq p { padding: 0 1.4rem 1.25rem; color: var(--text-secondary); font-size: 0.92rem; line-height: 1.7; }
+
+  /* ---------- More ---------- */
+  .sp-more { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; }
+  .sp-more__foot { text-align: center; margin-top: 1.5rem; }
+  .sp-more__foot a { color: var(--text-muted); font-size: 0.85rem; font-weight: 600; text-decoration: none; }
+  .sp-more__foot a:hover { color: var(--accent); }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 1000px) {
+    .sp-hero__inner { grid-template-columns: 1fr; }
+    .sp-film { flex-direction: row; width: 100%; }
+    .sp-film li { flex: 1; min-width: 0; }
+    .sp-tools { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 900px) {
+    .sp-hero { min-height: 0; padding: 5rem 0 5rem; }
+    .sp-step, .sp-step.is-flip { grid-template-columns: 1fr; gap: 1.5rem; }
+    .sp-step.is-flip .sp-step__media { order: 0; }
+    .sp-flow { gap: 3rem; }
+    .sp-shift li { grid-template-columns: 1fr; gap: 0.4rem; }
+    .sp-arrow { transform: rotate(90deg); justify-self: center; }
+    .sp-more { grid-template-columns: 1fr; }
+    .sp-more :global(.sc--compact) { aspect-ratio: 16 / 10; }
+    .sp-quote__body { padding: 2rem; }
+  }
+  @media (max-width: 600px) {
+    .sp-stats { grid-template-columns: 1fr; gap: 1.25rem; }
+    .sp-stat + .sp-stat { border-left: none; border-top: 1px solid var(--border-subtle); padding-top: 1.25rem; }
+    .sp-tools { grid-template-columns: 1fr; }
+    .sp-film__label { font-size: 0.6rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .sp-hero :global(.sp-hero__media .media-slot__img),
+    .sp-hero__copy > *,
+    .sp-film li { animation: none; }
+  }
+</style>

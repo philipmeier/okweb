@@ -1,23 +1,41 @@
-﻿---
+---
+/**
+ * PLACEHOLDER CONTENT — testimonials and stats below are not real yet.
+ * Replace name / title / company / quote (and optionally add `avatar` and
+ * `logo`) once real customer quotes are collected.
+ */
 const testimonials = [
   {
-    id: "JL",
-    quote: "I was jumping between Runway and Kling manually for every project. 10zebra lets me A/B both on the same shot in seconds. The character reference feature alone is worth it.",
-    name: "Jamie L.",
-    title: "Freelance Commercial Director",
+    id: 'JL',
+    quote: 'I used to bounce between Runway and Kling for every shot. Now I A/B both in seconds and keep my talent consistent.',
+    name: 'Jamie L.',
+    title: 'Creative Director',
+    company: 'Company Name',
+    persona: 'Creative Directors',
   },
   {
-    id: "MR",
-    quote: "The project budget controls are a game-changer. I fund each client project separately and my team can generate without me worrying about one project raiding another&rsquo;s credits.",
-    name: "Marcus R.",
-    title: "Creative Director, Digital Agency",
+    id: 'MR',
+    quote: 'Each client project has its own budget. My team generates freely, and no project raids another’s credits.',
+    name: 'Marcus R.',
+    title: 'Head of Production',
+    company: 'Agency Name',
+    persona: 'Agencies',
   },
   {
-    id: "SK",
-    quote: "The prompt history is huge. I can see exactly what settings produced our best takes, regenerate with a different model, and compare instantly. Saves hours of guesswork.",
-    name: "Sara K.",
-    title: "Performance Marketing Lead",
+    id: 'SK',
+    quote: 'Script to finished episode in one place. The recurring characters actually look the same every week.',
+    name: 'Sara K.',
+    title: 'YouTube Creator',
+    company: 'Channel Name',
+    persona: 'Content Creators',
   },
+];
+
+// PLACEHOLDER — replace with real numbers.
+const stats = [
+  { value: 50000, suffix: '+', label: 'Video shots generated' },
+  { value: 4000, suffix: '+', label: 'Projects produced' },
+  { value: 60, suffix: '+', label: 'Countries' },
 ];
 ---
 <section class="section" aria-labelledby="social-heading">
@@ -26,62 +44,53 @@ const testimonials = [
     <h2 id="social-heading">Built for People Who <span class="grad-text">Make Things</span></h2>
   </div>
 
-  <div class="flex justify-center gap-16 flex-wrap mb-14 reveal">
-    <div class="text-center">
-      <div class="grad-text text-[2.5rem] font-black tracking-[-1px]" style="font-family:var(--font-display);" data-counter="50000">0</div>
-      <div class="text-sm text-[var(--text-muted)] mt-1">Video shots generated</div>
-    </div>
-    <div class="text-center">
-      <div class="grad-text text-[2.5rem] font-black tracking-[-1px]" style="font-family:var(--font-display);" data-counter="8">0</div>
-      <div class="text-sm text-[var(--text-muted)] mt-1">AI models in one workspace</div>
-    </div>
-    <div class="text-center">
-      <div class="grad-text text-[2.5rem] font-black tracking-[-1px]" style="font-family:var(--font-display);" data-counter="200">0</div>
-      <div class="text-sm text-[var(--text-muted)] mt-1">Free credits on signup</div>
-    </div>
-    <div class="text-center">
-      <div class="grad-text text-[2.5rem] font-black tracking-[-1px]" style="font-family:var(--font-display);">$0</div>
-      <div class="text-sm text-[var(--text-muted)] mt-1">Required to get started</div>
-    </div>
+  <div class="flex justify-center gap-12 md:gap-20 flex-wrap mb-14 reveal">
+    {stats.map((s) => (
+      <div class="text-center">
+        <div class="grad-text text-[2.5rem] font-black tracking-[-1px]" style="font-family:var(--font-display);"
+          data-counter={s.value} data-suffix={s.suffix}>0</div>
+        <div class="text-sm text-[var(--text-muted)] mt-1">{s.label}</div>
+      </div>
+    ))}
   </div>
 
   <div class="grid grid-cols-1 md:grid-cols-3 gap-6 reveal">
     {testimonials.map((t) => (
-      <div class="glass p-6">
-        <p class="text-[0.92rem] italic text-[var(--text-secondary)] leading-relaxed mb-5">&ldquo;{t.quote}&rdquo;</p>
-        <div class="flex items-center gap-3">
-          <div class="w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold shrink-0"
+      <figure class="glass p-6 flex flex-col">
+        <span class="text-[0.65rem] uppercase tracking-[1.5px] font-bold text-[var(--accent)] mb-3">{t.persona}</span>
+        <blockquote class="text-[0.95rem] text-[var(--text-primary)] leading-relaxed mb-6 flex-1">&ldquo;{t.quote}&rdquo;</blockquote>
+        <figcaption class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold shrink-0"
             style="background:linear-gradient(135deg,var(--accent),var(--accent-secondary)); color:#0c0d10;">
             {t.id}
           </div>
           <div>
             <div class="text-sm font-semibold">{t.name}</div>
-            <div class="text-xs text-[var(--text-muted)]">{t.title}</div>
+            <div class="text-xs text-[var(--text-muted)]">{t.title}, <span class="text-[var(--text-secondary)] font-medium">{t.company}</span></div>
           </div>
-        </div>
-      </div>
+        </figcaption>
+      </figure>
     ))}
   </div>
 </section>
 
 <script>
   (function () {
-    const counters = document.querySelectorAll('[data-counter]');
+    const counters = document.querySelectorAll<HTMLElement>('[data-counter]');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
-        const el = entry.target;
-        const target = parseInt(el.dataset.counter, 10);
+        const el = entry.target as HTMLElement;
+        const target = parseInt(el.dataset.counter || '0', 10);
+        const suffix = el.dataset.suffix || '';
         const duration = 1500;
-        let startTime = null;
-        function animate(ts) {
-          if (!startTime) startTime = ts;
+        let startTime: number | null = null;
+        function animate(ts: number) {
+          if (startTime === null) startTime = ts;
           const progress = Math.min((ts - startTime) / duration, 1);
           const eased = 1 - Math.pow(1 - progress, 3);
-          const current = Math.floor(eased * target);
-          el.textContent = current >= 1000 ? current.toLocaleString() + '+' : String(current);
+          el.textContent = Math.floor(eased * target).toLocaleString() + (progress === 1 ? suffix : '');
           if (progress < 1) requestAnimationFrame(animate);
-          else el.textContent = target >= 1000 ? target.toLocaleString() + '+' : String(target);
         }
         requestAnimationFrame(animate);
         observer.unobserve(el);

@@ -35,6 +35,25 @@ const faqs = [
     <h2 id="faq-heading">Frequently Asked Questions</h2>
   </div>
 
+  <!-- AEO definition blurb (moved from hero) -->
+  <article
+    class="reveal mx-auto max-w-3xl mb-8 rounded-r-xl px-6 py-5 text-left text-sm leading-relaxed text-[var(--text-secondary)]"
+    style="background:var(--bg-card); backdrop-filter:blur(12px); border:1px solid var(--border-subtle); border-left:3px solid var(--accent);"
+    aria-label="What is 10zebra"
+  >
+    <p>
+      <strong class="text-[var(--text-primary)] font-semibold">10zebra</strong> is a web-based AI video production workspace
+      for creators, agencies, and filmmakers. Unlike single-model tools, 10zebra lets you generate takes from
+      <strong class="text-[var(--text-primary)] font-semibold">multiple AI engines side-by-side</strong> within the same shot —
+      then pick the best one. Its
+      <strong class="text-[var(--text-primary)] font-semibold">text-to-sequence engine</strong> turns a single prompt into a
+      full multi-shot storyboard, while
+      <strong class="text-[var(--text-primary)] font-semibold">project-level budgets</strong> and
+      <strong class="text-[var(--text-primary)] font-semibold">team permissions</strong>
+      give owners complete control over costs and collaboration.
+    </p>
+  </article>
+
   <div class="max-w-3xl mx-auto reveal" id="faq-list">
     {faqs.map((f) => (
       <div class="faq-item rounded-xl mb-3 overflow-hidden border border-[var(--border-subtle)] transition-colors hover:border-[var(--border-glow)]"

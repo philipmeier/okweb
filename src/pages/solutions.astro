@@ -1,0 +1,327 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import FinalCTA from "../components/FinalCTA.astro";
+import MediaSlot from "../components/MediaSlot.astro";
+import SolutionCard from "../components/solutions/SolutionCard.astro";
+import { solutions } from "../data/solutions";
+import { features, type FeatureKey } from "../data/features";
+
+// Capability matrix: rows = features any persona highlights; dots = persona leans on it.
+const matrixKeys = Array.from(new Set(solutions.flatMap((s) => s.features))) as FeatureKey[];
+const matrix = matrixKeys.map((key) => ({
+  key,
+  feature: features[key],
+  uses: solutions.map((s) => s.features.includes(key)),
+}));
+---
+
+<Layout
+  title="Solutions | AI Video for Creative Directors, Film Producers, Agencies & Creators | 10zebra"
+  description="See how creative directors, film producers, agencies, and content creators use 10zebra to generate, lock, assemble, and publish AI video from one workspace."
+  canonicalUrl="https://10zebra.com/solutions"
+>
+  <Header />
+
+  <main>
+    <!-- ================= HERO ================= -->
+    <section class="hub-hero" aria-labelledby="hub-heading">
+      <div class="hub-hero__glow" aria-hidden="true"></div>
+      <div class="wrap hub-hero__grid">
+        <div class="hub-hero__copy">
+          <span class="badge">Solutions</span>
+          <h1 id="hub-heading">AI Video Built for <span class="grad-text">the Way You Work</span></h1>
+          <p>Four kinds of teams. One production workspace. Pick yours to see the workflow, tools, and results that matter to you.</p>
+          <nav class="hub-jump" aria-label="Jump to a solution">
+            {solutions.map((s) => (
+              <a href={`/solutions/${s.slug}`} style={`--sol:${s.accent}`} id={`hub-jump-${s.slug}`}>
+                <span class="hub-dot" aria-hidden="true"></span>{s.label}
+              </a>
+            ))}
+          </nav>
+        </div>
+
+        <div class="hub-mosaic" aria-hidden="true">
+          {solutions.map((s, i) => (
+            <a href={`/solutions/${s.slug}`} class="hub-tile" style={`--i:${i}; --sol:${s.accent}`} tabindex="-1">
+              <MediaSlot slot={s.media} class="hub-fill" sizes="(max-width: 900px) 50vw, 300px" widths={[300, 600]} eager={i < 2} hideTag />
+              <span class="hub-tile__label"><span class="hub-dot"></span>{s.label}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= FIND YOUR FIT ================= -->
+    <section class="wrap section pt-8!" aria-labelledby="fit-heading">
+      <div class="sect-head reveal">
+        <span class="sect-label">Find Your Fit</span>
+        <h2 id="fit-heading">I Need To&hellip;</h2>
+      </div>
+      <ul class="fit reveal">
+        {solutions.map((s) => (
+          <li>
+            <a href={`/solutions/${s.slug}`} class="fit-row" style={`--sol:${s.accent}`} id={`fit-${s.slug}`}>
+              <MediaSlot slot={s.media} class="fit-thumb" sizes="120px" widths={[120, 240]} hideTag />
+              <span class="fit-need">{s.need}</span>
+              <span class="fit-who"><span class="hub-dot" aria-hidden="true"></span>{s.label}</span>
+              <span class="fit-arrow" aria-hidden="true">&rarr;</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <div class="sect-divider"></div>
+
+    <!-- ================= PERSONA CARDS ================= -->
+    <section class="wrap section" aria-labelledby="workflows-heading">
+      <div class="sect-head reveal">
+        <span class="sect-label">Workflows</span>
+        <h2 id="workflows-heading">One Workspace. <span class="grad-text">Four Ways to Produce.</span></h2>
+        <p>Same models, same storyboard, same budgets, tuned to how your team ships.</p>
+      </div>
+      <div class="hub-cards">
+        {solutions.map((s, i) => (
+          <SolutionCard solution={s} class={`reveal reveal-d${(i % 2) + 1}`} />
+        ))}
+      </div>
+    </section>
+
+    <div class="sect-divider"></div>
+
+    <!-- ================= CAPABILITY MATRIX ================= -->
+    <section class="wrap section" aria-labelledby="matrix-heading">
+      <div class="sect-head reveal">
+        <span class="sect-label">Under the Hood</span>
+        <h2 id="matrix-heading">The Tools Each Team <span class="grad-text">Leans On</span></h2>
+        <p>Every plan includes every tool. Here's where each workflow starts.</p>
+      </div>
+      <div class="glass matrix reveal">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col" class="matrix-feature">Tool</th>
+              {solutions.map((s) => (
+                <th scope="col" style={`--sol:${s.accent}`}>
+                  <a href={`/solutions/${s.slug}`}><span class="hub-dot" aria-hidden="true"></span>{s.label}</a>
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {matrix.map((row) => (
+              <tr>
+                <th scope="row" class="matrix-feature">
+                  <a href={row.feature.href}>
+                    <span class="matrix-icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d={row.feature.icon} /></svg>
+                    </span>
+                    <span>
+                      <span class="matrix-title">{row.feature.title}</span>
+                      <span class="matrix-blurb">{row.feature.blurb}</span>
+                    </span>
+                  </a>
+                </th>
+                {row.uses.map((on, n) => (
+                  <td style={`--sol:${solutions[n].accent}`}>
+                    {on ? <span class="matrix-on" aria-label="Core tool">&#10003;</span> : <span class="matrix-off" aria-label="Included">&middot;</span>}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="matrix-foot reveal"><a href="/features" id="hub-all-features">Explore all features &rarr;</a></p>
+    </section>
+  </main>
+
+  <FinalCTA />
+  <Footer />
+</Layout>
+
+<style>
+  .hub-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--sol, var(--accent));
+    box-shadow: 0 0 10px var(--sol, var(--accent));
+    flex-shrink: 0;
+  }
+
+  /* ---------- Hero ---------- */
+  .hub-hero { position: relative; overflow: hidden; padding: 5rem 0 4rem; }
+  .hub-hero__glow {
+    position: absolute;
+    inset: -20% -10% auto 30%;
+    height: 90%;
+    background:
+      radial-gradient(closest-side at 60% 40%, rgba(249, 115, 22, 0.14), transparent),
+      radial-gradient(closest-side at 85% 70%, rgba(56, 189, 248, 0.08), transparent);
+    pointer-events: none;
+  }
+  .hub-hero__grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1.05fr;
+    gap: 3.5rem;
+    align-items: center;
+  }
+  .hub-hero__copy h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    font-weight: 900;
+    line-height: 1.04;
+    letter-spacing: -2px;
+    margin-bottom: 1.25rem;
+  }
+  .hub-hero__copy p { color: var(--text-secondary); font-size: 1.1rem; line-height: 1.65; max-width: 480px; margin-bottom: 2rem; }
+  .hub-jump { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+  .hub-jump a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.55rem 0.95rem;
+    border-radius: 999px;
+    border: 1px solid var(--border-subtle);
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--text-primary);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: border-color 0.25s, background 0.25s, transform 0.25s var(--ease-out);
+  }
+  .hub-jump a:hover {
+    border-color: color-mix(in srgb, var(--sol) 60%, transparent);
+    background: color-mix(in srgb, var(--sol) 10%, transparent);
+    transform: translateY(-2px);
+  }
+
+  .hub-mosaic {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .hub-tile {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid var(--border-subtle);
+    box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.8);
+    animation: hub-float 7s ease-in-out infinite;
+    animation-delay: calc(var(--i) * -1.6s);
+    transition: border-color 0.3s;
+  }
+  .hub-tile:nth-child(even) { margin-top: 2.5rem; margin-bottom: -2.5rem; }
+  .hub-tile:hover { border-color: color-mix(in srgb, var(--sol) 60%, transparent); }
+  .hub-tile :global(.hub-fill) { position: absolute; inset: 0; }
+  .hub-tile::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(0deg, rgba(12, 13, 16, 0.8) 0%, transparent 45%);
+  }
+  .hub-tile__label {
+    position: absolute;
+    left: 0.9rem;
+    bottom: 0.9rem;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #fff;
+  }
+  @keyframes hub-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+  /* ---------- Find your fit ---------- */
+  .fit { list-style: none; max-width: 900px; margin: 0 auto; display: grid; gap: 0.6rem; }
+  .fit-row {
+    display: grid;
+    grid-template-columns: 76px 1fr auto auto;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 0.7rem 1.25rem 0.7rem 0.7rem;
+    border-radius: 16px;
+    border: 1px solid var(--border-subtle);
+    background: var(--bg-card);
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: border-color 0.3s, background 0.3s, transform 0.35s var(--ease-out);
+  }
+  .fit-row:hover {
+    border-color: color-mix(in srgb, var(--sol) 50%, transparent);
+    background: color-mix(in srgb, var(--sol) 6%, var(--bg-card));
+    transform: translateX(4px);
+  }
+  .fit-row :global(.fit-thumb) { width: 76px; height: 52px; border-radius: 10px; }
+  .fit-need { font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; letter-spacing: -0.3px; }
+  .fit-who { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.82rem; font-weight: 600; color: var(--text-secondary); }
+  .fit-arrow { color: var(--text-muted); font-size: 1.1rem; transition: color 0.2s, transform 0.3s var(--ease-out); }
+  .fit-row:hover .fit-arrow { color: var(--accent); transform: translateX(4px); }
+
+  /* ---------- Cards ---------- */
+  .hub-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; }
+
+  /* ---------- Matrix ---------- */
+  .matrix { padding: 0.5rem; overflow-x: auto; }
+  .matrix table { width: 100%; border-collapse: collapse; min-width: 720px; }
+  .matrix th, .matrix td { padding: 0.9rem 0.75rem; border-bottom: 1px solid rgba(46, 50, 59, 0.45); text-align: center; }
+  .matrix tbody tr:last-child th, .matrix tbody tr:last-child td { border-bottom: none; }
+  .matrix thead th { font-size: 0.75rem; font-weight: 700; }
+  .matrix thead a { display: inline-flex; align-items: center; gap: 0.45rem; color: var(--text-primary); text-decoration: none; }
+  .matrix thead a:hover { color: var(--accent); }
+  .matrix-feature { text-align: left !important; width: 42%; }
+  thead .matrix-feature { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); }
+  .matrix tbody th a { display: flex; align-items: center; gap: 0.85rem; text-decoration: none; color: inherit; }
+  .matrix-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    color: var(--accent);
+    background: var(--accent-subtle);
+    border: 1px solid rgba(249, 115, 22, 0.2);
+  }
+  .matrix-icon svg { width: 18px; height: 18px; }
+  .matrix-title { display: block; font-size: 0.88rem; font-weight: 700; color: var(--text-primary); transition: color 0.2s; }
+  .matrix tbody th a:hover .matrix-title { color: var(--accent); }
+  .matrix-blurb { display: block; font-size: 0.75rem; color: var(--text-muted); font-weight: 400; margin-top: 0.15rem; }
+  .matrix-on {
+    display: inline-grid;
+    place-items: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: #0c0d10;
+    background: var(--sol);
+    box-shadow: 0 0 14px color-mix(in srgb, var(--sol) 55%, transparent);
+  }
+  .matrix-off { color: var(--text-muted); font-size: 1.2rem; }
+  .matrix-foot { text-align: center; margin-top: 1.5rem; }
+  .matrix-foot a { color: var(--text-muted); font-size: 0.85rem; font-weight: 600; text-decoration: none; transition: color 0.2s; }
+  .matrix-foot a:hover { color: var(--accent); }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 900px) {
+    .hub-hero { padding: 3rem 0 3.5rem; }
+    .hub-hero__grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .hub-cards { grid-template-columns: 1fr; }
+    .fit-row { grid-template-columns: 60px 1fr auto; gap: 0.9rem; }
+    .fit-row :global(.fit-thumb) { width: 60px; height: 44px; }
+    .fit-who { display: none; }
+    .fit-need { font-size: 0.98rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hub-tile { animation: none; }
+  }
+</style>

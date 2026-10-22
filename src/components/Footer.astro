@@ -1,8 +1,9 @@
 ---
+import { solutions } from "../data/solutions";
 ---
 <footer class="pt-16 pb-8 border-t border-[var(--border-subtle)]" style="background:var(--bg-page);">
   <div class="wrap">
-    <div class="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 mb-12">
 
       <!-- Brand -->
       <div class="col-span-2 md:col-span-1">
@@ -13,6 +14,15 @@
         <p class="text-sm text-[var(--text-muted)] leading-relaxed max-w-[280px]">
           The AI video production workspace: multi-model generation, character consistency, project budgets, team collaboration, and YouTube-ready export from one place.
         </p>
+      </div>
+
+      <!-- Solutions -->
+      <div>
+        <h4 class="text-[0.72rem] uppercase tracking-[1.5px] font-bold text-[var(--text-primary)] mb-4">Solutions</h4>
+        {solutions.map((s) => (
+          <a href={`/solutions/${s.slug}`} class="block text-sm text-[var(--text-muted)] mb-2 hover:text-[var(--text-primary)] transition-colors no-underline">{s.label}</a>
+        ))}
+        <a href="/solutions" class="block text-sm text-[var(--accent)] mb-2 hover:text-amber-300 transition-colors no-underline">All Solutions &rarr;</a>
       </div>
 
       <!-- Features -->
