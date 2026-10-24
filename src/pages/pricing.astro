@@ -1,8 +1,153 @@
-﻿---
-import PlaceholderPage from "../layouts/PlaceholderPage.astro";
 ---
-<PlaceholderPage
-  title="Pricing &amp; Credits"
-  label="Pricing"
-  description="Start free with 200 credits. No subscription required. Buy credits as you need them, or subscribe for monthly allowances and discounts."
-/>
+// src/pages/pricing.astro
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import FinalCTA from "../components/FinalCTA.astro";
+
+import Pricing from "../components/Pricing.astro";
+import CreditCalculator from "../components/pricing/CreditCalculator.astro";
+import CreditPacks from "../components/pricing/CreditPacks.astro";
+import ModelRateCard from "../components/pricing/ModelRateCard.astro";
+import PlanComparison from "../components/pricing/PlanComparison.astro";
+import PricingFAQ from "../components/pricing/PricingFAQ.astro";
+
+const pricingSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Product",
+      "name": "10zebra AI Video Production Workspace",
+      "description": "Multi-model AI video production platform supporting Kling 3.0, Google Veo 3, OpenAI Sora, Runway Gen-4, and Grok with character consistency, project budgets, and MCP integration.",
+      "brand": {
+        "@type": "Brand",
+        "name": "10zebra"
+      },
+      "offers": [
+        {
+          "@type": "Offer",
+          "name": "Pay-As-You-Go",
+          "price": "0",
+          "priceCurrency": "USD",
+          "description": "200 free trial credits on signup, top up anytime with credits that never expire.",
+          "url": "https://10zebra.com/pricing"
+        },
+        {
+          "@type": "Offer",
+          "name": "Maker Plan",
+          "price": "29",
+          "priceCurrency": "USD",
+          "billingDuration": "P1M",
+          "description": "1,200 monthly credits, 15% discount on top-ups, priority queue.",
+          "url": "https://10zebra.com/pricing"
+        },
+        {
+          "@type": "Offer",
+          "name": "Director Plan",
+          "price": "79",
+          "priceCurrency": "USD",
+          "billingDuration": "P1M",
+          "description": "3,500 monthly credits, 30% discount on top-ups, project-level budget controls, shared team pools.",
+          "url": "https://10zebra.com/pricing"
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://10zebra.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Pricing",
+          "item": "https://10zebra.com/pricing"
+        }
+      ]
+    }
+  ]
+};
+---
+
+<Layout
+  title="Pricing & Credits | AI Video Production Workspace | 10zebra"
+  description="Pay for what you create. Start free with 200 credits across Kling, Veo, Sora, Runway & Grok. Purchased top-ups never expire. Subscriptions include team budgets and up to 30% discounts."
+  canonicalUrl="https://10zebra.com/pricing"
+>
+  <!-- Schema.org Structured Data -->
+  <script type="application/ld+json" set:html={JSON.stringify(pricingSchema)} />
+
+  <Header />
+
+  <main class="pricing-page">
+    <!-- Sub-navigation anchor bar -->
+    <div
+      class="sticky top-[60px] z-40 py-2.5 px-4 border-b border-[var(--border-subtle)] overflow-x-auto text-xs font-semibold backdrop-blur-md"
+      style="background: rgba(12,13,16,0.85);"
+      aria-label="Pricing page sections"
+    >
+      <div class="wrap flex items-center justify-center gap-2 sm:gap-4 min-w-max">
+        <a href="#plans" class="px-3 py-1 rounded-full text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-white/[0.04] transition-colors">
+          Plans &amp; Tiers
+        </a>
+        <span class="text-[var(--border-strong)]">&middot;</span>
+        <a href="#calculator" class="px-3 py-1 rounded-full text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-white/[0.04] transition-colors">
+          Credit Estimator
+        </a>
+        <span class="text-[var(--border-strong)]">&middot;</span>
+        <a href="#top-ups" class="px-3 py-1 rounded-full text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-white/[0.04] transition-colors">
+          Top-Up Packs
+        </a>
+        <span class="text-[var(--border-strong)]">&middot;</span>
+        <a href="#rates" class="px-3 py-1 rounded-full text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-white/[0.04] transition-colors">
+          Model Rate Card
+        </a>
+        <span class="text-[var(--border-strong)]">&middot;</span>
+        <a href="#comparison" class="px-3 py-1 rounded-full text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-white/[0.04] transition-colors">
+          Feature Comparison
+        </a>
+        <span class="text-[var(--border-strong)]">&middot;</span>
+        <a href="#faq" class="px-3 py-1 rounded-full text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-white/[0.04] transition-colors">
+          Billing FAQ
+        </a>
+      </div>
+    </div>
+
+    <!-- 1. Hero & Tier Cards (Shared Pricing component with includeAnnual={true}) -->
+    <div id="plans">
+      <Pricing isHero={true} includeAnnual={true} showEnterpriseBanner={true} showFooterLinks={false} />
+    </div>
+
+    <!-- 2. Interactive Production Estimator -->
+    <div id="calculator">
+      <CreditCalculator />
+    </div>
+
+    <!-- 3. Permanent Rollover Top-Up Packs -->
+    <div id="top-ups">
+      <CreditPacks />
+    </div>
+
+    <!-- 4. Model & Tool Rate Card -->
+    <div id="rates">
+      <ModelRateCard />
+    </div>
+
+    <!-- 5. Deep-dive Plan Comparison Table -->
+    <div id="comparison">
+      <PlanComparison />
+    </div>
+
+    <!-- 6. Billing & Pricing FAQ -->
+    <div id="faq">
+      <PricingFAQ />
+    </div>
+  </main>
+
+  <FinalCTA />
+  <Footer />
+</Layout>

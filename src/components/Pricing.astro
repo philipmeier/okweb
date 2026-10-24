@@ -1,93 +1,275 @@
 ---
-const plans = [
-  {
-    id: 'payg',
-    name: 'Pay-As-You-Go',
-    desc: 'Free trial + flexible top-ups',
-    price: '$0',
-    period: '/ month',
-    credit: '200 free credits - approx. 5 Kling shots or 20 Grok clips',
-    features: [
-      '200 Free Trial Credits on signup',
-      'No subscription, ever',
-      'Buy additional credits as needed',
-      'Access to all AI models & tools',
-      'Purchased top-ups never expire',
-    ],
-    cta: 'Get Started Free',
-    ctaHref: '/signup',
-    btnClass: 'btn-ghost',
-    featured: false,
-  },
-  {
-    id: 'maker',
-    name: 'Maker',
-    desc: 'For active creators & marketers',
-    price: '$29',
-    period: '/ month',
-    credit: '1,200 credits/mo - approx. 30 Kling shots or 60 Veo 3 Fast clips',
-    features: [
-      '1,200 Monthly Credits (refreshes each cycle)',
-      '15% Discount on all extra top-ups',
-      'Top-up credits never expire',
-      'All AI models + priority queue',
-      'Team collaboration features',
-    ],
-    cta: 'Start Maker Plan',
-    ctaHref: '/pricing',
-    btnClass: 'btn-primary',
-    featured: true,
-  },
-  {
-    id: 'director',
-    name: 'Director',
-    desc: 'For agencies & video teams',
-    price: '$79',
-    period: '/ month',
-    credit: '3,500 credits/mo - approx. 87 Kling shots or 175 Veo 3 Fast clips',
-    features: [
-      '3,500 Monthly Credits',
-      '30% Discount on extra top-ups',
-      'Top-up credits never expire',
-      'Project-level budget controls',
-      'Shared reference library & credit pools',
-    ],
-    cta: 'View Director Plan',
-    ctaHref: '/pricing',
-    btnClass: 'btn-ghost',
-    featured: false,
-  },
-];
----
-<section class="section" aria-labelledby="pricing-heading">
-  <div class="sect-head reveal">
-    <span class="sect-label">Pricing</span>
-    <h2 id="pricing-heading">Pay for What You Create. <span class="grad-text">Nothing More.</span></h2>
-    <p>Start free with 200 credits. No subscription needed &mdash; buy more when you need them, or subscribe for stacked discounts.</p>
-  </div>
+// src/components/Pricing.astro
+import { plans } from "../data/pricing";
 
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 reveal">
-    {plans.map((p) => (
-      <div class={`glass relative flex flex-col transition-all duration-300 hover:-translate-y-1 ${p.featured ? 'border-[var(--accent)]' : ''}`}
-        id={`pricing-${p.id}`}
-        style="padding:2.5rem 2rem;">
-        {p.featured && (
-          <div class="absolute -top-[11px] right-5 text-[0.65rem] font-black px-2 py-1 rounded uppercase tracking-[0.5px]"
-            style="background:var(--accent); color:#0c0d10;">Most Popular</div>
-        )}
-        <h3 class="text-xl font-bold mb-1" style="font-family:var(--font-display);">{p.name}</h3>
-        <p class="text-sm text-[var(--text-muted)] mb-3">{p.desc}</p>
-        <div class="text-[2.5rem] font-black tracking-[-1px] mb-2" style="font-family:var(--font-display);">
-          {p.price} <span class="text-[0.9rem] text-[var(--text-muted)] font-normal">{p.period}</span>
-        </div>
-        <span class="text-xs font-semibold mb-5 block" style="color:#34d399;">{p.credit}</span>
-        <ul class="feat-list flex-1">
-          {p.features.map((f) => (
-            <li><span class="check-icon">&#10003;</span> <span>{f}</span></li>
-          ))}
-        </ul>
-        <a href={p.ctaHref} class={`btn ${p.btnClass} btn-full mt-4`} id={`pricing-${p.id}-cta`}>{p.cta}</a>
+interface Props {
+  includeAnnual?: boolean;
+  isHero?: boolean;
+  eyebrow?: string;
+  title?: string;
+  subtitle?: string;
+  showEnterpriseBanner?: boolean;
+  showFooterLinks?: boolean;
+  idPrefix?: string;
+}
+
+const {
+  includeAnnual = false,
+  isHero = false,
+  eyebrow = isHero ? "Transparent Multi-Model Pricing" : "Pricing",
+  title = "Pay for What You Create. Nothing More.",
+  subtitle = "Start free with 200 credits. No subscription needed — buy more when you need them, or subscribe for stacked discounts.",
+  showEnterpriseBanner = isHero,
+  showFooterLinks = !isHero,
+  idPrefix = isHero ? "hero-pricing" : "home-pricing",
+} = Astro.props;
+---
+
+<section class={`pricing-section relative ${isHero ? 'pt-12 pb-16' : 'section'}`} aria-labelledby={`${idPrefix}-heading`}>
+  {isHero && (
+    <div
+      class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] pointer-events-none rounded-full blur-[140px] opacity-25"
+      style="background: radial-gradient(ellipse, var(--accent) 0%, rgba(251,191,36,0.3) 50%, transparent 80%);"
+      aria-hidden="true"
+    ></div>
+  )}
+
+  <div class={isHero ? "wrap relative z-10" : ""}>
+    <!-- Section Header Block -->
+    <div class="sect-head reveal mb-8">
+      {isHero ? (
+        <span class="badge mb-4">
+          <span class="pulse-dot" aria-hidden="true"></span>
+          {eyebrow}
+        </span>
+      ) : (
+        <span class="sect-label">{eyebrow}</span>
+      )}
+
+      {isHero ? (
+        <h1 id={`${idPrefix}-heading`} class="text-[clamp(2rem,4.5vw,3.25rem)] font-extrabold tracking-[-1px] leading-[1.1] mb-4">
+          Pay for What You Create. <span class="grad-text">Never What You Waste.</span>
+        </h1>
+      ) : (
+        <h2 id={`${idPrefix}-heading`}>
+          Pay for What You Create. <span class="grad-text">Nothing More.</span>
+        </h2>
+      )}
+
+      <p class="max-w-2xl mx-auto text-base md:text-lg text-[var(--text-secondary)] leading-relaxed">
+        {subtitle}
+      </p>
+    </div>
+
+    <!-- Optional Annual Billing Toggle -->
+    {includeAnnual && (
+      <div class="flex items-center justify-center gap-3 mb-10 reveal">
+        <span class="text-sm font-semibold text-[var(--text-secondary)]" id={`${idPrefix}-label-monthly`}>Monthly</span>
+        <button
+          type="button"
+          id={`${idPrefix}-toggle`}
+          role="switch"
+          aria-checked="false"
+          aria-label="Toggle between monthly and annual billing"
+          class="relative inline-flex h-7 w-14 shrink-0 cursor-pointer rounded-full border-2 border-[var(--border-subtle)] bg-[var(--bg-elevated)] p-0.5 transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
+        >
+          <span
+            id={`${idPrefix}-thumb`}
+            class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-[var(--accent)] shadow-md transition duration-200 ease-in-out translate-x-0"
+          ></span>
+        </button>
+        <span class="text-sm font-semibold text-[var(--text-primary)] flex items-center gap-2" id={`${idPrefix}-label-annual`}>
+          Annual
+          <span class="text-[0.7rem] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
+            Save 20% &middot; 2 Mo Free
+          </span>
+        </span>
       </div>
-    ))}
+    )}
+
+    <!-- Plan Cards Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch reveal pt-3">
+      {plans.map((p) => {
+        const cardId = `${idPrefix}-${p.id}`;
+        return (
+          <div
+            class={`glass relative flex flex-col p-8 transition-all duration-300 hover:-translate-y-1.5 ${
+              p.featured ? "border-[var(--accent)] glow-border" : "border-[var(--border-subtle)] hover:border-[var(--border-strong)]"
+            }`}
+            id={cardId}
+            style={p.featured ? "background: linear-gradient(180deg, rgba(249,115,22,0.06) 0%, rgba(26,28,33,0.7) 35%);" : ""}
+          >
+            {p.featured && (
+              <div
+                class="absolute -top-[12px] right-6 z-10 text-[0.65rem] font-black px-3 py-1 rounded-full uppercase tracking-wider shadow-lg"
+                style="background: linear-gradient(135deg, var(--accent), var(--accent-secondary)); color:#0c0d10;"
+              >
+                {p.badge || "Most Popular"}
+              </div>
+            )}
+
+            <div class="mb-5">
+              <span class={`text-[0.72rem] uppercase tracking-wider font-bold block mb-1 ${p.featured ? 'text-[var(--accent)]' : 'text-[var(--text-muted)]'}`}>
+                {p.kicker}
+              </span>
+              <h3 class="text-2xl font-bold text-[var(--text-primary)]" style="font-family:var(--font-display);">
+                {p.name}
+              </h3>
+              <p class="text-sm text-[var(--text-muted)] mt-1 min-h-[40px]">
+                {p.desc}
+              </p>
+            </div>
+
+            <div class="mb-4">
+              <div class="flex items-baseline gap-1">
+                <span
+                  class="plan-price-val text-4xl lg:text-5xl font-extrabold text-[var(--text-primary)] tracking-tight transition-all duration-200"
+                  style="font-family:var(--font-display);"
+                  data-monthly={p.price}
+                  data-annual={p.annualPrice}
+                >
+                  {p.price}
+                </span>
+                <span class="text-sm text-[var(--text-muted)] font-medium">{p.period}</span>
+              </div>
+
+              {includeAnnual && (
+                <span class="plan-billed-note text-xs text-[var(--accent)] font-medium mt-1 block h-4">
+                  {p.id === 'payg' ? '' : 'Billed monthly'}
+                </span>
+              )}
+
+              <span class="text-xs font-semibold text-emerald-400 mt-1 block">
+                {p.credit}
+              </span>
+              <span class="text-xs text-[var(--text-muted)] mt-0.5 block">
+                {p.approx}
+              </span>
+            </div>
+
+            <div class="h-px bg-[var(--border-subtle)] my-5"></div>
+
+            <ul class="feat-list flex-1 mb-6 space-y-3">
+              {p.features.map((f) => (
+                <li>
+                  <span class="check-icon">&#10003;</span>
+                  <span>{f}</span>
+                </li>
+              ))}
+            </ul>
+
+            <a
+              href={p.ctaHref}
+              class={`btn ${p.btnClass} btn-full py-3 ${p.featured ? 'text-sm font-bold shadow-lg' : ''}`}
+              id={`${cardId}-cta`}
+            >
+              {p.cta}
+            </a>
+            <p class="text-[0.72rem] text-center text-[var(--text-muted)] mt-2.5">
+              {p.id === 'payg' ? 'No credit card required' : p.id === 'maker' ? 'Cancel or switch anytime' : 'Includes team seats & project pools'}
+            </p>
+          </div>
+        );
+      })}
+    </div>
+
+    <!-- Optional Enterprise / Studio Callout Banner -->
+    {showEnterpriseBanner && (
+      <div
+        class="mt-10 p-6 md:p-8 rounded-2xl border border-[var(--border-subtle)] flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden reveal"
+        style="background: linear-gradient(135deg, rgba(26,28,33,0.85) 0%, rgba(19,20,23,0.95) 100%);"
+        id={`${idPrefix}-enterprise`}
+      >
+        <div class="space-y-1.5 text-center md:text-left">
+          <div class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[var(--accent)]">
+            <span class="w-2 h-2 rounded-full bg-[var(--accent)]"></span>
+            Studio &amp; Enterprise
+          </div>
+          <h3 class="text-xl md:text-2xl font-bold text-[var(--text-primary)]" style="font-family:var(--font-display);">
+            Directing at Studio Scale or Need Custom Cloud Pipelines?
+          </h3>
+          <p class="text-sm text-[var(--text-secondary)] max-w-2xl leading-relaxed">
+            Get custom pooled credit volume, dedicated Slack channel with 10zebra engineers, SAML/SSO authentication, custom model fine-tuning, and SLA guarantees for production deadlines.
+          </p>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-3 shrink-0 w-full md:w-auto">
+          <a href="mailto:sales@10zebra.com?subject=Studio%20%26%20Enterprise%20Inquiry" class="btn btn-primary" id={`${idPrefix}-enterprise-contact`}>
+            Talk to Production Sales
+          </a>
+          <a href="/demo" class="btn btn-ghost" id={`${idPrefix}-enterprise-demo`}>
+            Book 1-on-1 Demo
+          </a>
+        </div>
+      </div>
+    )}
+
+    <!-- Optional Footer Links (for Homepage) -->
+    {showFooterLinks && (
+      <div class="mt-12 text-center reveal space-y-3">
+        <div class="flex flex-wrap items-center justify-center gap-4 text-sm font-semibold">
+          <a href="/pricing#calculator" class="text-[var(--accent)] hover:underline inline-flex items-center gap-1.5">
+            <span>Interactive Credit Estimator &amp; Model Rate Card</span>
+            <span aria-hidden="true">&rarr;</span>
+          </a>
+          <span class="text-[var(--border-strong)] hidden sm:inline">&middot;</span>
+          <a href="/pricing#top-ups" class="text-[var(--text-secondary)] hover:text-[var(--text-primary)] inline-flex items-center gap-1.5">
+            <span>View Never-Expiring Top-Up Packs</span>
+            <span aria-hidden="true">&rarr;</span>
+          </a>
+          <span class="text-[var(--border-strong)] hidden sm:inline">&middot;</span>
+          <a href="/pricing#comparison" class="text-[var(--text-secondary)] hover:text-[var(--text-primary)] inline-flex items-center gap-1.5">
+            <span>Full Feature Comparison Matrix</span>
+            <span aria-hidden="true">&rarr;</span>
+          </a>
+        </div>
+        <p class="text-xs text-[var(--text-muted)]">
+          Producing at studio scale or need pooled enterprise infrastructure?{" "}
+          <a href="/pricing#enterprise" class="text-[var(--text-secondary)] hover:text-[var(--accent)] underline">
+            Explore Studio &amp; Enterprise options
+          </a>
+        </p>
+      </div>
+    )}
   </div>
 </section>
+
+{includeAnnual && (
+  <script define:vars={{ idPrefix }}>
+    const toggle = document.getElementById(`${idPrefix}-toggle`);
+    const thumb = document.getElementById(`${idPrefix}-thumb`);
+    const priceEls = document.querySelectorAll(`#${idPrefix}-payg .plan-price-val, #${idPrefix}-maker .plan-price-val, #${idPrefix}-director .plan-price-val`);
+    const makerBilled = document.querySelector(`#${idPrefix}-maker .plan-billed-note`);
+    const directorBilled = document.querySelector(`#${idPrefix}-director .plan-billed-note`);
+
+    let isAnnual = false;
+
+    toggle?.addEventListener("click", () => {
+      isAnnual = !isAnnual;
+      toggle.setAttribute("aria-checked", isAnnual ? "true" : "false");
+
+      if (isAnnual) {
+        thumb?.classList.remove("translate-x-0");
+        thumb?.classList.add("translate-x-7");
+
+        priceEls.forEach((el) => {
+          const annual = el.getAttribute("data-annual");
+          if (annual) el.textContent = annual;
+        });
+
+        if (makerBilled) makerBilled.textContent = "Billed annually ($276/yr) — Save $72";
+        if (directorBilled) directorBilled.textContent = "Billed annually ($756/yr) — Save $192";
+      } else {
+        thumb?.classList.remove("translate-x-7");
+        thumb?.classList.add("translate-x-0");
+
+        priceEls.forEach((el) => {
+          const monthly = el.getAttribute("data-monthly");
+          if (monthly) el.textContent = monthly;
+        });
+
+        if (makerBilled) makerBilled.textContent = "Billed monthly ($29)";
+        if (directorBilled) directorBilled.textContent = "Billed monthly ($79)";
+      }
+    });
+  </script>
+)}

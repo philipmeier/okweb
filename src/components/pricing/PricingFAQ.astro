@@ -1,0 +1,86 @@
+---
+// src/components/pricing/PricingFAQ.astro
+import { pricingFaqs } from "../../data/pricing";
+---
+
+<section class="section py-16 border-t border-[var(--border-subtle)]" aria-labelledby="pricing-faq-heading">
+  <div class="wrap">
+    <div class="sect-head mb-10 text-center">
+      <span class="sect-label">Got Questions?</span>
+      <h2 id="pricing-faq-heading" class="text-3xl md:text-4xl font-extrabold tracking-tight">
+        Pricing &amp; Billing <span class="grad-text">FAQ</span>
+      </h2>
+      <p class="max-w-xl mx-auto text-[var(--text-secondary)] text-sm md:text-base mt-2">
+        Everything you need to know about credits, renewals, team budgets, and refunds.
+      </p>
+    </div>
+
+    <div class="max-w-3xl mx-auto space-y-3" id="pricing-faq-list">
+      {pricingFaqs.map((f, i) => (
+        <div
+          class="pricing-faq-item rounded-xl overflow-hidden border border-[var(--border-subtle)] transition-colors hover:border-[var(--border-glow)]"
+          style="background:var(--bg-card); backdrop-filter:blur(10px);"
+        >
+          <button
+            type="button"
+            class="pricing-faq-q w-full text-left px-6 py-4.5 cursor-pointer flex justify-between items-center gap-4 text-[0.95rem] font-semibold text-[var(--text-primary)] hover:text-[var(--accent)] transition-colors"
+            style="font-family:var(--font-body);"
+            aria-expanded="false"
+            id={`faq-btn-${i}`}
+          >
+            <span>{f.q}</span>
+            <span class="pricing-faq-chev shrink-0 text-xs text-[var(--text-muted)] transition-transform duration-300">
+              &#9660;
+            </span>
+          </button>
+          <div
+            class="pricing-faq-ans max-h-0 overflow-hidden transition-all duration-300"
+            style="transition: max-height 0.35s cubic-bezier(0.16,1,0.3,1);"
+          >
+            <div
+              class="px-6 pb-5 pt-1 text-sm text-[var(--text-secondary)] leading-relaxed"
+              set:html={f.a}
+            />
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Need more help link -->
+    <div class="text-center mt-8 text-xs text-[var(--text-muted)]">
+      Have a custom production question?{" "}
+      <a href="mailto:support@10zebra.com" class="text-[var(--accent)] hover:underline font-semibold">
+        Email our production team &rarr;
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll(".pricing-faq-q").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const item = btn.closest(".pricing-faq-item");
+      const ans = item?.querySelector(".pricing-faq-ans") as HTMLElement | null;
+      const chev = item?.querySelector(".pricing-faq-chev") as HTMLElement | null;
+      const isOpen = item?.classList.contains("open");
+
+      // Close all other open accordion items
+      document.querySelectorAll(".pricing-faq-item.open").forEach((el) => {
+        el.classList.remove("open");
+        const a = el.querySelector(".pricing-faq-ans") as HTMLElement | null;
+        const q = el.querySelector(".pricing-faq-q");
+        const c = el.querySelector(".pricing-faq-chev") as HTMLElement | null;
+        if (a) a.style.maxHeight = "0";
+        q?.setAttribute("aria-expanded", "false");
+        if (c) c.style.transform = "";
+      });
+
+      if (!isOpen && item && ans) {
+        item.classList.add("open");
+        ans.style.maxHeight = ans.scrollHeight + "px";
+        btn.setAttribute("aria-expanded", "true");
+        if (chev) chev.style.transform = "rotate(180deg)";
+      }
+    });
+  });
+</script>

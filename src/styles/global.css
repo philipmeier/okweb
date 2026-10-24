@@ -87,7 +87,7 @@
 }
 
 /* Animated gradient border ring */
-.glow-border { position: relative; border-radius: 16px; overflow: hidden; }
+.glow-border { position: relative; border-radius: 16px; }
 .glow-border::before {
   content: '';
   position: absolute; inset: 0;

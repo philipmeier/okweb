@@ -1,0 +1,119 @@
+---
+// src/components/pricing/PlanComparison.astro
+import { comparisonSections } from "../../data/pricing";
+---
+
+<section class="section py-16 border-t border-[var(--border-subtle)]" aria-labelledby="comparison-heading">
+  <div class="wrap">
+    <div class="sect-head mb-12 text-center">
+      <span class="sect-label">Deep Dive</span>
+      <h2 id="comparison-heading" class="text-3xl md:text-4xl font-extrabold tracking-tight">
+        Compare All <span class="grad-text">Plan Features</span>
+      </h2>
+      <p class="max-w-2xl mx-auto text-[var(--text-secondary)] text-sm md:text-base mt-2">
+        See exactly what is included in each tier, from multi-model generation to project budgets and team permissions.
+      </p>
+    </div>
+
+    <!-- Comparison Table Wrapper -->
+    <div class="glass overflow-x-auto rounded-2xl border border-[var(--border-subtle)] p-2 md:p-4">
+      <table class="w-full border-collapse text-left text-sm" aria-label="Detailed plan comparison">
+        <!-- Table Header -->
+        <thead>
+          <tr class="border-b border-[var(--border-subtle)]">
+            <th class="p-4 w-2/5 min-w-[240px] text-xs font-bold uppercase tracking-wider text-[var(--text-muted)]">
+              Plan Features
+            </th>
+            <th class="p-4 w-[15%] min-w-[130px] text-center">
+              <div class="font-bold text-[var(--text-primary)] text-base">Pay-As-You-Go</div>
+              <div class="text-xs text-[var(--text-muted)] font-normal mt-0.5">$0 / mo</div>
+            </th>
+            <th class="p-4 w-[15%] min-w-[130px] text-center bg-[var(--accent-subtle)]/40 rounded-t-xl border-t border-x border-[var(--accent)]/30">
+              <div class="font-bold text-[var(--accent)] text-base">Maker</div>
+              <div class="text-xs text-[var(--accent)] font-medium mt-0.5">$29 / mo</div>
+            </th>
+            <th class="p-4 w-[15%] min-w-[130px] text-center">
+              <div class="font-bold text-[var(--text-primary)] text-base">Director</div>
+              <div class="text-xs text-[var(--text-muted)] font-normal mt-0.5">$79 / mo</div>
+            </th>
+            <th class="p-4 w-[15%] min-w-[130px] text-center">
+              <div class="font-bold text-[var(--text-secondary)] text-base">Studio</div>
+              <div class="text-xs text-[var(--text-muted)] font-normal mt-0.5">Custom</div>
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {comparisonSections.map((section) => (
+            <>
+              <!-- Category Header Row -->
+              <tr>
+                <td
+                  colspan="5"
+                  class="pt-6 pb-2.5 px-4 text-[0.72rem] uppercase tracking-wider font-extrabold text-[var(--accent)] border-b border-[var(--border-subtle)] bg-white/[0.015]"
+                >
+                  {section.category}
+                </td>
+              </tr>
+
+              <!-- Feature Rows -->
+              {section.features.map((feat) => (
+                <tr class="border-b border-[rgba(46,50,59,0.25)] hover:bg-white/[0.015] transition-colors">
+                  <td class="p-3.5 px-4">
+                    <div class="font-semibold text-xs md:text-sm text-[var(--text-primary)]">
+                      {feat.name}
+                    </div>
+                    {feat.hint && (
+                      <div class="text-[0.72rem] text-[var(--text-muted)] mt-0.5 leading-snug">
+                        {feat.hint}
+                      </div>
+                    )}
+                  </td>
+                  <td class="p-3.5 text-center text-xs md:text-sm text-[var(--text-secondary)]">
+                    {feat.payg}
+                  </td>
+                  <td class="p-3.5 text-center text-xs md:text-sm font-semibold text-[var(--accent)] bg-[var(--accent-subtle)]/20 border-x border-[var(--accent)]/15">
+                    {feat.maker}
+                  </td>
+                  <td class="p-3.5 text-center text-xs md:text-sm font-semibold text-[var(--text-primary)]">
+                    {feat.director}
+                  </td>
+                  <td class="p-3.5 text-center text-xs md:text-sm text-[var(--text-secondary)]">
+                    {feat.studio}
+                  </td>
+                </tr>
+              ))}
+            </>
+          ))}
+        </tbody>
+
+        <!-- Table Footer / CTA Row -->
+        <tfoot>
+          <tr class="border-t border-[var(--border-subtle)]">
+            <td class="p-4"></td>
+            <td class="p-4 text-center">
+              <a href="/signup" class="btn btn-ghost btn-full py-2 text-xs font-semibold">
+                Start Free
+              </a>
+            </td>
+            <td class="p-4 text-center bg-[var(--accent-subtle)]/40 rounded-b-xl border-b border-x border-[var(--accent)]/30">
+              <a href="/signup?plan=maker" class="btn btn-primary btn-full py-2 text-xs font-bold">
+                Choose Maker
+              </a>
+            </td>
+            <td class="p-4 text-center">
+              <a href="/signup?plan=director" class="btn btn-ghost btn-full py-2 text-xs font-semibold">
+                Choose Director
+              </a>
+            </td>
+            <td class="p-4 text-center">
+              <a href="mailto:sales@10zebra.com?subject=Studio%20Inquiry" class="btn btn-ghost btn-full py-2 text-xs font-semibold">
+                Contact Sales
+              </a>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,116 @@
+---
+// src/components/pricing/CreditPacks.astro
+import { creditPacks } from "../../data/pricing";
+---
+
+<section class="section py-16 border-t border-[var(--border-subtle)]" aria-labelledby="packs-heading">
+  <div class="wrap">
+    <div class="sect-head mb-12 text-center">
+      <span class="sect-label">Flexible Top-Ups</span>
+      <h2 id="packs-heading" class="text-3xl md:text-4xl font-extrabold tracking-tight">
+        Credits That <span class="grad-text">Never Expire</span>
+      </h2>
+      <p class="max-w-2xl mx-auto text-[var(--text-secondary)] text-sm md:text-base mt-2">
+        Tired of "use it or lose it" subscription traps? In 10zebra, all purchased top-up credits stay in your account forever.
+        Plus, active Maker and Director subscribers unlock up to 30% off every single top-up pack.
+      </p>
+    </div>
+
+    <!-- Highlights Banner -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
+      <div class="p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] flex items-start gap-3">
+        <div class="w-8 h-8 rounded-lg bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 font-bold shrink-0 text-sm">
+          &infin;
+        </div>
+        <div>
+          <h3 class="text-xs font-bold text-[var(--text-primary)]">Permanent Rollover</h3>
+          <p class="text-[0.78rem] text-[var(--text-secondary)] mt-0.5">Top-up credits never vanish at month-end. Use them today, next week, or next year.</p>
+        </div>
+      </div>
+
+      <div class="p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] flex items-start gap-3">
+        <div class="w-8 h-8 rounded-lg bg-[var(--accent-subtle)] border border-[var(--accent)]/30 flex items-center justify-center text-[var(--accent)] font-bold shrink-0 text-sm">
+          %
+        </div>
+        <div>
+          <h3 class="text-xs font-bold text-[var(--text-primary)]">Stacked Subscriber Savings</h3>
+          <p class="text-[0.78rem] text-[var(--text-secondary)] mt-0.5">Maker members save 15% on all top-ups. Director members save 30% on all top-ups.</p>
+        </div>
+      </div>
+
+      <div class="p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] flex items-start gap-3">
+        <div class="w-8 h-8 rounded-lg bg-blue-500/15 border border-blue-500/30 flex items-center justify-center text-blue-400 font-bold shrink-0 text-sm">
+          &bull;
+        </div>
+        <div>
+          <h3 class="text-xs font-bold text-[var(--text-primary)]">Project Budget Allocation</h3>
+          <p class="text-[0.78rem] text-[var(--text-secondary)] mt-0.5">Assign top-up packs directly to specific client projects to keep billing transparent.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Packs Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 pt-3">
+      {creditPacks.map((pack) => (
+        <div
+          class={`glass relative flex flex-col p-6 rounded-2xl border transition-all duration-300 hover:-translate-y-1 ${
+            pack.popular ? "border-[var(--accent)] glow-border" : "border-[var(--border-subtle)]"
+          }`}
+        >
+          {pack.popular && (
+            <div
+              class="absolute -top-[10px] right-4 z-10 text-[0.62rem] font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider shadow"
+              style="background:var(--accent); color:#0c0d10;"
+            >
+              Best Value
+            </div>
+          )}
+
+          <div class="mb-3">
+            <h3 class="text-base font-bold text-[var(--text-primary)]" style="font-family:var(--font-display);">
+              {pack.name}
+            </h3>
+            <span class="text-[0.72rem] text-[var(--text-muted)] block mt-0.5">
+              {pack.idealFor}
+            </span>
+          </div>
+
+          <div class="mb-4">
+            <div class="flex items-baseline gap-1.5">
+              <span class="text-3xl font-extrabold text-[var(--text-primary)] font-mono">
+                {pack.credits}
+              </span>
+              <span class="text-xs font-semibold text-[var(--text-muted)]">credits</span>
+            </div>
+            <div class="text-[0.72rem] text-emerald-400 font-medium mt-1">
+              {pack.approx}
+            </div>
+          </div>
+
+          <!-- Price comparison breakdown -->
+          <div class="p-3 rounded-lg bg-[var(--bg-elevated)] border border-[var(--border-subtle)] space-y-1.5 mb-5 text-xs">
+            <div class="flex justify-between items-center text-[var(--text-secondary)]">
+              <span>Standard Price:</span>
+              <span class="font-bold text-[var(--text-primary)] font-mono">{pack.basePrice}</span>
+            </div>
+            <div class="flex justify-between items-center text-xs text-[var(--accent)]">
+              <span>With Maker (-15%):</span>
+              <span class="font-bold font-mono">{pack.makerPrice}</span>
+            </div>
+            <div class="flex justify-between items-center text-xs text-amber-400">
+              <span>With Director (-30%):</span>
+              <span class="font-bold font-mono">{pack.directorPrice}</span>
+            </div>
+          </div>
+
+          <a
+            href="/signup"
+            class={`btn ${pack.popular ? "btn-primary" : "btn-ghost"} btn-full py-2.5 text-xs font-semibold mt-auto`}
+          >
+            Buy {pack.credits} Credits
+          </a>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
