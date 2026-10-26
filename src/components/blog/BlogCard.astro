@@ -24,7 +24,7 @@ const categoryColors: Record<string, string> = {
 const accent = categoryColors[category] || '#f97316';
 ---
 
-<article class={`group relative flex flex-col glass rounded-2xl overflow-hidden border border-[var(--border-subtle)] hover:border-orange-500/40 hover:shadow-2xl hover:shadow-orange-950/20 transition-all duration-300 ${featured ? 'md:col-span-2 md:grid md:grid-cols-2 md:gap-6' : ''}`}>
+<article class={`group relative flex flex-col h-full glass rounded-2xl overflow-hidden border border-[var(--border-subtle)] hover:border-orange-500/40 hover:shadow-2xl hover:shadow-orange-950/20 transition-all duration-300 ${featured ? 'md:col-span-2 md:grid md:grid-cols-2 md:gap-6' : ''}`}>
   <!-- Thumbnail Container -->
   <a href={`/blog/${post.slug}`} class="block relative aspect-video overflow-hidden bg-[#131417] no-underline focus:outline-none" aria-label={`Read ${title}`}>
     {image && typeof image === 'object' ? (

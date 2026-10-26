@@ -129,7 +129,7 @@ const collectionSchema = {
       <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-20" id="articles-grid">
         {sortedPosts.map((post) => (
           <div
-            class="article-item"
+            class="article-item h-full flex flex-col"
             data-title={post.data.title.toLowerCase()}
             data-description={post.data.description.toLowerCase()}
             data-category={post.data.category}
@@ -214,7 +214,7 @@ const collectionSchema = {
             tags.includes(searchQuery);
 
           if (matchesCategory && matchesSearch) {
-            card.style.display = 'block';
+            card.style.display = '';
             visibleCount++;
           } else {
             card.style.display = 'none';
