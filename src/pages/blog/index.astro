@@ -1,0 +1,295 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import BlogCard from '../../components/blog/BlogCard.astro';
+import { getPublishedPosts, sortPostsByDate, getCategoriesWithCounts } from '../../utils/blog';
+
+const allPosts = await getCollection('blog');
+const publishedPosts = getPublishedPosts(allPosts);
+const sortedPosts = sortPostsByDate(publishedPosts);
+
+// The most recent post is featured at top
+const featuredPost = sortedPosts[0];
+const regularPosts = sortedPosts.slice(1);
+
+const categories = [
+  'All',
+  'Workflows & Tutorials',
+  'Case Studies & Previs',
+  'AI Models & Tech',
+  'Narrative & Perception',
+  'Community & Events'
+];
+
+const categoryCounts = getCategoriesWithCounts(sortedPosts);
+
+const canonicalUrl = "https://10zebra.com/blog";
+const pageTitle = "Blog & Tutorials | AI Video Production Workflows | 10zebra";
+const pageDescription = "Explore deep-dive tutorials, multi-model production workflows, case studies, and insights from 10zebra — the AI video production workspace.";
+
+// Structured data for CollectionPage
+const collectionSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": pageTitle,
+  "description": pageDescription,
+  "url": canonicalUrl,
+  "mainEntity": {
+    "@type": "ItemList",
+    "itemListElement": sortedPosts.map((post, idx) => ({
+      "@type": "ListItem",
+      "position": idx + 1,
+      "url": `https://10zebra.com/blog/${(post.slug || post.id || '').replace(/\.md$/, '')}`,
+      "name": post.data.title
+    }))
+  }
+};
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  canonicalUrl={canonicalUrl}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(collectionSchema)} />
+
+  <Header />
+
+  <main class="min-h-screen pt-12 pb-24 relative overflow-hidden">
+    <!-- Subtle Background Glows -->
+    <div class="absolute top-20 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-b from-orange-500/[0.08] to-transparent rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="wrap max-w-7xl mx-auto px-4 sm:px-6">
+
+      <!-- Hub Header -->
+      <header class="text-center max-w-3xl mx-auto mb-16 relative z-10">
+        <span class="sect-label">THE PRODUCER'S DISPATCH</span>
+        <h1 class="font-display font-black text-3xl sm:text-4xl md:text-5xl text-[var(--text-primary)] tracking-tight mb-5 leading-tight">
+          Workflows, Previs &amp; Insights <br class="hidden sm:inline" />
+          <span class="grad-text">From the Frontier of AI Video</span>
+        </h1>
+        <p class="text-base sm:text-lg text-[var(--text-secondary)] leading-relaxed">
+          Techniques for directing generative video like a producer: multi-model pipelines across Kling, Google Veo, Runway, and Sora, character consistency, hybrid camera workflows, and case studies.
+        </p>
+      </header>
+
+      <!-- Featured Story Card (Hero Section) -->
+      {featuredPost && (
+        <section class="mb-16 relative z-10" aria-label="Featured Story">
+          <div class="flex items-center gap-2 mb-4">
+            <span class="w-2 h-2 rounded-full bg-[var(--accent)] animate-pulse"></span>
+            <span class="text-xs uppercase font-bold tracking-widest text-[var(--accent)] font-mono">FEATURED STORY</span>
+          </div>
+          <BlogCard post={featuredPost} featured={true} />
+        </section>
+      )}
+
+      <!-- Filter Controls: Search & Category Pills -->
+      <section class="mb-12 relative z-10" aria-label="Filter articles">
+        <div class="glass p-4 rounded-2xl border border-[var(--border-subtle)] flex flex-col md:flex-row md:items-center justify-between gap-4">
+
+          <!-- Category Tabs -->
+          <div class="flex items-center gap-1.5 overflow-x-auto pb-2 md:pb-0 scrollbar-none" id="category-tabs" role="tablist">
+            {categories.map((cat) => (
+              <button
+                class={`category-tab px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer ${cat === 'All' ? 'bg-[var(--accent)] text-[#0c0d10]' : 'bg-[var(--bg-elevated)] text-[var(--text-secondary)] hover:text-white hover:bg-[var(--bg-card-hover)]'}`}
+                data-category={cat}
+                role="tab"
+                aria-selected={cat === 'All' ? 'true' : 'false'}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+
+          <!-- Real-time Search Box -->
+          <div class="relative min-w-[240px] md:max-w-xs w-full">
+            <svg class="w-4 h-4 text-[var(--text-muted)] absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            <input
+              type="text"
+              id="search-input"
+              placeholder="Search workflows, tools, topics..."
+              class="w-full pl-10 pr-4 py-2 bg-[var(--bg-page)] border border-[var(--border-subtle)] rounded-xl text-xs text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:border-[var(--accent)] transition-colors"
+            />
+          </div>
+        </div>
+
+        <!-- Result Count / Active Filter Feedback -->
+        <div class="flex items-center justify-between mt-4 px-2 text-xs text-[var(--text-muted)] font-mono">
+          <span id="results-count">Showing all {sortedPosts.length} articles</span>
+          <span id="filter-status" class="hidden text-[var(--accent)]">Filtered</span>
+        </div>
+      </section>
+
+      <!-- Articles Grid -->
+      <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-20" id="articles-grid">
+        {sortedPosts.map((post) => (
+          <div
+            class="article-item"
+            data-title={post.data.title.toLowerCase()}
+            data-description={post.data.description.toLowerCase()}
+            data-category={post.data.category}
+            data-tags={(post.data.tags || []).join(' ').toLowerCase()}
+          >
+            <BlogCard post={post} />
+          </div>
+        ))}
+      </section>
+
+      <!-- Zero-state (When search/filter produces 0 results) -->
+      <div id="no-results" class="hidden text-center py-20 glass rounded-2xl border border-[var(--border-subtle)] max-w-lg mx-auto">
+        <svg class="w-12 h-12 text-[var(--text-muted)] mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <h3 class="font-display font-bold text-lg text-[var(--text-primary)] mb-2">No articles found</h3>
+        <p class="text-xs text-[var(--text-secondary)] mb-6">We couldn't find any articles matching your search query or selected category.</p>
+        <button id="reset-filters-btn" class="btn btn-primary text-xs">
+          Reset all filters
+        </button>
+      </div>
+
+      <!-- Studio Dispatch Subscription Banner -->
+      <section class="glow-border mt-16 p-8 md:p-12 rounded-3xl bg-gradient-to-br from-[#1a1c21] to-[#0c0d10] border border-[var(--border-subtle)] text-center relative overflow-hidden">
+        <div class="absolute -top-24 -right-24 w-56 h-56 bg-[var(--accent)] opacity-15 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="relative z-10 max-w-2xl mx-auto">
+          <span class="sect-label">JOIN 10,000+ CREATORS &amp; PRODUCERS</span>
+          <h2 class="font-display font-black text-2xl sm:text-3xl text-[var(--text-primary)] mb-4">
+            Master the Multi-Model Video Pipeline
+          </h2>
+          <p class="text-sm text-[var(--text-secondary)] mb-8 leading-relaxed">
+            Get weekly workflow teardowns, model comparisons (Kling vs. Veo vs. Sora), prompt architecture tips, and early feature access directly in your inbox.
+          </p>
+
+          <form class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto" onsubmit="event.preventDefault(); alert('Thank you for subscribing to the 10zebra Dispatch!');">
+            <input
+              type="email"
+              placeholder="Enter your email address..."
+              required
+              class="flex-1 px-4 py-3 bg-[var(--bg-surface)] border border-[var(--border-subtle)] rounded-xl text-sm text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:border-[var(--accent)] transition-colors"
+            />
+            <button type="submit" class="btn btn-primary btn-lg shadow-lg shadow-orange-500/20">
+              Subscribe
+            </button>
+          </form>
+          <p class="text-[0.7rem] text-[var(--text-muted)] mt-3 font-mono">No spam. Unsubscribe at any time.</p>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <Footer />
+
+  <!-- Client-side Interactive Filter & Search Script -->
+  <script>
+    (function initBlogFilter() {
+      const tabs = document.querySelectorAll('.category-tab');
+      const searchInput = document.getElementById('search-input') as HTMLInputElement | null;
+      const articles = document.querySelectorAll('.article-item') as NodeListOf<HTMLElement>;
+      const countEl = document.getElementById('results-count');
+      const noResults = document.getElementById('no-results');
+      const resetBtn = document.getElementById('reset-filters-btn');
+      const filterStatus = document.getElementById('filter-status');
+
+      let activeCategory = 'All';
+      let searchQuery = '';
+
+      function applyFilter() {
+        let visibleCount = 0;
+
+        articles.forEach((card) => {
+          const title = card.getAttribute('data-title') || '';
+          const desc = card.getAttribute('data-description') || '';
+          const cat = card.getAttribute('data-category') || '';
+          const tags = card.getAttribute('data-tags') || '';
+
+          const matchesCategory = activeCategory === 'All' || cat === activeCategory;
+          const matchesSearch = !searchQuery ||
+            title.includes(searchQuery) ||
+            desc.includes(searchQuery) ||
+            tags.includes(searchQuery);
+
+          if (matchesCategory && matchesSearch) {
+            card.style.display = 'block';
+            visibleCount++;
+          } else {
+            card.style.display = 'none';
+          }
+        });
+
+        if (countEl) {
+          countEl.textContent = `Showing ${visibleCount} of ${articles.length} articles`;
+        }
+
+        if (filterStatus) {
+          if (activeCategory !== 'All' || searchQuery) {
+            filterStatus.classList.remove('hidden');
+          } else {
+            filterStatus.classList.add('hidden');
+          }
+        }
+
+        if (noResults) {
+          if (visibleCount === 0) {
+            noResults.classList.remove('hidden');
+          } else {
+            noResults.classList.add('hidden');
+          }
+        }
+      }
+
+      // Tab clicks
+      tabs.forEach((tab) => {
+        tab.addEventListener('click', () => {
+          tabs.forEach((t) => {
+            t.classList.remove('bg-[var(--accent)]', 'text-[#0c0d10]');
+            t.classList.add('bg-[var(--bg-elevated)]', 'text-[var(--text-secondary)]');
+            t.setAttribute('aria-selected', 'false');
+          });
+
+          tab.classList.remove('bg-[var(--bg-elevated)]', 'text-[var(--text-secondary)]');
+          tab.classList.add('bg-[var(--accent)]', 'text-[#0c0d10]');
+          tab.setAttribute('aria-selected', 'true');
+
+          activeCategory = tab.getAttribute('data-category') || 'All';
+          applyFilter();
+        });
+      });
+
+      // Search input
+      if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+          searchQuery = (e.target as HTMLInputElement).value.trim().toLowerCase();
+          applyFilter();
+        });
+      }
+
+      // Reset button
+      if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+          activeCategory = 'All';
+          searchQuery = '';
+          if (searchInput) searchInput.value = '';
+
+          tabs.forEach((t) => {
+            if (t.getAttribute('data-category') === 'All') {
+              t.classList.remove('bg-[var(--bg-elevated)]', 'text-[var(--text-secondary)]');
+              t.classList.add('bg-[var(--accent)]', 'text-[#0c0d10]');
+              t.setAttribute('aria-selected', 'true');
+            } else {
+              t.classList.remove('bg-[var(--accent)]', 'text-[#0c0d10]');
+              t.classList.add('bg-[var(--bg-elevated)]', 'text-[var(--text-secondary)]');
+              t.setAttribute('aria-selected', 'false');
+            }
+          });
+
+          applyFilter();
+        });
+      }
+    })();
+  </script>
+</Layout>

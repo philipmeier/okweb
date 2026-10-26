@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "pubDate": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updatedDate": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "author": {
+      "default": "Philip Meier",
+      "type": "string"
+    },
+    "authorRole": {
+      "default": "Founder, 10zebra & Computational Neuroscientist",
+      "type": "string"
+    },
+    "authorAvatar": {
+      "default": "/images/team/philip-meier.jpg",
+      "type": "string"
+    },
+    "image": {
+      "type": "string"
+    },
+    "imageAlt": {
+      "type": "string"
+    },
+    "category": {
+      "default": "Workflows & Tutorials",
+      "type": "string"
+    },
+    "tags": {
+      "default": [],
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "featured": {
+      "default": false,
+      "type": "boolean"
+    },
+    "draft": {
+      "default": false,
+      "type": "boolean"
+    },
+    "$schema": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "description",
+    "pubDate",
+    "image"
+  ]
+}

@@ -1,0 +1,41 @@
+---
+import type { BlogPost } from "../../utils/blog";
+import { getRelatedPosts } from "../../utils/blog";
+import BlogCard from "./BlogCard.astro";
+
+interface Props {
+  currentPost: BlogPost;
+  allPosts: BlogPost[];
+}
+
+const { currentPost, allPosts } = Astro.props;
+const related = getRelatedPosts(currentPost, allPosts, 3);
+---
+
+{related.length > 0 && (
+  <section class="mt-16 pt-12 border-t border-[var(--border-subtle)]">
+    <div class="flex items-center justify-between mb-8">
+      <div>
+        <span class="sect-label">CONTINUE READING</span>
+        <h3 class="font-display font-bold text-2xl text-[var(--text-primary)]">
+          Related Workflows &amp; Insights
+        </h3>
+      </div>
+      <a href="/blog" class="hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--accent)] hover:text-amber-300 transition-colors no-underline">
+        All Articles &rarr;
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {related.map((post) => (
+        <BlogCard post={post} />
+      ))}
+    </div>
+
+    <div class="mt-8 text-center sm:hidden">
+      <a href="/blog" class="btn btn-ghost text-xs">
+        View All 32 Articles &rarr;
+      </a>
+    </div>
+  </section>
+)}

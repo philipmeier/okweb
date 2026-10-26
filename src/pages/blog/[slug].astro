@@ -1,0 +1,427 @@
+---
+import { getCollection, render } from 'astro:content';
+import { Image } from 'astro:assets';
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import ReadingProgress from '../../components/blog/ReadingProgress.astro';
+import AuthorBio from '../../components/blog/AuthorBio.astro';
+import RelatedPosts from '../../components/blog/RelatedPosts.astro';
+import { formatBlogDate, calculateReadingTime, sortPostsByDate } from '../../utils/blog';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  const sorted = sortPostsByDate(posts);
+
+  return sorted.map((post, i) => {
+    const slug = (post.slug || post.id || '').replace(/\.md$/, '');
+    const prevPost = i < sorted.length - 1 ? sorted[i + 1] : null;
+    const nextPost = i > 0 ? sorted[i - 1] : null;
+    return {
+      params: { slug },
+      props: { post, allPosts: sorted, prevPost, nextPost },
+    };
+  });
+}
+
+const { post, allPosts, prevPost, nextPost } = Astro.props;
+const { Content } = await render(post);
+const { title, description, pubDate, image, imageAlt, category, tags, author, authorRole } = post.data;
+
+const slug = (post.slug || post.id || '').replace(/\.md$/, '');
+const readingTime = calculateReadingTime(post.body || '');
+const formattedDate = formatBlogDate(pubDate);
+const canonicalUrl = `https://10zebra.com/blog/${slug}`;
+
+// Extract 2-3 key takeaway bullet points from description/content for AEO
+const keyTakeaways = [
+  description,
+  `Category: ${category} • Primary focus: ${tags.slice(0, 3).join(', ') || 'AI Video Production'}`,
+  `Built for producers & directors on 10zebra — multi-model video generation workspace.`
+];
+
+// JSON-LD structured data for Google Search & AI Answer Engines
+const schemaJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "@id": `${canonicalUrl}#article`,
+      "isPartOf": {
+        "@type": "WebPage",
+        "@id": canonicalUrl,
+        "url": canonicalUrl,
+        "name": `${title} | 10zebra Blog`
+      },
+      "headline": title,
+      "description": description,
+      "datePublished": pubDate.toISOString(),
+      "dateModified": pubDate.toISOString(),
+      "author": {
+        "@type": "Person",
+        "name": author,
+        "jobTitle": authorRole,
+        "url": "https://10zebra.com/about"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "10zebra",
+        "url": "https://10zebra.com",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://cdn.prod.website-files.com/63c08dc99cc1f6e207c35685/673d8f0ef64a98520b1354de_10zebra-watermark-white.png"
+        }
+      },
+      "mainEntityOfPage": canonicalUrl,
+      "keywords": tags.join(', ')
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": `${canonicalUrl}#breadcrumb`,
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://10zebra.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://10zebra.com/blog"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": title,
+          "item": canonicalUrl
+        }
+      ]
+    }
+  ]
+};
+---
+
+<Layout
+  title={`${title} | 10zebra Blog`}
+  description={description}
+  canonicalUrl={canonicalUrl}
+>
+  <!-- Schema.org JSON-LD for Search Engines & AEO -->
+  <script type="application/ld+json" set:html={JSON.stringify(schemaJsonLd)} />
+
+  <!-- Reading Progress Bar -->
+  <ReadingProgress />
+
+  <Header />
+
+  <main class="min-h-screen pt-8 pb-20 relative">
+    <div class="wrap max-w-4xl mx-auto px-4 sm:px-6">
+
+      <!-- Breadcrumbs -->
+      <nav aria-label="Breadcrumbs" class="flex items-center gap-2 text-xs text-[var(--text-muted)] mb-8 font-mono overflow-x-auto whitespace-nowrap py-1">
+        <a href="/" class="hover:text-[var(--text-primary)] transition-colors no-underline">Home</a>
+        <span>/</span>
+        <a href="/blog" class="hover:text-[var(--text-primary)] transition-colors no-underline">Blog</a>
+        <span>/</span>
+        <span class="text-[var(--accent)]">{category}</span>
+      </nav>
+
+      <!-- Article Header -->
+      <header class="mb-10">
+        <!-- Eyebrow Tag & Reading Time -->
+        <div class="flex flex-wrap items-center gap-3 mb-4">
+          <span class="text-[0.72rem] uppercase font-bold tracking-wider px-3 py-1 rounded-full bg-[var(--accent-subtle)] text-[var(--accent)] border border-orange-500/20">
+            {category}
+          </span>
+          <time datetime={pubDate.toISOString()} class="text-xs text-[var(--text-muted)]">
+            {formattedDate}
+          </time>
+          <span class="text-[var(--border-strong)]">•</span>
+          <span class="text-xs text-[var(--text-secondary)] font-mono flex items-center gap-1">
+            <svg class="w-3.5 h-3.5 text-[var(--accent)]" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" />
+            </svg>
+            {readingTime} min read
+          </span>
+        </div>
+
+        <!-- Single Semantic H1 -->
+        <h1 class="font-display font-black text-3xl sm:text-4xl md:text-5xl text-[var(--text-primary)] leading-[1.15] mb-6 tracking-tight">
+          {title}
+        </h1>
+
+        <!-- Subtitle / Excerpt -->
+        <p class="text-lg md:text-xl text-[var(--text-secondary)] leading-relaxed mb-6 font-normal">
+          {description}
+        </p>
+
+        <!-- Author Byline & Social Share -->
+        <div class="flex flex-wrap items-center justify-between gap-4 pt-6 border-t border-[var(--border-subtle)]">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-[var(--accent)] to-[var(--accent-secondary)] p-[2px]">
+              <div class="w-full h-full rounded-full bg-[#131417] flex items-center justify-center font-bold text-xs text-[var(--accent)]">
+                PM
+              </div>
+            </div>
+            <div>
+              <div class="text-sm font-semibold text-[var(--text-primary)]">{author}</div>
+              <div class="text-xs text-[var(--text-muted)]">{authorRole}</div>
+            </div>
+          </div>
+
+          <!-- Share buttons -->
+          <div class="flex items-center gap-2" id="share-buttons">
+            <a
+              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(canonicalUrl)}&via=10zebra_app`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="w-8 h-8 rounded-lg bg-[var(--bg-elevated)] border border-[var(--border-subtle)] flex items-center justify-center text-[var(--text-muted)] hover:text-white hover:border-[var(--accent)] transition-colors no-underline"
+              aria-label="Share on X"
+              title="Share on X"
+            >
+              <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+            <a
+              href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(canonicalUrl)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="w-8 h-8 rounded-lg bg-[var(--bg-elevated)] border border-[var(--border-subtle)] flex items-center justify-center text-[var(--text-muted)] hover:text-white hover:border-[var(--accent)] transition-colors no-underline"
+              aria-label="Share on LinkedIn"
+              title="Share on LinkedIn"
+            >
+              <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+            </a>
+            <button
+              id="copy-link-btn"
+              class="h-8 px-3 rounded-lg bg-[var(--bg-elevated)] border border-[var(--border-subtle)] flex items-center gap-1.5 text-xs text-[var(--text-muted)] hover:text-white hover:border-[var(--accent)] transition-colors cursor-pointer"
+              title="Copy URL"
+            >
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+              </svg>
+              <span id="copy-btn-text">Copy link</span>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <!-- Hero Media Frame -->
+      {image && (
+        <div class="mb-12 rounded-2xl overflow-hidden border border-[var(--border-subtle)] shadow-2xl bg-[#131417]">
+          <Image
+            src={image}
+            alt={imageAlt || title}
+            width={1200}
+            height={675}
+            class="w-full h-auto object-cover max-h-[540px]"
+            loading="eager"
+          />
+        </div>
+      )}
+
+      <!-- Key Takeaways / TL;DR Box (AEO Optimization for Answer Engines) -->
+      <section class="glass p-6 rounded-2xl border-l-4 border-l-[var(--accent)] border-[var(--border-subtle)] mb-12 bg-gradient-to-r from-orange-500/[0.06] to-transparent" aria-label="Key Takeaways">
+        <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[var(--accent)] mb-3">
+          <svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd" />
+          </svg>
+          Executive Summary &amp; Key Takeaways
+        </div>
+        <ul class="space-y-2 text-sm text-[var(--text-secondary)] list-disc pl-5">
+          {keyTakeaways.map((point) => (
+            <li class="leading-relaxed">{point}</li>
+          ))}
+        </ul>
+      </section>
+
+      <!-- Article Body / Prose -->
+      <article class="blog-prose leading-relaxed text-[var(--text-secondary)] text-[1.08rem]">
+        <Content />
+      </article>
+
+      <!-- Tags List -->
+      {tags && tags.length > 0 && (
+        <div class="mt-12 pt-6 border-t border-[var(--border-subtle)] flex flex-wrap items-center gap-2">
+          <span class="text-xs uppercase font-mono text-[var(--text-muted)] mr-2">Tags:</span>
+          {tags.map((tag) => (
+            <span class="text-xs px-3 py-1 rounded-full bg-[var(--bg-elevated)] border border-[var(--border-subtle)] text-[var(--text-secondary)] hover:border-orange-500/30 transition-colors">
+              #{tag}
+            </span>
+          ))}
+        </div>
+      )}
+
+      <!-- Author Bio Component -->
+      <AuthorBio name={author} role={authorRole} />
+
+      <!-- In-Article High-Impact Conversion CTA -->
+      <div class="glow-border my-16 p-8 md:p-10 rounded-2xl bg-gradient-to-br from-[#1a1c21] to-[#0c0d10] border border-[var(--border-subtle)] text-center relative overflow-hidden">
+        <div class="absolute -top-16 -left-16 w-48 h-48 bg-[var(--accent)] opacity-15 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="relative z-10 max-w-xl mx-auto">
+          <span class="sect-label">AI VIDEO PRODUCTION WORKSPACE</span>
+          <h3 class="font-display font-black text-2xl md:text-3xl text-[var(--text-primary)] mb-4">
+            Direct AI video like a producer. <br /><span class="grad-text">Not a prompter.</span>
+          </h3>
+          <p class="text-sm md:text-base text-[var(--text-secondary)] mb-6 leading-relaxed">
+            Generate across Kling, Google Veo, Runway, and Sora from one workspace. Set project budgets, lock consistent characters, and export YouTube-ready cuts.
+          </p>
+          <div class="flex flex-wrap items-center justify-center gap-4">
+            <a href="/signup" class="btn btn-primary btn-lg shadow-lg shadow-orange-500/20">
+              Start Free with 200 Credits &rarr;
+            </a>
+            <a href="/pricing" class="btn btn-ghost btn-lg">
+              View Pricing
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Previous / Next Article Navigation -->
+      <nav aria-label="Previous and Next Articles" class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-12 pt-8 border-t border-[var(--border-subtle)]">
+        {prevPost ? (
+          <a href={`/blog/${(prevPost.slug || prevPost.id || '').replace(/\.md$/, '')}`} class="glass p-5 rounded-xl border border-[var(--border-subtle)] hover:border-orange-500/30 group transition-all no-underline block">
+            <span class="text-xs uppercase font-mono text-[var(--text-muted)] block mb-1">&larr; Older Article</span>
+            <span class="text-sm font-semibold text-[var(--text-primary)] group-hover:text-[var(--accent)] transition-colors line-clamp-1">
+              {prevPost.data.title}
+            </span>
+          </a>
+        ) : <div />}
+
+        {nextPost ? (
+          <a href={`/blog/${(nextPost.slug || nextPost.id || '').replace(/\.md$/, '')}`} class="glass p-5 rounded-xl border border-[var(--border-subtle)] hover:border-orange-500/30 group transition-all no-underline block text-right">
+            <span class="text-xs uppercase font-mono text-[var(--text-muted)] block mb-1">Newer Article &rarr;</span>
+            <span class="text-sm font-semibold text-[var(--text-primary)] group-hover:text-[var(--accent)] transition-colors line-clamp-1">
+              {nextPost.data.title}
+            </span>
+          </a>
+        ) : <div />}
+      </nav>
+
+      <!-- Related Posts Section (3-card recommendation grid) -->
+      <RelatedPosts currentPost={post} allPosts={allPosts} />
+
+    </div>
+  </main>
+
+  <Footer />
+
+  <script>
+    const copyBtn = document.getElementById('copy-link-btn');
+    const copyText = document.getElementById('copy-btn-text');
+    if (copyBtn && copyText) {
+      copyBtn.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(window.location.href);
+          copyText.textContent = 'Copied!';
+          setTimeout(() => {
+            copyText.textContent = 'Copy link';
+          }, 2000);
+        } catch (err) {
+          console.error('Failed to copy link', err);
+        }
+      });
+    }
+  </script>
+</Layout>
+
+<style is:global>
+  /* Bespoke typography and styling for blog article prose */
+  .blog-prose {
+    color: #d1d5db;
+    font-size: 1.08rem;
+    line-height: 1.8;
+  }
+  .blog-prose h2 {
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 2.5vw, 2.1rem);
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-top: 2.75rem;
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .blog-prose h3 {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+  }
+  .blog-prose h4 {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .blog-prose p {
+    margin-bottom: 1.5rem;
+  }
+  .blog-prose a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.2s ease;
+  }
+  .blog-prose a:hover {
+    color: #fde047;
+  }
+  .blog-prose strong {
+    color: #ffffff;
+    font-weight: 600;
+  }
+  .blog-prose em {
+    color: #e5e7eb;
+    font-style: italic;
+  }
+  .blog-prose blockquote {
+    border-left: 3px solid var(--accent);
+    background: rgba(249, 115, 22, 0.06);
+    padding: 1rem 1.25rem;
+    margin: 1.75rem 0;
+    border-radius: 0 12px 12px 0;
+    font-style: italic;
+    color: var(--text-primary);
+  }
+  .blog-prose ul {
+    list-style: disc;
+    padding-left: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .blog-prose ol {
+    list-style: decimal;
+    padding-left: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .blog-prose li {
+    margin-bottom: 0.5rem;
+    padding-left: 0.25rem;
+  }
+  .blog-prose img {
+    border-radius: 14px;
+    border: 1px solid var(--border-subtle);
+    margin: 2rem auto;
+    max-width: 100%;
+    height: auto;
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+  }
+  .blog-prose .video-embed {
+    margin: 2rem 0;
+  }
+  .blog-prose code {
+    font-family: monospace;
+    font-size: 0.9em;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 0.2rem 0.4rem;
+    border-radius: 6px;
+    color: #fed7aa;
+  }
+</style>

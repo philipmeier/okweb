@@ -1,28 +1,43 @@
-02:46:43 [vite] connected.
-02:46:43 [types] Generated 8ms
-02:46:43 [vite] connected.
- astro  v7.3.5 ready in 3711 ms
+02:43:06 [vite] connected.
+02:43:06 [types] Generated 6ms
+02:43:09 [vite] connected.
+02:43:09 [content] Syncing content
+02:43:09 [content] Synced content
+02:43:09 [vite] Re-optimizing dependencies because vite config has changed
+ astro  v7.3.5 ready in 7619 ms
 ┃ Local    http://localhost:4321/
 ┃ Network  use --host to expose
-02:46:43 watching for file changes...
-02:46:47 [200] / 114ms
-02:46:47 [200] / 114ms
-02:48:20 [200] /features 24ms
-02:48:26 [200] /models 9ms
-02:48:27 [200] /features 2ms
-02:48:29 [200] / 4ms
-03:21:39 [watch] /src/styles/global.css
-03:21:39 [watch] /src/styles/global.css
-03:21:52 [200] /features 25ms
-03:22:03 [404] /features/model-comparison 7ms
-03:22:07 [200] /features/character-swap 32ms
-03:22:11 [200] /features 2ms
-03:22:16 [200] / 5ms
-03:22:21 [200] /features 2ms
-03:22:28 [200] /features/text-to-sequence 19ms
-03:22:36 [200] /features/multi-reference-edit 17ms
-03:22:42 [404] /ai-models/kling 1ms
-03:22:48 [200] /models/kling 16ms
-03:24:39 [200] /features 3ms
-03:24:43 [200] /features 2ms
-03:26:27 [200] /features 3ms
+02:43:09 watching for file changes...
+02:43:11 [vite] [optimizer] bundling dependencies...
+02:43:19 [200] /pricing 200ms
+02:43:31 [200] /pricing 6ms
+02:43:36 [200] HEAD /blog 1707ms
+02:43:36 [200] /blog 16ms
+02:43:42 [200] HEAD /blog/future-vision-xprize-with-de-la-torre-brothers-glass-sculpture 76ms
+02:43:42 [200] /blog/future-vision-xprize-with-de-la-torre-brothers-glass-sculpture 4ms
+02:43:54 [200] /blog 12ms
+02:43:56 [200] /_image 1099ms
+02:43:56 [200] /_image 1112ms
+02:43:56 [200] /_image 1119ms
+02:43:56 [200] /_image 1123ms
+02:43:56 [200] /_image 1159ms
+02:43:56 [200] /_image 1214ms
+02:43:56 [200] /_image 131ms
+02:43:56 [200] /_image 152ms
+02:43:56 [200] /_image 145ms
+02:44:12 [200] /_image 56ms
+02:44:12 [200] /_image 85ms
+02:44:12 [200] /_image 86ms
+02:44:19 [200] /_image 124ms
+02:44:19 [200] /_image 160ms
+02:44:20 [200] /_image 778ms
+02:44:36 [200] /_image 110ms
+02:44:36 [200] /_image 146ms
+02:44:37 [200] /_image 838ms
+02:44:37 [200] /_image 910ms
+02:44:38 [200] /_image 1342ms
+02:44:38 [200] /_image 1950ms
+02:44:39 [200] /_image 2435ms
+02:44:41 [200] /_image 4487ms
+02:44:55 [200] /blog/future-vision-xprize-with-de-la-torre-brothers-glass-sculpture 9ms
+02:44:55 [200] /_image 127ms
