@@ -5,7 +5,7 @@ pubDate: "2026-08-15"
 author: "Philip Meier"
 authorRole: "Founder, 10zebra & Computational Neuroscientist"
 authorAvatar: "/images/team/philip-meier.jpg"
-image: "../../assets/blogs/future-vision-xprize-with-de-la-torre-brothers-glass-sculpture-hero.jpg"
+image: "/src/assets/blogs/future-vision-xprize-with-de-la-torre-brothers-glass-sculpture-hero.jpg"
 imageAlt: "Lighting glass sculptures with De La Torre Brothers"
 category: "Workflows & Tutorials"
 tags:

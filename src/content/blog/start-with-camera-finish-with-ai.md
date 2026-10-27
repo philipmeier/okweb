@@ -5,7 +5,7 @@ pubDate: "2025-06-13"
 author: "Philip Meier"
 authorRole: "Founder, 10zebra & Computational Neuroscientist"
 authorAvatar: "/images/team/philip-meier.jpg"
-image: "../../assets/blogs/start-with-camera-finish-with-ai-hero.png"
+image: "/src/assets/blogs/start-with-camera-finish-with-ai-hero.png"
 imageAlt: "Start with camera, finish with AI"
 category: "Workflows & Tutorials"
 tags:

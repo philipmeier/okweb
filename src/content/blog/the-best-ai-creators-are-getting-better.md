@@ -5,7 +5,7 @@ pubDate: "2024-06-17"
 author: "Philip Meier"
 authorRole: "Founder, 10zebra & Computational Neuroscientist"
 authorAvatar: "/images/team/philip-meier.jpg"
-image: "../../assets/blogs/the-best-ai-creators-are-getting-better-hero.png"
+image: "/src/assets/blogs/the-best-ai-creators-are-getting-better-hero.png"
 imageAlt: "The Best AI Creators Are Getting Better"
 category: "Workflows & Tutorials"
 tags:

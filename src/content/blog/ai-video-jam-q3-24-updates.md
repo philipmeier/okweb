@@ -5,7 +5,7 @@ pubDate: "2024-06-20"
 author: "Philip Meier"
 authorRole: "Founder, 10zebra & Computational Neuroscientist"
 authorAvatar: "/images/team/philip-meier.jpg"
-image: "../../assets/blogs/ai-video-jam-q3-24-updates-hero.gif"
+image: "/src/assets/blogs/ai-video-jam-q3-24-updates-hero.gif"
 imageAlt: "AI Video Jam Q3’24 Updates"
 category: "Case Studies & Previs"
 tags:
@@ -25,7 +25,7 @@ AI Video Jams are dynamic, creative competitions that bring together artists, te
 
 <div>
 
-![](../../assets/blogs/ai-video-jam-q3-24-updates-inline-1.gif)
+![](/src/assets/blogs/ai-video-jam-q3-24-updates-inline-1.gif)
 
 </div>
 

@@ -5,7 +5,7 @@ pubDate: "2026-06-02"
 author: "Philip Meier"
 authorRole: "Founder, 10zebra & Computational Neuroscientist"
 authorAvatar: "/images/team/philip-meier.jpg"
-image: "../../assets/blogs/how-do-actors-make-the-difference-with-gen-ai-hero.png"
+image: "/src/assets/blogs/how-do-actors-make-the-difference-with-gen-ai-hero.png"
 imageAlt: "How do actors make the difference with GenAI?"
 category: "Workflows & Tutorials"
 tags:
@@ -59,11 +59,11 @@ Can different people act out different lines, and still look like the same chara
 
 <div>
 
-![](../../assets/blogs/how-do-actors-make-the-difference-with-gen-ai-inline-1.png)
+![](/src/assets/blogs/how-do-actors-make-the-difference-with-gen-ai-inline-1.png)
 
 </div>Different actors delivered the same line, of the same character, with directors notes. <div>
 
-![](../../assets/blogs/how-do-actors-make-the-difference-with-gen-ai-inline-2.png)
+![](/src/assets/blogs/how-do-actors-make-the-difference-with-gen-ai-inline-2.png)
 
 </div>
 
@@ -75,7 +75,7 @@ Can we capture their postural motions and transfer them to the generated scene? 
 
 <div>
 
-![](../../assets/blogs/how-do-actors-make-the-difference-with-gen-ai-inline-3.png)
+![](/src/assets/blogs/how-do-actors-make-the-difference-with-gen-ai-inline-3.png)
 
 </div>In this example, one team paired their acting using the Directors Notes to inject a woman with bunny ears into the scene. Everyone laughed. That take did not make the cut. 
 

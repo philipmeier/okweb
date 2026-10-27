@@ -5,7 +5,7 @@ pubDate: "2026-04-30"
 author: "Philip Meier"
 authorRole: "Founder, 10zebra & Computational Neuroscientist"
 authorAvatar: "/images/team/philip-meier.jpg"
-image: "../../assets/blogs/giants-hero.png"
+image: "/src/assets/blogs/giants-hero.png"
 imageAlt: "Giants"
 category: "AI Models & Tech"
 tags:
@@ -42,6 +42,6 @@ If you want to see Thomas's fabric quilt at MCASD (not shown here), you can chec
 
 <div>
 
-![](../../assets/blogs/giants-inline-1.png)
+![](/src/assets/blogs/giants-inline-1.png)
 
 </div>

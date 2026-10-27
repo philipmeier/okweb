@@ -5,7 +5,7 @@ pubDate: "2024-05-23"
 author: "Philip Meier"
 authorRole: "Founder, 10zebra & Computational Neuroscientist"
 authorAvatar: "/images/team/philip-meier.jpg"
-image: "../../assets/blogs/live-music-video-while-hollywood-meets-ai-hero.png"
+image: "/src/assets/blogs/live-music-video-while-hollywood-meets-ai-hero.png"
 imageAlt: "Live music video while Hollywood meets AI"
 category: "Case Studies & Previs"
 tags:

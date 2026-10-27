@@ -12,41 +12,41 @@
  */
 import type { ImageMetadata } from 'astro';
 
-import personaCreativeDirectors from '../assets/media/persona-creative-directors.jpg';
-import personaFilmProduction from '../assets/media/persona-film-production.jpg';
-import personaAgencies from '../assets/media/persona-agencies.jpg';
-import personaContentCreators from '../assets/media/persona-content-creators.jpg';
-import characterReference from '../assets/media/character-reference.jpg';
-import shotWide from '../assets/media/shot-wide-forest.jpg';
-import shotMedium from '../assets/media/shot-medium-train.jpg';
-import shotCloseup from '../assets/media/shot-closeup-campfire.jpg';
-import takeA from '../assets/media/take-a.jpg';
-import takeB from '../assets/media/take-b.jpg';
-import takeC from '../assets/media/take-c.jpg';
-import takeD from '../assets/media/take-d.jpg';
+import personaCreativeDirectors from '/src/assets/media/persona-creative-directors.jpg';
+import personaFilmProduction from '/src/assets/media/persona-film-production.jpg';
+import personaAgencies from '/src/assets/media/persona-agencies.jpg';
+import personaContentCreators from '/src/assets/media/persona-content-creators.jpg';
+import characterReference from '/src/assets/media/character-reference.jpg';
+import shotWide from '/src/assets/media/shot-wide-forest.jpg';
+import shotMedium from '/src/assets/media/shot-medium-train.jpg';
+import shotCloseup from '/src/assets/media/shot-closeup-campfire.jpg';
+import takeA from '/src/assets/media/take-a.jpg';
+import takeB from '/src/assets/media/take-b.jpg';
+import takeC from '/src/assets/media/take-c.jpg';
+import takeD from '/src/assets/media/take-d.jpg';
 
 // Solutions pages — 3 workflow frames per persona
-import cdExplore from '../assets/media/solutions/cd-explore.jpg';
-import cdTalent from '../assets/media/solutions/cd-talent.jpg';
-import cdPresent from '../assets/media/solutions/cd-present.jpg';
-import filmBreakdown from '../assets/media/solutions/film-breakdown.jpg';
-import filmCast from '../assets/media/solutions/film-cast.jpg';
-import filmPlates from '../assets/media/solutions/film-plates.jpg';
-import agencyBeverage from '../assets/media/solutions/agency-beverage.jpg';
-import agencyTech from '../assets/media/solutions/agency-tech.jpg';
-import agencyFashion from '../assets/media/solutions/agency-fashion.jpg';
-import creatorHost from '../assets/media/solutions/creator-host.jpg';
-import creatorCave from '../assets/media/solutions/creator-cave.jpg';
-import creatorSummit from '../assets/media/solutions/creator-summit.jpg';
+import cdExplore from '/src/assets/media/solutions/cd-explore.jpg';
+import cdTalent from '/src/assets/media/solutions/cd-talent.jpg';
+import cdPresent from '/src/assets/media/solutions/cd-present.jpg';
+import filmBreakdown from '/src/assets/media/solutions/film-breakdown.jpg';
+import filmCast from '/src/assets/media/solutions/film-cast.jpg';
+import filmPlates from '/src/assets/media/solutions/film-plates.jpg';
+import agencyBeverage from '/src/assets/media/solutions/agency-beverage.jpg';
+import agencyTech from '/src/assets/media/solutions/agency-tech.jpg';
+import agencyFashion from '/src/assets/media/solutions/agency-fashion.jpg';
+import creatorHost from '/src/assets/media/solutions/creator-host.jpg';
+import creatorCave from '/src/assets/media/solutions/creator-cave.jpg';
+import creatorSummit from '/src/assets/media/solutions/creator-summit.jpg';
 
 // Feature pages: one hero visual per feature (others reuse slots above)
-import featCharacterSwap from '../assets/media/features/character-swap.jpg';
-import featMultiReference from '../assets/media/features/multi-reference.jpg';
-import featQuickStart from '../assets/media/features/quick-start.jpg';
-import featStoryboard from '../assets/media/features/storyboard.jpg';
-import featBudgets from '../assets/media/features/project-budgets.jpg';
-import featTeam from '../assets/media/features/team.jpg';
-import featProduce from '../assets/media/features/produce-export.jpg';
+import featCharacterSwap from '/src/assets/media/features/character-swap.jpg';
+import featMultiReference from '/src/assets/media/features/multi-reference.jpg';
+import featQuickStart from '/src/assets/media/features/quick-start.jpg';
+import featStoryboard from '/src/assets/media/features/storyboard.jpg';
+import featBudgets from '/src/assets/media/features/project-budgets.jpg';
+import featTeam from '/src/assets/media/features/team.jpg';
+import featProduce from '/src/assets/media/features/produce-export.jpg';
 
 export interface MediaSlot {
   /** Stable ID — shown in the dev tag so the founder can find the slot here. */

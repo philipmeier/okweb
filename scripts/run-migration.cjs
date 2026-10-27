@@ -48,7 +48,7 @@ function getExt(url, defaultExt = 'jpg') {
     if (['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg'].includes(ext)) {
       return ext === 'jpeg' ? 'jpg' : ext;
     }
-  } catch (e) {}
+  } catch (e) { }
   return defaultExt;
 }
 
@@ -65,12 +65,12 @@ async function migrateAll() {
 
       // Extract Post Title
       const h1Match = html.match(/<h1[^>]*class=["']fn-heading-1["'][^>]*>([\s\S]*?)<\/h1>/i) ||
-                      html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i);
+        html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i);
       const title = h1Match ? unescapeHtml(h1Match[1].replace(/<[^>]+>/g, '').trim()) : (p.listingTitle || p.slug);
 
       // Extract Meta Description
       const descMatch = html.match(/<meta[^>]*name=["']description["'][^>]*content=["']([^"']*)["']/i) ||
-                        html.match(/<meta[^>]*content=["']([^"']*)["'][^>]*name=["']description["']/i);
+        html.match(/<meta[^>]*content=["']([^"']*)["'][^>]*name=["']description["']/i);
       let description = descMatch ? unescapeHtml(descMatch[1].trim()) : p.listingDesc;
       if (!description || description.length < 10) {
         description = `Explore "${title}" — insights and techniques from the 10zebra AI video production workspace.`;
@@ -79,8 +79,8 @@ async function migrateAll() {
       // Extract Hero Image
       // 1. From page background-image
       const bgMatch = html.match(/class=["'][^"']*fn-section[^"']*["'][^>]*style=["'][^"']*url\(["']?([^"')]+)["']?\)/i) ||
-                      html.match(/style=["'][^"']*url\(&quot;([^&]+)&quot;\)/i) ||
-                      html.match(/style=["'][^"']*url\(["']?([^"')]+)["']?\)[^"']*class=["'][^"']*fn-section/i);
+        html.match(/style=["'][^"']*url\(&quot;([^&]+)&quot;\)/i) ||
+        html.match(/style=["'][^"']*url\(["']?([^"')]+)["']?\)[^"']*class=["'][^"']*fn-section/i);
       let heroImageUrl = bgMatch ? bgMatch[1] : p.listingImage;
 
       // 2. If still none, check first image in page
@@ -91,7 +91,7 @@ async function migrateAll() {
 
       // Extract Rich Text Content
       const richTextMatch = html.match(/<aside[^>]*class=["'][^"']*rich-text-block[^"']*["'][^>]*>([\s\S]*?)<\/aside>/i) ||
-                            html.match(/<div[^>]*class=["'][^"']*w-richtext[^"']*["'][^>]*>([\s\S]*?)<\/div>/i);
+        html.match(/<div[^>]*class=["'][^"']*w-richtext[^"']*["'][^>]*>([\s\S]*?)<\/div>/i);
       const richHtml = richTextMatch ? richTextMatch[1] : '';
 
       // Date parsing
@@ -113,7 +113,7 @@ async function migrateAll() {
         const destPath = path.join(BLOG_ASSETS_DIR, fileName);
         imageMap.set(srcUrl, { destPath, fileName });
         // Return relative path for Astro Markdown
-        return `../../assets/blogs/${fileName}`;
+        return `/src/assets/blogs/${fileName}`;
       };
 
       // Download Hero Image
@@ -123,7 +123,7 @@ async function migrateAll() {
         const heroFileName = `${p.slug}-hero.${heroExt}`;
         const heroDestPath = path.join(BLOG_ASSETS_DIR, heroFileName);
         imageMap.set(heroImageUrl, { destPath: heroDestPath, fileName: heroFileName });
-        heroAssetRelative = `../../assets/blogs/${heroFileName}`;
+        heroAssetRelative = `/src/assets/blogs/${heroFileName}`;
       } else {
         // Fallback: create a solid branded fallback if missing
         const fallbackName = `${p.slug}-hero.jpg`;
@@ -132,7 +132,7 @@ async function migrateAll() {
           // Copy a fallback or create empty
           fs.writeFileSync(fallbackPath, '');
         }
-        heroAssetRelative = `../../assets/blogs/${fallbackName}`;
+        heroAssetRelative = `/src/assets/blogs/${fallbackName}`;
       }
 
       // Clean Markdown Content

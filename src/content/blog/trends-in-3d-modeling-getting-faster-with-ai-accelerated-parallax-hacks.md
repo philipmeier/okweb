@@ -5,7 +5,7 @@ pubDate: "2024-10-01"
 author: "Philip Meier"
 authorRole: "Founder, 10zebra & Computational Neuroscientist"
 authorAvatar: "/images/team/philip-meier.jpg"
-image: "../../assets/blogs/trends-in-3d-modeling-getting-faster-with-ai-accelerated-parallax-hacks-hero.jpg"
+image: "/src/assets/blogs/trends-in-3d-modeling-getting-faster-with-ai-accelerated-parallax-hacks-hero.jpg"
 imageAlt: "Trends in 3D modeling getting faster with AI accelerated parallax hacks"
 category: "Workflows & Tutorials"
 tags:
@@ -26,11 +26,11 @@ What you might ask, is a 2.5D model?
 
 <div>
 
-![](../../assets/blogs/trends-in-3d-modeling-getting-faster-with-ai-accelerated-parallax-hacks-inline-1.jpg)
+![](/src/assets/blogs/trends-in-3d-modeling-getting-faster-with-ai-accelerated-parallax-hacks-inline-1.jpg)
 
 </div>Here is a composite image from the video below.<div>
 
-![](../../assets/blogs/trends-in-3d-modeling-getting-faster-with-ai-accelerated-parallax-hacks-inline-2.jpg)
+![](/src/assets/blogs/trends-in-3d-modeling-getting-faster-with-ai-accelerated-parallax-hacks-inline-2.jpg)
 
 </div>By selecting and moving one layer you can &quot;fake&quot; the motion you would see from full 3D.<div>
 
@@ -42,7 +42,7 @@ Ok, so not all of us have giant LED wall behind us. But isn't it interesting tha
 
 <div>
 
-![](../../assets/blogs/trends-in-3d-modeling-getting-faster-with-ai-accelerated-parallax-hacks-inline-3.jpg)
+![](/src/assets/blogs/trends-in-3d-modeling-getting-faster-with-ai-accelerated-parallax-hacks-inline-3.jpg)
 
 </div>This explanation of virtual production process uses a still frame from the video above.
 
@@ -72,7 +72,7 @@ A short note about depiction of women in genAI. Please make an effort to avoid g
 
 <div>
 
-![](../../assets/blogs/trends-in-3d-modeling-getting-faster-with-ai-accelerated-parallax-hacks-inline-4.jpg)
+![](/src/assets/blogs/trends-in-3d-modeling-getting-faster-with-ai-accelerated-parallax-hacks-inline-4.jpg)
 
 </div>
 
@@ -92,7 +92,7 @@ Blender is awesome (though sometimes intimidating for noobs, but you can learn i
 
 </div><div>
 
-![](../../assets/blogs/trends-in-3d-modeling-getting-faster-with-ai-accelerated-parallax-hacks-inline-5.jpg)
+![](/src/assets/blogs/trends-in-3d-modeling-getting-faster-with-ai-accelerated-parallax-hacks-inline-5.jpg)
 
 </div>Summarizing the approach above. A strength of -1 lets the intensity map onto depth correctly.
 
@@ -110,7 +110,7 @@ Cuebric actually has a new user starter plan with 3 projects that supports up to
 
 <div>
 
-![](../../assets/blogs/trends-in-3d-modeling-getting-faster-with-ai-accelerated-parallax-hacks-inline-6.jpg)
+![](/src/assets/blogs/trends-in-3d-modeling-getting-faster-with-ai-accelerated-parallax-hacks-inline-6.jpg)
 
 </div>I wish I had a setup like this.
 
@@ -128,7 +128,7 @@ For an example testbed to generate parallax combined with environmental motion q
 
 <div>
 
-![](../../assets/blogs/trends-in-3d-modeling-getting-faster-with-ai-accelerated-parallax-hacks-inline-7.png)
+![](/src/assets/blogs/trends-in-3d-modeling-getting-faster-with-ai-accelerated-parallax-hacks-inline-7.png)
 
 </div>[https://10zebra.app/p/YQh2_nztqmpd](https://10zebra.app/p/YQh2_nztqmpd)
 

@@ -5,7 +5,7 @@ pubDate: "2024-05-28"
 author: "Philip Meier"
 authorRole: "Founder, 10zebra & Computational Neuroscientist"
 authorAvatar: "/images/team/philip-meier.jpg"
-image: "../../assets/blogs/simulation-and-ai-agents-in-hollywood-hero.gif"
+image: "/src/assets/blogs/simulation-and-ai-agents-in-hollywood-hero.gif"
 imageAlt: "Simulation and AI Agents in Hollywood"
 category: "Case Studies & Previs"
 tags:
@@ -21,7 +21,7 @@ Rene Magritte clearly indicates that his painting of a pipe, is NOT a pipe.
 
 <div>
 
-![](../../assets/blogs/simulation-and-ai-agents-in-hollywood-inline-1.webp)
+![](/src/assets/blogs/simulation-and-ai-agents-in-hollywood-inline-1.webp)
 
 </div>&quot;The Treachery of Images&quot; (1929)
 
@@ -29,11 +29,11 @@ In ou*r* future, will our identity follow our physical likeness?  Or for some o
 
 <div>
 
-![](../../assets/blogs/simulation-and-ai-agents-in-hollywood-inline-2.jpg)
+![](/src/assets/blogs/simulation-and-ai-agents-in-hollywood-inline-2.jpg)
 
 </div>On linked in this cryptopunk is Edwards visual self representation. <div>
 
-![](../../assets/blogs/simulation-and-ai-agents-in-hollywood-inline-3.gif)
+![](/src/assets/blogs/simulation-and-ai-agents-in-hollywood-inline-3.gif)
 
 </div>This avatar also has read hair, a different age and different vibe. Made in a demonstration at AI on the Lot. 
 
@@ -51,15 +51,15 @@ In ou*r* future, will our identity follow our physical likeness?  Or for some o
 
 <div>
 
-![](../../assets/blogs/simulation-and-ai-agents-in-hollywood-inline-4.png)
+![](/src/assets/blogs/simulation-and-ai-agents-in-hollywood-inline-4.png)
 
 </div>Screen shot of Reid conversing with his digital twin. <div>
 
-![](../../assets/blogs/simulation-and-ai-agents-in-hollywood-inline-5.png)
+![](/src/assets/blogs/simulation-and-ai-agents-in-hollywood-inline-5.png)
 
 </div>Alternate visual aesthetic curated with open source diffusion models. <div>
 
-![](../../assets/blogs/simulation-and-ai-agents-in-hollywood-inline-6.gif)
+![](/src/assets/blogs/simulation-and-ai-agents-in-hollywood-inline-6.gif)
 
 </div>Animated avatar made in minutes from a quick cell phone clip.
 

@@ -4,14 +4,14 @@
  * media from src/data/media.ts. Sections:
  * Hero → Stats → Before/After → Workflow → Tools → Testimonial → FAQ → Other solutions.
  */
-import Layout from "../../layouts/Layout.astro";
-import Header from "../../components/Header.astro";
-import Footer from "../../components/Footer.astro";
-import FinalCTA from "../../components/FinalCTA.astro";
-import MediaSlot from "../../components/MediaSlot.astro";
-import SolutionCard from "../../components/solutions/SolutionCard.astro";
-import { solutions, getSolution, type Solution } from "../../data/solutions";
-import { features } from "../../data/features";
+import Layout from "/src/layouts/Layout.astro";
+import Header from "/src/components/layout/Header.astro";
+import Footer from "/src/components/layout/Footer.astro";
+import FinalCTA from "/src/components/FinalCTA.astro";
+import MediaSlot from "/src/components/MediaSlot.astro";
+import SolutionCard from "/src/components/solutions/SolutionCard.astro";
+import { solutions, getSolution, type Solution } from "/src//src/data/solutions";
+import { features } from "/src/data/features";
 
 export function getStaticPaths() {
   return solutions.map((solution) => ({ params: { slug: solution.slug } }));

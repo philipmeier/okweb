@@ -5,7 +5,7 @@ pubDate: "2026-03-17"
 author: "Philip Meier"
 authorRole: "Founder, 10zebra & Computational Neuroscientist"
 authorAvatar: "/images/team/philip-meier.jpg"
-image: "../../assets/blogs/how-would-a-1980s-steam-ninja-handle-an-ai-pipeline-hero.jpg"
+image: "/src/assets/blogs/how-would-a-1980s-steam-ninja-handle-an-ai-pipeline-hero.jpg"
 imageAlt: "Pipeline: 1980s steam ninja"
 category: "Workflows & Tutorials"
 tags:
@@ -47,7 +47,7 @@ When one person keeps it all in their head, they can make more changes on the fl
 
 <div>
 
-![](../../assets/blogs/how-would-a-1980s-steam-ninja-handle-an-ai-pipeline-inline-1.jpg)
+![](/src/assets/blogs/how-would-a-1980s-steam-ninja-handle-an-ai-pipeline-inline-1.jpg)
 
 </div>
 
@@ -61,7 +61,7 @@ The writer is the editor. They carry the heart of the story. A crew of contribut
 
 <div>
 
-![](../../assets/blogs/how-would-a-1980s-steam-ninja-handle-an-ai-pipeline-inline-2.jpg)
+![](/src/assets/blogs/how-would-a-1980s-steam-ninja-handle-an-ai-pipeline-inline-2.jpg)
 
 </div>
 

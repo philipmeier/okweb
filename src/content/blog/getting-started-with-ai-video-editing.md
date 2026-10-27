@@ -5,7 +5,7 @@ pubDate: "2024-05-02"
 author: "Philip Meier"
 authorRole: "Founder, 10zebra & Computational Neuroscientist"
 authorAvatar: "/images/team/philip-meier.jpg"
-image: "../../assets/blogs/getting-started-with-ai-video-editing-hero.gif"
+image: "/src/assets/blogs/getting-started-with-ai-video-editing-hero.gif"
 imageAlt: "The Complete Guide to Getting Started with 10zebra."
 category: "Workflows & Tutorials"
 tags:
@@ -25,7 +25,7 @@ Projects between **1-3 minutes** are the most compatible with 10zebra’s **stor
 
 <div>
 
-![A plotline illustarting key features in a narrative for AI video: exposition, rising action, climax, falling action, and resolution](../../assets/blogs/getting-started-with-ai-video-editing-inline-1.png)
+![A plotline illustarting key features in a narrative for AI video: exposition, rising action, climax, falling action, and resolution](/src/assets/blogs/getting-started-with-ai-video-editing-inline-1.png)
 
 </div>
 
@@ -35,7 +35,7 @@ Visit[**10zebra.com**](http://10zebra.com/) and click the “**Login to Create**
 
 <div>
 
-![The 10zebra AI video editing platform's home page with a red arrow overlay pointing to the "try it" button](../../assets/blogs/getting-started-with-ai-video-editing-inline-2.png)
+![The 10zebra AI video editing platform's home page with a red arrow overlay pointing to the "try it" button](/src/assets/blogs/getting-started-with-ai-video-editing-inline-2.png)
 
 </div>
 
@@ -57,7 +57,7 @@ Once you are inside the 10zebra app, you will see it’s a simple interface with
 - The storyboard is made up of **shots**, and there is an option to **add a new shot** at the end.
 <div>
 
-![A tour of the 10zebra interface: edit storyboard title, storyboard, add media, preview and download, add a new shot](../../assets/blogs/getting-started-with-ai-video-editing-inline-3.png)
+![A tour of the 10zebra interface: edit storyboard title, storyboard, add media, preview and download, add a new shot](/src/assets/blogs/getting-started-with-ai-video-editing-inline-3.png)
 
 </div>
 
@@ -65,7 +65,7 @@ Each shot has a place to add a **title** and a **description**. On the top right
 
 <div>
 
-![A look at the different shot types to add as placeholders in the AI video editor](../../assets/blogs/getting-started-with-ai-video-editing-inline-4.png)
+![A look at the different shot types to add as placeholders in the AI video editor](/src/assets/blogs/getting-started-with-ai-video-editing-inline-4.png)
 
 </div>
 
@@ -79,7 +79,7 @@ When you click on a shot, you open up the **shot editor** where you can **add a 
 
 <div>
 
-![In he collect view, open ach shot to upload videos](../../assets/blogs/getting-started-with-ai-video-editing-inline-5.png)
+![In he collect view, open ach shot to upload videos](/src/assets/blogs/getting-started-with-ai-video-editing-inline-5.png)
 
 </div>
 
@@ -103,7 +103,7 @@ Auto-storyboard is a useful feature for music video workflows. Look out for exam
 
 <div>
 
-![In the storyboard view, open the settings and select "auto storyboard" then add a YouTube link](../../assets/blogs/getting-started-with-ai-video-editing-inline-6.png)
+![In the storyboard view, open the settings and select "auto storyboard" then add a YouTube link](/src/assets/blogs/getting-started-with-ai-video-editing-inline-6.png)
 
 </div>
 
@@ -115,7 +115,7 @@ To **share your project**, click the share icon in the upper right corner. You c
 
 <div>
 
-![In the collect view, click the share icon and either save the QR code or copy the share link](../../assets/blogs/getting-started-with-ai-video-editing-inline-7.png)
+![In the collect view, click the share icon and either save the QR code or copy the share link](/src/assets/blogs/getting-started-with-ai-video-editing-inline-7.png)
 
 </div>
 
@@ -133,7 +133,7 @@ If you want to make a copy for yourself, or allow other team members to make an 
 
 <div>
 
-![A animated GIF of the before and after AI video to video editing](../../assets/blogs/getting-started-with-ai-video-editing-inline-8.gif)
+![A animated GIF of the before and after AI video to video editing](/src/assets/blogs/getting-started-with-ai-video-editing-inline-8.gif)
 
 </div>
 
@@ -141,7 +141,7 @@ Once you have uploaded content to your storyboard, you can use the video-to-vide
 
 <div>
 
-![Click the "generate" button, select "video to video" from the dropdaown menu, select your take, and add text-based instructions for AI](../../assets/blogs/getting-started-with-ai-video-editing-inline-9.png)
+![Click the "generate" button, select "video to video" from the dropdaown menu, select your take, and add text-based instructions for AI](/src/assets/blogs/getting-started-with-ai-video-editing-inline-9.png)
 
 </div>
 
@@ -155,7 +155,7 @@ Whether you use the video-to-video feature or not, you'll want to use text to co
 
 <div>
 
-![An animated gif illustrating how to break down an AI prompt into three parts: subject, environment, and style](../../assets/blogs/getting-started-with-ai-video-editing-inline-10.gif)
+![An animated gif illustrating how to break down an AI prompt into three parts: subject, environment, and style](/src/assets/blogs/getting-started-with-ai-video-editing-inline-10.gif)
 
 </div>
 
@@ -169,7 +169,7 @@ Adjust the influence of your prompts by **moving the slider from subtle to stron
 
 <div>
 
-![In the generate indow, use the slider to set the AI video generation intensity](../../assets/blogs/getting-started-with-ai-video-editing-inline-11.png)
+![In the generate indow, use the slider to set the AI video generation intensity](/src/assets/blogs/getting-started-with-ai-video-editing-inline-11.png)
 
 </div>
 
@@ -179,7 +179,7 @@ Once you have storyboarded your project, and after you have generated AI video c
 
 <div>
 
-![](../../assets/blogs/getting-started-with-ai-video-editing-inline-12.png)
+![](/src/assets/blogs/getting-started-with-ai-video-editing-inline-12.png)
 
 </div>
 
@@ -193,7 +193,7 @@ Review the assembled clips in the **preview window** to see how your video is sh
 
 <div>
 
-![In the preview window, under the "live preview" tab, click "save cut"](../../assets/blogs/getting-started-with-ai-video-editing-inline-13.png)
+![In the preview window, under the "live preview" tab, click "save cut"](/src/assets/blogs/getting-started-with-ai-video-editing-inline-13.png)
 
 </div>
 
@@ -203,7 +203,7 @@ Once you’re satisfied with your selected clips and sequence, select the **late
 
 <div>
 
-![In the preview window, under the "latest saved" tab, you can download the entire video or export the individual clips](../../assets/blogs/getting-started-with-ai-video-editing-inline-14.png)
+![In the preview window, under the "latest saved" tab, you can download the entire video or export the individual clips](/src/assets/blogs/getting-started-with-ai-video-editing-inline-14.png)
 
 </div>
 
@@ -213,6 +213,6 @@ Now that your project is complete, **share your AI video using #10zebra**. Showc
 
 <div>
 
-![An animated GIF showing the before and after AI video generation](../../assets/blogs/getting-started-with-ai-video-editing-inline-15.gif)
+![An animated GIF showing the before and after AI video generation](/src/assets/blogs/getting-started-with-ai-video-editing-inline-15.gif)
 
 </div>

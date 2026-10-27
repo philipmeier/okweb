@@ -56,8 +56,9 @@ export function formatBlogDateShort(date: Date): string {
  * 3. Proximity in publication date (weight: 1)
  */
 export function getRelatedPosts(currentPost: BlogPost, allPosts: BlogPost[], limit = 3): BlogPost[] {
+  const currentId = currentPost.id || (currentPost as any).slug;
   return allPosts
-    .filter((p) => p.slug !== currentPost.slug && (!p.data.draft || import.meta.env.DEV))
+    .filter((p) => (p.id || (p as any).slug) !== currentId && (!p.data.draft || import.meta.env.DEV))
     .map((post) => {
       let score = 0;
       // Tag match

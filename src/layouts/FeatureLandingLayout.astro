@@ -11,15 +11,15 @@
  * to pass media. Props API is unchanged from the original template.
  */
 import Layout from "./Layout.astro";
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
-import FinalCTA from "../components/FinalCTA.astro";
-import FeatureVisual from "../components/features/FeatureVisual.astro";
-import FeatureCard from "../components/features/FeatureCard.astro";
-import SolutionCard from "../components/solutions/SolutionCard.astro";
-import ShiftList from "../components/shared/ShiftList.astro";
-import { getFeatureByHref, phases } from "../data/features";
-import { solutions } from "../data/solutions";
+import Header from "/src/components/layout/Header.astro";
+import Footer from "/src/components/layout/Footer.astro";
+import FinalCTA from "/src/components/FinalCTA.astro";
+import FeatureVisual from "/src/components/features/FeatureVisual.astro";
+import FeatureCard from "/src/components/features/FeatureCard.astro";
+import SolutionCard from "/src/components/solutions/SolutionCard.astro";
+import ShiftList from "/src/components/shared/ShiftList.astro";
+import { getFeatureByHref, phases } from "/src/data/features";
+import { solutions } from "/src/data/solutions";
 
 interface StatItem {
   value: string;

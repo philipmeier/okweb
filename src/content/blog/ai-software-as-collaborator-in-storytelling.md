@@ -5,7 +5,7 @@ pubDate: "2022-12-19"
 author: "Philip Meier"
 authorRole: "Founder, 10zebra & Computational Neuroscientist"
 authorAvatar: "/images/team/philip-meier.jpg"
-image: "../../assets/blogs/ai-software-as-collaborator-in-storytelling-hero.gif"
+image: "/src/assets/blogs/ai-software-as-collaborator-in-storytelling-hero.gif"
 imageAlt: "Storyboarding Dune: AI Software as Collaborator in Storytelling"
 category: "Case Studies & Previs"
 tags:

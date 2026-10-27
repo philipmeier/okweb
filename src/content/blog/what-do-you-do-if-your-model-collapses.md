@@ -5,7 +5,7 @@ pubDate: "2026-05-16"
 author: "Philip Meier"
 authorRole: "Founder, 10zebra & Computational Neuroscientist"
 authorAvatar: "/images/team/philip-meier.jpg"
-image: "../../assets/blogs/what-do-you-do-if-your-model-collapses-hero.jpg"
+image: "/src/assets/blogs/what-do-you-do-if-your-model-collapses-hero.jpg"
 imageAlt: "What if your model collapses?"
 category: "AI Models & Tech"
 tags:

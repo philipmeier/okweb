@@ -5,7 +5,7 @@ pubDate: "2024-07-17"
 author: "Philip Meier"
 authorRole: "Founder, 10zebra & Computational Neuroscientist"
 authorAvatar: "/images/team/philip-meier.jpg"
-image: "../../assets/blogs/falling-to-pieces-behind-the-scenes-hero.gif"
+image: "/src/assets/blogs/falling-to-pieces-behind-the-scenes-hero.gif"
 imageAlt: "Falling to Pieces: Behind the Scenes with 10zebra"
 category: "Workflows & Tutorials"
 tags:
@@ -47,7 +47,7 @@ Checkout [The Complete Guide to Getting Started with 10zebra](http://www.10zebra
 
 <div>
 
-![](../../assets/blogs/falling-to-pieces-behind-the-scenes-inline-1.png)
+![](/src/assets/blogs/falling-to-pieces-behind-the-scenes-inline-1.png)
 
 </div>
 
@@ -55,7 +55,7 @@ Using images from Midjourney, “Falling to Pieces” was produced entirely with
 
 <div>
 
-![](../../assets/blogs/falling-to-pieces-behind-the-scenes-inline-2.png)
+![](/src/assets/blogs/falling-to-pieces-behind-the-scenes-inline-2.png)
 
 </div>
 
@@ -63,7 +63,7 @@ Using images from Midjourney, “Falling to Pieces” was produced entirely with
 
 <div>
 
-![](../../assets/blogs/falling-to-pieces-behind-the-scenes-inline-3.png)
+![](/src/assets/blogs/falling-to-pieces-behind-the-scenes-inline-3.png)
 
 </div>
 
@@ -71,7 +71,7 @@ Using images from Midjourney, “Falling to Pieces” was produced entirely with
 
 <div>
 
-![](../../assets/blogs/falling-to-pieces-behind-the-scenes-inline-4.png)
+![](/src/assets/blogs/falling-to-pieces-behind-the-scenes-inline-4.png)
 
 </div>
 
@@ -79,7 +79,7 @@ Using images from Midjourney, “Falling to Pieces” was produced entirely with
 
 <div>
 
-![](../../assets/blogs/falling-to-pieces-behind-the-scenes-inline-5.png)
+![](/src/assets/blogs/falling-to-pieces-behind-the-scenes-inline-5.png)
 
 </div>
 
@@ -89,7 +89,7 @@ Joshua led the upscaling process using TopazLabs. The project was processed for 
 
 <div>
 
-![](../../assets/blogs/falling-to-pieces-behind-the-scenes-inline-6.png)
+![](/src/assets/blogs/falling-to-pieces-behind-the-scenes-inline-6.png)
 
 </div>
 

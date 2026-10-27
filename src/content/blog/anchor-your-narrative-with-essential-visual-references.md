@@ -5,7 +5,7 @@ pubDate: "2026-03-05"
 author: "Philip Meier"
 authorRole: "Founder, 10zebra & Computational Neuroscientist"
 authorAvatar: "/images/team/philip-meier.jpg"
-image: "../../assets/blogs/anchor-your-narrative-with-essential-visual-references-hero.png"
+image: "/src/assets/blogs/anchor-your-narrative-with-essential-visual-references-hero.png"
 imageAlt: "Anchor your narrative with essential visual references"
 category: "Workflows & Tutorials"
 tags:

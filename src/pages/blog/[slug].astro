@@ -1,13 +1,13 @@
 ---
 import { getCollection, render } from 'astro:content';
 import { Image } from 'astro:assets';
-import Layout from '../../layouts/Layout.astro';
-import Header from '../../components/Header.astro';
-import Footer from '../../components/Footer.astro';
-import ReadingProgress from '../../components/blog/ReadingProgress.astro';
-import AuthorBio from '../../components/blog/AuthorBio.astro';
-import RelatedPosts from '../../components/blog/RelatedPosts.astro';
-import { formatBlogDate, calculateReadingTime, sortPostsByDate } from '../../utils/blog';
+import Layout from '/src/layouts/Layout.astro';
+import Header from '/src/components/layout/Header.astro';
+import Footer from '/src/components/layout/Footer.astro';
+import ReadingProgress from '/src/components/blog/ReadingProgress.astro';
+import AuthorBio from '/src/components/blog/AuthorBio.astro';
+import RelatedPosts from '/src/components/blog/RelatedPosts.astro';
+import { formatBlogDate, calculateReadingTime, sortPostsByDate } from '/src/utils/blog';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');

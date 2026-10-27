@@ -5,7 +5,7 @@ pubDate: "2024-06-20"
 author: "Philip Meier"
 authorRole: "Founder, 10zebra & Computational Neuroscientist"
 authorAvatar: "/images/team/philip-meier.jpg"
-image: "../../assets/blogs/ai-video-jam-sessions-guide-hero.gif"
+image: "/src/assets/blogs/ai-video-jam-sessions-guide-hero.gif"
 imageAlt: "10zebra AI Video Jam Sessions: Your Ultimate Guide to Joining & Winning 🎉"
 category: "Workflows & Tutorials"
 tags:
@@ -69,7 +69,7 @@ AI Video Jams are the best place for knowledge-sharing on technology’s frontli
 
 <div>
 
-![Illustration showing the steps of an AI Video Jam session, from joining on Discord to winning prizes.](../../assets/blogs/ai-video-jam-sessions-guide-inline-1.gif)
+![Illustration showing the steps of an AI Video Jam session, from joining on Discord to winning prizes.](/src/assets/blogs/ai-video-jam-sessions-guide-inline-1.gif)
 
 </div>
 
@@ -97,7 +97,7 @@ Use **Voice Channels** to talk, watch videos, and collab in breakouts
 - **Returning to Main Event:** Use the channel list to navigate back to the main **AI Video Jam 10zebra Voice Channel** when needed.
 <div>
 
-![Screenshot showing how to navigate from the event to breakout channels on Discord.](../../assets/blogs/ai-video-jam-sessions-guide-inline-2.png)
+![Screenshot showing how to navigate from the event to breakout channels on Discord.](/src/assets/blogs/ai-video-jam-sessions-guide-inline-2.png)
 
 </div>
 
@@ -116,7 +116,7 @@ For these events, you won't start a new project. You will be given a project lin
 
 <div>
 
-![Screenshot of 10zebra's navigation interface during an AI Video Jam session, showing various tools and options available for video editing.](../../assets/blogs/ai-video-jam-sessions-guide-inline-3.png)
+![Screenshot of 10zebra's navigation interface during an AI Video Jam session, showing various tools and options available for video editing.](/src/assets/blogs/ai-video-jam-sessions-guide-inline-3.png)
 
 </div>**Record Video Directly into the Mobile App**
 
@@ -124,7 +124,7 @@ For these events, you won't start a new project. You will be given a project lin
 
 <div>
 
-![Screenshot of 10zebra's mobile navigation interface, highlighting the ease of use and accessibility for AI Video Jam participants on mobile devices.](../../assets/blogs/ai-video-jam-sessions-guide-inline-4.png)
+![Screenshot of 10zebra's mobile navigation interface, highlighting the ease of use and accessibility for AI Video Jam participants on mobile devices.](/src/assets/blogs/ai-video-jam-sessions-guide-inline-4.png)
 
 </div>**How to Use the Different AI Models**
 
@@ -133,11 +133,11 @@ For these events, you won't start a new project. You will be given a project lin
 - **AutoCine:** Add a text prompt and a video reference. Autocine will base an entire clip on just the first frame with higher resolution.
 <div>
 
-![Screenshot of 10zebra's interface with the 'Generate' feature highlighted, demonstrating how users can generate AI-driven video content during the AI Video Jam.](../../assets/blogs/ai-video-jam-sessions-guide-inline-5.png)
+![Screenshot of 10zebra's interface with the 'Generate' feature highlighted, demonstrating how users can generate AI-driven video content during the AI Video Jam.](/src/assets/blogs/ai-video-jam-sessions-guide-inline-5.png)
 
 </div><div>
 
-![Screenshot of 10zebra's interface showing the prompt strength adjustment, allowing users to control the influence of AI on their video content during the AI Video Jam.](../../assets/blogs/ai-video-jam-sessions-guide-inline-6.png)
+![Screenshot of 10zebra's interface showing the prompt strength adjustment, allowing users to control the influence of AI on their video content during the AI Video Jam.](/src/assets/blogs/ai-video-jam-sessions-guide-inline-6.png)
 
 </div>**Select Clips**
 
@@ -149,7 +149,7 @@ For these events, you won't start a new project. You will be given a project lin
 
 <div>
 
-![Screenshot of 10zebra's interface with the 'Preview' feature highlighted, showing how users can preview their AI-generated video clips during the AI Video Jam.](../../assets/blogs/ai-video-jam-sessions-guide-inline-7.png)
+![Screenshot of 10zebra's interface with the 'Preview' feature highlighted, showing how users can preview their AI-generated video clips during the AI Video Jam.](/src/assets/blogs/ai-video-jam-sessions-guide-inline-7.png)
 
 </div>
 

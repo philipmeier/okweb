@@ -5,7 +5,7 @@ pubDate: "2026-07-22"
 author: "Philip Meier"
 authorRole: "Founder, 10zebra & Computational Neuroscientist"
 authorAvatar: "/images/team/philip-meier.jpg"
-image: "../../assets/blogs/expand-on-the-core-ideas-in-a-comic-by-acting-out-the-scenes-and-generating-a-video-hero.png"
+image: "/src/assets/blogs/expand-on-the-core-ideas-in-a-comic-by-acting-out-the-scenes-and-generating-a-video-hero.png"
 imageAlt: "Acting meets internet comics"
 category: "Workflows & Tutorials"
 tags:
@@ -22,7 +22,7 @@ Ah, the genius of pairing images with the spoken work. There are so many good id
 
 <div>
 
-![](../../assets/blogs/expand-on-the-core-ideas-in-a-comic-by-acting-out-the-scenes-and-generating-a-video-inline-1.png)
+![](/src/assets/blogs/expand-on-the-core-ideas-in-a-comic-by-acting-out-the-scenes-and-generating-a-video-inline-1.png)
 
 </div>A gem from Ryan North - via [qwantz.com](https://www.qwantz.com/index.php?comic=4497)
 
@@ -56,11 +56,11 @@ https://10zebra.app/p/HnjDpzTQkQ2h/BDj-EzkjPik3EuzUHXHjb
 
 <div>
 
-![](../../assets/blogs/expand-on-the-core-ideas-in-a-comic-by-acting-out-the-scenes-and-generating-a-video-inline-2.png)
+![](/src/assets/blogs/expand-on-the-core-ideas-in-a-comic-by-acting-out-the-scenes-and-generating-a-video-inline-2.png)
 
 </div>Performances for all six shots.<div>
 
-![](../../assets/blogs/expand-on-the-core-ideas-in-a-comic-by-acting-out-the-scenes-and-generating-a-video-inline-3.png)
+![](/src/assets/blogs/expand-on-the-core-ideas-in-a-comic-by-acting-out-the-scenes-and-generating-a-video-inline-3.png)
 
 </div>After generating.
 
@@ -68,7 +68,7 @@ A single generation contains the character reference, the location reference, an
 
 <div>
 
-![](../../assets/blogs/expand-on-the-core-ideas-in-a-comic-by-acting-out-the-scenes-and-generating-a-video-inline-4.png)
+![](/src/assets/blogs/expand-on-the-core-ideas-in-a-comic-by-acting-out-the-scenes-and-generating-a-video-inline-4.png)
 
 </div>
 
@@ -76,7 +76,7 @@ And after the generation is complete, you can trim it in place:
 
 <div>
 
-![](../../assets/blogs/expand-on-the-core-ideas-in-a-comic-by-acting-out-the-scenes-and-generating-a-video-inline-5.png)
+![](/src/assets/blogs/expand-on-the-core-ideas-in-a-comic-by-acting-out-the-scenes-and-generating-a-video-inline-5.png)
 
 </div>
 
@@ -90,7 +90,7 @@ My top advice for you is to spend more time on your references and less time cur
 
 <div>
 
-![](../../assets/blogs/expand-on-the-core-ideas-in-a-comic-by-acting-out-the-scenes-and-generating-a-video-inline-6.png)
+![](/src/assets/blogs/expand-on-the-core-ideas-in-a-comic-by-acting-out-the-scenes-and-generating-a-video-inline-6.png)
 
 </div>Core project references
 

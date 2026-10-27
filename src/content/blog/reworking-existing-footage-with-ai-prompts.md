@@ -5,7 +5,7 @@ pubDate: "2024-12-11"
 author: "Philip Meier"
 authorRole: "Founder, 10zebra & Computational Neuroscientist"
 authorAvatar: "/images/team/philip-meier.jpg"
-image: "../../assets/blogs/reworking-existing-footage-with-ai-prompts-hero.jpg"
+image: "/src/assets/blogs/reworking-existing-footage-with-ai-prompts-hero.jpg"
 imageAlt: "Reworking existing footage with AI prompts"
 category: "Workflows & Tutorials"
 tags:

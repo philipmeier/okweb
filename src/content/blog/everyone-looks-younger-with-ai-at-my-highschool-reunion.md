@@ -5,7 +5,7 @@ pubDate: "2024-05-24"
 author: "Philip Meier"
 authorRole: "Founder, 10zebra & Computational Neuroscientist"
 authorAvatar: "/images/team/philip-meier.jpg"
-image: "../../assets/blogs/everyone-looks-younger-with-ai-at-my-highschool-reunion-hero.png"
+image: "/src/assets/blogs/everyone-looks-younger-with-ai-at-my-highschool-reunion-hero.png"
 imageAlt: "Everyone looks younger with ai at my Highschool reunion"
 category: "AI Models & Tech"
 tags:

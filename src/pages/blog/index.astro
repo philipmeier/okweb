@@ -1,10 +1,10 @@
 ---
 import { getCollection } from 'astro:content';
-import Layout from '../../layouts/Layout.astro';
-import Header from '../../components/Header.astro';
-import Footer from '../../components/Footer.astro';
-import BlogCard from '../../components/blog/BlogCard.astro';
-import { getPublishedPosts, sortPostsByDate, getCategoriesWithCounts } from '../../utils/blog';
+import Layout from '/src/layouts/Layout.astro';
+import Header from '/src/components/layout/Header.astro';
+import Footer from '/src/components/layout/Footer.astro';
+import BlogCard from '/src/components/blog/BlogCard.astro';
+import { getPublishedPosts, sortPostsByDate, getCategoriesWithCounts } from '/src/utils/blog';
 
 const allPosts = await getCollection('blog');
 const publishedPosts = getPublishedPosts(allPosts);
@@ -90,22 +90,57 @@ const collectionSchema = {
       <section class="mb-12 relative z-10" aria-label="Filter articles">
         <div class="glass p-4 rounded-2xl border border-[var(--border-subtle)] flex flex-col md:flex-row md:items-center justify-between gap-4">
 
-          <!-- Category Tabs -->
-          <div class="flex items-center gap-1.5 overflow-x-auto pb-2 md:pb-0 scrollbar-none" id="category-tabs" role="tablist">
-            {categories.map((cat) => (
-              <button
-                class={`category-tab px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer ${cat === 'All' ? 'bg-[var(--accent)] text-[#0c0d10]' : 'bg-[var(--bg-elevated)] text-[var(--text-secondary)] hover:text-white hover:bg-[var(--bg-card-hover)]'}`}
-                data-category={cat}
-                role="tab"
-                aria-selected={cat === 'All' ? 'true' : 'false'}
-              >
-                {cat}
-              </button>
-            ))}
+          <!-- Category Filter Tabs Container -->
+          <div class="category-filter-wrapper relative flex-1 min-w-0 flex items-center">
+            <!-- Left scroll arrow (desktop) -->
+            <button
+              type="button"
+              id="filter-scroll-left"
+              class="filter-scroll-arrow filter-scroll-arrow-left absolute left-0 z-20 w-7 h-7 rounded-full bg-[var(--bg-elevated)]/95 backdrop-blur-md border border-[var(--border-subtle)] text-[var(--text-secondary)] hover:text-white hover:border-[var(--accent)] hover:scale-105 hidden md:flex items-center justify-center shadow-lg transition-all duration-200 opacity-0 pointer-events-none cursor-pointer"
+              aria-label="Scroll category filters left"
+              tabindex="-1"
+            >
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+
+            <!-- Scrollable Category Tabs -->
+            <div
+              class="category-tabs flex items-center gap-1.5 overflow-x-auto pb-2 md:pb-0 scrollbar-none w-full select-none"
+              id="category-tabs"
+              role="tablist"
+              aria-label="Filter articles by category"
+            >
+              {categories.map((cat) => (
+                <button
+                  class={`category-tab px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer flex-shrink-0 select-none ${cat === 'All' ? 'bg-[var(--accent)] text-[#0c0d10]' : 'bg-[var(--bg-elevated)] text-[var(--text-secondary)] hover:text-white hover:bg-[var(--bg-card-hover)]'}`}
+                  data-category={cat}
+                  role="tab"
+                  aria-selected={cat === 'All' ? 'true' : 'false'}
+                  draggable="false"
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+
+            <!-- Right scroll arrow (desktop) -->
+            <button
+              type="button"
+              id="filter-scroll-right"
+              class="filter-scroll-arrow filter-scroll-arrow-right absolute right-0 z-20 w-7 h-7 rounded-full bg-[var(--bg-elevated)]/95 backdrop-blur-md border border-[var(--border-subtle)] text-[var(--text-secondary)] hover:text-white hover:border-[var(--accent)] hover:scale-105 hidden md:flex items-center justify-center shadow-lg transition-all duration-200 opacity-0 pointer-events-none cursor-pointer"
+              aria-label="Scroll category filters right"
+              tabindex="-1"
+            >
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
           </div>
 
           <!-- Real-time Search Box -->
-          <div class="relative min-w-[240px] md:max-w-xs w-full">
+          <div class="relative min-w-[240px] md:w-72 flex-shrink-0 w-full md:w-auto">
             <svg class="w-4 h-4 text-[var(--text-muted)] absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
@@ -194,9 +229,13 @@ const collectionSchema = {
       const noResults = document.getElementById('no-results');
       const resetBtn = document.getElementById('reset-filters-btn');
       const filterStatus = document.getElementById('filter-status');
+      const categoryTabs = document.getElementById('category-tabs');
+      const leftArrow = document.getElementById('filter-scroll-left');
+      const rightArrow = document.getElementById('filter-scroll-right');
 
       let activeCategory = 'All';
       let searchQuery = '';
+      let hasDragged = false;
 
       function applyFilter() {
         let visibleCount = 0;
@@ -244,7 +283,12 @@ const collectionSchema = {
 
       // Tab clicks
       tabs.forEach((tab) => {
-        tab.addEventListener('click', () => {
+        tab.addEventListener('click', (e) => {
+          if (hasDragged) {
+            e.preventDefault();
+            return;
+          }
+
           tabs.forEach((t) => {
             t.classList.remove('bg-[var(--accent)]', 'text-[#0c0d10]');
             t.classList.add('bg-[var(--bg-elevated)]', 'text-[var(--text-secondary)]');
@@ -257,6 +301,9 @@ const collectionSchema = {
 
           activeCategory = tab.getAttribute('data-category') || 'All';
           applyFilter();
+
+          // Smoothly scroll active tab into view if needed
+          tab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
         });
       });
 
@@ -288,8 +335,228 @@ const collectionSchema = {
           });
 
           applyFilter();
+
+          if (categoryTabs) {
+            categoryTabs.scrollTo({ left: 0, behavior: 'smooth' });
+          }
         });
+      }
+
+      // --- Horizontal Drag-to-Scroll & Touch Scroll Management ---
+      if (categoryTabs) {
+        let isDown = false;
+        let startX = 0;
+        let scrollStart = 0;
+        let lastX = 0;
+        let lastTime = 0;
+        let velocity = 0;
+        let rafId: number | null = null;
+
+        function updateScrollIndicators() {
+          if (!categoryTabs) return;
+          const maxScroll = categoryTabs.scrollWidth - categoryTabs.clientWidth;
+          const scrollLeft = categoryTabs.scrollLeft;
+          const hasOverflow = maxScroll > 6;
+
+          if (!hasOverflow) {
+            categoryTabs.classList.remove('filter-fade-left', 'filter-fade-right', 'filter-fade-both');
+            if (leftArrow) {
+              leftArrow.classList.add('opacity-0', 'pointer-events-none');
+              leftArrow.classList.remove('opacity-100', 'pointer-events-auto');
+            }
+            if (rightArrow) {
+              rightArrow.classList.add('opacity-0', 'pointer-events-none');
+              rightArrow.classList.remove('opacity-100', 'pointer-events-auto');
+            }
+            return;
+          }
+
+          const canScrollLeft = scrollLeft > 6;
+          const canScrollRight = scrollLeft < maxScroll - 6;
+
+          if (canScrollLeft && canScrollRight) {
+            categoryTabs.classList.add('filter-fade-both');
+            categoryTabs.classList.remove('filter-fade-left', 'filter-fade-right');
+          } else if (canScrollLeft) {
+            categoryTabs.classList.add('filter-fade-left');
+            categoryTabs.classList.remove('filter-fade-right', 'filter-fade-both');
+          } else if (canScrollRight) {
+            categoryTabs.classList.add('filter-fade-right');
+            categoryTabs.classList.remove('filter-fade-left', 'filter-fade-both');
+          } else {
+            categoryTabs.classList.remove('filter-fade-left', 'filter-fade-right', 'filter-fade-both');
+          }
+
+          if (leftArrow) {
+            if (canScrollLeft) {
+              leftArrow.classList.remove('opacity-0', 'pointer-events-none');
+              leftArrow.classList.add('opacity-100', 'pointer-events-auto');
+            } else {
+              leftArrow.classList.add('opacity-0', 'pointer-events-none');
+              leftArrow.classList.remove('opacity-100', 'pointer-events-auto');
+            }
+          }
+
+          if (rightArrow) {
+            if (canScrollRight) {
+              rightArrow.classList.remove('opacity-0', 'pointer-events-none');
+              rightArrow.classList.add('opacity-100', 'pointer-events-auto');
+            } else {
+              rightArrow.classList.add('opacity-0', 'pointer-events-none');
+              rightArrow.classList.remove('opacity-100', 'pointer-events-auto');
+            }
+          }
+        }
+
+        categoryTabs.addEventListener('scroll', updateScrollIndicators, { passive: true });
+        window.addEventListener('resize', updateScrollIndicators);
+
+        // Desktop mouse drag listeners
+        categoryTabs.addEventListener('mousedown', (e: MouseEvent) => {
+          if (e.button !== 0) return; // Only primary (left) button
+          if (rafId) {
+            cancelAnimationFrame(rafId);
+            rafId = null;
+          }
+          isDown = true;
+          hasDragged = false;
+          startX = e.pageX;
+          scrollStart = categoryTabs.scrollLeft;
+          lastX = e.pageX;
+          lastTime = performance.now();
+          velocity = 0;
+        });
+
+        window.addEventListener('mousemove', (e: MouseEvent) => {
+          if (!isDown) return;
+          const dx = e.pageX - startX;
+          if (!hasDragged && Math.abs(dx) > 4) {
+            hasDragged = true;
+            categoryTabs.classList.add('is-dragging');
+          }
+
+          if (hasDragged) {
+            categoryTabs.scrollLeft = scrollStart - dx;
+            const now = performance.now();
+            const dt = now - lastTime;
+            if (dt > 8) {
+              velocity = (e.pageX - lastX) / dt;
+              lastX = e.pageX;
+              lastTime = now;
+            }
+          }
+        });
+
+        const handleMouseUp = () => {
+          if (!isDown) return;
+          isDown = false;
+          categoryTabs.classList.remove('is-dragging');
+
+          if (hasDragged) {
+            // Velocity momentum coast
+            if (Math.abs(velocity) > 0.12) {
+              let momentum = velocity * 14;
+              const decay = 0.94;
+              const momentumStep = () => {
+                if (Math.abs(momentum) > 0.3) {
+                  categoryTabs.scrollLeft -= momentum;
+                  momentum *= decay;
+                  rafId = requestAnimationFrame(momentumStep);
+                } else {
+                  updateScrollIndicators();
+                }
+              };
+              rafId = requestAnimationFrame(momentumStep);
+            }
+
+            // Suppress click event on any child button after dragging
+            setTimeout(() => {
+              hasDragged = false;
+            }, 60);
+          }
+        };
+
+        window.addEventListener('mouseup', handleMouseUp);
+
+        // Prevent browser native image/text drag ghosts
+        categoryTabs.addEventListener('dragstart', (e) => e.preventDefault());
+
+        // Capture-phase click interceptor
+        categoryTabs.addEventListener('click', (e) => {
+          if (hasDragged) {
+            e.preventDefault();
+            e.stopPropagation();
+            e.stopImmediatePropagation();
+          }
+        }, true);
+
+        // Scroll arrow click controls
+        if (leftArrow) {
+          leftArrow.addEventListener('click', () => {
+            categoryTabs.scrollBy({ left: -220, behavior: 'smooth' });
+          });
+        }
+        if (rightArrow) {
+          rightArrow.addEventListener('click', () => {
+            categoryTabs.scrollBy({ left: 220, behavior: 'smooth' });
+          });
+        }
+
+        // Initialize state
+        updateScrollIndicators();
+        // Recalculate after webfonts / styles stabilize
+        setTimeout(updateScrollIndicators, 150);
       }
     })();
   </script>
+
+  <style>
+    /* Category filter horizontal scroll, touch & drag */
+    #category-tabs {
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      -webkit-overflow-scrolling: touch;
+      touch-action: pan-x pan-y;
+      cursor: grab;
+      user-select: none;
+      -webkit-user-select: none;
+      transition: mask-image 0.2s ease, -webkit-mask-image 0.2s ease;
+    }
+
+    #category-tabs::-webkit-scrollbar {
+      display: none;
+    }
+
+    #category-tabs.is-dragging {
+      cursor: grabbing !important;
+      scroll-behavior: auto !important;
+    }
+
+    #category-tabs.is-dragging .category-tab {
+      cursor: grabbing !important;
+      pointer-events: none;
+    }
+
+    .category-tab {
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    /* Edge fade masks for overflow hints */
+    .filter-fade-left {
+      mask-image: linear-gradient(to right, transparent 0, black 28px);
+      -webkit-mask-image: linear-gradient(to right, transparent 0, black 28px);
+    }
+
+    .filter-fade-right {
+      mask-image: linear-gradient(to left, transparent 0, black 28px);
+      -webkit-mask-image: linear-gradient(to left, transparent 0, black 28px);
+    }
+
+    .filter-fade-both {
+      mask-image: linear-gradient(to right, transparent 0, black 28px, black calc(100% - 28px), transparent 100%);
+      -webkit-mask-image: linear-gradient(to right, transparent 0, black 28px, black calc(100% - 28px), transparent 100%);
+    }
+  </style>
 </Layout>

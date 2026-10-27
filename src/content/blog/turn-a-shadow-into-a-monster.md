@@ -5,7 +5,7 @@ pubDate: "2022-12-19"
 author: "Philip Meier"
 authorRole: "Founder, 10zebra & Computational Neuroscientist"
 authorAvatar: "/images/team/philip-meier.jpg"
-image: "../../assets/blogs/turn-a-shadow-into-a-monster-hero.gif"
+image: "/src/assets/blogs/turn-a-shadow-into-a-monster-hero.gif"
 imageAlt: "How To Turn a Shadow into a Monster Using AI Video Tools"
 category: "Workflows & Tutorials"
 tags:
@@ -20,7 +20,7 @@ draft: false
 
 <div>
 
-![](../../assets/blogs/turn-a-shadow-into-a-monster-inline-1.gif)
+![](/src/assets/blogs/turn-a-shadow-into-a-monster-inline-1.gif)
 
 </div>
 

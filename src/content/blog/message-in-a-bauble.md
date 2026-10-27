@@ -5,7 +5,7 @@ pubDate: "2026-04-27"
 author: "Philip Meier"
 authorRole: "Founder, 10zebra & Computational Neuroscientist"
 authorAvatar: "/images/team/philip-meier.jpg"
-image: "../../assets/blogs/message-in-a-bauble-hero.jpg"
+image: "/src/assets/blogs/message-in-a-bauble-hero.jpg"
 imageAlt: "Message in a Bauble"
 category: "Narrative & Perception"
 tags:

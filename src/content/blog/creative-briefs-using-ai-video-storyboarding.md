@@ -5,7 +5,7 @@ pubDate: "2022-12-19"
 author: "Philip Meier"
 authorRole: "Founder, 10zebra & Computational Neuroscientist"
 authorAvatar: "/images/team/philip-meier.jpg"
-image: "../../assets/blogs/creative-briefs-using-ai-video-storyboarding-hero.gif"
+image: "/src/assets/blogs/creative-briefs-using-ai-video-storyboarding-hero.gif"
 imageAlt: "Streamline Creative Briefs Using AI Video Storyboarding"
 category: "Case Studies & Previs"
 tags:

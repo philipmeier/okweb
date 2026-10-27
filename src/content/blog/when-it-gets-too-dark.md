@@ -5,7 +5,7 @@ pubDate: "2026-03-04"
 author: "Philip Meier"
 authorRole: "Founder, 10zebra & Computational Neuroscientist"
 authorAvatar: "/images/team/philip-meier.jpg"
-image: "../../assets/blogs/when-it-gets-too-dark-hero.png"
+image: "/src/assets/blogs/when-it-gets-too-dark-hero.png"
 imageAlt: "When it gets too dark"
 category: "Workflows & Tutorials"
 tags:

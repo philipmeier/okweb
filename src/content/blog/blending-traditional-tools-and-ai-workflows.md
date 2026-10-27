@@ -5,7 +5,7 @@ pubDate: "2024-06-25"
 author: "Philip Meier"
 authorRole: "Founder, 10zebra & Computational Neuroscientist"
 authorAvatar: "/images/team/philip-meier.jpg"
-image: "../../assets/blogs/blending-traditional-tools-and-ai-workflows-hero.gif"
+image: "/src/assets/blogs/blending-traditional-tools-and-ai-workflows-hero.gif"
 imageAlt: "The Fundamentals of Visual Narrative Taught Through AI Video Storyboarding"
 category: "Workflows & Tutorials"
 tags:
@@ -26,7 +26,7 @@ I think that very shortly, anyone can conjure up anything. To me, this mean tha
 
 <div>
 
-![](../../assets/blogs/blending-traditional-tools-and-ai-workflows-inline-1.png)
+![](/src/assets/blogs/blending-traditional-tools-and-ai-workflows-inline-1.png)
 
 </div>
 

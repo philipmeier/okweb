@@ -5,7 +5,7 @@ pubDate: "2024-11-22"
 author: "Philip Meier"
 authorRole: "Founder, 10zebra & Computational Neuroscientist"
 authorAvatar: "/images/team/philip-meier.jpg"
-image: "../../assets/blogs/competition-ends-december-1st-make-a-kpop-ai-music-video-for-min-with-machine-cinema-hero.gif"
+image: "/src/assets/blogs/competition-ends-december-1st-make-a-kpop-ai-music-video-for-min-with-machine-cinema-hero.gif"
 imageAlt: "Make a K-pop ai music video with Machine Cinema"
 category: "AI Models & Tech"
 tags:
@@ -46,7 +46,7 @@ Videos like this expand with 10zebra to be a collaborative production. Each pane
 
 <div>
 
-![](../../assets/blogs/competition-ends-december-1st-make-a-kpop-ai-music-video-for-min-with-machine-cinema-inline-1.png)
+![](/src/assets/blogs/competition-ends-december-1st-make-a-kpop-ai-music-video-for-min-with-machine-cinema-inline-1.png)
 
 </div>
 
@@ -54,7 +54,7 @@ You can try a prompt with text-to-video. If its not right, you can tweak the pro
 
 <div>
 
-![](../../assets/blogs/competition-ends-december-1st-make-a-kpop-ai-music-video-for-min-with-machine-cinema-inline-2.png)
+![](/src/assets/blogs/competition-ends-december-1st-make-a-kpop-ai-music-video-for-min-with-machine-cinema-inline-2.png)
 
 </div>The default text-to-image would generate a video like the one on the lower left. 
 
@@ -64,7 +64,7 @@ If you are particularly fond of another image generator (Midjourney, anyone?), o
 
 <div>
 
-![](../../assets/blogs/competition-ends-december-1st-make-a-kpop-ai-music-video-for-min-with-machine-cinema-inline-3.png)
+![](/src/assets/blogs/competition-ends-december-1st-make-a-kpop-ai-music-video-for-min-with-machine-cinema-inline-3.png)
 
 </div>The selected model &quot;1st Frame Luma&quot; would take the first frame of the video (e.g an uploaded image), and animate it with novel motion dynamics from the prompt.
 
@@ -105,7 +105,7 @@ But it's more fun to Jam together. And you can always fork the community reel la
 
 <div>
 
-![](../../assets/blogs/competition-ends-december-1st-make-a-kpop-ai-music-video-for-min-with-machine-cinema-inline-4.png)
+![](/src/assets/blogs/competition-ends-december-1st-make-a-kpop-ai-music-video-for-min-with-machine-cinema-inline-4.png)
 
 </div>
 
@@ -129,7 +129,7 @@ Show us what you did for this project (send a url to a shot you worked on to hel
 
 <div>
 
-![](../../assets/blogs/competition-ends-december-1st-make-a-kpop-ai-music-video-for-min-with-machine-cinema-inline-5.jpg)
+![](/src/assets/blogs/competition-ends-december-1st-make-a-kpop-ai-music-video-for-min-with-machine-cinema-inline-5.jpg)
 
 </div>Competition overview.
 

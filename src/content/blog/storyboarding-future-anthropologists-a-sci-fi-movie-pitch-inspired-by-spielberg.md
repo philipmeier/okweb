@@ -5,7 +5,7 @@ pubDate: "2024-04-18"
 author: "Philip Meier"
 authorRole: "Founder, 10zebra & Computational Neuroscientist"
 authorAvatar: "/images/team/philip-meier.jpg"
-image: "../../assets/blogs/storyboarding-future-anthropologists-a-sci-fi-movie-pitch-inspired-by-spielberg-hero.gif"
+image: "/src/assets/blogs/storyboarding-future-anthropologists-a-sci-fi-movie-pitch-inspired-by-spielberg-hero.gif"
 imageAlt: "Storyboarding \"Future Anthropologists\": A Spielberg-Inspired Sci-Fi Movie Pitch"
 category: "Case Studies & Previs"
 tags:
@@ -61,7 +61,7 @@ With 10zebra's intuitive interface and AI-assisted tools, I was able to quickly 
 
 <div>
 
-![](../../assets/blogs/storyboarding-future-anthropologists-a-sci-fi-movie-pitch-inspired-by-spielberg-inline-1.png)
+![](/src/assets/blogs/storyboarding-future-anthropologists-a-sci-fi-movie-pitch-inspired-by-spielberg-inline-1.png)
 
 </div>Storyboard Overview: Presented here is the visual journey of &#x27;Future Anthropologists,&#x27; a narrative crafted with 10zebra. This storyboard follows key moments from a story that spans across time, from the curiosity of children to the insights of evolved humans. Each scene is carefully depicted to explore the pivotal interactions and discoveries that could reshape the future.
 
@@ -69,7 +69,7 @@ With 10zebra's intuitive interface and AI-assisted tools, I was able to quickly 
 
 <div>
 
-![](../../assets/blogs/storyboarding-future-anthropologists-a-sci-fi-movie-pitch-inspired-by-spielberg-inline-2.png)
+![](/src/assets/blogs/storyboarding-future-anthropologists-a-sci-fi-movie-pitch-inspired-by-spielberg-inline-2.png)
 
 </div>
 

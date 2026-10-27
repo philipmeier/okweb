@@ -5,7 +5,7 @@ pubDate: "2024-05-14"
 author: "Philip Meier"
 authorRole: "Founder, 10zebra & Computational Neuroscientist"
 authorAvatar: "/images/team/philip-meier.jpg"
-image: "../../assets/blogs/looking-at-contemporary-art-through-the-lens-of-ai-hero.gif"
+image: "/src/assets/blogs/looking-at-contemporary-art-through-the-lens-of-ai-hero.gif"
 imageAlt: "Looking at Contemporary Art Through the Lens of AI"
 category: "Workflows & Tutorials"
 tags:
@@ -33,7 +33,7 @@ constructed conceptual images … particularly intriguing to me.
 
 <div>
 
-![](../../assets/blogs/looking-at-contemporary-art-through-the-lens-of-ai-inline-1.jpg)
+![](/src/assets/blogs/looking-at-contemporary-art-through-the-lens-of-ai-inline-1.jpg)
 
 </div>
 
@@ -41,7 +41,7 @@ constructed conceptual images … particularly intriguing to me.
 
 <div>
 
-![](../../assets/blogs/looking-at-contemporary-art-through-the-lens-of-ai-inline-2.gif)
+![](/src/assets/blogs/looking-at-contemporary-art-through-the-lens-of-ai-inline-2.gif)
 
 </div>
 

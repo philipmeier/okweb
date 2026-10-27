@@ -1,12 +1,12 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
-import FinalCTA from "../components/FinalCTA.astro";
-import MediaSlot from "../components/MediaSlot.astro";
-import SolutionCard from "../components/solutions/SolutionCard.astro";
-import { solutions } from "../data/solutions";
-import { features, type FeatureKey } from "../data/features";
+import Layout from "/src/layouts/Layout.astro";
+import Header from "/src/components/layout/Header.astro";
+import Footer from "/src/components/layout/Footer.astro";
+import FinalCTA from "/src/components/FinalCTA.astro";
+import MediaSlot from "/src/components/MediaSlot.astro";
+import SolutionCard from "/src/components/solutions/SolutionCard.astro";
+import { solutions } from "/src/data/solutions";
+import { features, type FeatureKey } from "/src/data/features";
 
 // Capability matrix: rows = features any persona highlights; dots = persona leans on it.
 const matrixKeys = Array.from(new Set(solutions.flatMap((s) => s.features))) as FeatureKey[];

@@ -5,7 +5,7 @@ pubDate: "2026-07-22"
 author: "Philip Meier"
 authorRole: "Founder, 10zebra & Computational Neuroscientist"
 authorAvatar: "/images/team/philip-meier.jpg"
-image: "../../assets/blogs/ai-video-101-how-to-edit-images-and-create-video-step-by-step-tutorial-to-become-a-superhero-hero.jpg"
+image: "/src/assets/blogs/ai-video-101-how-to-edit-images-and-create-video-step-by-step-tutorial-to-become-a-superhero-hero.jpg"
 imageAlt: "AI video 101:  edit images & create video"
 category: "Workflows & Tutorials"
 tags:
@@ -35,7 +35,7 @@ And I'll walk you though the process below, step by step, with links.
 
 <div>
 
-![](../../assets/blogs/ai-video-101-how-to-edit-images-and-create-video-step-by-step-tutorial-to-become-a-superhero-inline-1.png)
+![](/src/assets/blogs/ai-video-101-how-to-edit-images-and-create-video-step-by-step-tutorial-to-become-a-superhero-inline-1.png)
 
 </div>
 
@@ -45,7 +45,7 @@ Side note: we recommend using paid APIs to protect your privacy. (All models on 
 
 <div>
 
-![](../../assets/blogs/ai-video-101-how-to-edit-images-and-create-video-step-by-step-tutorial-to-become-a-superhero-inline-2.png)
+![](/src/assets/blogs/ai-video-101-how-to-edit-images-and-create-video-step-by-step-tutorial-to-become-a-superhero-inline-2.png)
 
 </div>
 
@@ -53,7 +53,7 @@ Its common to have a "2nd window" for creating. A scratchpad for your prompt bef
 
 <div>
 
-![](../../assets/blogs/ai-video-101-how-to-edit-images-and-create-video-step-by-step-tutorial-to-become-a-superhero-inline-3.png)
+![](/src/assets/blogs/ai-video-101-how-to-edit-images-and-create-video-step-by-step-tutorial-to-become-a-superhero-inline-3.png)
 
 </div>
 
@@ -63,7 +63,7 @@ If you are building a keyframe for subsequent animation, here are two tips. One:
 
 <div>
 
-![](../../assets/blogs/ai-video-101-how-to-edit-images-and-create-video-step-by-step-tutorial-to-become-a-superhero-inline-4.png)
+![](/src/assets/blogs/ai-video-101-how-to-edit-images-and-create-video-step-by-step-tutorial-to-become-a-superhero-inline-4.png)
 
 </div>
 
@@ -71,6 +71,6 @@ When you have entered your prompt in 10zebra, confirm you are generating a video
 
 <div>
 
-![](../../assets/blogs/ai-video-101-how-to-edit-images-and-create-video-step-by-step-tutorial-to-become-a-superhero-inline-5.png)
+![](/src/assets/blogs/ai-video-101-how-to-edit-images-and-create-video-step-by-step-tutorial-to-become-a-superhero-inline-5.png)
 
 </div>

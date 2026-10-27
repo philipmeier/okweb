@@ -5,7 +5,7 @@ pubDate: "2024-04-25"
 author: "Philip Meier"
 authorRole: "Founder, 10zebra & Computational Neuroscientist"
 authorAvatar: "/images/team/philip-meier.jpg"
-image: "../../assets/blogs/make-ai-videos-comfy-ui-no-gpu-hero.gif"
+image: "/src/assets/blogs/make-ai-videos-comfy-ui-no-gpu-hero.gif"
 imageAlt: "Make AI Videos with Comfy UI: No GPU Needed"
 category: "Workflows & Tutorials"
 tags:
@@ -41,7 +41,7 @@ Here is the big idea: we will run open-source software in the cloud. We will ope
 - open the newly printed out URL in a new browser window. It should look like this:
 <div>
 
-![Screenshot of the Google Colab interface showing the setup steps for Comfy UI](../../assets/blogs/make-ai-videos-comfy-ui-no-gpu-inline-1.png)
+![Screenshot of the Google Colab interface showing the setup steps for Comfy UI](/src/assets/blogs/make-ai-videos-comfy-ui-no-gpu-inline-1.png)
 
 </div>
 
@@ -63,7 +63,7 @@ Here is the big idea: we will run open-source software in the cloud. We will ope
 - After everything is installed, all the missing nodes will stop being red.
 <div>
 
-![Screenshot showing the setup process for Comfy UI using Json workflow](../../assets/blogs/make-ai-videos-comfy-ui-no-gpu-inline-2.png)
+![Screenshot showing the setup process for Comfy UI using Json workflow](/src/assets/blogs/make-ai-videos-comfy-ui-no-gpu-inline-2.png)
 
 </div>
 
@@ -72,14 +72,14 @@ Here is the big idea: we will run open-source software in the cloud. We will ope
 - Click the "Manager" button.
 <div>
 
-![Screenshot showing the step to “click manager” when installing missing custom nodes in Comfy UI on Google Colab](../../assets/blogs/make-ai-videos-comfy-ui-no-gpu-inline-3.png)
+![Screenshot showing the step to “click manager” when installing missing custom nodes in Comfy UI on Google Colab](/src/assets/blogs/make-ai-videos-comfy-ui-no-gpu-inline-3.png)
 
 </div>
 
 - Choose to Install missing custom nodes.
 <div>
 
-![Screenshot showing the step to install missing custom nodes in Comfy UI on Google Colab](../../assets/blogs/make-ai-videos-comfy-ui-no-gpu-inline-4.png)
+![Screenshot showing the step to install missing custom nodes in Comfy UI on Google Colab](/src/assets/blogs/make-ai-videos-comfy-ui-no-gpu-inline-4.png)
 
 </div>
 
@@ -87,7 +87,7 @@ Here is the big idea: we will run open-source software in the cloud. We will ope
 - When it's done, restart the server.
 <div>
 
-![Screenshot instructing the user to restart the server](../../assets/blogs/make-ai-videos-comfy-ui-no-gpu-inline-5.png)
+![Screenshot instructing the user to restart the server](/src/assets/blogs/make-ai-videos-comfy-ui-no-gpu-inline-5.png)
 
 </div>
 
@@ -96,7 +96,7 @@ Here is the big idea: we will run open-source software in the cloud. We will ope
 - Go back to Colab and stop the Cloudflare tunnel. You can click the stop icon in the upper left of this cell.
 <div>
 
-![Screenshot instructing the user to stop the Cloudflare tunnel in Google Colab](../../assets/blogs/make-ai-videos-comfy-ui-no-gpu-inline-6.png)
+![Screenshot instructing the user to stop the Cloudflare tunnel in Google Colab](/src/assets/blogs/make-ai-videos-comfy-ui-no-gpu-inline-6.png)
 
 </div>
 

@@ -5,7 +5,7 @@ pubDate: "2024-04-12"
 author: "Philip Meier"
 authorRole: "Founder, 10zebra & Computational Neuroscientist"
 authorAvatar: "/images/team/philip-meier.jpg"
-image: "../../assets/blogs/the-stuff-of-souls-hero.jpg"
+image: "/src/assets/blogs/the-stuff-of-souls-hero.jpg"
 imageAlt: "The Stuff of Souls: AI & Imagination"
 category: "AI Models & Tech"
 tags:

@@ -5,7 +5,7 @@ pubDate: "2026-04-23"
 author: "Philip Meier"
 authorRole: "Founder, 10zebra & Computational Neuroscientist"
 authorAvatar: "/images/team/philip-meier.jpg"
-image: "../../assets/blogs/finding-your-path-by-jumping-in-hero.jpg"
+image: "/src/assets/blogs/finding-your-path-by-jumping-in-hero.jpg"
 imageAlt: "Jump in"
 category: "Narrative & Perception"
 tags:

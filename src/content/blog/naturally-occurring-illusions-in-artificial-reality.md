@@ -5,7 +5,7 @@ pubDate: "2024-08-19"
 author: "Philip Meier"
 authorRole: "Founder, 10zebra & Computational Neuroscientist"
 authorAvatar: "/images/team/philip-meier.jpg"
-image: "../../assets/blogs/naturally-occurring-illusions-in-artificial-reality-hero.jpg"
+image: "/src/assets/blogs/naturally-occurring-illusions-in-artificial-reality-hero.jpg"
 imageAlt: "Naturally occurring illusions in artificial reality"
 category: "Workflows & Tutorials"
 tags:
@@ -24,7 +24,7 @@ Ted Adelson made this image to show you how two patches with the same RGB pixel 
 
 <div>
 
-![](../../assets/blogs/naturally-occurring-illusions-in-artificial-reality-inline-1.jpg)
+![](/src/assets/blogs/naturally-occurring-illusions-in-artificial-reality-inline-1.jpg)
 
 </div>The squares with A and B look different colors to us. 
 
@@ -34,7 +34,7 @@ So how does this apply to the image. Let's say patch A and B both return a billi
 
 <div>
 
-![](../../assets/blogs/naturally-occurring-illusions-in-artificial-reality-inline-2.jpg)
+![](/src/assets/blogs/naturally-occurring-illusions-in-artificial-reality-inline-2.jpg)
 
 </div>The Perceptual Science Group at MIT offers this proof and [more](https://persci.mit.edu/gallery/checkershadow/proof). 
 
@@ -42,11 +42,11 @@ Naturally, I had to think of the checker-shadow illusion when this shadow-strip
 
 <div>
 
-![](../../assets/blogs/naturally-occurring-illusions-in-artificial-reality-inline-3.jpg)
+![](/src/assets/blogs/naturally-occurring-illusions-in-artificial-reality-inline-3.jpg)
 
 </div>An image from a video I created yesterday, all with genAI on 10zebra. <div>
 
-![](../../assets/blogs/naturally-occurring-illusions-in-artificial-reality-inline-4.png)
+![](/src/assets/blogs/naturally-occurring-illusions-in-artificial-reality-inline-4.png)
 
 </div>The patterened light and patterned albedo is similar to the checkershadoow illusion.
 
@@ -54,7 +54,7 @@ Does the AI system have a model of reality enough to "know" how light works? Did
 
 <div>
 
-![](../../assets/blogs/naturally-occurring-illusions-in-artificial-reality-inline-5.png)
+![](/src/assets/blogs/naturally-occurring-illusions-in-artificial-reality-inline-5.png)
 
 </div>I added the bar to show how the white stripe in shadow  is close to the dark stripe in full light.
 
