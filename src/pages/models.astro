@@ -1,8 +1,511 @@
-﻿---
-import PlaceholderPage from "/src/layouts/PlaceholderPage.astro";
 ---
-<PlaceholderPage
-  title="AI Models"
-  label="Model Directory"
-  description="Browse every AI video model available in 10zebra &mdash; Kling, Veo, Sora, Runway, Grok, SeeDance, Wan, and Flux Pro."
-/>
+// src/pages/models.astro
+// AI Models Hub — Comprehensive Directory of all supported model families & engines
+import Layout from '/src/layouts/Layout.astro';
+import Header from '/src/components/layout/Header.astro';
+import Footer from '/src/components/layout/Footer.astro';
+import { getModelFamilies, getAllModels, catalog } from '/src/data/models';
+
+const families = getModelFamilies();
+const allModels = getAllModels();
+
+const pageTitle = "AI Video Models Directory | Kling, Veo, Runway, SeeDance, Grok, Wan | 10zebra";
+const pageDescription = "Explore and compare all 65+ AI video and image models supported in 10zebra. Direct across Kling, Google Veo, Runway, SeeDance, Grok, Wan, and Flux Pro from one unified workspace.";
+const canonicalUrl = "https://10zebra.com/models";
+
+// JSON-LD structured data for software directory
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": pageTitle,
+  "description": pageDescription,
+  "url": canonicalUrl,
+  "hasPart": families.map((fam) => ({
+    "@type": "SoftwareApplication",
+    "name": fam.name,
+    "operatingSystem": "Web-based cloud workspace",
+    "applicationCategory": "MultimediaApplication",
+    "description": fam.tagline,
+    "offers": {
+      "@type": "Offer",
+      "price": `${fam.minCost}`,
+      "priceCurrency": "Credits"
+    }
+  }))
+};
+---
+
+<Layout title={pageTitle} description={pageDescription} canonicalUrl={canonicalUrl}>
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+
+  <Header />
+
+  <main class="min-h-screen pt-12 pb-24 relative overflow-hidden">
+    <!-- Ambient Background Glows -->
+    <div class="absolute top-20 left-1/2 -translate-x-1/2 w-[850px] h-[400px] bg-gradient-to-b from-orange-500/[0.09] via-amber-500/[0.04] to-transparent rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute top-96 right-10 w-96 h-96 bg-purple-500/[0.05] rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="wrap max-w-7xl mx-auto px-4 sm:px-6">
+
+      <!-- Hub Header -->
+      <header class="text-center max-w-3xl mx-auto mb-16 relative z-10">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--accent-subtle)] border border-[var(--border-glow)] text-[var(--accent)] text-xs font-semibold uppercase tracking-wider mb-4">
+          <span class="w-2 h-2 rounded-full bg-[var(--accent)] animate-pulse"></span>
+          MULTI-MODEL PRODUCTION ROSTER
+        </div>
+        <h1 class="font-display font-black text-3xl sm:text-4xl md:text-5xl text-[var(--text-primary)] tracking-tight mb-5 leading-tight">
+          Direct Every Frontier AI Model <br class="hidden sm:inline" />
+          <span class="grad-text">From One Unified Timeline</span>
+        </h1>
+        <p class="text-base sm:text-lg text-[var(--text-secondary)] leading-relaxed">
+          Never lock your production to a single foundation engine. Seamlessly orchestrate Kling for cinematic physics, Veo for dialogue, SeeDance for character choreography, and Runway for dynamic camera moves.
+        </p>
+
+        <!-- Quick Stats Strip -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-8 max-w-2xl mx-auto">
+          <div class="glass p-3 rounded-xl border border-[var(--border-subtle)] text-center">
+            <div class="text-2xl font-black text-[var(--accent)] font-mono">{families.length}</div>
+            <div class="text-[0.72rem] text-[var(--text-muted)] uppercase tracking-wider font-semibold mt-0.5">Model Families</div>
+          </div>
+          <div class="glass p-3 rounded-xl border border-[var(--border-subtle)] text-center">
+            <div class="text-2xl font-black text-white font-mono">{allModels.length}+</div>
+            <div class="text-[0.72rem] text-[var(--text-muted)] uppercase tracking-wider font-semibold mt-0.5">Generation Engines</div>
+          </div>
+          <div class="glass p-3 rounded-xl border border-[var(--border-subtle)] text-center">
+            <div class="text-2xl font-black text-emerald-400 font-mono">100%</div>
+            <div class="text-[0.72rem] text-[var(--text-muted)] uppercase tracking-wider font-semibold mt-0.5">Refund on Fails</div>
+          </div>
+          <div class="glass p-3 rounded-xl border border-[var(--border-subtle)] text-center">
+            <div class="text-2xl font-black text-amber-400 font-mono">5 &ndash; 20</div>
+            <div class="text-[0.72rem] text-[var(--text-muted)] uppercase tracking-wider font-semibold mt-0.5">Starting Credits</div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Section 1: Model Families Showcase -->
+      <section class="mb-20 relative z-10" aria-labelledby="model-families-heading">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
+          <div>
+            <span class="sect-label">FOUNDATION LABS &amp; ARCHITECTURES</span>
+            <h2 id="model-families-heading" class="font-display font-black text-2xl sm:text-3xl text-[var(--text-primary)]">
+              Supported Model Families
+            </h2>
+          </div>
+          <p class="text-xs text-[var(--text-muted)] font-mono max-w-sm sm:text-right">
+            Click any family card to explore its variant engines, prompt tips, and comparative benchmarks.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {families.map((fam) => (
+            <a
+              href={`/models/${fam.slug}`}
+              class="group glass p-6 rounded-2xl border border-[var(--border-subtle)] hover:border-orange-500/40 hover:shadow-2xl hover:shadow-orange-950/20 transition-all duration-300 flex flex-col justify-between no-underline block relative overflow-hidden"
+              style={`--family-accent: ${fam.accentColor};`}
+            >
+              <!-- Top ambient accent strip -->
+              <div
+                class="absolute top-0 left-0 right-0 h-1 transition-all duration-300 group-hover:h-1.5"
+                style={`background: ${fam.accentColor};`}
+              ></div>
+
+              <div>
+                <!-- Header with Developer & Badge -->
+                <div class="flex items-center justify-between gap-2 mb-3 pt-1">
+                  <span class="text-[0.7rem] uppercase tracking-wider text-[var(--text-muted)] font-mono font-medium">
+                    {fam.developer}
+                  </span>
+                  <span
+                    class="text-[0.65rem] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full border"
+                    style={`color: ${fam.accentColor}; border-color: ${fam.accentColor}40; background: ${fam.accentColor}10;`}
+                  >
+                    {fam.badge}
+                  </span>
+                </div>
+
+                <!-- Family Name -->
+                <h3 class="font-display font-extrabold text-xl text-[var(--text-primary)] group-hover:text-[var(--accent)] transition-colors mb-2 flex items-center justify-between">
+                  <span>{fam.name}</span>
+                  <svg class="w-4 h-4 text-[var(--text-muted)] group-hover:text-[var(--accent)] transform group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                </h3>
+
+                <!-- Tagline -->
+                <p class="text-xs text-[var(--text-secondary)] leading-relaxed mb-5 line-clamp-2">
+                  {fam.tagline}
+                </p>
+
+                <!-- Core Strengths Preview -->
+                <ul class="space-y-1.5 mb-6 text-xs text-[var(--text-muted)]">
+                  {fam.strengths.slice(0, 2).map((strength) => (
+                    <li class="flex items-start gap-1.5">
+                      <span class="text-emerald-400 mt-0.5">✓</span>
+                      <span class="line-clamp-1">{strength}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <!-- Footer with Variants & Cost -->
+              <div class="pt-4 border-t border-[var(--border-subtle)] flex items-center justify-between mt-auto text-xs">
+                <span class="font-mono text-[var(--text-secondary)]">
+                  <strong class="text-[var(--text-primary)]">{fam.modelCount}</strong> {fam.modelCount === 1 ? 'engine' : 'engines'}
+                </span>
+                <span class="font-mono text-emerald-400 font-bold">
+                  From {fam.minCost} credits
+                </span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <!-- Section 2: Complete Interactive Model Matrix -->
+      <section class="mb-20 relative z-10" id="all-engines" aria-labelledby="all-engines-heading">
+        <div class="sect-head text-center mb-8">
+          <span class="sect-label">GRANULAR ENGINE CATALOG</span>
+          <h2 id="all-engines-heading" class="font-display font-black text-2xl sm:text-3xl text-[var(--text-primary)]">
+            Every Supported Engine &amp; Rate
+          </h2>
+          <p class="text-sm text-[var(--text-secondary)] max-w-xl mx-auto mt-2">
+            Search and filter through all {allModels.length} variants across resolution, reference count, and generation method.
+          </p>
+        </div>
+
+        <!-- Filter Controls Bar -->
+        <div class="glass p-4 rounded-2xl border border-[var(--border-subtle)] mb-8">
+          <div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4">
+
+            <!-- Generation Method Filter Tabs -->
+            <div class="flex items-center gap-1.5 overflow-x-auto pb-2 lg:pb-0 scrollbar-none flex-1 min-w-0" id="method-filters" role="tablist">
+              <button
+                class="method-tab px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer bg-[var(--accent)] text-[#0c0d10]"
+                data-method="all"
+                role="tab"
+                aria-selected="true"
+              >
+                All Methods ({allModels.length})
+              </button>
+              <button
+                class="method-tab px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer bg-[var(--bg-elevated)] text-[var(--text-secondary)] hover:text-white hover:bg-[var(--bg-card-hover)]"
+                data-method="text2vid"
+                role="tab"
+                aria-selected="false"
+              >
+                Text-to-Video
+              </button>
+              <button
+                class="method-tab px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer bg-[var(--bg-elevated)] text-[var(--text-secondary)] hover:text-white hover:bg-[var(--bg-card-hover)]"
+                data-method="im2vid"
+                role="tab"
+                aria-selected="false"
+              >
+                Image-to-Video
+              </button>
+              <button
+                class="method-tab px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer bg-[var(--bg-elevated)] text-[var(--text-secondary)] hover:text-white hover:bg-[var(--bg-card-hover)]"
+                data-method="vid2vid"
+                role="tab"
+                aria-selected="false"
+              >
+                Video-to-Video &amp; Swap
+              </button>
+              <button
+                class="method-tab px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer bg-[var(--bg-elevated)] text-[var(--text-secondary)] hover:text-white hover:bg-[var(--bg-card-hover)]"
+                data-method="text2seq"
+                role="tab"
+                aria-selected="false"
+              >
+                Multi-Shot Sequencing
+              </button>
+              <button
+                class="method-tab px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer bg-[var(--bg-elevated)] text-[var(--text-secondary)] hover:text-white hover:bg-[var(--bg-card-hover)]"
+                data-method="im2im"
+                role="tab"
+                aria-selected="false"
+              >
+                Image Edit &amp; Stills
+              </button>
+            </div>
+
+            <!-- Search Input Box -->
+            <div class="relative w-full lg:w-72 shrink-0">
+              <svg class="w-4 h-4 text-[var(--text-muted)] absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+              <input
+                type="text"
+                id="model-search"
+                placeholder="Search by name, engine, or spec..."
+                class="w-full pl-10 pr-4 py-2 bg-[var(--bg-page)] border border-[var(--border-subtle)] rounded-xl text-xs text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:border-[var(--accent)] transition-colors"
+              />
+            </div>
+          </div>
+
+          <!-- Active Filter & Count Bar -->
+          <div class="flex items-center justify-between mt-3 pt-3 border-t border-[var(--border-subtle)] px-1 text-xs text-[var(--text-muted)] font-mono">
+            <span id="model-count-feedback">Showing all {allModels.length} models</span>
+            <span id="model-filter-status" class="hidden text-[var(--accent)]">Filtered</span>
+          </div>
+        </div>
+
+        <!-- Engines Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="models-matrix">
+          {allModels.map((m) => (
+            <div
+              class="model-card glass p-5 rounded-xl border border-[var(--border-subtle)] hover:border-orange-500/30 transition-all flex flex-col justify-between"
+              data-name={m.name.toLowerCase()}
+              data-key={m.key.toLowerCase()}
+              data-engine={m.engine.toLowerCase()}
+              data-desc={m.desc.toLowerCase()}
+              data-family={m.family.toLowerCase()}
+              data-method={m.method}
+            >
+              <div>
+                <!-- Top metadata: family pill & method badge -->
+                <div class="flex items-center justify-between gap-2 mb-2">
+                  <a
+                    href={`/models/${m.family}`}
+                    class="text-[0.68rem] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-[var(--bg-elevated)] text-[var(--text-secondary)] hover:text-white transition-colors no-underline"
+                  >
+                    {m.family.toUpperCase()}
+                  </a>
+                  <span class="text-[0.68rem] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-[var(--accent-subtle)] text-[var(--accent)] border border-[var(--accent)]/20 font-mono">
+                    {m.methodBadge}
+                  </span>
+                </div>
+
+                <!-- Model Name -->
+                <h4 class="font-display font-bold text-base text-[var(--text-primary)] mb-1 flex items-center justify-between">
+                  <span>{m.name}</span>
+                  <span class="text-sm font-black text-emerald-400 font-mono">
+                    {m.cost} <span class="text-[0.65rem] font-normal text-[var(--text-muted)]">cr</span>
+                  </span>
+                </h4>
+
+                <!-- Engine key -->
+                <div class="font-mono text-[0.68rem] text-[var(--text-muted)] mb-2 truncate" title={m.engine}>
+                  engine: {m.engine}
+                </div>
+
+                <!-- Description -->
+                <p class="text-xs text-[var(--text-secondary)] leading-relaxed mb-4 line-clamp-2">
+                  {m.desc}
+                </p>
+              </div>
+
+              <!-- Specs strip -->
+              <div class="pt-3 border-t border-[rgba(46,50,59,0.4)] grid grid-cols-3 gap-2 text-center text-[0.68rem] font-mono text-[var(--text-muted)]">
+                <div class="bg-[var(--bg-surface)] py-1 px-1.5 rounded">
+                  <div class="text-[var(--text-secondary)] font-bold">{m.resolution}</div>
+                  <div class="text-[0.6rem]">RES</div>
+                </div>
+                <div class="bg-[var(--bg-surface)] py-1 px-1.5 rounded">
+                  <div class="text-[var(--text-secondary)] font-bold">{m.maxRefs > 0 ? `${m.maxRefs} refs` : 'Prompt'}</div>
+                  <div class="text-[0.6rem]">INPUT</div>
+                </div>
+                <div class="bg-[var(--bg-surface)] py-1 px-1.5 rounded">
+                  <div class="text-[var(--text-secondary)] font-bold">{m.hasAudio ? 'Audio' : m.duration}</div>
+                  <div class="text-[0.6rem]">{m.hasAudio ? 'AUDIO' : 'DURATION'}</div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <!-- Zero state when search returns nothing -->
+        <div id="no-models-state" class="hidden text-center py-16 glass rounded-2xl border border-[var(--border-subtle)] max-w-md mx-auto my-8">
+          <p class="text-sm text-[var(--text-secondary)] mb-4">No AI models matched your current filter criteria.</p>
+          <button id="reset-models-btn" class="btn btn-primary text-xs">
+            Reset model filters
+          </button>
+        </div>
+      </section>
+
+      <!-- Section 3: The Multi-Model Advantage Comparison -->
+      <section class="section py-16 border-t border-[var(--border-subtle)] mb-16">
+        <div class="sect-head text-center mb-10">
+          <span class="sect-label">DIRECTOR'S PLAYBOOK</span>
+          <h2 class="font-display font-extrabold text-2xl sm:text-3xl text-[var(--text-primary)]">
+            When to Direct Which Model
+          </h2>
+          <p class="text-sm text-[var(--text-secondary)] max-w-xl mx-auto mt-2">
+            Every foundation model has distinct architectural superpowers. Here is how studios orchestrate them in 10zebra:
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="glass p-6 rounded-2xl border border-[var(--border-subtle)]">
+            <div class="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center font-bold text-lg mb-4">
+              🎬
+            </div>
+            <h3 class="font-display font-bold text-base text-[var(--text-primary)] mb-2">Cinematic Acting &amp; Dialogue</h3>
+            <p class="text-xs text-[var(--text-secondary)] leading-relaxed mb-4">
+              Use <strong>Google Veo 3</strong> when you need synchronized character speech and spatial room audio. Pair with <strong>Kling 3.0</strong> for dramatic close-ups and intense emotive acting.
+            </p>
+            <span class="text-[0.7rem] font-mono text-[var(--accent)] font-semibold">Recommended: Veo 3 Audio + Kling 3</span>
+          </div>
+
+          <div class="glass p-6 rounded-2xl border border-[var(--border-subtle)]">
+            <div class="w-10 h-10 rounded-xl bg-pink-500/10 text-pink-400 flex items-center justify-center font-bold text-lg mb-4">
+              👥
+            </div>
+            <h3 class="font-display font-bold text-base text-[var(--text-primary)] mb-2">Character Swaps &amp; Consistency</h3>
+            <p class="text-xs text-[var(--text-secondary)] leading-relaxed mb-4">
+              Use <strong>SeeDance 2.5</strong> with up to 30 reference frames and <strong>KarakterSD</strong> to maintain facial identity, wardrobe, and styling across continuous 30-second sequences.
+            </p>
+            <span class="text-[0.7rem] font-mono text-[var(--accent)] font-semibold">Recommended: SeeDance 2.5 + KarakterSD</span>
+          </div>
+
+          <div class="glass p-6 rounded-2xl border border-[var(--border-subtle)]">
+            <div class="w-10 h-10 rounded-xl bg-orange-500/10 text-orange-400 flex items-center justify-center font-bold text-lg mb-4">
+              ⚡
+            </div>
+            <h3 class="font-display font-bold text-base text-[var(--text-primary)] mb-2">Rapid Previs &amp; Dynamic Moves</h3>
+            <p class="text-xs text-[var(--text-secondary)] leading-relaxed mb-4">
+              Use <strong>Grok Imagine</strong> (20 credits) and <strong>Wan 720</strong> for rapid beat mapping and animatics. Graduate hero action shots to <strong>Runway Gen-4.5</strong> for pristine camera trajectories.
+            </p>
+            <span class="text-[0.7rem] font-mono text-[var(--accent)] font-semibold">Recommended: Grok + Runway Gen-4.5</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 4: Studio Subscription CTA Banner -->
+      <section class="glow-border p-8 md:p-12 rounded-3xl bg-gradient-to-br from-[#1a1c21] to-[#0c0d10] border border-[var(--border-subtle)] text-center relative overflow-hidden">
+        <div class="absolute -top-24 -right-24 w-56 h-56 bg-[var(--accent)] opacity-15 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="relative z-10 max-w-2xl mx-auto">
+          <span class="sect-label">START DIRECTING IN MINUTES</span>
+          <h2 class="font-display font-black text-2xl sm:text-3xl text-[var(--text-primary)] mb-4">
+            Try Every Frontier Model Free
+          </h2>
+          <p class="text-sm text-[var(--text-secondary)] mb-8 leading-relaxed">
+            Sign up for 10zebra and receive 200 free trial credits. Test Kling, Veo, SeeDance, Runway, Grok, and Wan from one unified timeline with zero setup.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="/signup" class="btn btn-primary btn-lg shadow-lg shadow-orange-500/20">
+              Start Free &mdash; 200 Credits
+            </a>
+            <a href="/pricing" class="btn btn-ghost btn-lg">
+              View Credit Rates &rarr;
+            </a>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <Footer />
+
+  <!-- Client-side Interactive Filter Script -->
+  <script>
+    (function initModelMatrix() {
+      const searchInput = document.getElementById('model-search') as HTMLInputElement | null;
+      const methodTabs = document.querySelectorAll('.method-tab');
+      const cards = document.querySelectorAll('.model-card') as NodeListOf<HTMLElement>;
+      const countEl = document.getElementById('model-count-feedback');
+      const statusEl = document.getElementById('model-filter-status');
+      const noResults = document.getElementById('no-models-state');
+      const resetBtn = document.getElementById('reset-models-btn');
+
+      let currentMethod = 'all';
+      let searchQuery = '';
+
+      function filterMatrix() {
+        let visibleCount = 0;
+
+        cards.forEach((card) => {
+          const name = card.getAttribute('data-name') || '';
+          const key = card.getAttribute('data-key') || '';
+          const engine = card.getAttribute('data-engine') || '';
+          const desc = card.getAttribute('data-desc') || '';
+          const method = card.getAttribute('data-method') || '';
+          const family = card.getAttribute('data-family') || '';
+
+          const matchesMethod = currentMethod === 'all' || method === currentMethod;
+          const matchesSearch =
+            !searchQuery ||
+            name.includes(searchQuery) ||
+            key.includes(searchQuery) ||
+            engine.includes(searchQuery) ||
+            desc.includes(searchQuery) ||
+            family.includes(searchQuery);
+
+          if (matchesMethod && matchesSearch) {
+            card.style.display = '';
+            visibleCount++;
+          } else {
+            card.style.display = 'none';
+          }
+        });
+
+        if (countEl) {
+          countEl.textContent = `Showing ${visibleCount} of ${cards.length} models`;
+        }
+
+        if (statusEl) {
+          if (currentMethod !== 'all' || searchQuery) {
+            statusEl.classList.remove('hidden');
+          } else {
+            statusEl.classList.add('hidden');
+          }
+        }
+
+        if (noResults) {
+          if (visibleCount === 0) {
+            noResults.classList.remove('hidden');
+          } else {
+            noResults.classList.add('hidden');
+          }
+        }
+      }
+
+      methodTabs.forEach((tab) => {
+        tab.addEventListener('click', () => {
+          methodTabs.forEach((t) => {
+            t.classList.remove('bg-[var(--accent)]', 'text-[#0c0d10]');
+            t.classList.add('bg-[var(--bg-elevated)]', 'text-[var(--text-secondary)]');
+            t.setAttribute('aria-selected', 'false');
+          });
+
+          tab.classList.remove('bg-[var(--bg-elevated)]', 'text-[var(--text-secondary)]');
+          tab.classList.add('bg-[var(--accent)]', 'text-[#0c0d10]');
+          tab.setAttribute('aria-selected', 'true');
+
+          currentMethod = tab.getAttribute('data-method') || 'all';
+          filterMatrix();
+        });
+      });
+
+      if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+          searchQuery = (e.target as HTMLInputElement).value.trim().toLowerCase();
+          filterMatrix();
+        });
+      }
+
+      if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+          currentMethod = 'all';
+          searchQuery = '';
+          if (searchInput) searchInput.value = '';
+
+          methodTabs.forEach((t) => {
+            if (t.getAttribute('data-method') === 'all') {
+              t.classList.remove('bg-[var(--bg-elevated)]', 'text-[var(--text-secondary)]');
+              t.classList.add('bg-[var(--accent)]', 'text-[#0c0d10]');
+              t.setAttribute('aria-selected', 'true');
+            } else {
+              t.classList.remove('bg-[var(--accent)]', 'text-[#0c0d10]');
+              t.classList.add('bg-[var(--bg-elevated)]', 'text-[var(--text-secondary)]');
+              t.setAttribute('aria-selected', 'false');
+            }
+          });
+
+          filterMatrix();
+        });
+      }
+    })();
+  </script>
+</Layout>

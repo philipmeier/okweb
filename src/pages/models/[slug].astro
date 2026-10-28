@@ -1,0 +1,410 @@
+---
+// src/pages/models/[slug].astro
+// Master Template for AI Model Family Detail Pages (Kling, Veo, Runway, SeeDance, etc.)
+import Layout from '/src/layouts/Layout.astro';
+import Header from '/src/components/layout/Header.astro';
+import Footer from '/src/components/layout/Footer.astro';
+import { getModelFamilies, getModelFamily, type ModelFamily } from '/src/data/models';
+
+export async function getStaticPaths() {
+  const families = getModelFamilies();
+
+  // Create paths for all families
+  const paths = families.map((family) => ({
+    params: { slug: family.slug },
+    props: { family, allFamilies: families },
+  }));
+
+  // Add alias paths if needed (e.g. 'sora' -> openai family, 'flux' -> flux family)
+  const hasSora = families.some((f) => f.slug === 'sora');
+  if (!hasSora) {
+    const openaiFam = families.find((f) => f.slug === 'openai');
+    if (openaiFam) {
+      paths.push({
+        params: { slug: 'sora' },
+        props: { family: openaiFam, allFamilies: families },
+      });
+    }
+  }
+
+  const hasFlux = families.some((f) => f.slug === 'flux');
+  if (!hasFlux) {
+    // Synthetic fallback for Flux Pro
+    const fluxFamily: ModelFamily = {
+      slug: 'flux',
+      name: 'Flux Pro',
+      developer: 'Black Forest Labs',
+      tagline: 'The gold standard for photorealistic character anchors and reference portraits',
+      accentColor: '#8b5cf6',
+      badge: 'Character Anchor',
+      overview: 'Created by the original team behind Stable Diffusion, Flux Pro delivers unmatched photorealism, skin textures, and anatomical fidelity. In 10zebra, Flux Pro generates the character anchor portraits that lock down facial identity across your video scenes.',
+      strengths: [
+        'Unsurpassed skin texture, eye reflections, and facial realism',
+        'Flawless hand and foreground object rendering',
+        'Zero-distortion baseline portraits for video-to-video character swaps',
+        'Rapid 8-second generation time at only 5-10 credits'
+      ],
+      tips: 'Generate your main characters first using Flux Pro, then pass the resulting image into Runway, SeeDance, or Kling as your reference anchor.',
+      modelCount: 1,
+      minCost: 10,
+      maxCost: 10,
+      methods: ['Image Generation'],
+      models: [
+        {
+          key: 'text2vid-flenburns',
+          name: 'Flux Pro',
+          family: 'flux',
+          method: 'text2im',
+          methodLabel: 'Image Generation',
+          methodBadge: 'IMG',
+          engine: 'black-forest-labs/flux-pro',
+          desc: 'Generate high-fidelity photorealistic character reference images and anchor portraits.',
+          cost: 10,
+          maxRefs: 0,
+          resolution: '1080p',
+          duration: 'Single Frame',
+          speed: 'Ultra-Fast (~8s)',
+          hasAudio: false,
+          isCharacterSwap: false,
+          isSequence: false
+        }
+      ]
+    };
+    paths.push({
+      params: { slug: 'flux' },
+      props: { family: fluxFamily, allFamilies: families },
+    });
+  }
+
+  return paths;
+}
+
+interface Props {
+  family: ModelFamily;
+  allFamilies: ModelFamily[];
+}
+
+const { family, allFamilies } = Astro.props;
+
+// Other families for cross-linking
+const otherFamilies = allFamilies.filter((f) => f.slug !== family.slug).slice(0, 3);
+
+const pageTitle = `${family.name} AI Video Models | Specs, Engines & Rates | 10zebra`;
+const pageDescription = `Direct ${family.name} (${family.developer}) in 10zebra. Compare all ${family.modelCount} variants (${family.badge}) with transparent credit rates, prompt recipes, and multi-model pipeline workflows.`;
+const canonicalUrl = `https://10zebra.com/models/${family.slug}`;
+
+// Schema for SoftwareApplication
+const familySchema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": `${family.name} on 10zebra`,
+  "applicationCategory": "MultimediaApplication",
+  "operatingSystem": "Cloud-based video production web app",
+  "description": family.overview,
+  "offers": {
+    "@type": "AggregateOffer",
+    "lowPrice": `${family.minCost}`,
+    "highPrice": `${family.maxCost}`,
+    "priceCurrency": "Credits"
+  },
+  "creator": {
+    "@type": "Organization",
+    "name": family.developer
+  }
+};
+---
+
+<Layout title={pageTitle} description={pageDescription} canonicalUrl={canonicalUrl}>
+  <script type="application/ld+json" set:html={JSON.stringify(familySchema)} />
+
+  <Header />
+
+  <main class="min-h-screen pt-10 pb-24 relative overflow-hidden" style={`--family-accent: ${family.accentColor};`}>
+    <!-- Ambient Glow Tailored to Family Accent Color -->
+    <div
+      class="absolute top-10 left-1/2 -translate-x-1/2 w-[700px] h-[350px] opacity-15 rounded-full blur-3xl pointer-events-none"
+      style={`background: ${family.accentColor};`}
+    ></div>
+
+    <div class="wrap max-w-7xl mx-auto px-4 sm:px-6">
+
+      <!-- Breadcrumbs -->
+      <nav class="flex items-center gap-2 text-xs font-mono text-[var(--text-muted)] mb-8" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-[var(--text-primary)] transition-colors no-underline">Home</a>
+        <span>/</span>
+        <a href="/models" class="hover:text-[var(--text-primary)] transition-colors no-underline">AI Models</a>
+        <span>/</span>
+        <span class="text-[var(--accent)] font-semibold">{family.name}</span>
+      </nav>
+
+      <!-- Family Hero Banner -->
+      <section class="glass p-8 md:p-12 rounded-3xl border border-[var(--border-subtle)] mb-14 relative overflow-hidden">
+        <!-- Top decorative border -->
+        <div class="absolute top-0 left-0 right-0 h-1.5" style={`background: ${family.accentColor};`}></div>
+
+        <div class="max-w-3xl">
+          <!-- Developer Eyebrow -->
+          <div class="flex flex-wrap items-center gap-2.5 mb-4">
+            <span class="text-xs uppercase font-bold tracking-widest px-3 py-1 rounded-full bg-[var(--bg-elevated)] text-[var(--text-secondary)] border border-[var(--border-subtle)] font-mono">
+              {family.developer}
+            </span>
+            <span
+              class="text-xs uppercase font-bold tracking-widest px-3 py-1 rounded-full border"
+              style={`color: ${family.accentColor}; border-color: ${family.accentColor}50; background: ${family.accentColor}15;`}
+            >
+              {family.badge}
+            </span>
+          </div>
+
+          <!-- Family Title -->
+          <h1 class="font-display font-black text-3xl sm:text-4xl md:text-5xl text-[var(--text-primary)] tracking-tight mb-4 leading-tight">
+            {family.name} <br />
+            <span class="grad-text">Foundation Architecture</span>
+          </h1>
+
+          <!-- Tagline -->
+          <p class="text-base sm:text-lg text-[var(--text-secondary)] leading-relaxed mb-8">
+            {family.tagline}
+          </p>
+
+          <!-- Overview -->
+          <div class="p-5 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] mb-8 text-sm text-[var(--text-secondary)] leading-relaxed">
+            {family.overview}
+          </div>
+
+          <!-- Quick Stat Pills -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div class="bg-[var(--bg-page)] p-3 rounded-xl border border-[var(--border-subtle)] text-center">
+              <div class="text-xl font-extrabold text-[var(--text-primary)] font-mono">{family.modelCount}</div>
+              <div class="text-[0.65rem] text-[var(--text-muted)] uppercase tracking-wider font-semibold">Active Engines</div>
+            </div>
+            <div class="bg-[var(--bg-page)] p-3 rounded-xl border border-[var(--border-subtle)] text-center">
+              <div class="text-xl font-extrabold text-emerald-400 font-mono">{family.minCost} cr</div>
+              <div class="text-[0.65rem] text-[var(--text-muted)] uppercase tracking-wider font-semibold">Starting Rate</div>
+            </div>
+            <div class="bg-[var(--bg-page)] p-3 rounded-xl border border-[var(--border-subtle)] text-center">
+              <div class="text-xl font-extrabold text-amber-400 font-mono">{family.maxCost} cr</div>
+              <div class="text-[0.65rem] text-[var(--text-muted)] uppercase tracking-wider font-semibold">Max Fidelity</div>
+            </div>
+            <div class="bg-[var(--bg-page)] p-3 rounded-xl border border-[var(--border-subtle)] text-center">
+              <div class="text-xl font-extrabold text-blue-400 font-mono">100%</div>
+              <div class="text-[0.65rem] text-[var(--text-muted)] uppercase tracking-wider font-semibold">Auto Refund</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Architectural Strengths -->
+      <section class="mb-16">
+        <div class="sect-head text-left mb-6">
+          <span class="sect-label">ARCHITECTURAL HIGHLIGHTS</span>
+          <h2 class="font-display font-extrabold text-2xl text-[var(--text-primary)]">
+            Why Producers Direct with {family.name}
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+          {family.strengths.map((strength, idx) => (
+            <div class="glass p-5 rounded-xl border border-[var(--border-subtle)] flex items-start gap-3.5">
+              <div
+                class="w-7 h-7 rounded-lg flex items-center justify-center shrink-0 text-sm font-bold font-mono"
+                style={`background: ${family.accentColor}20; color: ${family.accentColor}; border: 1px solid ${family.accentColor}40;`}
+              >
+                0{idx + 1}
+              </div>
+              <div>
+                <p class="text-sm font-semibold text-[var(--text-primary)] leading-snug">
+                  {strength}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <!-- Producer Directing Tip Callout -->
+        {family.tips && (
+          <div class="p-5 rounded-2xl bg-amber-500/5 border border-amber-500/20 flex flex-col sm:flex-row items-start gap-4">
+            <div class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center shrink-0 font-bold">
+              💡
+            </div>
+            <div>
+              <h4 class="text-xs font-bold uppercase tracking-wider text-amber-400 font-mono mb-1">
+                PRODUCER PROMPT RECIPE
+              </h4>
+              <p class="text-xs text-[var(--text-secondary)] leading-relaxed">
+                {family.tips}
+              </p>
+            </div>
+          </div>
+        )}
+      </section>
+
+      <!-- Supported Variant Engines Roster -->
+      <section class="mb-20" id="engines-roster">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
+          <div>
+            <span class="sect-label">AVAILABLE GENERATION ENGINES</span>
+            <h2 class="font-display font-black text-2xl sm:text-3xl text-[var(--text-primary)]">
+              {family.name} Engine Variants ({family.models.length})
+            </h2>
+          </div>
+          <span class="text-xs text-[var(--text-muted)] font-mono">
+            Directly selectable in the 10zebra shot generator
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {family.models.map((m) => (
+            <div class="glass p-6 rounded-2xl border border-[var(--border-subtle)] hover:border-orange-500/30 transition-all flex flex-col justify-between">
+              <div>
+                <!-- Top Badge & Method -->
+                <div class="flex items-center justify-between gap-2 mb-3">
+                  <span class="text-xs uppercase font-bold tracking-wider px-2.5 py-1 rounded-full bg-[var(--bg-elevated)] text-[var(--text-secondary)] font-mono">
+                    {m.methodLabel}
+                  </span>
+                  <div class="text-right">
+                    <span class="text-lg font-black text-emerald-400 font-mono">
+                      {m.cost}
+                    </span>
+                    <span class="text-xs text-[var(--text-muted)] ml-1">credits</span>
+                  </div>
+                </div>
+
+                <!-- Model Variant Name -->
+                <h3 class="font-display font-bold text-xl text-[var(--text-primary)] mb-1">
+                  {m.name}
+                </h3>
+
+                <!-- Backend Engine Key -->
+                <div class="font-mono text-xs text-[var(--text-muted)] mb-3 select-all">
+                  engine: <code class="text-[var(--accent)]">{m.engine}</code>
+                </div>
+
+                <!-- Description -->
+                <p class="text-xs text-[var(--text-secondary)] leading-relaxed mb-6">
+                  {m.desc}
+                </p>
+              </div>
+
+              <!-- Technical Specifications Grid -->
+              <div class="pt-4 border-t border-[var(--border-subtle)] grid grid-cols-4 gap-2 text-center text-xs font-mono text-[var(--text-muted)]">
+                <div class="bg-[var(--bg-surface)] py-2 px-1 rounded-lg">
+                  <div class="text-[var(--text-primary)] font-bold">{m.resolution}</div>
+                  <div class="text-[0.62rem] text-[var(--text-muted)] mt-0.5">RES</div>
+                </div>
+                <div class="bg-[var(--bg-surface)] py-2 px-1 rounded-lg">
+                  <div class="text-[var(--text-primary)] font-bold">{m.duration}</div>
+                  <div class="text-[0.62rem] text-[var(--text-muted)] mt-0.5">DURATION</div>
+                </div>
+                <div class="bg-[var(--bg-surface)] py-2 px-1 rounded-lg">
+                  <div class="text-[var(--text-primary)] font-bold">{m.maxRefs > 0 ? `${m.maxRefs} refs` : 'None'}</div>
+                  <div class="text-[0.62rem] text-[var(--text-muted)] mt-0.5">INPUT REFS</div>
+                </div>
+                <div class="bg-[var(--bg-surface)] py-2 px-1 rounded-lg">
+                  <div class="text-[var(--text-primary)] font-bold">{m.hasAudio ? 'Sync Audio' : 'Mute'}</div>
+                  <div class="text-[0.62rem] text-[var(--text-muted)] mt-0.5">AUDIO</div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- Multi-Model Workflow Integration Example -->
+      <section class="mb-20 glass p-8 md:p-10 rounded-3xl border border-[var(--border-subtle)]">
+        <div class="max-w-2xl mb-8">
+          <span class="sect-label">HYBRID PIPELINE ARCHITECTURE</span>
+          <h2 class="font-display font-black text-2xl text-[var(--text-primary)] mb-3">
+            How to Combine {family.name} in a Production Storyboard
+          </h2>
+          <p class="text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed">
+            In 10zebra, you are never constrained to using one model for the whole project. Build rich cinematic beats by sequencing models together:
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+          <div class="p-4 rounded-xl bg-[var(--bg-surface)] border border-[var(--border-subtle)]">
+            <span class="text-[0.7rem] font-mono text-[var(--accent)] font-bold block mb-1">SHOT STEP 1</span>
+            <h4 class="font-bold text-sm text-[var(--text-primary)] mb-1">Character Anchor</h4>
+            <p class="text-[var(--text-muted)] leading-relaxed">
+              Generate consistent facial portraits using Flux Pro or Nano 2 to lock in wardrobe and identity.
+            </p>
+          </div>
+          <div class="p-4 rounded-xl bg-[var(--bg-surface)] border border-[var(--border-subtle)]">
+            <span class="text-[0.7rem] font-mono text-[var(--accent)] font-bold block mb-1">SHOT STEP 2</span>
+            <h4 class="font-bold text-sm text-[var(--text-primary)] mb-1">{family.name} Core Scene</h4>
+            <p class="text-[var(--text-muted)] leading-relaxed">
+              Drive the main scene with {family.name} using your anchor reference for maximum fidelity.
+            </p>
+          </div>
+          <div class="p-4 rounded-xl bg-[var(--bg-surface)] border border-[var(--border-subtle)]">
+            <span class="text-[0.7rem] font-mono text-[var(--accent)] font-bold block mb-1">SHOT STEP 3</span>
+            <h4 class="font-bold text-sm text-[var(--text-primary)] mb-1">Timeline Assembly</h4>
+            <p class="text-[var(--text-muted)] leading-relaxed">
+              Export straight to YouTube or download 1080p ProRes-ready takes with automatic fail refund protection.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Other Model Families Cross-Links -->
+      <section class="mb-20">
+        <div class="flex items-center justify-between mb-6">
+          <h3 class="font-display font-bold text-xl text-[var(--text-primary)]">
+            Explore Other Model Families
+          </h3>
+          <a href="/models" class="text-xs font-semibold text-[var(--accent)] hover:text-amber-300 no-underline">
+            All Models Directory &rarr;
+          </a>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          {otherFamilies.map((other) => (
+            <a
+              href={`/models/${other.slug}`}
+              class="glass p-5 rounded-xl border border-[var(--border-subtle)] hover:border-orange-500/30 transition-all no-underline block group"
+            >
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-mono text-[var(--text-muted)]">{other.developer}</span>
+                <span class="text-[0.65rem] px-2 py-0.5 rounded-full border border-[var(--border-subtle)] text-[var(--text-secondary)]">
+                  {other.badge}
+                </span>
+              </div>
+              <h4 class="font-display font-bold text-base text-[var(--text-primary)] group-hover:text-[var(--accent)] transition-colors mb-1">
+                {other.name}
+              </h4>
+              <p class="text-xs text-[var(--text-secondary)] line-clamp-2">
+                {other.tagline}
+              </p>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <!-- Bottom CTA Banner -->
+      <section class="glow-border p-8 md:p-12 rounded-3xl bg-gradient-to-br from-[#1a1c21] to-[#0c0d10] border border-[var(--border-subtle)] text-center relative overflow-hidden">
+        <div class="absolute -top-24 -right-24 w-56 h-56 bg-[var(--accent)] opacity-15 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="relative z-10 max-w-xl mx-auto">
+          <span class="sect-label">START DIRECTING TODAY</span>
+          <h2 class="font-display font-black text-2xl sm:text-3xl text-[var(--text-primary)] mb-4">
+            Direct with {family.name} on 10zebra
+          </h2>
+          <p class="text-sm text-[var(--text-secondary)] mb-8 leading-relaxed">
+            Create your account now and get 200 free trial credits. Test {family.name} alongside Kling, Veo, Runway, and SeeDance in one unified workspace.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="/signup" class="btn btn-primary btn-lg shadow-lg shadow-orange-500/20">
+              Start Free &mdash; 200 Credits
+            </a>
+            <a href="/models" class="btn btn-ghost btn-lg">
+              Explore All Models &rarr;
+            </a>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
