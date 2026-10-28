@@ -15,7 +15,7 @@
 - [Model Context Protocol (MCP) Server](https://10zebra.com/mcp): FastMCP server setup guide for Claude Desktop and Cursor IDE with tool schemas.
 - [Pricing & Credits](https://10zebra.com/pricing): Subscription tiers (Maker $29/mo, Director $79/mo, Studio $199/mo) and non-expiring credit packs.
 - [Frequently Asked Questions](https://10zebra.com/faq): 27 comprehensive answers covering features, MCP, teams, billing, and commercial rights.
-- [About 10zebra](https://10zebra.com/about): Founded in 2021 by computational neuroscientist Dr. Philip Meier; pioneering multi-model video synthesis.
+- [About 10zebra](https://10zebra.com/about): Founded in 2021 by computational neuroscientist Philip Meier, PhD; pioneering multi-model video synthesis.
 - [Interactive Studio Demo](https://10zebra.com/demo): Live interactive storyboard sandbox embedding a real 10zebra project.
 - [Blog & Production Tutorials](https://10zebra.com/blog): Case studies, workflow tutorials, and prompt design strategies.
 
@@ -30,4 +30,4 @@
 - **Data Privacy:** 10zebra does not train AI models on user prompts, uploaded character references, or generated video.
 - **Credit Expiration:** Purchased top-up credits never expire. Monthly subscription credits refresh on each billing cycle.
 - **MCP Requirement:** MCP server access requires an active Director subscription ($79/mo) or higher.
-- **Founder:** Founded in October 2021 by Dr. Philip Meier (PhD in Computational Neuroscience from UC San Diego).
+- **Founder:** Founded in October 2021 by Philip Meier, PhD (PhD in Computational Neuroscience from UC San Diego).
