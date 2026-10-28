@@ -1,14 +1,17 @@
 ---
+import { Image } from "astro:assets";
+import philipImg from "/src/assets/media/philip.jpg";
+
 interface Props {
   name?: string;
   role?: string;
-  avatar?: string;
+  avatar?: any;
 }
 
 const {
   name = "Philip Meier, PhD",
   role = "Founder, 10zebra & Computational Neuroscientist",
-  avatar = "https://cdn.prod.website-files.com/63c08dc99cc1f6e207c35685/673d8f0ef64a98520b1354de_10zebra-watermark-white.png"
+  avatar = philipImg,
 } = Astro.props;
 ---
 
@@ -17,9 +20,15 @@ const {
 
   <div class="flex flex-col sm:flex-row items-start sm:items-center gap-5">
     <div class="relative flex-shrink-0">
-      <div class="w-16 h-16 rounded-full bg-gradient-to-tr from-[var(--accent)] to-[var(--accent-secondary)] p-[2px] shadow-lg shadow-orange-950/40">
+      <div class="w-16 h-16 rounded-full bg-gradient-to-tr from-[var(--accent)] to-[var(--accent-secondary)] p-[2px] shadow-lg shadow-orange-950/40 shrink-0">
         <div class="w-full h-full rounded-full bg-[#131417] flex items-center justify-center overflow-hidden">
-          <span class="text-xl font-bold font-display text-[var(--accent)]">PM</span>
+          <Image
+            src={avatar}
+            alt={name}
+            width={128}
+            height={128}
+            class="w-full h-full object-cover rounded-full"
+          />
         </div>
       </div>
       <div class="absolute -bottom-1 -right-1 w-5 h-5 bg-[#0c0d10] rounded-full flex items-center justify-center border border-[var(--border-subtle)]" title="Verified Creator">
@@ -45,7 +54,7 @@ const {
           Follow @10zebra_app
         </a>
         <span class="text-[var(--border-strong)]">•</span>
-        <a href="https://www.linkedin.com/company/90422726" target="_blank" rel="noopener noreferrer" class="text-xs text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors flex items-center gap-1.5 no-underline">
+        <a href="https://www.linkedin.com/in/philip-meier-phd/" target="_blank" rel="noopener noreferrer" class="text-xs text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors flex items-center gap-1.5 no-underline">
           <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
           LinkedIn
         </a>

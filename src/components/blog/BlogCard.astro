@@ -1,5 +1,6 @@
 ---
 import { Image } from "astro:assets";
+import philipImg from "/src/assets/media/philip.jpg";
 import type { BlogPost } from "/src/utils/blog";
 import { formatBlogDate, calculateReadingTime } from "/src/utils/blog";
 
@@ -83,8 +84,14 @@ const accent = categoryColors[category] || '#f97316';
     <!-- Card Footer -->
     <div class="pt-4 border-t border-[var(--border-subtle)] flex items-center justify-between mt-auto">
       <div class="flex items-center gap-2">
-        <div class="w-6 h-6 rounded-full bg-orange-500/20 text-[var(--accent)] flex items-center justify-center text-[0.65rem] font-bold font-display border border-orange-500/30">
-          PM
+        <div class="w-6 h-6 rounded-full overflow-hidden border border-orange-500/30 flex-shrink-0 bg-[#131417]">
+          <Image
+            src={philipImg}
+            alt={author}
+            width={48}
+            height={48}
+            class="w-full h-full object-cover rounded-full"
+          />
         </div>
         <span class="text-xs text-[var(--text-muted)] font-medium">{author}</span>
       </div>
