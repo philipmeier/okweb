@@ -1,8 +1,1849 @@
-﻿---
-import PlaceholderPage from "/src/layouts/PlaceholderPage.astro";
 ---
-<PlaceholderPage
-  title="MCP Server"
-  label="MCP Integration"
-  description="Connect 10zebra to Claude, ChatGPT, or Cursor via MCP. Generate AI video from any LLM workflow without exposing your local files."
-/>
+// src/pages/mcp.astro
+import Layout from "/src/layouts/Layout.astro";
+import Header from "/src/components/layout/Header.astro";
+import Footer from "/src/components/layout/Footer.astro";
+import FinalCTA from "/src/components/FinalCTA.astro";
+import {
+  mcpCatalog,
+  getMcpTools,
+  getMcpResources,
+  getMcpPrompts,
+  getMcpStats,
+  getMcpEnvVars,
+} from "/src/data/mcp";
+
+const tools = getMcpTools();
+const resources = getMcpResources();
+const prompts = getMcpPrompts();
+const stats = getMcpStats();
+const envVars = getMcpEnvVars();
+
+const pageTitle = "10zebra MCP Server | Direct AI Video with Claude, Cursor & LLM Agents (Director Plan)";
+const pageDescription = "Connect Claude Desktop, Cursor, and LLM coding agents directly to 10zebra's multi-model AI video production pipeline via the Model Context Protocol (MCP). Requires Director subscription ($79/mo). Includes 11 tools, 5 resources, and project credit isolation.";
+const canonicalUrl = "https://10zebra.com/mcp";
+
+// Comprehensive AEO & SEO Schema.org Graph
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "headline": "10zebra Model Context Protocol (MCP) Server Architecture & Integration Guide",
+      "description": "Technical specification and guide for using 10zebra's FastMCP server to programmatically orchestrate multi-model AI video pipelines through Anthropic Claude Desktop, Cursor, and custom autonomous agents on the Director plan.",
+      "url": canonicalUrl,
+      "inLanguage": "en-US",
+      "author": {
+        "@type": "Organization",
+        "name": "10zebra",
+        "url": "https://10zebra.com"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "10zebra",
+        "url": "https://10zebra.com",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://10zebra.com/assets/logo.png"
+        }
+      },
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "Model Context Protocol",
+          "description": "An open standard enabling AI assistants to securely discover tools, resources, and pre-engineered prompts."
+        },
+        {
+          "@type": "Thing",
+          "name": "AI Video Generation",
+          "description": "Multi-model video orchestration across Kling, Google Veo, OpenAI Sora, Runway Gen-4, and Wan 2.1."
+        }
+      ]
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "10zebra MCP Server",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "Cross-platform (HTTP / stdio)",
+      "offers": {
+        "@type": "Offer",
+        "price": "79",
+        "priceCurrency": "USD",
+        "description": "Available exclusively with the 10zebra Director subscription ($79/month) or Studio enterprise tier.",
+        "url": "https://10zebra.com/pricing"
+      },
+      "featureList": [
+        "FastMCP Streamable HTTP & stdio transport",
+        `Multi-tenant video project orchestration across ${stats.totalTools} callable tools`,
+        `Direct access to ${stats.totalResources} live storyboard resources and ${stats.totalPrompts} director prompts`,
+        "Atomic Firestore transaction credit enforcement",
+        "Multi-model video generation across 68+ AI models",
+        "Real-time storyboard manipulation, scene creation, and shot sequencing",
+        "Frame-accurate take trimming and final master cut saving",
+        "Zero-credential client architecture via secure mcpAction cloud function"
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Which subscription plan is required to access the 10zebra MCP server?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Access to the 10zebra Model Context Protocol (MCP) server requires an active Director plan ($79/mo) or higher. Director subscribers receive their dedicated MCP API key and streamable-HTTP / stdio credentials, 3,500 monthly credits, 30% discount on credit top-ups, and project-level isolated budget controls to power autonomous workflows in Claude Desktop and Cursor."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is an MCP server and how does 10zebra use it?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The Model Context Protocol (MCP) is an open standard developed by Anthropic that allows large language models (LLMs) like Claude, Cursor, and ChatGPT to connect to external systems. The 10zebra MCP server exposes 10zebra's multi-model AI video production pipeline as standard Tools (generate, add_story_shot, trim_take, etc.), Resources (board://{portal_id}, models://by-method), and Prompts, allowing AI assistants to act as autonomous video directors."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does 10zebra protect against AI agents overspending credits?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "10zebra enforces credit limits server-side within atomic Firestore transactions on a dedicated project-level ledger. An agent has no access to the user's personal wallet or credit card. If a project's allocated credits run out, the MCP server returns an actionable HTTP 402 Payment Required response containing a browser funding link (https://10zebra.com/p/{portal_id}), preventing runaway spend and headless silent failure."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can 10zebra MCP generate video using multiple AI models in the same project?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Through the generate tool, an AI agent can specify any supported model key (e.g. Kling 3.0 for physical camera motion, Google Veo 3 for photorealistic environmental shots, Runway Gen-4 for stylized action, or Wan 2.1 for open-source workflows) for each individual shot while maintaining storyboard coherence and character references."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How is the MCP server kept up-to-date with latest app features?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "10zebra utilizes an automated sync script (npm run sync:app) that inspects the backend server definitions in mcp/server.py and functions/mcp.js, immediately updating tools, parameter signatures, resources, and model catalogs directly on the web documentation."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://10zebra.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Developers",
+          "item": "https://10zebra.com/api"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "MCP Server",
+          "item": canonicalUrl
+        }
+      ]
+    }
+  ]
+};
+---
+
+<Layout title={pageTitle} description={pageDescription} canonicalUrl={canonicalUrl}>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+  <Header />
+
+  <main id="main-content" class="mcp-page">
+    {/* -------------------------------------------------------------
+        1. HERO SECTION
+    -------------------------------------------------------------- */}
+    <section class="section mcp-hero">
+      <div class="mcp-hero__bg-glow" aria-hidden="true"></div>
+      <div class="wrap">
+        <div class="mcp-hero__content">
+          <div class="mcp-badge">
+            <span class="mcp-badge__dot"></span>
+            <span>FastMCP Streamable-HTTP &bull; Requires Director Plan ($79/mo)</span>
+          </div>
+
+          <h1 class="mcp-hero__title">
+            Direct Multi-Model AI Video from <span class="grad-text">Claude, Cursor</span> &amp; Custom LLM Agents
+          </h1>
+
+          <p class="mcp-hero__lead">
+            The <strong>10zebra Model Context Protocol (MCP) server</strong> gives AI assistants native tools to compose storyboards, dispatch generations across 68+ models (Kling, Veo, Sora, Runway, Grok), trim takes, and render cuts&mdash;all backed by server-authoritative project credit guardrails.
+          </p>
+
+          <div class="mcp-hero__actions">
+            <a href="/signup?plan=director" class="btn btn-primary btn-lg">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14"></path>
+                <path d="M12 5l7 7-7 7"></path>
+              </svg>
+              <span>Unlock MCP on Director Plan ($79/mo)</span>
+            </a>
+            <a href="/pricing" class="btn btn-ghost btn-lg">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                <line x1="6" y1="8" x2="6" y2="8"></line>
+                <line x1="10" y1="8" x2="18" y2="8"></line>
+                <line x1="6" y1="12" x2="6" y2="12"></line>
+                <line x1="10" y1="12" x2="18" y2="12"></line>
+              </svg>
+              <span>Compare Pricing &amp; Plans</span>
+            </a>
+            <a href="#quickstart" class="btn btn-ghost btn-lg">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+              </svg>
+              <span>Setup Guide</span>
+            </a>
+          </div>
+
+          {/* Quick Metrics Bar (Dynamic from mcp.json) */}
+          <div class="mcp-metrics-bar">
+            <div class="mcp-metric-pill">
+              <span class="mcp-metric-pill__num">{stats.totalTools}</span>
+              <span class="mcp-metric-pill__label">Active Tools</span>
+            </div>
+            <div class="mcp-metric-divider"></div>
+            <div class="mcp-metric-pill">
+              <span class="mcp-metric-pill__num">{stats.totalResources}</span>
+              <span class="mcp-metric-pill__label">Live Resources</span>
+            </div>
+            <div class="mcp-metric-divider"></div>
+            <div class="mcp-metric-pill">
+              <span class="mcp-metric-pill__num">{stats.totalPrompts}</span>
+              <span class="mcp-metric-pill__label">Director Prompts</span>
+            </div>
+            <div class="mcp-metric-divider"></div>
+            <div class="mcp-metric-pill">
+              <span class="mcp-metric-pill__num">68+</span>
+              <span class="mcp-metric-pill__label">Supported Engines</span>
+            </div>
+            <div class="mcp-metric-divider"></div>
+            <div class="mcp-metric-pill mcp-metric-pill--highlight">
+              <span class="mcp-metric-pill__num">Director</span>
+              <span class="mcp-metric-pill__label">Plan Required</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* -------------------------------------------------------------
+        PLAN GATE CALLOUT BANNER: DIRECTOR SUBSCRIPTION REQUIRED
+    -------------------------------------------------------------- */}
+    <section class="section mcp-plan-gate-section">
+      <div class="wrap">
+        <div class="glass glow-border mcp-plan-gate-card">
+          <div class="mcp-plan-gate-left">
+            <div class="mcp-gate-badge">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+              <span>Subscription Requirement</span>
+            </div>
+            <h2>Available Exclusively on the Director Plan ($79/mo)</h2>
+            <p>
+              Autonomous LLM agents generate high-volume takes, construct multi-scene storyboards, and execute frame-accurate renders in rapid sequence. To ensure high-throughput GPU queue priority and provide dedicated project-level credit pools, <strong>MCP server access is reserved exclusively for Director subscribers</strong>.
+            </p>
+            <div class="mcp-plan-perks-grid">
+              <div class="mcp-perk-item">
+                <span class="mcp-perk-check">&check;</span>
+                <span><strong>3,500 monthly credits</strong> included (approx. 87 Kling shots or 175 Veo 3 clips)</span>
+              </div>
+              <div class="mcp-perk-item">
+                <span class="mcp-perk-check">&check;</span>
+                <span><strong>Personal MCP API key</strong> &amp; streamable-HTTP endpoint access</span>
+              </div>
+              <div class="mcp-perk-item">
+                <span class="mcp-perk-check">&check;</span>
+                <span><strong>30% discount</strong> on all additional top-up credit packs</span>
+              </div>
+              <div class="mcp-perk-item">
+                <span class="mcp-perk-check">&check;</span>
+                <span><strong>Project-isolated credit ledgers</strong> preventing runaway agent spend</span>
+              </div>
+              <div class="mcp-perk-item">
+                <span class="mcp-perk-check">&check;</span>
+                <span><strong>3 included team seats</strong> with role-based permissions</span>
+              </div>
+              <div class="mcp-perk-item">
+                <span class="mcp-perk-check">&check;</span>
+                <span><strong>100% automated credit refund</strong> on any upstream engine failure</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mcp-plan-gate-right">
+            <div class="mcp-plan-box">
+              <span class="mcp-plan-kicker">Director Subscription</span>
+              <div class="mcp-plan-price">
+                <span class="mcp-price-val">$79</span>
+                <span class="mcp-price-sub">/ month</span>
+              </div>
+              <p class="mcp-plan-save">Or $63/mo billed annually (save $192/yr)</p>
+              <a href="/signup?plan=director" class="btn btn-primary btn-full btn-lg">
+                Start Director Plan
+              </a>
+              <a href="/pricing" class="mcp-plan-link">
+                View full feature comparison &rarr;
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* -------------------------------------------------------------
+        2. AEO EXPLANATION: WHAT IS MCP & HOW 10ZEBRA USES IT
+    -------------------------------------------------------------- */}
+    <section class="section mcp-aeo-primer">
+      <div class="wrap">
+        <div class="mcp-section-header">
+          <span class="mcp-eyebrow">AEO &bull; Fundamental Concepts</span>
+          <h2 class="mcp-section-title">What is an MCP Server, and How Does It Transform AI Video Production?</h2>
+          <p class="mcp-section-sub">
+            The <strong>Model Context Protocol</strong> is an open-source standard created by Anthropic to solve the AI "silo problem." Rather than building isolated plugins for every LLM, MCP establishes a universal communication layer between frontier reasoning models and production cloud engines.
+          </p>
+        </div>
+
+        <div class="mcp-trio-grid">
+          <div class="glass mcp-concept-card">
+            <div class="mcp-concept-card__icon mcp-concept-card__icon--tools">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+              </svg>
+            </div>
+            <h3>1. Executable Tools ({tools.length})</h3>
+            <p>
+              Tools are atomic, callable functions that allow an LLM to take actions in 10zebra. Instead of hallucinating descriptions, the agent executes real production commands: creates scenes, generates videos, changes visual styles, and trims frames.
+            </p>
+            <div class="mcp-concept-card__examples">
+              <code>generate()</code> &bull; <code>add_story_shot()</code> &bull; <code>trim_take()</code>
+            </div>
+          </div>
+
+          <div class="glass mcp-concept-card">
+            <div class="mcp-concept-card__icon mcp-concept-card__icon--resources">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+                <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+              </svg>
+            </div>
+            <h3>2. Live Resources ({resources.length})</h3>
+            <p>
+              Resources provide real-time, zero-latency context to the model via standard URI schemes. An agent reads project storyboards, spendable credit balances, model rate cards, and render telemetry without manual copy-pasting.
+            </p>
+            <div class="mcp-concept-card__examples">
+              <code>board://&#123;portal_id&#125;</code> &bull; <code>models://by-method</code> &bull; <code>funds://</code>
+            </div>
+          </div>
+
+          <div class="glass mcp-concept-card">
+            <div class="mcp-concept-card__icon mcp-concept-card__icon--prompts">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+              </svg>
+            </div>
+            <h3>3. Directorial Prompts ({prompts.length})</h3>
+            <p>
+              Prompts are pre-engineered creative workflows exposed by the server. They guide the LLM to orchestrate cinematic narratives, expand short pitches into shotlists, fill timeline gaps, or tighten cuts to exact second targets.
+            </p>
+            <div class="mcp-concept-card__examples">
+              <code>compose_storyboard</code> &bull; <code>reimagine_shot</code> &bull; <code>tighten_cut</code>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* -------------------------------------------------------------
+        3. VISUAL DIAGRAM 1: COMPLETE MCP ARCHITECTURE
+    -------------------------------------------------------------- */}
+    <section id="architecture" class="section mcp-arch-section">
+      <div class="wrap">
+        <div class="mcp-section-header">
+          <span class="mcp-eyebrow">Visual Architecture &bull; End-to-End Topology</span>
+          <h2 class="mcp-section-title">How 10zebra MCP Server Connects to Your Workflow</h2>
+          <p class="mcp-section-sub">
+            A zero-credential, multi-tenant architecture designed for seamless coordination between local AI clients and 10zebra's distributed GPU production cluster.
+          </p>
+        </div>
+
+        {/* Interactive Diagram Container */}
+        <div class="glass mcp-diagram-card">
+          <div class="mcp-diagram-header">
+            <div class="mcp-diagram-dots">
+              <span class="mcp-dot mcp-dot--red"></span>
+              <span class="mcp-dot mcp-dot--yellow"></span>
+              <span class="mcp-dot mcp-dot--green"></span>
+            </div>
+            <div class="mcp-diagram-title">System Architecture: Client &bull; FastMCP &bull; Cloud Action &bull; GPU Fanout</div>
+            <div class="mcp-diagram-tag">Streamable HTTP :8080 / stdio</div>
+          </div>
+
+          <div class="mcp-arch-diagram">
+            {/* Column 1: AI Clients */}
+            <div class="mcp-arch-node mcp-arch-node--client">
+              <div class="mcp-node-header">
+                <span class="mcp-node-badge">AI Assistant Clients</span>
+                <h4>Reasoning &amp; Directing</h4>
+              </div>
+              <div class="mcp-client-item">
+                <span class="mcp-client-icon">&Delta;</span>
+                <div class="mcp-client-meta">
+                  <strong>Claude Desktop</strong>
+                  <span>Anthropic Native GUI</span>
+                </div>
+              </div>
+              <div class="mcp-client-item">
+                <span class="mcp-client-icon">&bull;</span>
+                <div class="mcp-client-meta">
+                  <strong>Cursor &amp; Windsurf</strong>
+                  <span>Agentic IDE Workflows</span>
+                </div>
+              </div>
+              <div class="mcp-client-item">
+                <span class="mcp-client-icon">&lambda;</span>
+                <div class="mcp-client-meta">
+                  <strong>Autonomous Python Agents</strong>
+                  <span>LangChain, CrewAI, Custom</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Flow 1: Protocol Connector */}
+            <div class="mcp-arch-arrow">
+              <div class="mcp-arrow-line">
+                <span class="mcp-pulse-dot"></span>
+              </div>
+              <div class="mcp-arrow-label">
+                <strong>Model Context Protocol</strong>
+                <span>JSON-RPC 2.0 / SSE</span>
+              </div>
+            </div>
+
+            {/* Column 2: 10zebra FastMCP Server */}
+            <div class="mcp-arch-node mcp-arch-node--server">
+              <div class="mcp-node-header">
+                <span class="mcp-node-badge mcp-node-badge--brand">10zebra FastMCP</span>
+                <h4>Stateless Gateway</h4>
+              </div>
+              <div class="mcp-server-box">
+                <div class="mcp-subbox">
+                  <strong>{stats.totalTools} Callable Tools</strong>
+                  <span>generate, add_shot, trim, cut</span>
+                </div>
+                <div class="mcp-subbox">
+                  <strong>{stats.totalResources} Live Resources</strong>
+                  <span>board://, models://, funds://</span>
+                </div>
+                <div class="mcp-subbox">
+                  <strong>Multi-Tenant Router</strong>
+                  <span>portal_id isolation on every call</span>
+                </div>
+              </div>
+              <div class="mcp-security-flag">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+                <span>Zero Database Credentials on Host</span>
+              </div>
+            </div>
+
+            {/* Flow 2: Cloud Gateway */}
+            <div class="mcp-arch-arrow">
+              <div class="mcp-arrow-line">
+                <span class="mcp-pulse-dot mcp-pulse-dot--delayed"></span>
+              </div>
+              <div class="mcp-arrow-label">
+                <strong>mcpAction Cloud API</strong>
+                <span>x-mcp-key &bull; agent:uid</span>
+              </div>
+            </div>
+
+            {/* Column 3: 10zebra Production Engine & Guardrails */}
+            <div class="mcp-arch-node mcp-arch-node--cloud">
+              <div class="mcp-node-header">
+                <span class="mcp-node-badge mcp-node-badge--secure">Authoritative Cloud</span>
+                <h4>Credit Guard &amp; Transcode</h4>
+              </div>
+              <div class="mcp-cloud-box">
+                <div class="mcp-cloud-row">
+                  <span class="mcp-check-icon">&check;</span>
+                  <span><strong>Atomic Firestore Transaction:</strong> Deducts from project balance</span>
+                </div>
+                <div class="mcp-cloud-row">
+                  <span class="mcp-check-icon">&check;</span>
+                  <span><strong>Credit Firewall:</strong> HTTP 402 on shortfall with human top-up URL</span>
+                </div>
+                <div class="mcp-cloud-row">
+                  <span class="mcp-check-icon">&check;</span>
+                  <span><strong>Trigger Fanout:</strong> Creates authoritative veneer documents</span>
+                </div>
+              </div>
+
+              {/* Model Fanout Pills */}
+              <div class="mcp-model-fanout">
+                <span class="mcp-model-tag">Kling 3.0</span>
+                <span class="mcp-model-tag">Veo 3</span>
+                <span class="mcp-model-tag">Sora</span>
+                <span class="mcp-model-tag">Runway Gen-4</span>
+                <span class="mcp-model-tag">Wan 2.1</span>
+                <span class="mcp-model-tag">Grok</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* -------------------------------------------------------------
+        4. DYNAMIC TECHNICAL SPECIFICATION (PULLED FROM APP CODE)
+    -------------------------------------------------------------- */}
+    <section id="tools-reference" class="section mcp-catalog-section">
+      <div class="wrap">
+        <div class="mcp-section-header">
+          <div class="mcp-sync-badge">
+            <span class="mcp-sync-dot"></span>
+            <span>Synced from App Codebase ({stats.totalTools} Tools &bull; {stats.totalResources} Resources &bull; {stats.totalPrompts} Prompts)</span>
+          </div>
+          <h2 class="mcp-section-title">Supported Tools, Resources &amp; Prompts</h2>
+          <p class="mcp-section-sub">
+            The authoritative capability matrix extracted directly from <code>../10z/mcp/server.py</code> and enforced by 10zebra Cloud Functions.
+          </p>
+        </div>
+
+        {/* Tab Switcher */}
+        <div class="mcp-tabs" role="tablist">
+          <button class="mcp-tab active" data-tab="tools" role="tab" aria-selected="true">
+            Callable Tools ({tools.length})
+          </button>
+          <button class="mcp-tab" data-tab="resources" role="tab" aria-selected="false">
+            Live Resources ({resources.length})
+          </button>
+          <button class="mcp-tab" data-tab="prompts" role="tab" aria-selected="false">
+            Director Prompts ({prompts.length})
+          </button>
+          <button class="mcp-tab" data-tab="env" role="tab" aria-selected="false">
+            Environment &amp; Config ({envVars.length})
+          </button>
+        </div>
+
+        {/* Tab 1: Tools (Dynamic) */}
+        <div class="mcp-tab-pane active" id="pane-tools">
+          <div class="mcp-spec-grid">
+            {tools.map((tool) => (
+              <div class="glass mcp-spec-card">
+                <div class="mcp-spec-card__top">
+                  <span class="mcp-pill mcp-pill--orange">Tool</span>
+                  <code class="mcp-fn-name">{tool.name}()</code>
+                </div>
+                <p class="mcp-spec-summary">{tool.summary}</p>
+
+                {tool.parameters && tool.parameters.length > 0 && (
+                  <div class="mcp-spec-args">
+                    <strong>Parameters ({tool.parameters.length}):</strong>
+                    <ul>
+                      {tool.parameters.map((p) => (
+                        <li>
+                          <code>{p.name}</code>
+                          <span class="mcp-param-type">({p.type})</span>
+                          {p.required ? (
+                            <span class="mcp-param-req">required</span>
+                          ) : (
+                            <span class="mcp-param-opt">default: {p.default || 'None'}</span>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Tab 2: Resources (Dynamic) */}
+        <div class="mcp-tab-pane" id="pane-resources">
+          <div class="mcp-spec-grid">
+            {resources.map((res) => (
+              <div class="glass mcp-spec-card">
+                <div class="mcp-spec-card__top">
+                  <span class="mcp-pill mcp-pill--blue">Resource</span>
+                  <code class="mcp-fn-name">{res.uri}</code>
+                </div>
+                <p class="mcp-spec-summary">{res.summary}</p>
+                <div class="mcp-spec-args">
+                  <strong>Handler Function:</strong> <code>{res.functionName}()</code>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Tab 3: Prompts (Dynamic) */}
+        <div class="mcp-tab-pane" id="pane-prompts">
+          <div class="mcp-spec-grid">
+            {prompts.map((prompt) => (
+              <div class="glass mcp-spec-card">
+                <div class="mcp-spec-card__top">
+                  <span class="mcp-pill mcp-pill--purple">Prompt</span>
+                  <code class="mcp-fn-name">{prompt.name}()</code>
+                </div>
+                <p class="mcp-spec-summary">{prompt.summary}</p>
+                <div class="mcp-spec-args">
+                  <strong>Arguments:</strong> <code>{prompt.args}</code>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Tab 4: Environment Variables (Dynamic) */}
+        <div class="mcp-tab-pane" id="pane-env">
+          <div class="mcp-spec-grid">
+            {envVars.map((env) => (
+              <div class="glass mcp-spec-card">
+                <div class="mcp-spec-card__top">
+                  <span class="mcp-pill mcp-pill--green">Env Var</span>
+                  <code class="mcp-fn-name">{env.name}</code>
+                </div>
+                <p class="mcp-spec-summary">{env.meaning}</p>
+                <div class="mcp-spec-args">
+                  <strong>Default / Example:</strong> <code>{env.defaultVal}</code>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* -------------------------------------------------------------
+        5. QUICKSTART & SETUP CONFIGURATION GUIDE
+    -------------------------------------------------------------- */}
+    <section id="quickstart" class="section mcp-setup-section">
+      <div class="wrap">
+        <div class="mcp-section-header">
+          <span class="mcp-eyebrow">Developer Setup &bull; Director Plan</span>
+          <h2 class="mcp-section-title">Connect 10zebra MCP to Your Client in 3 Steps</h2>
+          <p class="mcp-section-sub">
+            Copy the configuration block for your preferred assistant environment. Your <code>MCP_KEY</code> is available in your 10zebra Director account settings.
+          </p>
+        </div>
+
+        <div class="glass mcp-config-container">
+          <div class="mcp-config-nav">
+            <button class="mcp-cfg-btn active" data-cfg="claude">Claude Desktop</button>
+            <button class="mcp-cfg-btn" data-cfg="cursor">Cursor IDE</button>
+            <button class="mcp-cfg-btn" data-cfg="python">Python CLI / Server</button>
+          </div>
+
+          {/* Config Box 1: Claude Desktop */}
+          <div class="mcp-cfg-pane active" id="cfg-claude">
+            <div class="mcp-cfg-bar">
+              <span>claude_desktop_config.json</span>
+              <button class="mcp-copy-btn" data-copy-target="code-claude">Copy Config</button>
+            </div>
+            <pre class="mcp-code-block"><code id="code-claude">{`{
+  "mcpServers": {
+    "10zebra": {
+      "command": "python",
+      "args": ["-m", "mcp.server", "server.py"],
+      "env": {
+        "MCP_ENDPOINT": "https://10zebra.com/api/v1/mcp",
+        "MCP_KEY": "YOUR_DIRECTOR_MCP_KEY",
+        "MCP_UID": "YOUR_USER_UID",
+        "MCP_TRANSPORT": "stdio"
+      }
+    }
+  }
+}`}</code></pre>
+          </div>
+
+          {/* Config Box 2: Cursor */}
+          <div class="mcp-cfg-pane" id="cfg-cursor">
+            <div class="mcp-cfg-bar">
+              <span>.cursor/mcp.json</span>
+              <button class="mcp-copy-btn" data-copy-target="code-cursor">Copy Config</button>
+            </div>
+            <pre class="mcp-code-block"><code id="code-cursor">{`{
+  "mcpServers": {
+    "10zebra": {
+      "url": "http://127.0.0.1:8080/sse",
+      "env": {
+        "MCP_ENDPOINT": "https://10zebra.com/api/v1/mcp",
+        "MCP_KEY": "YOUR_DIRECTOR_MCP_KEY",
+        "MCP_UID": "YOUR_USER_UID"
+      }
+    }
+  }
+}`}</code></pre>
+          </div>
+
+          {/* Config Box 3: Python Server */}
+          <div class="mcp-cfg-pane" id="cfg-python">
+            <div class="mcp-cfg-bar">
+              <span>Terminal Setup</span>
+              <button class="mcp-copy-btn" data-copy-target="code-python">Copy Commands</button>
+            </div>
+            <pre class="mcp-code-block"><code id="code-python">{`# 1. Clone repository & create virtualenv
+git clone https://github.com/10zebra/10z-mcp.git && cd 10z-mcp
+python3 -m venv .venv
+source .venv/bin/activate
+pip install "mcp[cli]" requests uvicorn
+
+# 2. Launch streamable-HTTP server (serves any project via portal_id)
+MCP_UID=YOUR_USER_UID \\
+MCP_KEY=YOUR_DIRECTOR_MCP_KEY \\
+MCP_ENDPOINT=https://10zebra.com/api/v1/mcp \\
+python server.py
+
+# Server is ready on http://127.0.0.1:8080`}</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* -------------------------------------------------------------
+        6. AEO FAQ ACCORDION (STRUCTURED FOR ANSWER ENGINES)
+    -------------------------------------------------------------- */}
+    <section class="section mcp-faq-section">
+      <div class="wrap">
+        <div class="mcp-section-header">
+          <span class="mcp-eyebrow">Frequently Asked Questions</span>
+          <h2 class="mcp-section-title">Answers for Creators, Developers &amp; Answer Engines</h2>
+          <p class="mcp-section-sub">
+            Direct, technical answers to common questions about 10zebra's Model Context Protocol integration.
+          </p>
+        </div>
+
+        <div class="mcp-faq-list">
+          <details class="glass mcp-faq-item" open>
+            <summary class="mcp-faq-item__q">
+              <span>Which plan is required for the Model Context Protocol (MCP) server?</span>
+              <span class="mcp-faq-arrow">&darr;</span>
+            </summary>
+            <div class="mcp-faq-item__a">
+              <p>
+                Access to the 10zebra MCP server requires an active <strong>Director plan</strong> ($79/mo) or higher.
+              </p>
+              <p>
+                Because autonomous LLM agents can dispatch parallel renders and restructure multi-scene projects in seconds, the Director plan includes dedicated high-throughput cloud queues, 3,500 monthly credits, 30% discount on credit top-ups, and project-isolated budget controls so your agents never exceed their authorized spend.
+              </p>
+            </div>
+          </details>
+
+          <details class="glass mcp-faq-item">
+            <summary class="mcp-faq-item__q">
+              <span>What is an MCP server and how does 10zebra implement it?</span>
+              <span class="mcp-faq-arrow">&darr;</span>
+            </summary>
+            <div class="mcp-faq-item__a">
+              <p>
+                An <strong>MCP (Model Context Protocol) server</strong> is an open-standard gateway created by Anthropic that connects AI reasoning assistants (like Claude, Cursor, and custom agent frameworks) to external application systems.
+              </p>
+              <p>
+                The 10zebra MCP server exposes our multi-model AI video production platform as {stats.totalTools} callable tools, {stats.totalResources} live data resources, and {stats.totalPrompts} pre-built directorial prompts. This allows your LLM assistant to act as a full-fledged video producer: inspecting scenes, writing prompts, triggering generations across models like Kling 3.0 and Google Veo 3, and trimming the sequence directly from chat.
+              </p>
+            </div>
+          </details>
+
+          <details class="glass mcp-faq-item">
+            <summary class="mcp-faq-item__q">
+              <span>How does 10zebra prevent AI agents from overspending or draining my wallet?</span>
+              <span class="mcp-faq-arrow">&darr;</span>
+            </summary>
+            <div class="mcp-faq-item__a">
+              <p>
+                Unlike generic API keys that connect directly to personal credit card lines, 10zebra enforces spend limits server-side inside <strong>atomic Firestore transactions</strong> on dedicated project-level ledgers (<code>users/&#123;uid&#125;/stories/&#123;story_id&#125;/credits/0</code>).
+              </p>
+              <p>
+                An agent has no direct wallet access. If a project runs out of allocated credits, the generation tool immediately returns an <strong>HTTP 402 Payment Required</strong> error with a direct browser funding URL (<code>https://10zebra.com/p/&#123;portal_id&#125;</code>). This prevents runaway spending while informing the user exactly how to authorize further production.
+              </p>
+            </div>
+          </details>
+
+          <details class="glass mcp-faq-item">
+            <summary class="mcp-faq-item__q">
+              <span>Can an agent use different AI video models for different shots in one video?</span>
+              <span class="mcp-faq-arrow">&darr;</span>
+            </summary>
+            <div class="mcp-faq-item__a">
+              <p>
+                Yes. 10zebra is designed from the ground up for multi-model storytelling. Your agent can read the <code>models://by-method</code> resource to inspect active models, and choose different engines for different shots: for instance, using <strong>Google Veo 3</strong> for cinematic panoramic landscapes, <strong>Kling 3.0</strong> for complex character movements, and <strong>Runway Gen-4</strong> for stylistic transitions.
+              </p>
+            </div>
+          </details>
+
+          <details class="glass mcp-faq-item">
+            <summary class="mcp-faq-item__q">
+              <span>How do I update the documentation when the app codebase changes?</span>
+              <span class="mcp-faq-arrow">&darr;</span>
+            </summary>
+            <div class="mcp-faq-item__a">
+              <p>
+                10zebra provides a unified update script: <code>npm run sync:app</code> (or <code>npm run sync:mcp</code>). This parses the backend <code>mcp/server.py</code> and <code>functions/mcp.js</code> files, automatically re-indexing all tool signatures, parameter tables, resources, and model rates across the site.
+              </p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    {/* -------------------------------------------------------------
+        7. FINAL CTA
+    -------------------------------------------------------------- */}
+    <FinalCTA
+      title="Ready to Orchestrate AI Video with Claude &amp; Cursor?"
+      subtitle="Subscribe to the Director plan ($79/mo) to unlock your MCP credentials, 3,500 monthly production credits, and 30% off all top-up packs."
+      primaryBtnText="Get Started on Director Plan"
+      primaryBtnHref="/signup?plan=director"
+      secondaryBtnText="Compare All Plans"
+      secondaryBtnHref="/pricing"
+    />
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  /* -------------------------------------------------------------
+     MCP PAGE STYLES & INTERACTIVE TOKENS
+  -------------------------------------------------------------- */
+  .mcp-page {
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* Hero Section */
+  .mcp-hero {
+    padding-top: 8rem;
+    padding-bottom: 3rem;
+    position: relative;
+    text-align: center;
+  }
+
+  .mcp-hero__bg-glow {
+    position: absolute;
+    top: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 800px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(249, 115, 22, 0.15) 0%, rgba(251, 191, 36, 0.05) 50%, transparent 70%);
+    filter: blur(80px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .mcp-hero__content {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .mcp-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.9rem;
+    border-radius: 9999px;
+    background: rgba(249, 115, 22, 0.1);
+    border: 1px solid rgba(249, 115, 22, 0.3);
+    color: var(--accent);
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 1.5rem;
+  }
+
+  .mcp-badge__dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent);
+  }
+
+  .mcp-hero__title {
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.25rem;
+    color: var(--text-primary);
+  }
+
+  .mcp-hero__lead {
+    font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 2.25rem;
+  }
+
+  .mcp-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+  }
+
+  /* Metrics Bar */
+  .mcp-metrics-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+    padding: 1rem 1.75rem;
+    border-radius: 9999px;
+    background: rgba(19, 20, 23, 0.75);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--border-subtle);
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  .mcp-metric-pill {
+    display: flex;
+    align-items: baseline;
+    gap: 0.45rem;
+  }
+
+  .mcp-metric-pill__num {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--text-primary);
+  }
+
+  .mcp-metric-pill__label {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .mcp-metric-pill--highlight .mcp-metric-pill__num {
+    color: var(--accent);
+  }
+
+  .mcp-metric-divider {
+    width: 1px;
+    height: 24px;
+    background: var(--border-subtle);
+  }
+
+  /* Plan Gate Banner */
+  .mcp-plan-gate-section {
+    padding-top: 1rem;
+    padding-bottom: 3rem;
+  }
+
+  .mcp-plan-gate-card {
+    padding: 3rem;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  .mcp-gate-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.76rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    margin-bottom: 0.85rem;
+  }
+
+  .mcp-plan-gate-left h2 {
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 2.5vw, 2.1rem);
+    font-weight: 800;
+    line-height: 1.25;
+    color: var(--text-primary);
+    margin-bottom: 0.85rem;
+  }
+
+  .mcp-plan-gate-left p {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+
+  .mcp-plan-perks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 0.85rem;
+  }
+
+  .mcp-perk-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+  }
+
+  .mcp-perk-check {
+    color: #34d399;
+    font-weight: bold;
+    flex-shrink: 0;
+  }
+
+  .mcp-perk-item strong {
+    color: var(--text-primary);
+  }
+
+  .mcp-plan-box {
+    background: rgba(12, 13, 16, 0.7);
+    border: 1px solid var(--border-subtle);
+    border-radius: 14px;
+    padding: 2.25rem 2rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .mcp-plan-kicker {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+
+  .mcp-plan-price {
+    display: flex;
+    align-items: baseline;
+    gap: 0.3rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .mcp-price-val {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    font-weight: 900;
+    color: var(--text-primary);
+    line-height: 1;
+  }
+
+  .mcp-price-sub {
+    font-size: 1rem;
+    color: var(--text-muted);
+  }
+
+  .mcp-plan-save {
+    font-size: 0.82rem;
+    color: var(--accent-secondary);
+    margin-bottom: 1.5rem;
+  }
+
+  .mcp-plan-link {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    margin-top: 1rem;
+    transition: color 0.2s;
+  }
+
+  .mcp-plan-link:hover {
+    color: var(--text-primary);
+  }
+
+  /* Section Header */
+  .mcp-section-header {
+    text-align: center;
+    max-width: 780px;
+    margin: 0 auto 3.5rem;
+  }
+
+  .mcp-eyebrow {
+    display: inline-block;
+    font-size: 0.76rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+
+  .mcp-sync-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.76rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    color: #34d399;
+    margin-bottom: 0.85rem;
+  }
+
+  .mcp-sync-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #34d399;
+    box-shadow: 0 0 6px #34d399;
+  }
+
+  .mcp-section-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+    font-weight: 800;
+    line-height: 1.2;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    letter-spacing: -0.01em;
+  }
+
+  .mcp-section-sub {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  /* Trio Concept Grid */
+  .mcp-trio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .mcp-concept-card {
+    padding: 2.25rem 2rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mcp-concept-card__icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .mcp-concept-card__icon--tools {
+    background: rgba(249, 115, 22, 0.15);
+    color: var(--accent);
+    border: 1px solid rgba(249, 115, 22, 0.3);
+  }
+
+  .mcp-concept-card__icon--resources {
+    background: rgba(59, 130, 246, 0.15);
+    color: #60a5fa;
+    border: 1px solid rgba(59, 130, 246, 0.3);
+  }
+
+  .mcp-concept-card__icon--prompts {
+    background: rgba(168, 85, 247, 0.15);
+    color: #c084fc;
+    border: 1px solid rgba(168, 85, 247, 0.3);
+  }
+
+  .mcp-concept-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin-bottom: 0.85rem;
+    color: var(--text-primary);
+  }
+
+  .mcp-concept-card p {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    flex-grow: 1;
+    margin-bottom: 1.5rem;
+  }
+
+  .mcp-concept-card__examples {
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--border-subtle);
+    font-size: 0.82rem;
+    color: var(--text-muted);
+  }
+
+  .mcp-concept-card__examples code {
+    color: var(--accent-secondary);
+    font-family: monospace;
+    font-size: 0.85rem;
+  }
+
+  /* -------------------------------------------------------------
+     ARCH DIAGRAM
+  -------------------------------------------------------------- */
+  .mcp-diagram-card {
+    padding: 0;
+    overflow: hidden;
+    background: rgba(17, 19, 23, 0.85);
+    border: 1px solid var(--border-subtle);
+  }
+
+  .mcp-diagram-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.85rem 1.5rem;
+    background: rgba(26, 28, 33, 0.6);
+    border-bottom: 1px solid var(--border-subtle);
+    font-size: 0.82rem;
+  }
+
+  .mcp-diagram-dots {
+    display: flex;
+    gap: 6px;
+  }
+
+  .mcp-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+
+  .mcp-dot--red { background: #ef4444; }
+  .mcp-dot--yellow { background: #f59e0b; }
+  .mcp-dot--green { background: #10b981; }
+
+  .mcp-diagram-title {
+    color: var(--text-secondary);
+    font-weight: 600;
+  }
+
+  .mcp-diagram-tag {
+    font-family: monospace;
+    font-size: 0.75rem;
+    padding: 0.2rem 0.6rem;
+    background: rgba(249, 115, 22, 0.1);
+    color: var(--accent);
+    border-radius: 6px;
+    border: 1px solid rgba(249, 115, 22, 0.2);
+  }
+
+  .mcp-arch-diagram {
+    display: grid;
+    grid-template-columns: 1fr auto 1.2fr auto 1.3fr;
+    align-items: center;
+    gap: 1rem;
+    padding: 2.5rem 2rem;
+  }
+
+  .mcp-arch-node {
+    background: rgba(26, 28, 33, 0.7);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 1.5rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mcp-node-header {
+    margin-bottom: 1.25rem;
+  }
+
+  .mcp-node-badge {
+    display: inline-block;
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text-secondary);
+    margin-bottom: 0.4rem;
+  }
+
+  .mcp-node-badge--brand {
+    background: rgba(249, 115, 22, 0.15);
+    color: var(--accent);
+    border: 1px solid rgba(249, 115, 22, 0.3);
+  }
+
+  .mcp-node-badge--secure {
+    background: rgba(16, 185, 129, 0.15);
+    color: #34d399;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+  }
+
+  .mcp-arch-node h4 {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--text-primary);
+  }
+
+  .mcp-client-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.65rem 0.85rem;
+    background: rgba(12, 13, 16, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    margin-bottom: 0.6rem;
+  }
+
+  .mcp-client-icon {
+    font-size: 1.1rem;
+    color: var(--accent);
+    width: 22px;
+    text-align: center;
+  }
+
+  .mcp-client-meta strong {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--text-primary);
+  }
+
+  .mcp-client-meta span {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+  }
+
+  .mcp-arch-arrow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 0.5rem;
+    text-align: center;
+  }
+
+  .mcp-arrow-line {
+    position: relative;
+    width: 70px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--border-subtle), var(--accent), var(--border-subtle));
+    margin-bottom: 0.6rem;
+  }
+
+  .mcp-pulse-dot {
+    position: absolute;
+    top: -4px;
+    left: 0;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 10px var(--accent);
+    animation: pulse-line 2.4s infinite cubic-bezier(0.4, 0, 0.6, 1);
+  }
+
+  .mcp-pulse-dot--delayed {
+    animation-delay: 1.2s;
+  }
+
+  @keyframes pulse-line {
+    0% { left: 0%; opacity: 0; }
+    30% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { left: 95%; opacity: 0; }
+  }
+
+  .mcp-arrow-label strong {
+    display: block;
+    font-size: 0.74rem;
+    color: var(--text-secondary);
+  }
+
+  .mcp-arrow-label span {
+    font-size: 0.68rem;
+    color: var(--text-muted);
+  }
+
+  .mcp-server-box {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+    flex-grow: 1;
+  }
+
+  .mcp-subbox {
+    padding: 0.65rem 0.85rem;
+    background: rgba(12, 13, 16, 0.6);
+    border-radius: 8px;
+    border: 1px solid rgba(249, 115, 22, 0.15);
+  }
+
+  .mcp-subbox strong {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--accent-secondary);
+  }
+
+  .mcp-subbox span {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+  }
+
+  .mcp-security-flag {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.72rem;
+    color: #34d399;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .mcp-cloud-box {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+    flex-grow: 1;
+  }
+
+  .mcp-cloud-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+  }
+
+  .mcp-check-icon {
+    color: #34d399;
+    font-weight: bold;
+  }
+
+  .mcp-model-fanout {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    padding-top: 0.85rem;
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .mcp-model-tag {
+    font-size: 0.68rem;
+    font-weight: 600;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--text-secondary);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  /* -------------------------------------------------------------
+     TECHNICAL CATALOG TABS
+  -------------------------------------------------------------- */
+  .mcp-tabs {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 2.5rem;
+    border-bottom: 1px solid var(--border-subtle);
+    padding-bottom: 1rem;
+  }
+
+  .mcp-tab {
+    padding: 0.65rem 1.5rem;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .mcp-tab:hover {
+    color: var(--text-primary);
+  }
+
+  .mcp-tab.active {
+    color: var(--accent);
+    background: rgba(249, 115, 22, 0.1);
+    border-color: rgba(249, 115, 22, 0.3);
+  }
+
+  .mcp-tab-pane {
+    display: none;
+  }
+
+  .mcp-tab-pane.active {
+    display: block;
+  }
+
+  .mcp-spec-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .mcp-spec-card {
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mcp-spec-card__top {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .mcp-fn-name {
+    font-family: monospace;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .mcp-pill {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    letter-spacing: 0.05em;
+  }
+
+  .mcp-pill--orange { background: rgba(249, 115, 22, 0.15); color: var(--accent); }
+  .mcp-pill--blue { background: rgba(59, 130, 246, 0.15); color: #60a5fa; }
+  .mcp-pill--purple { background: rgba(168, 85, 247, 0.15); color: #c084fc; }
+  .mcp-pill--green { background: rgba(16, 185, 129, 0.15); color: #34d399; }
+
+  .mcp-spec-summary {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.55;
+    margin-bottom: 1.25rem;
+  }
+
+  .mcp-spec-args {
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-subtle);
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+  }
+
+  .mcp-spec-args strong {
+    color: var(--text-primary);
+    display: block;
+    margin-bottom: 0.4rem;
+  }
+
+  .mcp-spec-args ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .mcp-spec-args code {
+    color: var(--accent-secondary);
+    font-family: monospace;
+  }
+
+  .mcp-param-type {
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    margin-left: 0.3rem;
+  }
+
+  .mcp-param-req {
+    color: var(--accent);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-left: 0.4rem;
+  }
+
+  .mcp-param-opt {
+    color: var(--text-muted);
+    font-size: 0.72rem;
+    margin-left: 0.4rem;
+  }
+
+  /* -------------------------------------------------------------
+     SETUP CONFIG CONTAINER
+  -------------------------------------------------------------- */
+  .mcp-config-container {
+    max-width: 860px;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+
+  .mcp-config-nav {
+    display: flex;
+    background: rgba(12, 13, 16, 0.6);
+    border-bottom: 1px solid var(--border-subtle);
+    padding: 0.5rem 0.5rem 0;
+    gap: 0.5rem;
+  }
+
+  .mcp-cfg-btn {
+    padding: 0.65rem 1.25rem;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: 0.88rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .mcp-cfg-btn:hover {
+    color: var(--text-primary);
+  }
+
+  .mcp-cfg-btn.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+
+  .mcp-cfg-pane {
+    display: none;
+    padding: 1.5rem;
+  }
+
+  .mcp-cfg-pane.active {
+    display: block;
+  }
+
+  .mcp-cfg-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.85rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-family: monospace;
+  }
+
+  .mcp-copy-btn {
+    padding: 0.35rem 0.85rem;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--border-subtle);
+    border-radius: 6px;
+    color: var(--text-primary);
+    font-size: 0.78rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .mcp-copy-btn:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+
+  .mcp-code-block {
+    background: #090a0d;
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    padding: 1.25rem;
+    overflow-x: auto;
+    font-family: monospace;
+    font-size: 0.84rem;
+    line-height: 1.6;
+    color: #f1f5f9;
+  }
+
+  /* -------------------------------------------------------------
+     FAQ ACCORDION
+  -------------------------------------------------------------- */
+  .mcp-faq-list {
+    max-width: 820px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .mcp-faq-item {
+    border-radius: 12px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+
+  .mcp-faq-item[open] {
+    border-color: var(--border-glow);
+  }
+
+  .mcp-faq-item__q {
+    padding: 1.25rem 1.5rem;
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--text-primary);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+    list-style: none;
+  }
+
+  .mcp-faq-item__q::-webkit-details-marker {
+    display: none;
+  }
+
+  .mcp-faq-arrow {
+    color: var(--accent);
+    transition: transform 0.25s;
+    font-size: 1.1rem;
+  }
+
+  .mcp-faq-item[open] .mcp-faq-arrow {
+    transform: rotate(180deg);
+  }
+
+  .mcp-faq-item__a {
+    padding: 0 1.5rem 1.5rem;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.65;
+  }
+
+  .mcp-faq-item__a p + p {
+    margin-top: 0.75rem;
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 992px) {
+    .mcp-arch-diagram {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .mcp-arch-arrow {
+      transform: rotate(90deg);
+      margin: 0.5rem 0;
+    }
+
+    .mcp-plan-gate-card {
+      grid-template-columns: 1fr;
+      padding: 2rem;
+      gap: 2rem;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .mcp-metrics-bar {
+      flex-direction: column;
+      border-radius: 16px;
+      gap: 0.75rem;
+    }
+
+    .mcp-metric-divider {
+      display: none;
+    }
+
+    .mcp-tabs {
+      flex-direction: column;
+    }
+  }
+</style>
+
+<script>
+  // Tab switching logic for Technical Specification
+  const specTabs = document.querySelectorAll<HTMLButtonElement>('.mcp-tab');
+  const specPanes = document.querySelectorAll<HTMLElement>('.mcp-tab-pane');
+
+  specTabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      const target = tab.dataset.tab;
+      specTabs.forEach((t) => {
+        t.classList.remove('active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      specPanes.forEach((p) => p.classList.remove('active'));
+
+      tab.classList.add('active');
+      tab.setAttribute('aria-selected', 'true');
+      const activePane = document.getElementById(`pane-${target}`);
+      if (activePane) activePane.classList.add('active');
+    });
+  });
+
+  // Tab switching logic for Config Setup
+  const cfgTabs = document.querySelectorAll<HTMLButtonElement>('.mcp-cfg-btn');
+  const cfgPanes = document.querySelectorAll<HTMLElement>('.mcp-cfg-pane');
+
+  cfgTabs.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const target = btn.dataset.cfg;
+      cfgTabs.forEach((b) => b.classList.remove('active'));
+      cfgPanes.forEach((p) => p.classList.remove('active'));
+
+      btn.classList.add('active');
+      const activePane = document.getElementById(`cfg-${target}`);
+      if (activePane) activePane.classList.add('active');
+    });
+  });
+
+  // Copy to clipboard helper
+  const copyButtons = document.querySelectorAll<HTMLButtonElement>('.mcp-copy-btn');
+  copyButtons.forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      const targetId = btn.dataset.copyTarget;
+      if (!targetId) return;
+      const targetEl = document.getElementById(targetId);
+      if (!targetEl) return;
+
+      try {
+        await navigator.clipboard.writeText(targetEl.innerText);
+        const originalText = btn.innerText;
+        btn.innerText = 'Copied!';
+        btn.style.background = 'var(--accent)';
+        btn.style.color = '#fff';
+        setTimeout(() => {
+          btn.innerText = originalText;
+          btn.style.background = '';
+          btn.style.color = '';
+        }, 2000);
+      } catch (err) {
+        console.error('Clipboard copy failed:', err);
+      }
+    });
+  });
+</script>

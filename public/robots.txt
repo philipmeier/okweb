@@ -1,0 +1,32 @@
+# robots.txt for 10zebra.com
+User-agent: *
+Allow: /
+
+# Dedicated AI Search & Answer Engine Crawlers (AEO)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Cohere-ai
+Allow: /
+
+# Disallow internal build artifacts and APIs
+Disallow: /_astro/
+Disallow: /api/
+
+# Sitemaps & LLM Context Files
+Sitemap: https://10zebra.com/sitemap.xml

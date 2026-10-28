@@ -1,8 +1,821 @@
-﻿---
-import PlaceholderPage from "/src/layouts/PlaceholderPage.astro";
 ---
-<PlaceholderPage
-  title="Interactive Demo"
-  label="Demo"
-  description="See 10zebra in action &mdash; a guided walkthrough of the multi-model workspace, character consistency, and team collaboration."
-/>
+// src/pages/demo.astro
+import Layout from "/src/layouts/Layout.astro";
+import Header from "/src/components/layout/Header.astro";
+import Footer from "/src/components/layout/Footer.astro";
+import FinalCTA from "/src/components/FinalCTA.astro";
+
+const pageTitle = "Interactive Demo | Test Drive 10zebra AI Video Production Studio";
+const pageDescription = "Experience 10zebra directly in your browser. Explore an interactive multi-shot storyboard, test take trimming, inspect alternate takes across models, and see how directors build cinematic sequences.";
+const canonicalUrl = "https://10zebra.com/demo";
+const demoEmbedUrl = "https://10zebra.app/p/aTIc1jF5I6g7";
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": canonicalUrl,
+      "url": canonicalUrl,
+      "name": pageTitle,
+      "description": pageDescription,
+      "inLanguage": "en-US",
+      "isPartOf": {
+        "@type": "WebSite",
+        "@id": "https://10zebra.com/#website",
+        "url": "https://10zebra.com/",
+        "name": "10zebra",
+      },
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://10zebra.com/",
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Interactive Demo",
+          "item": canonicalUrl,
+        },
+      ],
+    },
+  ],
+};
+---
+
+<Layout title={pageTitle} description={pageDescription} canonicalUrl={canonicalUrl}>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+  <Header />
+
+  <main id="main-content" class="demo-page">
+    {/* -------------------------------------------------------------
+        1. HERO SECTION
+    -------------------------------------------------------------- */}
+    <section class="section demo-hero">
+      <div class="demo-hero__glow" aria-hidden="true"></div>
+      <div class="wrap">
+        <div class="demo-hero__content">
+          <div class="demo-badge">
+            <span class="demo-badge__dot"></span>
+            <span>Live Interactive Sandbox &bull; Real 10zebra Board</span>
+          </div>
+
+          <h1 class="demo-hero__title">
+            Test Drive the <br />
+            <span class="grad-text">10zebra Studio Canvas</span>
+          </h1>
+
+          <p class="demo-hero__lead">
+            Interact with a live multi-shot production board below. Inspect alternate takes across foundation models, review locked character anchors, test sub-second trimming, and see how directors assemble cinematic stories.
+          </p>
+
+          <!-- Interactive Highlights Pills -->
+          <div class="demo-features-pills">
+            <div class="demo-feat-pill">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect>
+                <line x1="7" y1="2" x2="7" y2="22"></line>
+                <line x1="17" y1="2" x2="17" y2="22"></line>
+                <line x1="2" y1="12" x2="22" y2="12"></line>
+              </svg>
+              <span>Multi-Shot Storyboard</span>
+            </div>
+            <div class="demo-feat-pill">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="6" cy="6" r="3"></circle>
+                <circle cx="6" cy="18" r="3"></circle>
+                <line x1="20" y1="4" x2="8.12" y2="15.88"></line>
+                <line x1="14.47" y1="14.48" x2="20" y2="20"></line>
+                <line x1="8.12" y1="8.12" x2="12" y2="12"></line>
+              </svg>
+              <span>Frame-Accurate Trimming</span>
+            </div>
+            <div class="demo-feat-pill">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+              <span>Character Consistency</span>
+            </div>
+            <div class="demo-feat-pill">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+              <span>Live Take Playback</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* -------------------------------------------------------------
+        2. LIVE APP IFRAME WORKSPACE
+    -------------------------------------------------------------- */}
+    <section class="section demo-embed-section" aria-label="Interactive 10zebra Studio Sandbox">
+      <div class="wrap wrap--wide">
+        <!-- Mock Browser Frame -->
+        <div class="glass glow-border demo-window" id="demo-window">
+          <!-- Window Header Bar -->
+          <div class="demo-window__header">
+            <div class="demo-window__controls">
+              <span class="demo-dot demo-dot--red"></span>
+              <span class="demo-dot demo-dot--yellow"></span>
+              <span class="demo-dot demo-dot--green"></span>
+            </div>
+
+            <div class="demo-window__address-bar">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+              <span class="demo-window__url">https://10zebra.app/p/aTIc1jF5I6g7</span>
+              <span class="demo-window__status-tag">Read-Only Preview</span>
+            </div>
+
+            <div class="demo-window__actions">
+              <button
+                type="button"
+                id="demo-fullscreen-btn"
+                class="demo-window__action-btn"
+                title="Toggle Fullscreen"
+                aria-label="Toggle Fullscreen"
+              >
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+                </svg>
+              </button>
+
+              <a
+                href={demoEmbedUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="demo-window__action-btn"
+                title="Open in new window"
+                aria-label="Open in new window"
+              >
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Iframe Container with Loading Skeleton -->
+          <div class="demo-iframe-container" id="demo-iframe-wrapper">
+            <div class="demo-loader" id="demo-loader">
+              <div class="demo-spinner"></div>
+              <p>Connecting to 10zebra live sandbox...</p>
+              <span class="demo-loader-sub">Loading project: aTIc1jF5I6g7</span>
+            </div>
+
+            <iframe
+              id="demo-iframe"
+              src={demoEmbedUrl}
+              title="10zebra Interactive Studio Sandbox Demo"
+              class="demo-iframe"
+              allow="fullscreen; clipboard-write; autoplay"
+              loading="lazy"
+            ></iframe>
+          </div>
+
+          <!-- Window Footer Bar -->
+          <div class="demo-window__footer">
+            <div class="demo-footer-left">
+              <span class="demo-pulse-dot"></span>
+              <span>Live Project Sandbox (Read-Only)</span>
+              <span class="demo-footer-sep">&bull;</span>
+              <span class="demo-footer-hint">Click on any shot panel to inspect takes and timeline markers</span>
+            </div>
+
+            <div class="demo-footer-right">
+              <a
+                href={demoEmbedUrl}
+                target="_blank"
+                rel="noopener noreferrer"               
+                class="btn btn-primary demo-fork-btn"
+              >
+                <span>Fork &amp; Create Your Own Board</span>
+                <span aria-hidden="true">&rarr;</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* -------------------------------------------------------------
+        3. GUIDED WALKTHROUGH: WHAT TO TRY IN THE DEMO
+    -------------------------------------------------------------- */}
+    <section class="section demo-guide-section">
+      <div class="wrap">
+        <div class="demo-section-header">
+          <span class="demo-eyebrow">Studio Capabilities</span>
+          <h2 class="demo-section-title">What You're Experiencing Inside 10zebra</h2>
+          <p class="demo-section-sub">
+            The board above demonstrates real client workflows: multi-model comparison, character face locking, frame-accurate trimming, and budget controls.
+          </p>
+        </div>
+
+        <div class="demo-steps-grid">
+          <!-- Step 1 -->
+          <div class="glass demo-step-card">
+            <div class="demo-step-num">01</div>
+            <h3>Multi-Model Take Review</h3>
+            <p>
+              Notice how individual shots allow switching between Kling, Veo 3, and Runway engines. You can compare motions, physics, and lighting before choosing which take to commit to your sequence.
+            </p>
+            <div class="demo-step-pill">
+              <span>68+ Integrated Engines</span>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="glass demo-step-card">
+            <div class="demo-step-num">02</div>
+            <h3>Character Consistency</h3>
+            <p>
+              Observe the actor's facial identity across shots. By pinning reference anchors via our Character Swap engine, facial structure and wardrobe remain stable across different camera angles.
+            </p>
+            <div class="demo-step-pill">
+              <span>Up to 4 Face Anchors</span>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="glass demo-step-card">
+            <div class="demo-step-num">03</div>
+            <h3>Sub-Second Take Trimming</h3>
+            <p>
+              Clicking into a take reveals frame-accurate in/out trim sliders. Cut out initial latent morphs or unstable tail frames without burning compute on a re-render.
+            </p>
+            <div class="demo-step-pill">
+              <span>Zero-Compute Trimming</span>
+            </div>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="glass demo-step-card">
+            <div class="demo-step-num">04</div>
+            <h3>Non-Linear Storyboard</h3>
+            <p>
+              Reorder shots, group sequences into scenes, and preview the full animatic in continuous playback. When ready, mix down for DaVinci Resolve or publish to YouTube in 1 click.
+            </p>
+            <div class="demo-step-pill">
+              <span>EDL &amp; YouTube Ready</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* -------------------------------------------------------------
+        4. FINAL CALL TO ACTION
+    -------------------------------------------------------------- */}
+    <FinalCTA
+      title="Ready to Build Your First Production Board?"
+      subtitle="Sign up in seconds and get 200 free trial credits. No credit card required to explore the studio canvas."
+      primaryBtnText="Start Directing Free"
+      primaryBtnHref="/signup"
+      secondaryBtnText="Explore Model Catalog"
+      secondaryBtnHref="/models"
+    />
+  </main>
+
+  <Footer />
+</Layout>
+
+<script>
+  // Handle iframe load event to dismiss loading spinner
+  document.addEventListener("DOMContentLoaded", () => {
+    const iframe = document.getElementById("demo-iframe") as HTMLIFrameElement | null;
+    const loader = document.getElementById("demo-loader");
+    const fullscreenBtn = document.getElementById("demo-fullscreen-btn");
+    const windowEl = document.getElementById("demo-window");
+
+    if (iframe && loader) {
+      iframe.addEventListener("load", () => {
+        loader.classList.add("demo-loader--hidden");
+        setTimeout(() => {
+          loader.style.display = "none";
+        }, 300);
+      });
+
+      // Safety timeout: dismiss spinner after 6 seconds even if load event fires late
+      setTimeout(() => {
+        if (loader && loader.style.display !== "none") {
+          loader.classList.add("demo-loader--hidden");
+          setTimeout(() => {
+            loader.style.display = "none";
+          }, 300);
+        }
+      }, 6000);
+    }
+
+    // Fullscreen toggle for the mock window
+    if (fullscreenBtn && windowEl) {
+      fullscreenBtn.addEventListener("click", () => {
+        if (!document.fullscreenElement) {
+          windowEl.requestFullscreen().catch(() => {
+            // fallback if fullscreen API blocked: expand class
+            windowEl.classList.toggle("demo-window--maximized");
+          });
+        } else {
+          document.exitFullscreen();
+        }
+      });
+    }
+  });
+</script>
+
+<style>
+  /* -------------------------------------------------------------
+     DEMO PAGE STYLES
+  -------------------------------------------------------------- */
+  .demo-page {
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  .wrap--wide {
+    max-width: 1400px;
+    width: 94%;
+    margin: 0 auto;
+  }
+
+  /* Hero */
+  .demo-hero {
+    padding-top: 8rem;
+    padding-bottom: 3rem;
+    position: relative;
+    text-align: center;
+  }
+
+  .demo-hero__glow {
+    position: absolute;
+    top: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 850px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(249, 115, 22, 0.16) 0%, rgba(251, 191, 36, 0.05) 50%, transparent 70%);
+    filter: blur(80px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .demo-hero__content {
+    position: relative;
+    z-index: 1;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  .demo-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.9rem;
+    border-radius: 9999px;
+    background: rgba(249, 115, 22, 0.1);
+    border: 1px solid rgba(249, 115, 22, 0.3);
+    color: var(--accent);
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 1.5rem;
+  }
+
+  .demo-badge__dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent);
+  }
+
+  .demo-hero__title {
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 4.2vw, 3.6rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.25rem;
+    color: var(--text-primary);
+  }
+
+  .demo-hero__lead {
+    font-size: clamp(1.02rem, 1.8vw, 1.2rem);
+    color: var(--text-secondary);
+    line-height: 1.65;
+    max-width: 760px;
+    margin: 0 auto 2rem;
+  }
+
+  /* Feature Pills */
+  .demo-features-pills {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+
+  .demo-feat-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.4rem 0.85rem;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border-subtle);
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+  }
+
+  .demo-feat-pill svg {
+    color: var(--accent);
+  }
+
+  /* -------------------------------------------------------------
+     MOCK BROWSER WINDOW & IFRAME
+  -------------------------------------------------------------- */
+  .demo-embed-section {
+    padding-top: 0;
+    padding-bottom: 5rem;
+  }
+
+  .demo-window {
+    border-radius: 18px;
+    overflow: hidden;
+    background: rgba(12, 13, 17, 0.9);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(249, 115, 22, 0.08);
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Header Bar */
+  .demo-window__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1.25rem;
+    background: rgba(18, 20, 26, 0.95);
+    border-bottom: 1px solid var(--border-subtle);
+    gap: 1rem;
+  }
+
+  .demo-window__controls {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    width: 60px;
+  }
+
+  .demo-dot {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+  }
+
+  .demo-dot--red { background: #ff5f56; }
+  .demo-dot--yellow { background: #ffbd2e; }
+  .demo-dot--green { background: #27c93f; }
+
+  .demo-window__address-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(10, 11, 15, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 0.35rem 0.85rem;
+    border-radius: 8px;
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    max-width: 520px;
+    width: 100%;
+  }
+
+  .demo-window__address-bar svg {
+    color: var(--text-muted);
+    flex-shrink: 0;
+  }
+
+  .demo-window__url {
+    font-family: monospace;
+    font-size: 0.8rem;
+    color: var(--text-primary);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex-grow: 1;
+  }
+
+  .demo-window__status-tag {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--accent);
+    padding: 0.15rem 0.45rem;
+    border-radius: 4px;
+    background: rgba(249, 115, 22, 0.12);
+    flex-shrink: 0;
+  }
+
+  .demo-window__actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .demo-window__action-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-muted);
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .demo-window__action-btn:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  /* Iframe Container */
+  .demo-iframe-container {
+    position: relative;
+    width: 100%;
+    height: 780px;
+    background: #0d0f14;
+    overflow: hidden;
+  }
+
+  .demo-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+    background: #0d0f14;
+  }
+
+  /* Loading State */
+  .demo-loader {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #0d0f14;
+    z-index: 2;
+    transition: opacity 0.3s var(--ease-out);
+  }
+
+  .demo-loader--hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .demo-spinner {
+    width: 44px;
+    height: 44px;
+    border: 3px solid rgba(249, 115, 22, 0.15);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: demoSpin 0.9s linear infinite;
+    margin-bottom: 1.25rem;
+  }
+
+  @keyframes demoSpin {
+    to { transform: rotate(360deg); }
+  }
+
+  .demo-loader p {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+  }
+
+  .demo-loader-sub {
+    font-family: monospace;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+  }
+
+  /* Window Footer Bar */
+  .demo-window__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.85rem 1.25rem;
+    background: rgba(16, 18, 24, 0.95);
+    border-top: 1px solid var(--border-subtle);
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .demo-footer-left {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+  }
+
+  .demo-pulse-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #10b981;
+    box-shadow: 0 0 10px #10b981;
+    animation: demoPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes demoPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.85); }
+  }
+
+  .demo-footer-sep {
+    color: var(--border-subtle);
+  }
+
+  .demo-footer-hint {
+    color: var(--text-muted);
+  }
+
+  .demo-fork-btn {
+    font-size: 0.85rem;
+    padding: 0.45rem 1rem;
+    gap: 0.4rem;
+  }
+
+  /* -------------------------------------------------------------
+     GUIDED WALKTHROUGH CARDS
+  -------------------------------------------------------------- */
+  .demo-guide-section {
+    padding-top: 2rem;
+    padding-bottom: 5rem;
+  }
+
+  .demo-section-header {
+    text-align: center;
+    max-width: 760px;
+    margin: 0 auto 3.5rem;
+  }
+
+  .demo-eyebrow {
+    display: inline-block;
+    font-size: 0.76rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+
+  .demo-section-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    font-weight: 800;
+    line-height: 1.2;
+    color: var(--text-primary);
+    margin-bottom: 0.85rem;
+    letter-spacing: -0.01em;
+  }
+
+  .demo-section-sub {
+    font-size: 1.02rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  .demo-steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .demo-step-card {
+    padding: 2.25rem 1.75rem;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition: transform 0.25s var(--ease-out), border-color 0.25s, box-shadow 0.25s;
+  }
+
+  .demo-step-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(249, 115, 22, 0.4);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
+  }
+
+  .demo-step-num {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+
+  .demo-step-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+  }
+
+  .demo-step-card p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+  }
+
+  .demo-step-pill {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: var(--accent-secondary);
+    padding: 0.25rem 0.65rem;
+    border-radius: 6px;
+    background: rgba(251, 191, 36, 0.08);
+    border: 1px solid rgba(251, 191, 36, 0.2);
+    align-self: flex-start;
+  }
+
+  /* -------------------------------------------------------------
+     RESPONSIVE
+  -------------------------------------------------------------- */
+  @media (max-width: 992px) {
+    .demo-iframe-container {
+      height: 640px;
+    }
+
+    .demo-window__header {
+      padding: 0.65rem 1rem;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .demo-hero {
+      padding-top: 6.5rem;
+    }
+
+    .demo-iframe-container {
+      height: 520px;
+    }
+
+    .demo-window__header {
+      flex-wrap: wrap;
+    }
+
+    .demo-window__address-bar {
+      order: 3;
+      max-width: 100%;
+      margin-top: 0.25rem;
+    }
+
+    .demo-window__footer {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .demo-footer-right {
+      width: 100%;
+    }
+
+    .demo-fork-btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>

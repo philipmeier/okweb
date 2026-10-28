@@ -73,7 +73,7 @@ export const plans: PricingPlan[] = [
       'Priority generation queue (faster render times)',
       '10z Agent Character Swap & reference locks',
       '1080p & 4K upscaled video export',
-      'Claude, Cursor & ChatGPT MCP integration',
+      'REST API access & webhooks',
     ],
     cta: 'Start Maker Plan',
     ctaHref: '/signup?plan=maker',
@@ -95,6 +95,7 @@ export const plans: PricingPlan[] = [
     approx: 'Approx. 87 Kling shots or 175 Veo 3 Fast clips',
     features: [
       '3,500 Monthly Credits (refreshes each cycle)',
+      'Full MCP Server Access (Claude Desktop, Cursor & Agent API)',
       '30% Discount on all extra top-up packs',
       'Project-level budget controls & spend caps',
       'Multi-seat collaboration with role-based permissions',
@@ -492,9 +493,9 @@ export const comparisonSections: ComparisonSection[] = [
       {
         name: 'Model Context Protocol (MCP) server',
         hint: 'Direct AI video production from Claude, Cursor, ChatGPT, or custom LLMs',
-        payg: '✓ Full access',
-        maker: '✓ Full access',
-        director: '✓ Full access',
+        payg: '—',
+        maker: '— (Director only)',
+        director: '✓ Full access (Included)',
         studio: '✓ High-concurrency MCP',
       },
       {
@@ -540,8 +541,8 @@ export const pricingFaqs: PricingFaq[] = [
     a: 'Our infrastructure includes <strong>100% automated credit protection</strong>. If an upstream foundation model (like Kling, Veo, or Sora) errors, times out, or fails server-side content filters, our system detects it and instantly returns all deducted credits to your project balance. You never pay for failed takes.',
   },
   {
-    q: 'Can I use 10zebra with Claude, Cursor, or ChatGPT via MCP?',
-    a: 'Yes! 10zebra features a native Model Context Protocol (MCP) server that works on all plans, including Pay-As-You-Go. You can prompt, compare takes, and manage storyboard scenes directly from Claude, Cursor, or any MCP client without leaving your code editor or chat.',
+    q: 'Which plan is required for the Model Context Protocol (MCP) server?',
+    a: 'Access to the 10zebra MCP server requires an active <strong>Director plan</strong> ($79/mo) or higher. On the Director tier, you receive your dedicated MCP API key and streamable-HTTP / stdio credentials to connect Claude Desktop, Cursor IDE, Windsurf, or custom autonomous agents directly to 10zebra\'s 68+ video generation models.',
   },
   {
     q: 'How do subscriber top-up discounts work?',

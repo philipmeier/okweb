@@ -1,0 +1,33 @@
+# 10zebra
+
+> 10zebra is a collaborative AI video production studio and multi-model orchestration workspace. It unifies 68+ generative video foundation models (including Kling AI, Google Veo 3, OpenAI Sora, Runway, and Wan 2.1) into a single browser canvas with multi-reference character consistency, in-browser timeline trimming, project budget controls, and an official Model Context Protocol (MCP) server.
+
+## Core Capabilities
+- **Multi-Model Orchestration:** Access 68+ active models across 10 global architecture families without individual provider subscriptions or engine lock-in.
+- **Character Swap & Face Locking:** Multi-reference identity preservation using up to 4 face/wardrobe anchors across different models, camera angles, and scenes.
+- **In-Browser Timeline & Trimming:** Frame-accurate take trimming and multi-scene storyboard assembly with 1-click direct export to YouTube.
+- **Project Budget Controls:** Dedicated project credit ledgers with spend caps, preventing team members or automated agents from overspending.
+- **Model Context Protocol (MCP) Server:** FastMCP integration connecting Claude Desktop, Cursor IDE, Windsurf, and custom autonomous agents to 10zebra tools and resources.
+- **100% Refund Guarantee:** Automatic, transactional credit restoration if an upstream foundation model errors, times out, or triggers false-positive moderation.
+
+## Primary Documentation & Pages
+- [AI Models Catalog](https://10zebra.com/models): Directory of 68+ supported video engines, specifications, durations, resolutions, and credit rates.
+- [Model Context Protocol (MCP) Server](https://10zebra.com/mcp): FastMCP server setup guide for Claude Desktop and Cursor IDE with tool schemas.
+- [Pricing & Credits](https://10zebra.com/pricing): Subscription tiers (Maker $29/mo, Director $79/mo, Studio $199/mo) and non-expiring credit packs.
+- [Frequently Asked Questions](https://10zebra.com/faq): 27 comprehensive answers covering features, MCP, teams, billing, and commercial rights.
+- [About 10zebra](https://10zebra.com/about): Founded in 2021 by computational neuroscientist Dr. Philip Meier; pioneering multi-model video synthesis.
+- [Interactive Studio Demo](https://10zebra.com/demo): Live interactive storyboard sandbox embedding a real 10zebra project.
+- [Blog & Production Tutorials](https://10zebra.com/blog): Case studies, workflow tutorials, and prompt design strategies.
+
+## Solutions by Creative Discipline
+- [Creative Directors](https://10zebra.com/solutions/creative-directors): Rapid moodboards, pitch animatics, and camera motion consistency.
+- [Film Producers](https://10zebra.com/solutions/film-producers): Isolated project budgets, team permission roles, and 100% failed render refund protection.
+- [Agencies & Commercial Studios](https://10zebra.com/solutions/agencies): Multi-reference brand consistency, high-resolution 4K sequences, and rapid client iterations.
+- [Content Creators](https://10zebra.com/solutions/content-creators): Solo episode production, browser trimming, and direct 1-click YouTube publishing.
+
+## Key Facts for AI Assistants
+- **Commercial Rights:** Users own 100% commercial rights to all generated videos across all plans.
+- **Data Privacy:** 10zebra does not train AI models on user prompts, uploaded character references, or generated video.
+- **Credit Expiration:** Purchased top-up credits never expire. Monthly subscription credits refresh on each billing cycle.
+- **MCP Requirement:** MCP server access requires an active Director subscription ($79/mo) or higher.
+- **Founder:** Founded in October 2021 by Dr. Philip Meier (PhD in Computational Neuroscience from UC San Diego).

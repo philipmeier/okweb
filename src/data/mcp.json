@@ -1,0 +1,451 @@
+{
+  "lastSynced": "2026-10-28T08:22:59.298Z",
+  "version": "1.2.0",
+  "name": "10zebra FastMCP Server",
+  "subscriptionRequired": "Director",
+  "planPriceMonthly": 79,
+  "transports": [
+    "streamable-http",
+    "stdio"
+  ],
+  "defaultPort": 8080,
+  "defaultHost": "127.0.0.1",
+  "endpoint": {
+    "prod": "https://10zebra.com/api/v1/mcp",
+    "dev": "https://10zebra.dev/api/v1/mcp",
+    "local": "http://localhost:5001/v0zebra-dev/us-central1/mcpAction"
+  },
+  "stats": {
+    "totalTools": 11,
+    "totalResources": 5,
+    "totalPrompts": 4
+  },
+  "tools": [
+    {
+      "name": "generate",
+      "args": "portal_id: str, prompt: str, method_name: str, shot_id: str = \"-1\", ref_images: list[str] | None = None, style: str | None = None, video_path: str | None = None",
+      "doc": "Generate a new take on a shot in the given project (writes a veneer → real generation).\n\n    portal_id: the project to act on (required).\n    method_name: an AI model key (see the models://by-method resource). Sets the method\n        (createImages/editImage/text2video/im2video/vid2vid/text2Seq/im2seq) + cost.\n    shot_id: target shot; \"-1\" (default) appends a NEW shot to the last part.\n    video_path: source video, as `take_video_path` from board://{portal_id}. REQUIRED for\n        every vid2vid method_name; ignored by the other methods. Read the board and pass the\n        target shot's take_video_path — do not omit it and rely on backend resolution.\n    ref_images: image input(s). The FIRST entry is the source image for every method that\n        transforms one; later entries are reference material.\n        im2im — REQUIRED: the first entry is the image being edited.\n        im2vid — the first entry is the first frame to animate. Pass it explicitly whenever\n          the target shot has no take of its own to inherit, or when the user names a\n          different image; the MCP routes it to its own payload slot and forwards the rest\n          as references. Without it the backend has no source frame for an empty shot.\n        every other method — optional reference material, no source semantics.\n        The source is normally the target shot's `take_image_path` from board://{portal_id};\n        use another image in the project when the user names one. Read the board and pass it\n        — do not omit it and rely on backend resolution.\n    style: optional. The backend appends it to the prompt text (\"<prompt>, in the style of X\"),\n        so it only makes sense where you are describing a whole new image or video. Leave it\n        unset and the project's storyboard style is applied automatically — but ONLY for a\n        text2im/text2vid method with no ref_images. For every editing or animating method\n        (im2im, im2vid, vid2vid) and for any call that carries ref_images, style is suppressed:\n        there your prompt is an instruction about existing media, and appending a style would\n        rewrite it into a request for a different picture.\n        There is no composition argument. The MCP always neutralises composition, so the\n        backend never prepends \"Composition: mid shot.\" to what you wrote.\n    Cost is charged to PROJECT credits; on shortfall the error explains how to fund it.",
+      "summary": "Generate a new take on a shot in the given project (writes a veneer → real generation).",
+      "parameters": [
+        {
+          "name": "portal_id",
+          "type": "str",
+          "required": true
+        },
+        {
+          "name": "prompt",
+          "type": "str",
+          "required": true
+        },
+        {
+          "name": "method_name",
+          "type": "str",
+          "required": true
+        },
+        {
+          "name": "shot_id",
+          "type": "str",
+          "required": false,
+          "default": "\"-1\""
+        },
+        {
+          "name": "ref_images",
+          "type": "list[str] | None",
+          "required": false,
+          "default": "None"
+        },
+        {
+          "name": "style",
+          "type": "str | None",
+          "required": false,
+          "default": "None"
+        },
+        {
+          "name": "video_path",
+          "type": "str | None",
+          "required": false,
+          "default": "None"
+        }
+      ]
+    },
+    {
+      "name": "add_story_shot",
+      "args": "portal_id: str, title: str | None = None, description: str | None = None, part_id: str | None = None, index: int | None = None",
+      "doc": "Add a new (empty) shot; defaults to appending at the end of the last part.",
+      "summary": "Add a new (empty) shot; defaults to appending at the end of the last part.",
+      "parameters": [
+        {
+          "name": "portal_id",
+          "type": "str",
+          "required": true
+        },
+        {
+          "name": "title",
+          "type": "str | None",
+          "required": false,
+          "default": "None"
+        },
+        {
+          "name": "description",
+          "type": "str | None",
+          "required": false,
+          "default": "None"
+        },
+        {
+          "name": "part_id",
+          "type": "str | None",
+          "required": false,
+          "default": "None"
+        },
+        {
+          "name": "index",
+          "type": "int | None",
+          "required": false,
+          "default": "None"
+        }
+      ]
+    },
+    {
+      "name": "add_story_scene",
+      "args": "portal_id: str, title: str | None = None, shot_title: str | None = None, shot_description: str | None = None, index: int | None = None",
+      "doc": "Add a new scene (part) containing an initial empty shot.",
+      "summary": "Add a new scene (part) containing an initial empty shot.",
+      "parameters": [
+        {
+          "name": "portal_id",
+          "type": "str",
+          "required": true
+        },
+        {
+          "name": "title",
+          "type": "str | None",
+          "required": false,
+          "default": "None"
+        },
+        {
+          "name": "shot_title",
+          "type": "str | None",
+          "required": false,
+          "default": "None"
+        },
+        {
+          "name": "shot_description",
+          "type": "str | None",
+          "required": false,
+          "default": "None"
+        },
+        {
+          "name": "index",
+          "type": "int | None",
+          "required": false,
+          "default": "None"
+        }
+      ]
+    },
+    {
+      "name": "hide_story_shots",
+      "args": "portal_id: str, shot_ids: list[str] | str, hide: bool = True",
+      "doc": "Hide or unhide one or more shots (suppressed from preview/cut).",
+      "summary": "Hide or unhide one or more shots (suppressed from preview/cut).",
+      "parameters": [
+        {
+          "name": "portal_id",
+          "type": "str",
+          "required": true
+        },
+        {
+          "name": "shot_ids",
+          "type": "list[str] | str",
+          "required": true
+        },
+        {
+          "name": "hide",
+          "type": "bool",
+          "required": false,
+          "default": "True"
+        }
+      ]
+    },
+    {
+      "name": "hide_story_scene",
+      "args": "portal_id: str, part_id: str, hide: bool = True",
+      "doc": "Hide or unhide an entire scene/part.",
+      "summary": "Hide or unhide an entire scene/part.",
+      "parameters": [
+        {
+          "name": "portal_id",
+          "type": "str",
+          "required": true
+        },
+        {
+          "name": "part_id",
+          "type": "str",
+          "required": true
+        },
+        {
+          "name": "hide",
+          "type": "bool",
+          "required": false,
+          "default": "True"
+        }
+      ]
+    },
+    {
+      "name": "move_story_shot",
+      "args": "portal_id: str, moving_shot_id: str, preceding_shot_id: str, source_part_id: str | None = None, dest_part_id: str | None = None",
+      "doc": "Move a shot. preceding_shot_id is the shot it should follow ('000' = front of part).",
+      "summary": "Move a shot. preceding_shot_id is the shot it should follow ('000' = front of part).",
+      "parameters": [
+        {
+          "name": "portal_id",
+          "type": "str",
+          "required": true
+        },
+        {
+          "name": "moving_shot_id",
+          "type": "str",
+          "required": true
+        },
+        {
+          "name": "preceding_shot_id",
+          "type": "str",
+          "required": true
+        },
+        {
+          "name": "source_part_id",
+          "type": "str | None",
+          "required": false,
+          "default": "None"
+        },
+        {
+          "name": "dest_part_id",
+          "type": "str | None",
+          "required": false,
+          "default": "None"
+        }
+      ]
+    },
+    {
+      "name": "update_story_shot",
+      "args": "portal_id: str, shot_id: str, title: str | None = None, description: str | None = None",
+      "doc": "Update a shot's title and/or description.",
+      "summary": "Update a shot's title and/or description.",
+      "parameters": [
+        {
+          "name": "portal_id",
+          "type": "str",
+          "required": true
+        },
+        {
+          "name": "shot_id",
+          "type": "str",
+          "required": true
+        },
+        {
+          "name": "title",
+          "type": "str | None",
+          "required": false,
+          "default": "None"
+        },
+        {
+          "name": "description",
+          "type": "str | None",
+          "required": false,
+          "default": "None"
+        }
+      ]
+    },
+    {
+      "name": "update_story_style",
+      "args": "portal_id: str, style: str",
+      "doc": "Set the story-wide style (a known style value or free text).",
+      "summary": "Set the story-wide style (a known style value or free text).",
+      "parameters": [
+        {
+          "name": "portal_id",
+          "type": "str",
+          "required": true
+        },
+        {
+          "name": "style",
+          "type": "str",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "trim_take",
+      "args": "portal_id: str, take_id: str, in_offset_ms: int, out_offset_ms: int",
+      "doc": "Set the in/out trim (ms) on a take.",
+      "summary": "Set the in/out trim (ms) on a take.",
+      "parameters": [
+        {
+          "name": "portal_id",
+          "type": "str",
+          "required": true
+        },
+        {
+          "name": "take_id",
+          "type": "str",
+          "required": true
+        },
+        {
+          "name": "in_offset_ms",
+          "type": "int",
+          "required": true
+        },
+        {
+          "name": "out_offset_ms",
+          "type": "int",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "save_cut",
+      "args": "portal_id: str, high_res: bool = True, low_res: bool = False, do_export: bool = False, mute_clip_audio: bool = False",
+      "doc": "Render the current sequence into a cut. Hidden parts and hidden shots are left out.\n\n    high_res: render the high-res cut (default true).\n    low_res: also render a low-res proxy cut (default false).\n    do_export: also write a high-res export; requires high_res.\n    mute_clip_audio: mute the clips' own audio in the render (default false).",
+      "summary": "Render the current sequence into a cut. Hidden parts and hidden shots are left out.",
+      "parameters": [
+        {
+          "name": "portal_id",
+          "type": "str",
+          "required": true
+        },
+        {
+          "name": "high_res",
+          "type": "bool",
+          "required": false,
+          "default": "True"
+        },
+        {
+          "name": "low_res",
+          "type": "bool",
+          "required": false,
+          "default": "False"
+        },
+        {
+          "name": "do_export",
+          "type": "bool",
+          "required": false,
+          "default": "False"
+        },
+        {
+          "name": "mute_clip_audio",
+          "type": "bool",
+          "required": false,
+          "default": "False"
+        }
+      ]
+    },
+    {
+      "name": "get_all_trims",
+      "args": "portal_id: str, suppress_hidden: bool = True",
+      "doc": "Per-shot trim table (in/out offsets + untrimmed duration) in sequence order.",
+      "summary": "Per-shot trim table (in/out offsets + untrimmed duration) in sequence order.",
+      "parameters": [
+        {
+          "name": "portal_id",
+          "type": "str",
+          "required": true
+        },
+        {
+          "name": "suppress_hidden",
+          "type": "bool",
+          "required": false,
+          "default": "True"
+        }
+      ]
+    }
+  ],
+  "resources": [
+    {
+      "uri": "models://by-method",
+      "functionName": "ai_models_by_method",
+      "doc": "AI models grouped by method, with name/engine/cost/maxRefs — for choosing method_name.",
+      "summary": "AI models grouped by method, with name/engine/cost/maxRefs — for choosing method_name."
+    },
+    {
+      "uri": "funds://{portal_id}",
+      "functionName": "funds_remaining",
+      "doc": "Spendable PROJECT credits for a portal (the balance the generate transaction checks).",
+      "summary": "Spendable PROJECT credits for a portal (the balance the generate transaction checks)."
+    },
+    {
+      "uri": "trims://{portal_id}",
+      "functionName": "trims_all",
+      "doc": "get_all_trims for a portal with suppress_hidden defaulted to true.",
+      "summary": "get_all_trims for a portal with suppress_hidden defaulted to true."
+    },
+    {
+      "uri": "veneer://{portal_id}/{veneer_id}",
+      "functionName": "veneer_json",
+      "doc": "One generation record: the prompt as written AND as the worker received it.\n\n    board:// can only show the veneer joined to a shot's CURRENT take, so a generation whose\n    take pointer has not advanced (every four-* text2im, which fans out into several takes) is\n    invisible there. Address it by veneer_id instead — `generate` returns one.\n\n    `expanded_prompt` is the field that matters: processVeneer rewrites the prompt as\n    composition + prompt + style and hands the worker THAT (expand_prompt, functions/index.js).",
+      "summary": "One generation record: the prompt as written AND as the worker received it."
+    },
+    {
+      "uri": "board://{portal_id}",
+      "functionName": "board_json",
+      "doc": "The storyboard as JSON: story fields, part registry, and shots (with take/veneer info).",
+      "summary": "The storyboard as JSON: story fields, part registry, and shots (with take/veneer info)."
+    }
+  ],
+  "prompts": [
+    {
+      "name": "compose_storyboard",
+      "args": "portal_id: str, idea: str, style: str = \"cinematic\", shots: int = 6",
+      "doc": "Turn an idea into a storyboard: set the style, then add + generate shots.",
+      "summary": "Turn an idea into a storyboard: set the style, then add + generate shots."
+    },
+    {
+      "name": "reimagine_shot",
+      "args": "portal_id: str, shot_id: str, look: str",
+      "doc": "Restyle an existing shot with a new look.",
+      "summary": "Restyle an existing shot with a new look."
+    },
+    {
+      "name": "fill_gaps",
+      "args": "portal_id: str",
+      "doc": "Generate a first take for every empty shot.",
+      "summary": "Generate a first take for every empty shot."
+    },
+    {
+      "name": "tighten_cut",
+      "args": "portal_id: str, target_seconds: int",
+      "doc": "Trim shots toward a target runtime, then save a cut.",
+      "summary": "Trim shots toward a target runtime, then save a cut."
+    }
+  ],
+  "envVars": [
+    {
+      "name": "MCP_ENDPOINT",
+      "defaultVal": "https://10zebra.com/api/v1/mcp",
+      "meaning": "Authenticated mcpAction cloud function URL for all state reads and mutations."
+    },
+    {
+      "name": "MCP_KEY",
+      "defaultVal": "YOUR_DIRECTOR_MCP_KEY",
+      "meaning": "Shared secret passed as x-mcp-key to authenticate agent calls (Director plan required)."
+    },
+    {
+      "name": "MCP_UID",
+      "defaultVal": "YOUR_USER_UID",
+      "meaning": "Acting user Firebase UID for attribution (agent:<uid>). Validated cloud-side."
+    },
+    {
+      "name": "MCP_HOST",
+      "defaultVal": "127.0.0.1",
+      "meaning": "Bind host for the FastMCP streamable-HTTP server."
+    },
+    {
+      "name": "MCP_PORT",
+      "defaultVal": "8080",
+      "meaning": "Bind port for the FastMCP streamable-HTTP server."
+    },
+    {
+      "name": "MCP_TRANSPORT",
+      "defaultVal": "streamable-http",
+      "meaning": "Transport protocol: streamable-http (multi-tenant SSE) or stdio (local desktop)."
+    }
+  ]
+}

@@ -13,12 +13,66 @@ import Pricing from "/src/components/Pricing.astro";
 import FAQ from "/src/components/FAQ.astro";
 import FinalCTA from "/src/components/FinalCTA.astro";
 import Footer from "/src/components/layout/Footer.astro";
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://10zebra.com/#website",
+      "url": "https://10zebra.com/",
+      "name": "10zebra",
+      "description": "Multi-Model AI Video Production Workspace for Creative Directors, Producers, Agencies, and Creators.",
+      "publisher": {
+        "@id": "https://10zebra.com/#organization",
+      },
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://10zebra.com/#organization",
+      "name": "10zebra",
+      "url": "https://10zebra.com/",
+      "logo": "https://10zebra.com/assets/logo.png",
+      "foundingDate": "2021-10",
+      "founder": {
+        "@type": "Person",
+        "name": "Philip Meier",
+        "honorificPrefix": "Dr.",
+        "jobTitle": "Founder & CEO",
+        "alumniOf": "University of California, San Diego",
+        "sameAs": ["https://www.linkedin.com/in/philip-meier-phd/"],
+      },
+      "sameAs": [
+        "https://www.linkedin.com/company/10zebra/",
+        "https://twitter.com/10zebra_app",
+        "https://www.youtube.com/@10zebra",
+        "https://discord.gg/7PCt4Xqw7k",
+      ],
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://10zebra.com/#application",
+      "name": "10zebra AI Video Studio",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All (Cloud/Web-based)",
+      "url": "https://10zebra.com/",
+      "description": "Cloud-based AI video production studio integrating 68+ foundation models (Kling, Veo 3, Sora, Runway, Wan) with Character Swap face locking, in-browser timeline take trimming, and Model Context Protocol (MCP) server support.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "description": "Free trial with 200 initial credits included",
+      },
+    },
+  ],
+};
 ---
 
 <Layout
   title="10zebra | AI Video Production Workspace — Multi-Model, Team-Ready, Creator-Controlled"
   description="Direct AI video like a producer. Generate across Kling, Veo, Runway, Sora & more from one workspace. Set project budgets, manage your team, keep characters consistent, and export to YouTube. Start free with 200 credits."
 >
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   <Header />
 
   <main>

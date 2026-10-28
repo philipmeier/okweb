@@ -10,7 +10,10 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "sync:models": "node scripts/sync-models.mjs"
+    "sync": "node scripts/sync-app.mjs",
+    "sync:app": "node scripts/sync-app.mjs",
+    "sync:models": "node scripts/sync-app.mjs --models",
+    "sync:mcp": "node scripts/sync-app.mjs --mcp"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.3",
