@@ -1,4 +1,6 @@
 ---
+import { Image } from "astro:assets";
+import logo from "/src/assets/logo.png";
 import { solutions } from "/src/data/solutions";
 import { getModelFamilies, catalog } from "/src/data/models";
 
@@ -11,8 +13,7 @@ const modelFamilies = getModelFamilies().slice(0, 5);
       <!-- Brand -->
       <div class="col-span-2 md:col-span-1">
         <a href="/" class="block mb-4 max-w-[160px]" aria-label="10zebra home">
-          <img src="https://cdn.prod.website-files.com/63c08dc99cc1f6e207c35685/673d8f0ef64a98520b1354de_10zebra-watermark-white.png"
-            alt="10zebra" class="block w-full" />
+          <Image src={logo} alt="10zebra" class="block w-full h-auto" />
         </a>
         <p class="text-sm text-[var(--text-muted)] leading-relaxed max-w-[280px]">
           The AI video production workspace: multi-model generation, character consistency, project budgets, team collaboration, and YouTube-ready export from one place.

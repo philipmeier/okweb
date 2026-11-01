@@ -499,12 +499,12 @@ export const comparisonSections: ComparisonSection[] = [
         studio: '✓ High-concurrency MCP',
       },
       {
-        name: 'Automated credit refund for failed jobs',
-        hint: 'Instant 100% credit refund if an upstream AI model errors or times out',
-        payg: '✓ Automatic',
-        maker: '✓ Automatic',
-        director: '✓ Automatic',
-        studio: '✓ Automatic',
+        name: 'Credit refund for failed jobs',
+        hint: 'Credit refund if an upstream AI model errors or times out (via support)',
+        payg: '✓ Supported',
+        maker: '✓ Supported',
+        director: '✓ Supported',
+        studio: '✓ Supported',
       },
       {
         name: 'Support channel',
@@ -538,7 +538,7 @@ export const pricingFaqs: PricingFaq[] = [
   },
   {
     q: 'What happens if an AI video generation fails or errors out?',
-    a: 'Our infrastructure includes <strong>100% automated credit protection</strong>. If an upstream foundation model (like Kling, Veo, or Sora) errors, times out, or fails server-side content filters, our system detects it and instantly returns all deducted credits to your project balance. You never pay for failed takes.',
+    a: 'We provide <strong>credit refund protection for failed jobs</strong>. If an upstream foundation model (like Kling, Veo, or Sora) errors, times out, or fails server-side content filters, simply reach out to support and we will credit the deducted amount back to your project balance. You never pay for failed takes.',
   },
   {
     q: 'Which plan is required for the Model Context Protocol (MCP) server?',
