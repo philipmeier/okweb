@@ -8,6 +8,8 @@
  * - Pricing FAQs
  */
 
+import { totalFamilies, totalModels } from './models';
+
 export interface PricingPlan {
   id: 'payg' | 'maker' | 'director';
   name: string;
@@ -43,7 +45,7 @@ export const plans: PricingPlan[] = [
     approx: 'Approx. 5 Kling shots or 20 Grok clips',
     features: [
       '200 Free Trial Credits on signup',
-      'All 8+ AI models (Kling, Veo, Sora, Runway, etc.)',
+      `All ${totalFamilies} model families (${totalModels}+ engines: Kling, Veo, Sora, Runway, etc.)`,
       'Purchased top-up credits never expire',
       'Full prompt, seed & generation history',
       'Model Context Protocol (MCP) server access',
@@ -311,12 +313,12 @@ export const comparisonSections: ComparisonSection[] = [
     category: 'AI Models & Multi-Model Generation',
     features: [
       {
-        name: 'Access to all 8+ foundation AI models',
-        hint: 'Kling 3.0, Veo 3, Sora, Runway Gen-4, Grok, SeeDance 2.0, Wan 2.1, Flux Pro',
-        payg: '✓ All models',
-        maker: '✓ All models',
-        director: '✓ All models',
-        studio: '✓ All models + fine-tunes',
+        name: `Access to all ${totalFamilies} foundation model families`,
+        hint: 'Kling 3.0, Veo 3, Sora, Runway Gen-4, Grok, SeeDance 2.0, Wan, Flux Pro',
+        payg: '✓ All families',
+        maker: '✓ All families',
+        director: '✓ All families',
+        studio: '✓ All families + fine-tunes',
       },
       {
         name: 'Side-by-side model comparison viewer',
@@ -542,7 +544,7 @@ export const pricingFaqs: PricingFaq[] = [
   },
   {
     q: 'Which plan is required for the Model Context Protocol (MCP) server?',
-    a: 'Access to the 10zebra MCP server requires an active <strong>Director plan</strong> ($79/mo) or higher. On the Director tier, you receive your dedicated MCP API key and streamable-HTTP / stdio credentials to connect Claude Desktop, Cursor IDE, Windsurf, or custom autonomous agents directly to 10zebra\'s 68+ video generation models.',
+    a: `Access to the 10zebra MCP server requires an active <strong>Director plan</strong> ($79/mo) or higher. On the Director tier, you receive your dedicated MCP API key and streamable-HTTP / stdio credentials to connect Claude Desktop, Cursor IDE, Windsurf, or custom autonomous agents directly to 10zebra's ${totalFamilies} model families (${totalModels}+ engines).`,
   },
   {
     q: 'How do subscriber top-up discounts work?',

@@ -4,6 +4,7 @@ import Layout from "/src/layouts/Layout.astro";
 import Header from "/src/components/layout/Header.astro";
 import Footer from "/src/components/layout/Footer.astro";
 import FinalCTA from "/src/components/FinalCTA.astro";
+import { totalFamilies, totalModels } from "/src/data/models";
 
 const pageTitle = "Interactive Demo | Test Drive 10zebra AI Video Production Studio";
 const pageDescription = "Experience 10zebra directly in your browser. Explore an interactive multi-shot storyboard, test take trimming, inspect alternate takes across models, and see how directors build cinematic sequences.";
@@ -233,7 +234,7 @@ const jsonLd = {
               Notice how individual shots allow switching between Kling, Veo 3, and Runway engines. You can compare motions, physics, and lighting before choosing which take to commit to your sequence.
             </p>
             <div class="demo-step-pill">
-              <span>68+ Integrated Engines</span>
+              <span>{totalFamilies} Model Families ({totalModels}+ Engines)</span>
             </div>
           </div>
 

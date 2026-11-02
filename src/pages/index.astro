@@ -13,6 +13,7 @@ import Pricing from "/src/components/Pricing.astro";
 import FAQ from "/src/components/FAQ.astro";
 import FinalCTA from "/src/components/FinalCTA.astro";
 import Footer from "/src/components/layout/Footer.astro";
+import { totalFamilies, totalModels } from "/src/data/models";
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -56,7 +57,7 @@ const jsonLd = {
       "applicationCategory": "MultimediaApplication",
       "operatingSystem": "All (Cloud/Web-based)",
       "url": "https://10zebra.com/",
-      "description": "Cloud-based AI video production studio integrating 68+ foundation models (Kling, Veo 3, Sora, Runway, Wan) with Character Swap face locking, in-browser timeline take trimming, and Model Context Protocol (MCP) server support.",
+      "description": `Cloud-based AI video production studio integrating ${totalFamilies} model families (${totalModels}+ engines: Kling, Veo 3, Sora, Runway, Wan) with Character Swap face locking, in-browser timeline take trimming, and Model Context Protocol (MCP) server support.`,
       "offers": {
         "@type": "Offer",
         "price": "0",

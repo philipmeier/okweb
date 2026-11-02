@@ -50,6 +50,8 @@ export interface ModelsCatalog {
 }
 
 export const catalog = modelsData as unknown as ModelsCatalog;
+export const totalFamilies = catalog.totalFamilies;
+export const totalModels = catalog.totalModels;
 
 /**
  * Returns all active model families, sorted by model count descending.

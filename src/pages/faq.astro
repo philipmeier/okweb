@@ -5,9 +5,10 @@ import Header from "/src/components/layout/Header.astro";
 import Footer from "/src/components/layout/Footer.astro";
 import FinalCTA from "/src/components/FinalCTA.astro";
 import { faqCategories, allFaqs, getFaqStats } from "/src/data/faqs";
+import { totalFamilies, totalModels } from "/src/data/models";
 
 const pageTitle = "Frequently Asked Questions | 10zebra Multi-Model AI Video Studio";
-const pageDescription = "Comprehensive answers to common questions about 10zebra: 68+ AI video models (Kling, Veo, Sora), Model Context Protocol (MCP) server, character consistency, project budgets, and commercial rights.";
+const pageDescription = `Comprehensive answers to common questions about 10zebra: ${totalFamilies} AI model families (${totalModels}+ engines), Model Context Protocol (MCP) server, character consistency, project budgets, and commercial rights.`;
 const canonicalUrl = "https://10zebra.com/faq";
 
 const stats = getFaqStats();
@@ -76,7 +77,7 @@ const jsonLd = {
           </h1>
 
           <p class="faq-hero__lead">
-            Everything you need to know about directing 68+ AI video models, automating via our MCP server, managing project budgets, team permissions, and commercial rights.
+            Everything you need to know about directing across {totalFamilies} AI model families ({totalModels}+ engines), automating via our MCP server, managing project budgets, team permissions, and commercial rights.
           </p>
 
           <!-- Interactive Search Input -->
@@ -291,7 +292,7 @@ const jsonLd = {
           <div class="faq-support-quicklinks">
             <h4 class="faq-quicklinks-title">Quick Links</h4>
             <a href="/models" class="faq-quicklink-item">
-              <span>Supported Models Directory (68+)</span>
+              <span>Supported Models Directory ({totalFamilies} Families)</span>
               <span>&rarr;</span>
             </a>
             <a href="/mcp" class="faq-quicklink-item">
@@ -316,7 +317,7 @@ const jsonLd = {
     -------------------------------------------------------------- */}
     <FinalCTA
       title="Ready to Direct AI Video Like a Producer?"
-      subtitle="Join thousands of creative directors, filmmakers, and studios orchestrating 68+ models in one browser studio. Start with 200 free trial credits."
+      subtitle={`Join thousands of creative directors, filmmakers, and studios orchestrating ${totalFamilies} model families in one browser studio. Start with 200 free trial credits.`}
       primaryBtnText="Create Free Account"
       primaryBtnHref="/signup"
       secondaryBtnText="Explore Model Catalog"

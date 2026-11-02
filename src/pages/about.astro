@@ -6,9 +6,10 @@ import Footer from "/src/components/layout/Footer.astro";
 import FinalCTA from "/src/components/FinalCTA.astro";
 import { Image } from "astro:assets";
 import philipImg from "/src/assets/media/philip.jpg";
+import { totalFamilies, totalModels } from "/src/data/models";
 
 const pageTitle = "About 10zebra | Pioneering Multi-Model AI Video Production";
-const pageDescription = "Learn about 10zebra and founder Philip Meier, PhD. Founded in 2021, 10zebra empowers creative directors, film producers, agencies, and creators to orchestrate 68+ models in one browser studio.";
+const pageDescription = `Learn about 10zebra and founder Philip Meier, PhD. Founded in 2021, 10zebra empowers creative directors, film producers, agencies, and creators to orchestrate ${totalFamilies} model families (${totalModels}+ engines) in one browser studio.`;
 const canonicalUrl = "https://10zebra.com/about";
 
 const jsonLd = {
@@ -112,13 +113,13 @@ const jsonLd = {
               As diffusion models and early latent video generators began to surface, others treated them as novelty prompt toys. We saw the beginnings of a profound transformation in film and digital storytelling. But we also recognized the fundamental bottleneck: <strong>filmmaking is non-linear and collaborative</strong>. Directing a narrative requires continuity of character, camera trajectory, frame-accurate timing, and multi-scene pacing&mdash;capabilities that a standalone text box could never deliver.
             </p>
             <p>
-              Over the years, we have continuously expanded, optimized, and stress-tested 10zebra alongside real productions. Today, our cloud studio integrates <strong>68+ active production engines</strong> across 10 global model architectures (Kling, Veo, Sora, Runway, Wan, and Grok), giving production teams a unified canvas where they can direct without engine lock-in.
+              Over the years, we have continuously expanded, optimized, and stress-tested 10zebra alongside real productions. Today, our cloud studio integrates <strong>{totalModels}+ active production engines</strong> across {totalFamilies} global model families (Kling, Veo, Sora, Runway, Wan, and Grok), giving production teams a unified canvas where they can direct without engine lock-in.
             </p>
 
             <div class="about-stats-row">
               <div class="about-stat">
-                <span class="about-stat__num">68+</span>
-                <span class="about-stat__label">AI Models Integrated</span>
+                <span class="about-stat__num">{totalFamilies}</span>
+                <span class="about-stat__label">Model Families ({totalModels}+ Engines)</span>
               </div>
               <div class="about-stat">
                 <span class="about-stat__num">2021</span>

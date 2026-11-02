@@ -10,6 +10,7 @@
  */
 import { media, type MediaSlot } from './media';
 import type { FeatureKey } from './features';
+import { totalFamilies } from './models';
 
 export interface Solution {
   slug: string;
@@ -81,7 +82,7 @@ export const solutions: Solution[] = [
     stats: [
       { value: '4×', label: 'more directions per pitch' },
       { value: 'Same day', label: 'concept to animatic' },
-      { value: '8+', label: 'models in one workspace' },
+      { value: `${totalFamilies}`, label: 'model families in one workspace' },
     ],
     // PLACEHOLDER testimonial
     testimonial: {
@@ -157,7 +158,7 @@ export const solutions: Solution[] = [
     stats: [
       { value: '3–30', label: 'shots from a single scene' },
       { value: '100%', label: 'of prompts and takes on record' },
-      { value: '8+', label: 'models per shot' },
+      { value: `${totalFamilies}`, label: 'model families per shot' },
     ],
     // PLACEHOLDER testimonial
     testimonial: {

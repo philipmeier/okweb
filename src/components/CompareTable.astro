@@ -1,4 +1,5 @@
 ---
+import { totalFamilies, totalModels } from '/src/data/models';
 ---
 <section class="section" aria-labelledby="compare-heading">
   <div class="sect-head reveal">
@@ -22,11 +23,11 @@
         <!-- Group: Multi-Model -->
         <tr><td colspan="5" class="px-3 pt-5 pb-2 text-[0.7rem] uppercase tracking-[1.5px] text-[var(--text-muted)] font-bold border-b border-[var(--border-subtle)] bg-white/[0.01]">Multi-Model Generation</td></tr>
         <tr class="border-b border-[rgba(46,50,59,0.4)]">
-          <td class="p-3 text-[var(--text-primary)] font-medium">Generate from 8+ models in one workspace</td>
-          <td class="p-3 text-[var(--accent)] font-semibold">&#10003; 8+ models</td>
-          <td class="p-3 text-[var(--text-muted)]">&#10007; Single model</td>
+          <td class="p-3 text-[var(--text-primary)] font-medium">Generate across {totalFamilies} model families in one workspace</td>
+          <td class="p-3 text-[var(--accent)] font-semibold">&#10003; {totalFamilies} model families ({totalModels}+ engines)</td>
+          <td class="p-3 text-[var(--text-muted)]">&#10007; 1 model family</td>
           <td class="p-3 text-[var(--text-muted)] italic">Partial</td>
-          <td class="p-3 text-[var(--text-muted)]">&#10007; Single model</td>
+          <td class="p-3 text-[var(--text-muted)]">&#10007; 1 model family</td>
         </tr>
         <tr class="border-b border-[rgba(46,50,59,0.4)]">
           <td class="p-3 text-[var(--text-primary)] font-medium">A/B test models on the same shot</td>

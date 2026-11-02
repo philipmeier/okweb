@@ -1,4 +1,6 @@
 ---
+import { totalFamilies } from '/src/data/models';
+
 const pains = [
   {
     iconPath: 'M12 2a10 10 0 100 20A10 10 0 0012 2zm0 3a1.5 1.5 0 110 3 1.5 1.5 0 010-3zm0 5a1.5 1.5 0 110 3 1.5 1.5 0 010-3zm0 5a1.5 1.5 0 110 3 1.5 1.5 0 010-3z',
@@ -6,7 +8,7 @@ const pains = [
     label: 'The Model Gamble',
     title: "You Can't Know Which Model Wins Until You Try",
     body: "Kling nails faces but muddles motion. Veo gets motion but loses detail. You waste credits guessing &mdash; or worse, you never try the model that would've been perfect.",
-    solution: "A/B generate from 8+ models on the same shot. Pick the best take. Keep the rest as backups.",
+    solution: `A/B generate across ${totalFamilies} model families on the same shot. Pick the best take. Keep the rest as backups.`,
   },
   {
     iconPath: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z',

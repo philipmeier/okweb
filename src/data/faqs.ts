@@ -3,6 +3,8 @@
 // Aligned with the production app functionality in ../10z.
 // Optimized for traditional SEO (Schema.org FAQPage) and AEO (Answer Engine Optimization).
 
+import { totalFamilies, totalModels } from './models';
+
 export interface FaqItem {
   id: string;
   category: 'features' | 'mcp' | 'teams' | 'payments' | 'terms';
@@ -26,7 +28,7 @@ export const faqCategories: FaqCategory[] = [
     label: 'Studio & AI Models',
     badge: 'Core Features',
     icon: 'film',
-    description: '68+ models, multi-engine comparison, character swap consistency, in-browser trimming, and YouTube export.',
+    description: `${totalFamilies} model families (${totalModels}+ engines), multi-engine comparison, character swap consistency, in-browser trimming, and YouTube export.`,
   },
   {
     id: 'mcp',
@@ -66,8 +68,8 @@ export const allFaqs: FaqItem[] = [
     id: 'why-10zebra-vs-standalone',
     category: 'features',
     question: 'What makes 10zebra different from using standalone AI video platforms directly?',
-    shortAnswer: '10zebra is a non-linear production studio that unifies 68+ models into one canvas with character consistency, project credit controls, in-browser trimming, and system error credit refunds.',
-    answer: `<strong>10zebra eliminates engine lock-in and production fragmentation.</strong> Rather than juggling 5 different subscription tabs with disparate interfaces, 10zebra unifies 68+ foundation engines into one browser workspace with:
+    shortAnswer: `10zebra is a non-linear production studio that unifies ${totalFamilies} model families (${totalModels}+ engines) into one canvas with character consistency, project credit controls, in-browser trimming, and system error credit refunds.`,
+    answer: `<strong>10zebra eliminates engine lock-in and production fragmentation.</strong> Rather than juggling 5 different subscription tabs with disparate interfaces, 10zebra unifies ${totalFamilies} foundation model families (${totalModels}+ engines) into one browser workspace with:
 <ul>
   <li><strong>Multi-Model Comparison:</strong> Run the same prompt and camera trajectory across Kling, Veo 3, Sora, and Runway simultaneously to select the best take.</li>
   <li><strong>Multi-Reference Character Swap:</strong> Lock actor identity, wardrobe, and facial features across multiple scenes using up to 4 anchor references.</li>
@@ -80,8 +82,8 @@ export const allFaqs: FaqItem[] = [
     id: 'supported-models-and-engines',
     category: 'features',
     question: 'Which AI video models and engines are supported on 10zebra?',
-    shortAnswer: '10zebra integrates 68+ active models across 10 major global families including Kling AI, Google Veo 3, OpenAI Sora, Runway, Wan, ByteDance Seaweed, PixVerse, Luma, Minimax, and Grok.',
-    answer: `10zebra currently supports <strong>68+ active production models across 10 global architecture families</strong>:
+    shortAnswer: `10zebra integrates ${totalModels}+ active engines across ${totalFamilies} major global families including Kling AI, Google Veo 3, OpenAI Sora, Runway, Wan, ByteDance Seaweed, PixVerse, Luma, Minimax, and Grok.`,
+    answer: `10zebra currently supports <strong>${totalModels}+ active production engines across ${totalFamilies} global architecture families</strong>:
 <ul>
   <li><strong>Kling AI:</strong> Kling 3.0 Standard & Pro, Kling 1.5, Elements, and Motion Brush control for high-fidelity physical realism.</li>
   <li><strong>Google Veo 3:</strong> Veo 3 Fast (rapid previs) and Veo 3 Ultra (cinematic 1080p depth-of-field).</li>
@@ -160,7 +162,7 @@ For complex sound design or VFX grading, you can also export EDL / XML timelines
     id: 'what-is-mcp-server',
     category: 'mcp',
     question: 'What is the 10zebra Model Context Protocol (MCP) server?',
-    shortAnswer: 'The 10zebra MCP server connects Claude Desktop, Cursor IDE, and AI agents directly to 10zebra, allowing LLMs to orchestrate 68+ video models, trim takes, and manage storyboards through conversational tools.',
+    shortAnswer: `The 10zebra MCP server connects Claude Desktop, Cursor IDE, and AI agents directly to 10zebra, allowing LLMs to orchestrate ${totalFamilies} model families (${totalModels}+ engines), trim takes, and manage storyboards through conversational tools.`,
     answer: `The 10zebra Model Context Protocol (MCP) server is an open-standard integration layer built on Anthropic's FastMCP specification. It allows autonomous AI agents and desktop LLMs to directly control your 10zebra production studio.
 <br /><br />
 Instead of manually typing prompts into web forms, your AI assistant can:
@@ -209,7 +211,7 @@ The Pay-As-You-Go and Maker ($29/mo) plans do not include MCP credentials. Upgra
     shortAnswer: 'The MCP server provides 11 callable tools (including generate, add_story_shot, trim_take, and save_cut), 5 live query resources, and 4 director system prompts.',
     answer: `The 10zebra MCP server implements <strong>11 production-grade tools</strong>:
 <ul>
-  <li><code>generate</code>: Dispatch an AI video generation task to any of 68+ models with prompt, engine, aspect ratio, and reference anchors.</li>
+  <li><code>generate</code>: Dispatch an AI video generation task across any of ${totalFamilies} model families (${totalModels}+ engines) with prompt, engine, aspect ratio, and reference anchors.</li>
   <li><code>add_story_shot</code> & <code>add_story_scene</code>: Construct structured storyboards and scenes directly from script breakdowns.</li>
   <li><code>hide_story_shots</code> & <code>hide_story_scene</code>: Curate and toggle alternate takes without deleting generation history.</li>
   <li><code>move_story_shot</code>: Reorder shots dynamically along the sequence timeline.</li>
@@ -259,7 +261,7 @@ It also exposes <strong>5 live resources</strong> (such as <code>10z://models</c
     answer: `10zebra includes <strong>three role tiers</strong> to streamline production collaboration:
 <ul>
   <li><strong>Owner / Producer:</strong> Full administrative rights. Can create projects, allocate and reclaim project credit pools, manage payment methods, invite/remove members, and access MCP API keys.</li>
-  <li><strong>Editor / Director:</strong> Can initiate generations across all 68+ models, apply Character Swap anchors, trim takes, organize timelines, and export cuts within their assigned projects. Cannot alter billing or account credit pools.</li>
+  <li><strong>Editor / Director:</strong> Can initiate generations across all ${totalFamilies} model families (${totalModels}+ engines), apply Character Swap anchors, trim takes, organize timelines, and export cuts within their assigned projects. Cannot alter billing or account credit pools.</li>
   <li><strong>Viewer / Client:</strong> Free review-only seats. Can inspect takes, play back storyboard animatics, leave timestamped feedback notes, and download approved cuts without spending credits.</li>
 </ul>`,
     keywords: ['team roles', 'permissions', 'owner', 'editor', 'viewer', 'client review', 'seats'],

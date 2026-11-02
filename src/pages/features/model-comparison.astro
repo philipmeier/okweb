@@ -1,9 +1,10 @@
 ---
 import FeatureLandingLayout from "/src/layouts/FeatureLandingLayout.astro";
 import ModelComparisonMockup from "/src/components/features/ModelComparisonMockup.astro";
+import { catalog } from "/src/data/models";
 
 const stats = [
-  { value: "8+", label: "Integrated AI Engines", detail: "Kling, Grok, Seedance, Veo, Sora" },
+  { value: `${catalog.totalFamilies}`, label: "Model Families", detail: `${catalog.totalModels}+ engines: Kling, Grok, SeeDance, Veo, Sora` },
   { value: "1 Prompt", label: "Multi-Model Fanout", detail: "Zero tab switching required" },
   { value: "100%", label: "Seed & History Retention", detail: "Exact camera & prompt audit logs" },
   { value: "0ms Delay", label: "Synchronized Live Scrub", detail: "Compare takes frame-by-frame" }

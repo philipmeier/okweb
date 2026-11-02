@@ -1,10 +1,11 @@
 ---
 import FeatureLandingLayout from "/src/layouts/FeatureLandingLayout.astro";
+import { catalog } from "/src/data/models";
 
 const stats = [
   { value: "3 References", label: "Multi-Anchor Blending", detail: "Face, wardrobe & environment" },
   { value: "Zero Drift", label: "Identity Stability", detail: "Locked facial structure" },
-  { value: "8+ Engines", label: "Model Compatibility", detail: "Flux, Kling, Veo, Seedance" },
+  { value: `${catalog.totalFamilies} Families`, label: "Model Family Support", detail: `${catalog.totalModels}+ engines (Flux, Kling, Veo, SeeDance)` },
   { value: "100%", label: "Art Direction Control", detail: "Color grade & lighting anchored" }
 ];
 

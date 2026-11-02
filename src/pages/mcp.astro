@@ -12,6 +12,7 @@ import {
   getMcpStats,
   getMcpEnvVars,
 } from "/src/data/mcp";
+import { totalFamilies, totalModels } from "/src/data/models";
 
 const tools = getMcpTools();
 const resources = getMcpResources();
@@ -77,7 +78,7 @@ const jsonLd = {
         `Multi-tenant video project orchestration across ${stats.totalTools} callable tools`,
         `Direct access to ${stats.totalResources} live storyboard resources and ${stats.totalPrompts} director prompts`,
         "Atomic Firestore transaction credit enforcement",
-        "Multi-model video generation across 68+ AI models",
+        `Multi-model video generation across ${totalFamilies} model families (${totalModels}+ engines)`,
         "Real-time storyboard manipulation, scene creation, and shot sequencing",
         "Frame-accurate take trimming and final master cut saving",
         "Zero-credential client architecture via secure mcpAction cloud function"
@@ -178,7 +179,7 @@ const jsonLd = {
           </h1>
 
           <p class="mcp-hero__lead">
-            The <strong>10zebra Model Context Protocol (MCP) server</strong> gives AI assistants native tools to compose storyboards, dispatch generations across 68+ models (Kling, Veo, Sora, Runway, Grok), trim takes, and render cuts&mdash;all backed by server-authoritative project credit guardrails.
+            The <strong>10zebra Model Context Protocol (MCP) server</strong> gives AI assistants native tools to compose storyboards, dispatch generations across {totalFamilies} model families ({totalModels}+ engines like Kling, Veo, Sora, Runway, Grok), trim takes, and render cuts&mdash;all backed by server-authoritative project credit guardrails.
           </p>
 
           <div class="mcp-hero__actions">
@@ -226,8 +227,8 @@ const jsonLd = {
             </div>
             <div class="mcp-metric-divider"></div>
             <div class="mcp-metric-pill">
-              <span class="mcp-metric-pill__num">68+</span>
-              <span class="mcp-metric-pill__label">Supported Engines</span>
+              <span class="mcp-metric-pill__num">{totalFamilies}</span>
+              <span class="mcp-metric-pill__label">Model Families ({totalModels}+ Engines)</span>
             </div>
             <div class="mcp-metric-divider"></div>
             <div class="mcp-metric-pill mcp-metric-pill--highlight">

@@ -20,6 +20,7 @@ import ProjectBudgetMockup from "/src/components/features/ProjectBudgetMockup.as
 import YouTubeExportMockup from "/src/components/features/YouTubeExportMockup.astro";
 import { features, featureEntries, phases, type PhaseKey } from "/src/data/features";
 import { solutions } from "/src/data/solutions";
+import { catalog } from "/src/data/models";
 
 const phaseKeys = Object.keys(phases) as PhaseKey[];
 const byPhase = phaseKeys.map((key) => ({
@@ -106,7 +107,7 @@ const comparisonData = [
     <!-- ================= STATS ================= -->
     <div class="wrap">
       <div class="fh-stats glass reveal">
-        <div class="fh-stat"><div class="fh-stat__value grad-text">8+</div><div class="fh-stat__label">AI video models</div></div>
+        <div class="fh-stat"><div class="fh-stat__value grad-text">{catalog.totalFamilies}</div><div class="fh-stat__label">Model Families</div></div>
         <div class="fh-stat"><div class="fh-stat__value grad-text">30</div><div class="fh-stat__label">shots from one script</div></div>
         <div class="fh-stat"><div class="fh-stat__value grad-text">Per&#8209;Project</div><div class="fh-stat__label">budgets &amp; teams</div></div>
         <div class="fh-stat"><div class="fh-stat__value grad-text">1&#8209;Click</div><div class="fh-stat__label">publish to YouTube</div></div>
