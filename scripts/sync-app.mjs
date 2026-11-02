@@ -181,19 +181,19 @@ function syncModels() {
     },
     wan: {
       slug: 'wan',
-      name: 'Wan 2.1',
-      developer: 'Wan Video / Open Weights',
+      name: 'Wan',
+      developer: 'Wan Video / Alibaba',
       tagline: 'High-aesthetic open-weights architecture with fluid physics and 14B precision',
       accentColor: '#06b6d4',
       badge: 'Fluid Physics',
-      overview: 'Wan 2.1 has made waves across the generative video space with its 14B parameter architecture, demonstrating exceptional fluidity in water simulation, clothing drape, and anime-inspired visual styling.',
+      overview: 'Wan is an open-weights generative video foundation family developed by Alibaba / Wan Video. Demonstrating exceptional fluidity in physical simulations (water, smoke, cloth drape) and artistic visual styling, Wan models (including Wan 2.1 14B and WanVACE) provide versatile video generation and transformation capabilities.',
       strengths: [
         'Fluid, organic particle and motion physics',
         'Stunning fantasy, anime, and stylized illustration adherence',
         'Excellent camera rotation without tearing or artifacting',
         'Fast generation times on cloud cluster GPUs'
       ],
-      tips: 'Wan 2.1 shines with artistic and non-photorealistic aesthetics—specify visual medium (e.g. watercolor, anime cel-shaded, oil painting) in your prompt.'
+      tips: 'Wan shines with artistic and non-photorealistic aesthetics—specify visual medium (e.g. watercolor, anime cel-shaded, oil painting) in your prompt.'
     },
     flux: {
       slug: 'flux',
@@ -293,7 +293,22 @@ function syncModels() {
     const keyLower = m.key.toLowerCase();
     const engineLower = (m.engine || '').toLowerCase();
 
-    if (!family) {
+    // Deduce and normalize family slug (ensures versions like "2.1" are never treated as part of the family)
+    if (family) {
+      const famLower = family.toLowerCase().trim();
+      if (famLower.startsWith('wan')) family = 'wan';
+      else if (famLower.startsWith('kling')) family = 'kling';
+      else if (famLower.startsWith('veo')) family = 'veo';
+      else if (famLower.startsWith('runway')) family = 'runway';
+      else if (famLower.startsWith('seedance')) family = 'seedance';
+      else if (famLower.startsWith('grok')) family = 'grok';
+      else if (famLower.startsWith('flux')) family = 'flux';
+      else if (famLower.startsWith('ltx')) family = 'ltx';
+      else if (famLower.startsWith('minimax')) family = 'minimax';
+      else if (famLower.startsWith('sora') || famLower.startsWith('openai')) family = 'openai';
+      else if (famLower.startsWith('nano') || famLower.startsWith('gemini')) family = 'nano';
+      else family = famLower.replace(/[-_\s]*(v?\d+(\.\d+)*)$/i, '');
+    } else {
       if (keyLower.includes('kling') || engineLower.includes('kling')) family = 'kling';
       else if (keyLower.includes('runway') || engineLower.includes('runway') || keyLower.includes('aleph')) family = 'runway';
       else if (keyLower.includes('seedance') || engineLower.includes('seedance') || keyLower.includes('karakter')) family = 'seedance';
@@ -366,14 +381,15 @@ function syncModels() {
   processedModels.forEach((m) => {
     let fam = familyMap.get(m.family);
     if (!fam) {
+      const cleanName = m.family.replace(/[-_\s]*(v?\d+(\.\d+)*)$/i, '').toUpperCase();
       fam = {
         slug: m.family,
-        name: m.family.toUpperCase(),
+        name: cleanName || m.family.toUpperCase(),
         developer: 'Partner Lab',
-        tagline: `Specialized models in the ${m.family} suite`,
+        tagline: `Specialized models in the ${cleanName || m.family} suite`,
         accentColor: '#f97316',
         badge: 'Specialized',
-        overview: `A collection of specialized generation engines for ${m.family}.`,
+        overview: `A collection of specialized generation engines for ${cleanName || m.family}.`,
         strengths: ['High performance specialized video tasks'],
         tips: 'Refer to model descriptions for optimal prompting style.',
         modelCount: 0,

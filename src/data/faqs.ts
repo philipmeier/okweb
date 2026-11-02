@@ -47,7 +47,7 @@ export const faqCategories: FaqCategory[] = [
     label: 'Billing & Credits',
     badge: 'Plans & Payments',
     icon: 'credit-card',
-    description: 'Subscriptions, non-expiring credit packs, credit refund protection on failed jobs, and Stripe checkout.',
+    description: 'Subscriptions, non-expiring credit packs, credit refunds on system errors, and Stripe checkout.',
   },
   {
     id: 'terms',
@@ -66,13 +66,13 @@ export const allFaqs: FaqItem[] = [
     id: 'why-10zebra-vs-standalone',
     category: 'features',
     question: 'What makes 10zebra different from using standalone AI video platforms directly?',
-    shortAnswer: '10zebra is a non-linear production studio that unifies 68+ models into one canvas with character consistency, project credit controls, in-browser trimming, and credit refund protection.',
+    shortAnswer: '10zebra is a non-linear production studio that unifies 68+ models into one canvas with character consistency, project credit controls, in-browser trimming, and system error credit refunds.',
     answer: `<strong>10zebra eliminates engine lock-in and production fragmentation.</strong> Rather than juggling 5 different subscription tabs with disparate interfaces, 10zebra unifies 68+ foundation engines into one browser workspace with:
 <ul>
   <li><strong>Multi-Model Comparison:</strong> Run the same prompt and camera trajectory across Kling, Veo 3, Sora, and Runway simultaneously to select the best take.</li>
   <li><strong>Multi-Reference Character Swap:</strong> Lock actor identity, wardrobe, and facial features across multiple scenes using up to 4 anchor references.</li>
   <li><strong>Production Timeline & Take Trimming:</strong> Set in/out cut points directly in the browser and assemble continuous multi-shot sequences without downloading to an NLE first.</li>
-  <li><strong>Credit Refund Protection:</strong> If an upstream engine errors or times out, contact support and credits are returned to your project balance.</li>
+  <li><strong>System Error Credit Protection:</strong> If an upstream engine experiences a system error or timeout, contact support and credits are returned to your project balance (refunds do not apply to prompts blocked for terms violations).</li>
 </ul>`,
     keywords: ['comparison', 'runway', 'kling', 'veo', 'sora', 'difference', 'why 10zebra', 'benefits'],
   },
@@ -80,14 +80,14 @@ export const allFaqs: FaqItem[] = [
     id: 'supported-models-and-engines',
     category: 'features',
     question: 'Which AI video models and engines are supported on 10zebra?',
-    shortAnswer: '10zebra integrates 68+ active models across 10 major global families including Kling AI, Google Veo 3, OpenAI Sora, Runway Gen-3/4, Wan 2.1, ByteDance Seaweed, PixVerse, Luma, Minimax, and Grok.',
+    shortAnswer: '10zebra integrates 68+ active models across 10 major global families including Kling AI, Google Veo 3, OpenAI Sora, Runway, Wan, ByteDance Seaweed, PixVerse, Luma, Minimax, and Grok.',
     answer: `10zebra currently supports <strong>68+ active production models across 10 global architecture families</strong>:
 <ul>
   <li><strong>Kling AI:</strong> Kling 3.0 Standard & Pro, Kling 1.5, Elements, and Motion Brush control for high-fidelity physical realism.</li>
   <li><strong>Google Veo 3:</strong> Veo 3 Fast (rapid previs) and Veo 3 Ultra (cinematic 1080p depth-of-field).</li>
   <li><strong>OpenAI Sora:</strong> Complex multi-character simulations, dynamic fluid mechanics, and atmospheric lighting.</li>
   <li><strong>Runway:</strong> Gen-3 Alpha, Gen-3 Alpha Turbo, and Gen-4 for fluid camera arcs and cinematic camera motion.</li>
-  <li><strong>Wan 2.1:</strong> Open-weights high-speed diffusion models optimized for stylized fantasy and anime workflows.</li>
+  <li><strong>Wan:</strong> Open-weights high-speed diffusion models (including Wan 2.1 14B and WanVACE) optimized for stylized fantasy and anime workflows.</li>
   <li><strong>ByteDance Seaweed & PixVerse:</strong> Specialized for dramatic lighting, fashion plates, and micro-expressions.</li>
   <li><strong>Luma Dream Machine & Minimax Hailuo:</strong> Hyper-smooth natural motion and character performance.</li>
   <li><strong>Grok Video:</strong> Rapid low-cost animatic ideation clips (10 credits per take).</li>
@@ -224,12 +224,12 @@ It also exposes <strong>5 live resources</strong> (such as <code>10z://models</c
     id: 'mcp-credit-safety-budget-caps',
     category: 'mcp',
     question: 'How does 10zebra prevent autonomous AI agents from burning through my credits via MCP?',
-    shortAnswer: 'MCP calls are bound to specific project workspaces with mandatory spend caps; all credit deductions are transacted with atomic Firestore safeguards and credit refund protection on failure.',
+    shortAnswer: 'MCP calls are bound to specific project workspaces with mandatory spend caps; all credit deductions are transacted with atomic Firestore safeguards and credit refund protection on system failures.',
     answer: `We engineered the 10zebra MCP server with <strong>three distinct layers of financial protection</strong> for autonomous agent use:
 <ol>
   <li><strong>Project Spend Caps:</strong> You generate an MCP key bound to a specific project with an assigned credit ceiling (e.g., 300 credits). The MCP agent cannot access your account-wide balance or other projects.</li>
   <li><strong>Atomic Credit Pre-Checks:</strong> Every MCP <code>generate</code> call performs an atomic Firestore balance check. If the requested model requires 35 credits and only 20 remain, the server cleanly rejects the tool call before dispatching upstream.</li>
-  <li><strong>Credit Refund Support:</strong> If an autonomous agent generates a take that errors or triggers upstream model moderation, reach out to support to have the deducted credits restored to your project pool.</li>
+  <li><strong>System Error Support:</strong> If an autonomous agent call fails due to an upstream technical error or server crash, reach out to support to have the deducted credits restored to your project pool (takes blocked by upstream moderation for terms violations are not refundable).</li>
 </ol>`,
     keywords: ['mcp safety', 'spend caps', 'budget limit', 'runaway spending', 'agent safety', 'credit protection'],
   },
@@ -326,11 +326,13 @@ It also exposes <strong>5 live resources</strong> (such as <code>10z://models</c
     id: 'failed-generation-refund-policy',
     category: 'payments',
     question: 'What happens if an AI video generation fails, errors, or times out upstream?',
-    shortAnswer: 'If an upstream model fails, errors, or times out, you can request a credit refund for the failed take by contacting our support team.',
-    answer: `<strong>You never pay for failed takes on 10zebra.</strong>
+    shortAnswer: 'If an upstream model fails due to a technical system error or timeout, you can request a credit refund for the take by contacting our support team.',
+    answer: `<strong>You are protected against technical and system errors on 10zebra.</strong>
 <br /><br />
-If an upstream foundation model provider (like Kling, Veo, or Sora) experiences a server timeout, cluster failure, internal API error, or false-positive content moderation block, simply contact our team at <code>support@10zebra.com</code> or via our in-app chat. We will review the failed job and credit the deducted amount directly back to your project balance.`,
-    keywords: ['failed generation', 'refund policy', 'credit refund', 'errors', 'timeouts', 'failed takes'],
+If an upstream foundation model provider (like Kling, Veo, or Sora) experiences a technical server timeout, GPU cluster failure, or internal API outage, simply contact our team at <code>support@10zebra.com</code> or via our in-app chat. We will review the failed job and credit the deducted amount directly back to your project balance.
+<br /><br />
+<em>Important clarification:</em> Credit refund protection applies exclusively to technical system errors. Prompts or input media blocked or rejected by upstream models for terms-of-service violations (such as copyright infringement, unsupported graphic content, violence, or sexual content) are <strong>not</strong> eligible for credit refunds.`,
+    keywords: ['failed generation', 'refund policy', 'credit refund', 'system errors', 'timeouts', 'failed takes'],
   },
   {
     id: 'do-credits-expire',
@@ -426,29 +428,30 @@ We respect client confidentiality and production NDAs:
     id: 'content-moderation-and-safety',
     category: 'terms',
     question: 'How does content moderation work, and what happens if a take is flagged?',
-    shortAnswer: 'Prompts and images are checked against standard automated safety filters; if an upstream model rejects a take due to a filter or false positive, you can request a credit refund from support.',
-    answer: `10zebra connects to industry-standard foundation models that enforce automated trust and safety filters (preventing CSAM, real-person impersonation without consent, hate speech, and graphic violence).
+    shortAnswer: 'Prompts and images are checked against upstream foundation model trust and safety filters; prompts blocked by models for terms violations (such as copyright infringement or unsupported content) are not eligible for refunds.',
+    answer: `10zebra connects to industry-standard foundation models that enforce automated trust and safety filters (preventing copyright infringement, CSAM, real-person impersonation without consent, hate speech, graphic violence, and adult content).
 <br /><br />
 If a prompt or input image is flagged by an upstream provider:
 <ul>
-  <li>The generation terminates safely and displays an explanatory moderation notice.</li>
-  <li><strong>Credit refunds for false positives:</strong> Contact support and we will credit the deducted amount back to your project balance.</li>
-  <li>If you believe an artistic prompt was flagged in error (false positive), you can adjust phrasing or contact our support team for guidance.</li>
+  <li>The generation terminates safely and displays the provider's moderation notice.</li>
+  <li><strong>Terms of Service Violations:</strong> Prompts blocked by upstream models for violating their terms (such as copyright infringement, unsupported graphic content, or sexual content) are <strong>not</strong> eligible for credit refunds.</li>
+  <li><strong>Technical System Outages:</strong> If a job fails due to an upstream server crash or network timeout rather than a terms violation, reach out to support to have your credits restored.</li>
 </ul>`,
-    keywords: ['moderation', 'content filters', 'nsfw', 'safety', 'flagged prompt', 'false positive'],
+    keywords: ['moderation', 'content filters', 'nsfw', 'safety', 'flagged prompt', 'copyright', 'terms violation'],
   },
   {
     id: 'refund-policy-details',
     category: 'terms',
-    question: 'What is your refund policy for subscriptions and top-up packs?',
-    shortAnswer: 'Failed generations are eligible for credit refunds upon contacting support; if you are dissatisfied with a subscription within 7 days and have not used significant compute, contact support for a full review.',
+    question: 'What is your refund policy for subscriptions, top-up packs, and generation errors?',
+    shortAnswer: 'Generations that fail due to technical system or server errors are eligible for credit refunds upon contacting support. Prompts blocked by upstream models for terms violations are non-refundable.',
     answer: `Our refund policy is simple, fair, and transparent:
 <ul>
-  <li><strong>Technical & Model Failures:</strong> If any job fails upstream due to a server error or timeout, reach out to <code>support@10zebra.com</code> and our team will credit back the deducted amount to your project balance.</li>
+  <li><strong>Technical & System Errors:</strong> If any job fails upstream due to a server error, GPU cluster crash, or API timeout, reach out to <code>support@10zebra.com</code> and our team will credit the deducted amount back to your project balance.</li>
+  <li><strong>Blocked Prompts & Terms Violations:</strong> We do not issue credit refunds for generations blocked by upstream models for violating their terms of service (such as copyright infringement, unsupported graphic content, or sexual content).</li>
   <li><strong>Monthly Subscriptions:</strong> If you signed up for a subscription by mistake or experienced technical issues, contact <code>support@10zebra.com</code> within 7 days of purchase. If you have not consumed substantial generation compute, we will gladly issue a full refund to your original payment method.</li>
   <li><strong>Credit Packs:</strong> Unused top-up credit packs never expire and remain in your account for future productions.</li>
 </ul>`,
-    keywords: ['refund policy', 'money back', 'satisfaction guarantee', 'subscription refund', 'dispute'],
+    keywords: ['refund policy', 'money back', 'satisfaction guarantee', 'subscription refund', 'system error refund'],
   },
   {
     id: 'security-and-infrastructure',

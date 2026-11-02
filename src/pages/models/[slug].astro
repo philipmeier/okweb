@@ -15,7 +15,15 @@ export async function getStaticPaths() {
     props: { family, allFamilies: families },
   }));
 
-  // Add alias paths if needed (e.g. 'sora' -> openai family, 'flux' -> flux family)
+  // Add alias paths if needed (e.g. 'sora' -> openai family, 'wan-2-1' -> wan family)
+  const wanFam = families.find((f) => f.slug === 'wan');
+  if (wanFam) {
+    paths.push({
+      params: { slug: 'wan-2-1' },
+      props: { family: wanFam, allFamilies: families },
+    });
+  }
+
   const hasSora = families.some((f) => f.slug === 'sora');
   if (!hasSora) {
     const openaiFam = families.find((f) => f.slug === 'openai');
@@ -188,7 +196,7 @@ const familySchema = {
             </div>
             <div class="bg-[var(--bg-page)] p-3 rounded-xl border border-[var(--border-subtle)] text-center">
               <div class="text-xl font-extrabold text-blue-400 font-mono">100%</div>
-              <div class="text-[0.65rem] text-[var(--text-muted)] uppercase tracking-wider font-semibold">Fail Refund</div>
+              <div class="text-[0.65rem] text-[var(--text-muted)] uppercase tracking-wider font-semibold">System Fail Refund</div>
             </div>
           </div>
         </div>
@@ -341,7 +349,7 @@ const familySchema = {
             <span class="text-[0.7rem] font-mono text-[var(--accent)] font-bold block mb-1">SHOT STEP 3</span>
             <h4 class="font-bold text-sm text-[var(--text-primary)] mb-1">Timeline Assembly</h4>
             <p class="text-[var(--text-muted)] leading-relaxed">
-              Export straight to YouTube or download 1080p ProRes-ready takes with fail refund protection.
+              Export straight to YouTube or download 1080p ProRes-ready takes with system error credit protection.
             </p>
           </div>
         </div>

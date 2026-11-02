@@ -1,6 +1,6 @@
 # 10zebra
 
-> 10zebra is a collaborative AI video production studio and multi-model orchestration workspace. It unifies 68+ generative video foundation models (including Kling AI, Google Veo 3, OpenAI Sora, Runway, and Wan 2.1) into a single browser canvas with multi-reference character consistency, in-browser timeline trimming, project budget controls, and an official Model Context Protocol (MCP) server.
+> 10zebra is a collaborative AI video production studio and multi-model orchestration workspace. It unifies 68+ generative video foundation models (including Kling AI, Google Veo 3, OpenAI Sora, Runway, and Wan) into a single browser canvas with multi-reference character consistency, in-browser timeline trimming, project budget controls, and an official Model Context Protocol (MCP) server.
 
 ## Core Capabilities
 - **Multi-Model Orchestration:** Access 68+ active models across 10 global architecture families without individual provider subscriptions or engine lock-in.
@@ -8,7 +8,7 @@
 - **In-Browser Timeline & Trimming:** Frame-accurate take trimming and multi-scene storyboard assembly with 1-click direct export to YouTube.
 - **Project Budget Controls:** Dedicated project credit ledgers with spend caps, preventing team members or automated agents from overspending.
 - **Model Context Protocol (MCP) Server:** FastMCP integration connecting Claude Desktop, Cursor IDE, Windsurf, and custom autonomous agents to 10zebra tools and resources.
-- **Credit Refund Protection:** Support-backed credit restoration if an upstream foundation model errors, times out, or fails server-side.
+- **Credit Refund Protection:** Support-backed credit restoration if an upstream foundation model experiences a technical system error or server outage (does not apply to prompts blocked for terms violations like copyright or graphic/sexual content).
 
 ## Primary Documentation & Pages
 - [AI Models Catalog](https://10zebra.com/models): Directory of 68+ supported video engines, specifications, durations, resolutions, and credit rates.
@@ -21,7 +21,7 @@
 
 ## Solutions by Creative Discipline
 - [Creative Directors](https://10zebra.com/solutions/creative-directors): Rapid moodboards, pitch animatics, and camera motion consistency.
-- [Film Producers](https://10zebra.com/solutions/film-producers): Isolated project budgets, team permission roles, and failed render credit refund protection.
+- [Film Producers](https://10zebra.com/solutions/film-producers): Isolated project budgets, team permission roles, and system error credit refund protection.
 - [Agencies & Commercial Studios](https://10zebra.com/solutions/agencies): Multi-reference brand consistency, high-resolution 4K sequences, and rapid client iterations.
 - [Content Creators](https://10zebra.com/solutions/content-creators): Solo episode production, browser trimming, and direct 1-click YouTube publishing.
 

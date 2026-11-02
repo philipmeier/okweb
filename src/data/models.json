@@ -1,5 +1,5 @@
 {
-  "lastSynced": "2026-10-28T08:22:59.290Z",
+  "lastSynced": "2026-11-02T10:37:52.401Z",
   "source": "../10z/src/utils/config.js",
   "totalModels": 68,
   "totalFamilies": 10,
@@ -1077,19 +1077,19 @@
     },
     {
       "slug": "wan",
-      "name": "Wan 2.1",
-      "developer": "Wan Video / Open Weights",
+      "name": "Wan",
+      "developer": "Wan Video / Alibaba",
       "tagline": "High-aesthetic open-weights architecture with fluid physics and 14B precision",
       "accentColor": "#06b6d4",
       "badge": "Fluid Physics",
-      "overview": "Wan 2.1 has made waves across the generative video space with its 14B parameter architecture, demonstrating exceptional fluidity in water simulation, clothing drape, and anime-inspired visual styling.",
+      "overview": "Wan is an open-weights generative video foundation family developed by Alibaba / Wan Video. Demonstrating exceptional fluidity in physical simulations (water, smoke, cloth drape) and artistic visual styling, Wan models (including Wan 2.1 14B and WanVACE) provide versatile video generation and transformation capabilities.",
       "strengths": [
         "Fluid, organic particle and motion physics",
         "Stunning fantasy, anime, and stylized illustration adherence",
         "Excellent camera rotation without tearing or artifacting",
         "Fast generation times on cloud cluster GPUs"
       ],
-      "tips": "Wan 2.1 shines with artistic and non-photorealistic aesthetics—specify visual medium (e.g. watercolor, anime cel-shaded, oil painting) in your prompt.",
+      "tips": "Wan shines with artistic and non-photorealistic aesthetics—specify visual medium (e.g. watercolor, anime cel-shaded, oil painting) in your prompt.",
       "modelCount": 5,
       "minCost": 30,
       "maxCost": 180,

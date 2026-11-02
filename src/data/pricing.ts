@@ -499,8 +499,8 @@ export const comparisonSections: ComparisonSection[] = [
         studio: '✓ High-concurrency MCP',
       },
       {
-        name: 'Credit refund for failed jobs',
-        hint: 'Credit refund if an upstream AI model errors or times out (via support)',
+        name: 'Credit refund for system errors',
+        hint: 'Credit refund if an upstream AI model experiences a system error or timeout (via support)',
         payg: '✓ Supported',
         maker: '✓ Supported',
         director: '✓ Supported',
@@ -537,8 +537,8 @@ export const pricingFaqs: PricingFaq[] = [
     a: 'Yes, you can change your subscription tier or cancel at any time with one click from your billing settings. If you cancel, your plan stays active until the end of your prepaid period. Any top-up credits you purchased remain yours forever and can still be used on the Pay-As-You-Go tier.',
   },
   {
-    q: 'What happens if an AI video generation fails or errors out?',
-    a: 'We provide <strong>credit refund protection for failed jobs</strong>. If an upstream foundation model (like Kling, Veo, or Sora) errors, times out, or fails server-side content filters, simply reach out to support and we will credit the deducted amount back to your project balance. You never pay for failed takes.',
+    q: 'What happens if an AI video generation fails due to a system error?',
+    a: 'We provide <strong>credit refund protection for system errors</strong>. If an upstream foundation model (like Kling, Veo, or Sora) experiences a technical server outage, GPU timeout, or API failure, reach out to support and we will credit the deducted amount back to your project balance. Please note: refunds apply strictly to technical system errors; prompts blocked by upstream models for terms-of-service violations (such as copyright infringement, unsupported graphic content, or sexual content) are not eligible for credit refunds.',
   },
   {
     q: 'Which plan is required for the Model Context Protocol (MCP) server?',
