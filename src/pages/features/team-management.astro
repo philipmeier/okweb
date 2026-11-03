@@ -3,23 +3,23 @@ import FeatureLandingLayout from "/src/layouts/FeatureLandingLayout.astro";
 import ProjectBudgetMockup from "/src/components/features/ProjectBudgetMockup.astro";
 
 const stats = [
-  { value: "Per Project", label: "Budget & Team Controls", detail: "Isolate finances per client" },
-  { value: "Zero", label: "Shared Account Risk", detail: "No rogue teammate drain" },
-  { value: "Real-Time", label: "Shared Storyboard Canvas", detail: "Synced takes & camera rules" },
-  { value: "100%", label: "Audit Log Transparency", detail: "Complete model & cost ledger" }
+  { value: "Project Seats", label: "Scoped Roles", detail: "Invite by production, not whole app" },
+  { value: "Zero Bleed", label: "Credit Shield", detail: "No rogue teammate drain across clients" },
+  { value: "Free Viewers", label: "Client Review Seats", detail: "Review & approve without paid licenses" },
+  { value: "100%", label: "Audit Log Transparency", detail: "Complete model & cost ledger per shot" }
 ];
 
 const workflowSteps = [
   {
     step: "Step 01",
-    title: "Create Project & Set Credit Limit",
+    title: "Create Project & Set Credit Vault",
     description: "Launch a dedicated workspace for each client or production. Fund it with a hard credit cap.",
     tag: "Budget Shield"
   },
   {
     step: "Step 02",
     title: "Invite Teammates with Custom Roles",
-    description: "Grant Director, Animator, or Viewer access. Specify whether they draw from project or personal credits.",
+    description: "Grant Director, Editor, or free Client Viewer access. Teammates only see the project they are assigned to.",
     tag: "Permissions"
   },
   {
@@ -32,28 +32,34 @@ const workflowSteps = [
 
 const features = [
   {
-    title: "Project-Level Budgets: True Client Separation",
-    description: "Stop sharing one messy credit pool. Allocate precise credit amounts per client project, track burn rates in real time, and bill with 100% precision.",
+    title: "Project-Level Seats: True Client & Contractor Isolation",
+    description: "Never expose your entire studio's projects or finances to external collaborators. Invite editors, freelancers, and clients to specific projects only:",
+    bullets: [
+      "<strong>No app-wide seat lock-in:</strong> Avoid paying $35–$100/mo app licenses for contractors who only work on a single sequence.",
+      "<strong>Free client review seats:</strong> Invite brand clients as Viewers to inspect takes, scrub animatics, and approve cuts at $0 spend.",
+      "<strong>Agency multi-client security:</strong> Keep client accounts, references, and takes strictly cordoned off under client NDAs."
+    ],
+    tag: "Role Governance"
+  },
+  {
+    title: "Project Budgets & Credit Policies",
+    description: "Stop sharing one messy credit pool. Allocate precise credit amounts per client project, track burn rates in real time, and bill with 100% precision:",
     bullets: [
       "<strong>Hard budget caps:</strong> Automatically stop generations when a project's allocated credits run out.",
       "<strong>Project-specific billing:</strong> Export exact itemized ledgers showing model usage, seeds, and costs.",
-      "<strong>Freelancer safe:</strong> Add contractors to one project without exposing company-wide finances."
+      "<strong>Credit draw policies:</strong> Set members to draw strictly from project credits, require director sign-off, or allow personal top-ups."
     ],
     tag: "Cost Control"
-  },
-  {
-    title: "Collaborative Team Storyboard",
-    description: "Eliminate the chaos of passing MP4 files over Slack. Work inside one synchronized visual storyboard.",
-    bullets: [
-      "<strong>Global style locking:</strong> Lock camera angles, aspect ratio, and color palette project-wide.",
-      "<strong>Real-time take streaming:</strong> Generations made by any teammate immediately appear in the shared bin.",
-      "<strong>Director review:</strong> Star winning takes and assemble the timeline while artists continue generating."
-    ],
-    tag: "Team Workflow"
   }
 ];
 
 const comparisonItems = [
+  {
+    feature: "Seat Architecture",
+    zebra: "Project-level seats: invite collaborators & clients per project",
+    competitor: "App-wide seats only ($35+/user) with full account visibility",
+    zebraAdvantage: true
+  },
   {
     feature: "Credit Budgeting Scope",
     zebra: "Budgets isolated per project; zero risk of one project draining another",
@@ -61,9 +67,9 @@ const comparisonItems = [
     zebraAdvantage: true
   },
   {
-    feature: "Team Member Assignments",
-    zebra: "Add team members with specific roles per project",
-    competitor: "All-or-nothing organization access with full account visibility",
+    feature: "Client & Stakeholder Review",
+    zebra: "Free Viewer seats for real-time review and sign-off",
+    competitor: "Requires paying full seat cost or exporting offline MP4s",
     zebraAdvantage: true
   },
   {
@@ -76,16 +82,22 @@ const comparisonItems = [
 
 const faqs = [
   {
-    question: "How do project budgets protect my studio from overruns?",
-    answer: "Every project in 10zebra has its own dedicated credit bank. Even if an editor tests multiple takes in Veo 3 or Sora, they can never spend more than the credits you allocated to that specific project."
+    question: "How do project-level seats protect my studio from overruns?",
+    answer: "Every project in 10zebra has its own dedicated credit bank and assigned team members. Even if an editor tests multiple takes in Veo 3 or Sora, they can never spend more than the credits you allocated to that specific project, and they have zero access to your other client accounts."
   },
   {
     question: "Can clients review takes without spending credits?",
-    answer: "Yes. You can invite clients with a Viewer role or send them a password-protected Storyboard Review link where they can scrub takes, leave feedback, and approve cuts without generation permissions."
+    answer: "Yes. You can invite clients with a free Viewer role or send them a password-protected Storyboard Review link where they can scrub takes, leave feedback, and approve cuts without generation permissions."
   }
 ];
 
 const relatedFeatures = [
+  {
+    title: "Project Management: Teams & Budgets",
+    description: "Explore how project-level seats and credit vaults work hand-in-hand for agencies and studios.",
+    href: "/features/project-management",
+    badge: "Governance"
+  },
   {
     title: "Collaborative Storyboard",
     description: "Deep dive into real-time collaborative production and saved story preferences.",
@@ -103,12 +115,12 @@ const relatedFeatures = [
 
 <FeatureLandingLayout
   title="Team Management & Project Budgets | 10zebra AI Video"
-  description="Control project budgets and manage creative teams per project. Prevent cross-project credit bleed and collaborate in real-time storyboards."
-  eyebrow="TEAM & PROJECT MANAGEMENT"
+  description="Project-level seats, roles, and isolated budgets. Prevent cross-project credit bleed and collaborate in real-time storyboards."
+  eyebrow="TEAM & PROJECT ROLES"
   headline="Team Management &amp; Project Budgets:"
-  headlineHighlight="Zero Credit Bleed. Total Control."
+  headlineHighlight="Project-Level Seats. Zero Credit Bleed."
   subheadline="Fund each project independently, assign roles per production, and collaborate in a shared storyboard canvas where story settings are saved and generated media is shared in real time."
-  badgeText="Studio Governance"
+  badgeText="Project Governance"
   stats={stats}
   workflowSteps={workflowSteps}
   features={features}
@@ -120,3 +132,4 @@ const relatedFeatures = [
     <ProjectBudgetMockup />
   </div>
 </FeatureLandingLayout>
+

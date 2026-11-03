@@ -6,7 +6,7 @@
 - **Multi-Model Orchestration:** Access 68+ active models across 10 global architecture families without individual provider subscriptions or engine lock-in.
 - **Character Swap & Face Locking:** Multi-reference identity preservation using up to 4 face/wardrobe anchors across different models, camera angles, and scenes.
 - **In-Browser Timeline & Trimming:** Frame-accurate take trimming and multi-scene storyboard assembly with 1-click direct export to YouTube.
-- **Project Budget Controls:** Dedicated project credit ledgers with spend caps, preventing team members or automated agents from overspending.
+- **Project Management (Seats & Budgets):** Project-level seats (invite collaborators, freelance specialists, and clients per project without app-wide seat lock-in) paired with isolated credit vaults and free client reviewer seats — built for agencies, enterprise studios, and creator collaborations.
 - **Model Context Protocol (MCP) Server:** FastMCP integration connecting Claude Desktop, Cursor IDE, Windsurf, and custom autonomous agents to 10zebra tools and resources.
 - **Credit Refund Protection:** Support-backed credit restoration if an upstream foundation model experiences a technical system error or server outage (does not apply to prompts blocked for terms violations like copyright or graphic/sexual content).
 

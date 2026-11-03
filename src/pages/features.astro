@@ -44,14 +44,14 @@ const demos = [
   { id: "compare", f: features.modelComparison, line: "Same prompt. Every model. You pick the take.", Comp: ModelComparisonMockup, props: {} },
   { id: "swap", f: features.characterSwap, line: "Re-cast a finished take without re-shooting it.", Comp: CharacterSwapMockup, props: {} },
   { id: "quickstart", f: features.quickStart, line: "Six launchpads, so you never start from a blank prompt.", Comp: QuickStartToolsExplorer, props: { initialTool: "from-script" } },
-  { id: "budgets", f: features.projectBudgets, line: "Every project gets its own budget, rules, and team.", Comp: ProjectBudgetMockup, props: {} },
+  { id: "budgets", f: features.projectBudgets, line: "Project-level seats and isolated credit vaults for agencies, studios, and collaborations.", Comp: ProjectBudgetMockup, props: {} },
   { id: "publish", f: features.publishYouTube, line: "Cut, score, and publish straight from the storyboard.", Comp: YouTubeExportMockup, props: {} },
 ];
 
 const comparisonData = [
   { label: "Multi-Model Generation", after: "Kling, Grok, Seedance, Veo, Sora, Runway in 1 prompt", before: "Locked to 1 proprietary engine" },
   { label: "Model Comparison", after: "Side-by-side synchronized take previewer", before: "Switch tabs and copy-paste prompts" },
-  { label: "Project-Level Budgets", after: "Independent credit pools per project & team", before: "Pooled account-wide (1 mistake drains all)" },
+  { label: "Project Teams & Budgets", after: "Project-level seats & isolated credit vaults (zero client bleed)", before: "Rigid app-wide seats & pooled account credits" },
   { label: "Batch Character Swap", after: "10z Agent swaps a character across every take", before: "Manual single-frame inpainting only" },
   { label: "From a Script Fanout", after: "3, 5, 10, 20, or 30 cohesive shots from 1 prompt", before: "Generate 1 clip at a time" },
   { label: "Team Storyboard Sync", after: "Shared takes with locked story rules", before: "Isolated individual accounts" },

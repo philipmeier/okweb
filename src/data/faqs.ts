@@ -240,6 +240,20 @@ It also exposes <strong>5 live resources</strong> (such as <code>10z://models</c
   // 3. TEAMS, PROJECTS & COLLABORATION (teams)
   // =========================================================================
   {
+    id: 'project-level-seats-vs-app-seats',
+    category: 'teams',
+    question: 'How do project-level seats differ from traditional app-level seats?',
+    shortAnswer: 'Project-level seats allow you to invite team members, freelance specialists, and clients to specific projects only, avoiding expensive whole-account seat licenses and preventing cross-client visibility.',
+    answer: `<strong>Project-level seats eliminate the rigid cost and security issues of whole-account seat licenses.</strong>
+<ul>
+  <li><strong>Agency Client Isolation:</strong> In standard tools, adding someone gives them broad account visibility or forces separate logins. On 10zebra, you invite editors and clients strictly to the project they belong to. An agency can run 20 different brand clients with zero risk of NDA leaks or cross-client viewing.</li>
+  <li><strong>Free Client Reviewers:</strong> Clients and executive stakeholders can join any project as <strong>Viewers</strong> for free to scrub takes, leave feedback, and sign off without paying for a seat or consuming generation credits.</li>
+  <li><strong>Enterprise Departmental Walls:</strong> Large studios can isolate Marketing, R&D, and Production teams with independent seats and dedicated credit pools.</li>
+  <li><strong>Creator Collaborations:</strong> Co-direct with other creators or bring in a freelance colorist on a single sequence without sharing master account credentials or personal credit reserves.</li>
+</ul>`,
+    keywords: ['project seats', 'app-level seats', 'agency collaboration', 'client viewers', 'enterprise teams', 'freelancers'],
+  },
+  {
     id: 'project-credit-pools-and-budgets',
     category: 'teams',
     question: 'How do project-level credit pools and budget controls work?',

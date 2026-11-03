@@ -196,30 +196,30 @@ export const solutions: Solution[] = [
     slug: 'agencies',
     label: 'Agencies',
     pageTitle: 'AI Video Production for Agencies',
-    need: 'Run many clients without budget bleed',
-    headline: 'Every client gets its own budget.',
-    summary: 'Fund each project separately, give your team the right roles, and see exactly where every credit went.',
-    heroSub: 'Run every client in its own project with its own budget, team, and audit trail, and deliver campaign-ready video from every model.',
-    chips: ['Per-project credits', 'Role permissions', 'Billable audit trail'],
+    need: 'Isolate clients with project seats & budgets',
+    headline: 'Every client gets its own seats & budget.',
+    summary: 'Project-level seats and credit vaults keep client work cordoned, teams managed, and budgets strictly isolated.',
+    heroSub: 'Run every client in its own project with project-level seats, isolated credit vaults, and free client viewers — zero cross-client bleed and no expensive app-wide seat lock-in.',
+    chips: ['Project-level seats', 'Isolated credit vaults', 'Free client viewers'],
     cta: 'See how agencies use 10zebra',
     accent: '#38bdf8',
     media: media.personaAgencies,
     pains: [
       { before: 'One shared credit pool for every client', after: 'Separate budgets per project, no bleed' },
+      { before: 'Paying expensive app-wide seats for contractors', after: 'Project-level seats: invite freelancers & clients per project' },
       { before: 'No idea who spent what, on which model', after: 'Every generation logged with user, model, and cost' },
-      { before: 'Freelancers with access to everything', after: 'Role-based permissions, set per project' },
     ],
     workflow: [
       {
-        tag: 'Project Budgets',
+        tag: 'Project Vaults',
         title: 'Spin up a client project',
-        body: 'Create a project per client, fund it with its own credits, and choose its credit policy.',
+        body: 'Create an isolated workspace per client, fund it with dedicated credits, and eliminate cross-client bleed.',
         media: media.agencyBeverage,
       },
       {
-        tag: 'Team Roles',
-        title: 'Brief the team',
-        body: 'Invite creatives and freelancers with the right role. A shared reference library keeps the brand on-model.',
+        tag: 'Project Seats',
+        title: 'Invite project-level team & clients',
+        body: 'Invite creatives, freelance specialists, and brand clients as free Viewers. Client work stays strictly cordoned.',
         media: media.agencyTech,
       },
       {
@@ -233,7 +233,7 @@ export const solutions: Solution[] = [
     // PLACEHOLDER stats
     stats: [
       { value: '0', label: 'cross-project budget bleed' },
-      { value: 'Per project', label: 'roles and permissions' },
+      { value: 'Per project', label: 'seats & client viewers' },
       { value: '100%', label: 'of generations logged with cost' },
     ],
     // PLACEHOLDER testimonial
@@ -244,6 +244,10 @@ export const solutions: Solution[] = [
       company: 'Agency Name',
     },
     faqs: [
+      {
+        q: 'Why are project-level seats better for agencies than app-wide seats?',
+        a: 'In competitor apps, you must pay $35–$100/mo for each person across your entire account, and they can see all your client projects. 10zebra scopes seats per project: invite team members, freelance artists, and clients strictly to the campaign they work on. They never see other client work, and clients can join as free Viewers for real-time review and sign-off.',
+      },
       {
         q: 'How do project-level budgets work?',
         a: 'Each project has its own credit pool. Owners choose whether members draw from project credits first, personal credits, or project credits only.',
@@ -263,7 +267,7 @@ export const solutions: Solution[] = [
     ],
     seo: {
       title: 'AI Video Production for Agencies | 10zebra',
-      description: 'Project-level budgets, role-based permissions, and a full audit trail per client. The AI video workspace built for agency teams.',
+      description: 'Project-level seats, isolated budgets, and a full audit trail per client. The AI video workspace built for agency teams.',
     },
   },
 
@@ -332,6 +336,10 @@ export const solutions: Solution[] = [
       {
         q: 'How do I keep a recurring character consistent?',
         a: 'Create your character once as a reference image. Every new shot is anchored to it, and Character Swap can update existing takes in bulk.',
+      },
+      {
+        q: 'Can I collaborate with other creators on a video?',
+        a: 'Yes. 10zebra supports project-level seats. You can invite a fellow creator, co-director, or sound designer to collaborate on a single video project with shared references and an isolated credit budget—without giving them access to your whole account or billing.',
       },
       {
         q: 'How much does it cost to start?',

@@ -408,18 +408,18 @@ export const comparisonSections: ComparisonSection[] = [
     ],
   },
   {
-    category: 'Team Collaboration & Project Budgets',
+    category: 'Team Collaboration & Project Management',
     features: [
       {
-        name: 'Included workspace seats',
-        hint: 'Number of full team members included in the base subscription',
-        payg: '1 user',
+        name: 'Project-level seats & collaborator invites',
+        hint: 'Invite team members, freelancers, and clients per project with zero cross-project bleed',
+        payg: '1 user (personal)',
         maker: '1 user',
-        director: '3 users included',
-        studio: 'Custom seats',
+        director: '✓ Unlimited project collaborators',
+        studio: '✓ Multi-org & enterprise teams',
       },
       {
-        name: 'Project-level isolated budget controls',
+        name: 'Project-level isolated budget vaults',
         hint: 'Fund each project with its own independent credit pool to prevent overspend',
         payg: '—',
         maker: '—',
@@ -427,8 +427,16 @@ export const comparisonSections: ComparisonSection[] = [
         studio: '✓ Multi-department pools',
       },
       {
+        name: 'Free client & stakeholder review seats',
+        hint: 'Invite external brand clients as Viewers to inspect takes and leave notes with zero credit spend',
+        payg: '—',
+        maker: '—',
+        director: '✓ Free unlimited Viewers',
+        studio: '✓ Free unlimited Viewers',
+      },
+      {
         name: 'Role-based permissions per project',
-        hint: 'Control who can generate takes, edit storyboards, or manage billing',
+        hint: 'Granular Owner, Editor/Director, and Viewer roles scoped to each production',
         payg: 'Owner only',
         maker: 'Owner only',
         director: '✓ Owner, Editor, Viewer',
