@@ -76,7 +76,7 @@ export const features = {
     media: media.featQuickStart,
   },
   characterSwap: {
-    title: 'Character Swap & 10z Agent',
+    title: 'Character Swap & Agent Z',
     short: 'Character Swap',
     blurb: 'Swap talent in any take, or batch-swap a whole project.',
     href: '/features/character-swap',
@@ -84,6 +84,16 @@ export const features = {
     phase: 'direct',
     badge: 'Zero Drift',
     media: media.featCharacterSwap,
+  },
+  agenticWorkflows: {
+    title: 'Agentic Workflows (Agent Z)',
+    short: 'Agentic Workflows',
+    blurb: 'Batch create, convert, replace, regen & upscale with Dry Run approval.',
+    href: '/features/agentic-workflows',
+    icon: 'M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z',
+    phase: 'direct',
+    badge: 'Agent Z',
+    media: media.featAgentic,
   },
   multiReference: {
     title: 'Multi-Reference Editing',
@@ -145,6 +155,16 @@ export const features = {
     badge: 'Live Sync',
     media: media.featStoryboard,
   },
+  referralProgram: {
+    title: 'Referral Program (3% Lifetime)',
+    short: 'Referral Program',
+    blurb: 'Share your referral code via Tolt and earn 3% lifetime payouts on credits & plans.',
+    href: '/features/referral-program',
+    icon: 'M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7',
+    phase: 'manage',
+    badge: '3% Lifetime Payout',
+    media: media.featReferral,
+  },
 } satisfies Record<string, FeatureRef>;
 
 export type FeatureKey = keyof typeof features;
@@ -154,5 +174,8 @@ export const featureEntries = Object.entries(features) as [FeatureKey, FeatureRe
 /** Look up a feature by its page URL (trailing slash tolerant). */
 export const getFeatureByHref = (href: string): [FeatureKey, FeatureRef] | undefined => {
   const clean = href.replace(/\/+$/, '');
+  if (clean === '/referral-program' || clean === '/referrals') {
+    return ['referralProgram', features.referralProgram];
+  }
   return featureEntries.find(([, f]) => f.href === clean);
 };

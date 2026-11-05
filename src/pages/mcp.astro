@@ -4,6 +4,8 @@ import Layout from "/src/layouts/Layout.astro";
 import Header from "/src/components/layout/Header.astro";
 import Footer from "/src/components/layout/Footer.astro";
 import FinalCTA from "/src/components/FinalCTA.astro";
+import { Image } from "astro:assets";
+import sectionMcpPhosphor from "/src/assets/media/section-mcp-phosphor-1970s.jpg";
 import {
   mcpCatalog,
   getMcpTools,
@@ -236,6 +238,28 @@ const jsonLd = {
               <span class="mcp-metric-pill__label">Plan Required</span>
             </div>
           </div>
+
+          <!-- 1970s Control-Room Amber Phosphor & Charcoal Visual Frame -->
+          <div class="mt-10 max-w-4xl mx-auto relative rounded-2xl overflow-hidden border border-amber-500/30 shadow-2xl">
+            <Image
+              src={sectionMcpPhosphor}
+              alt="1970s race telemetry control room illuminated by amber and emerald CRT oscilloscope traces and analog patch cables"
+              width={1200}
+              height={675}
+              format="webp"
+              class="w-full h-56 sm:h-72 object-cover"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0c0d10] via-[#0c0d10]/35 to-transparent flex items-end justify-between p-5 text-left">
+              <div>
+                <span class="text-[10px] font-mono uppercase tracking-widest px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40">
+                  Telemetry &amp; Control Room &bull; FastMCP Streamable-HTTP
+                </span>
+                <p class="text-xs sm:text-sm text-white/90 font-medium mt-1.5">
+                  Patch Claude Desktop, Cursor, or custom autonomous agents directly into your 10zebra storyboard and credit vault.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -281,7 +305,7 @@ const jsonLd = {
               </div>
               <div class="mcp-perk-item">
                 <span class="mcp-perk-check">&check;</span>
-                <span><strong>Credit refund protection</strong> on upstream system errors</span>
+                <span><strong>90% credit refund || free regen</strong> on all failed generations</span>
               </div>
             </div>
           </div>

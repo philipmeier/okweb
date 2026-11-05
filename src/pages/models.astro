@@ -4,6 +4,8 @@
 import Layout from '/src/layouts/Layout.astro';
 import Header from '/src/components/layout/Header.astro';
 import Footer from '/src/components/layout/Footer.astro';
+import { Image } from 'astro:assets';
+import sectionModelsTeal from '/src/assets/media/section-models-teal-1970s.jpg';
 import { getModelFamilies, getAllModels, catalog } from '/src/data/models';
 
 const families = getModelFamilies();
@@ -72,12 +74,34 @@ const schema = {
             <div class="text-[0.72rem] text-[var(--text-muted)] uppercase tracking-wider font-semibold mt-0.5">Generation Engines</div>
           </div>
           <div class="glass p-3 rounded-xl border border-[var(--border-subtle)] text-center">
-            <div class="text-2xl font-black text-emerald-400 font-mono">100%</div>
-            <div class="text-[0.72rem] text-[var(--text-muted)] uppercase tracking-wider font-semibold mt-0.5">System Error Refund</div>
+            <div class="text-2xl font-black text-emerald-400 font-mono">90%</div>
+            <div class="text-[0.72rem] text-[var(--text-muted)] uppercase tracking-wider font-semibold mt-0.5">Refund || Free Regen</div>
           </div>
           <div class="glass p-3 rounded-xl border border-[var(--border-subtle)] text-center">
             <div class="text-2xl font-black text-amber-400 font-mono">5 &ndash; 20</div>
             <div class="text-[0.72rem] text-[var(--text-muted)] uppercase tracking-wider font-semibold mt-0.5">Starting Credits</div>
+          </div>
+        </div>
+
+        <!-- 1970s Anamorphic Teal & Silver-Halide Chrome Visual Showcase -->
+        <div class="mt-10 relative rounded-2xl overflow-hidden border border-teal-500/30 shadow-2xl shadow-teal-950/30">
+          <Image
+            src={sectionModelsTeal}
+            alt="1970s master engine tuner calibrating four synchronized mechanical tachometers in anamorphic teal and silver-halide chrome lighting"
+            width={1200}
+            height={675}
+            format="webp"
+            class="w-full h-56 sm:h-72 object-cover"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-[#0c0d10] via-[#0c0d10]/30 to-transparent flex items-end justify-between p-5 text-left">
+            <div>
+              <span class="text-[10px] font-mono uppercase tracking-widest px-2 py-0.5 rounded bg-teal-500/20 text-teal-300 border border-teal-500/40">
+                Multi-Engine Telemetry &bull; Side-by-Side Calibration
+              </span>
+              <p class="text-xs sm:text-sm text-white/90 font-medium mt-1.5">
+                Benchmark Kling, Veo, Sora, Runway, SeeDance, and Grok side-by-side on the exact same shot prompt.
+              </p>
+            </div>
           </div>
         </div>
       </header>

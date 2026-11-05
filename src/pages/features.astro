@@ -15,6 +15,7 @@ import SolutionCard from "/src/components/solutions/SolutionCard.astro";
 import ShiftList from "/src/components/shared/ShiftList.astro";
 import ModelComparisonMockup from "/src/components/features/ModelComparisonMockup.astro";
 import CharacterSwapMockup from "/src/components/features/CharacterSwapMockup.astro";
+import AgenticWorkflowsMockup from "/src/components/features/AgenticWorkflowsMockup.astro";
 import QuickStartToolsExplorer from "/src/components/features/QuickStartToolsExplorer.astro";
 import ProjectBudgetMockup from "/src/components/features/ProjectBudgetMockup.astro";
 import YouTubeExportMockup from "/src/components/features/YouTubeExportMockup.astro";
@@ -32,8 +33,8 @@ const byPhase = phaseKeys.map((key) => ({
 // Hero mosaic tiles (grid areas a–f)
 const mosaic = [
   { area: "a", f: features.modelComparison },
-  { area: "b", f: features.characterSwap },
-  { area: "c", f: features.multiReference },
+  { area: "b", f: features.agenticWorkflows },
+  { area: "c", f: features.characterSwap },
   { area: "d", f: features.textToSequence },
   { area: "e", f: features.quickStart },
   { area: "f", f: features.collaborativeStoryboard },
@@ -42,6 +43,7 @@ const mosaic = [
 // Interactive demos (mockups will be rebuilt to mirror the app — see docs/ROADMAP.md)
 const demos = [
   { id: "compare", f: features.modelComparison, line: "Same prompt. Every model. You pick the take.", Comp: ModelComparisonMockup, props: {} },
+  { id: "agentz", f: features.agenticWorkflows, line: "Agent Z works in batches with Dry Run plan & credit approval.", Comp: AgenticWorkflowsMockup, props: {} },
   { id: "swap", f: features.characterSwap, line: "Re-cast a finished take without re-shooting it.", Comp: CharacterSwapMockup, props: {} },
   { id: "quickstart", f: features.quickStart, line: "Six launchpads, so you never start from a blank prompt.", Comp: QuickStartToolsExplorer, props: { initialTool: "from-script" } },
   { id: "budgets", f: features.projectBudgets, line: "Project-level seats and isolated credit vaults for agencies, studios, and collaborations.", Comp: ProjectBudgetMockup, props: {} },
@@ -50,11 +52,12 @@ const demos = [
 
 const comparisonData = [
   { label: "Multi-Model Generation", after: "Kling, Grok, Seedance, Veo, Sora, Runway in 1 prompt", before: "Locked to 1 proprietary engine" },
+  { label: "Agentic Batch Workflows", after: "Agent Z batch creates, converts, replaces characters, regens & upscales with Dry Run cost approval", before: "Manual one-clip-at-a-time prompting & inpainting" },
   { label: "Model Comparison", after: "Side-by-side synchronized take previewer", before: "Switch tabs and copy-paste prompts" },
   { label: "Project Teams & Budgets", after: "Project-level seats & isolated credit vaults (zero client bleed)", before: "Rigid app-wide seats & pooled account credits" },
-  { label: "Batch Character Swap", after: "10z Agent swaps a character across every take", before: "Manual single-frame inpainting only" },
+  { label: "Failed Generation Recovery", after: "1-click 90% credit refund or free regen button on failed takes", before: "Lost credits on silent timeouts or moderation blocks" },
+  { label: "Referral Program (Tolt)", after: "3% lifetime payout on referred credit pack purchases & subscriptions", before: "One-time bounty or no creator referral payout" },
   { label: "From a Script Fanout", after: "3, 5, 10, 20, or 30 cohesive shots from 1 prompt", before: "Generate 1 clip at a time" },
-  { label: "Team Storyboard Sync", after: "Shared takes with locked story rules", before: "Isolated individual accounts" },
   { label: "YouTube Publishing", after: "1-click publish with audio mixdown & metadata", before: "Download locally, then upload manually" },
 ];
 ---
@@ -129,7 +132,7 @@ const comparisonData = [
               <h3>{p.label}</h3>
               <p>{p.line}</p>
             </div>
-            <div class="fh-phase__cards" style={`--n:${p.items.length}`}>
+            <div class="fh-phase__cards" style={`--n:${p.items.length === 4 ? 2 : Math.min(p.items.length, 3)}`}>
               {p.items.map((f, i) => <FeatureCard feature={f} class={`reveal reveal-d${i + 1}`} />)}
             </div>
           </div>

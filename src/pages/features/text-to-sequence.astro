@@ -1,5 +1,9 @@
 ---
 import FeatureLandingLayout from "/src/layouts/FeatureLandingLayout.astro";
+import seqShot1 from "/src/assets/media/shot-wide-forest-1970s.jpg";
+import seqShot2 from "/src/assets/media/shot-medium-train-1970s.jpg";
+import seqShot3 from "/src/assets/media/take-b-1970s.jpg";
+import seqShot4 from "/src/assets/media/shot-closeup-campfire-1970s.jpg";
 
 const stats = [
   { value: "30 Shots", label: "Max Sequence Density", detail: "Generate 3, 5, 10, 20, or 30 shots" },
@@ -106,10 +110,10 @@ const relatedFeatures = [
     badge: "Tool"
   },
   {
-    title: "Character Swap & 10z Agent",
-    description: "Swap characters across your newly generated sequence with a single click.",
-    href: "/features/character-swap",
-    badge: "Continuity"
+    title: "Agentic Workflows (Agent Z)",
+    description: "Batch create, convert, replace characters, or upscale across your sequence with Dry Run cost approval.",
+    href: "/features/agentic-workflows",
+    badge: "Agent Z"
   },
   {
     title: "Publish to YouTube",
@@ -144,7 +148,7 @@ const relatedFeatures = [
             Input Prompt
           </span>
           <span class="text-[var(--text-secondary)] font-mono text-[11px] truncate max-w-xs">
-            "A motorcycle courier racing through rainy neon streets to deliver a confidential briefcase"
+            "Lead Driver Elena Vance arrives at the misty paddock at dawn, confers with telemetry, pits at sunset, and rests by the night brazier"
           </span>
         </div>
         <span class="text-emerald-400 font-mono text-[11px] font-bold">1 Prompt &rarr; 4 Shots</span>
@@ -152,31 +156,31 @@ const relatedFeatures = [
 
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-3">
         <div class="rounded-lg overflow-hidden border border-[var(--border-subtle)] bg-[#14161c]">
-          <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?w=280&h=175&fit=crop&q=80" alt="Shot 1" class="w-full aspect-video object-cover"/>
+          <img src={seqShot1.src} alt="Shot 1: Paddock Dawn" class="w-full aspect-video object-cover"/>
           <div class="p-2 text-[10px]">
             <span class="font-bold text-[var(--accent)] block">Shot 01: The Hook</span>
-            <span class="text-[var(--text-muted)]">Extreme closeup on helmet visor reflecting neon rain.</span>
+            <span class="text-[var(--text-muted)]">Wide morning paddock walk past vintage haulers.</span>
           </div>
         </div>
         <div class="rounded-lg overflow-hidden border border-[var(--border-subtle)] bg-[#14161c]">
-          <img src="https://images.unsplash.com/photo-1536240478700-b869070f9279?w=280&h=175&fit=crop&q=80" alt="Shot 2" class="w-full aspect-video object-cover"/>
+          <img src={seqShot2.src} alt="Shot 2: Telemetry Briefing" class="w-full aspect-video object-cover"/>
           <div class="p-2 text-[10px]">
-            <span class="font-bold text-[var(--accent)] block">Shot 02: Wide Action</span>
-            <span class="text-[var(--text-muted)]">Low tracking camera following high-speed bike through traffic.</span>
+            <span class="font-bold text-[var(--accent)] block">Shot 02: Strategy</span>
+            <span class="text-[var(--text-muted)]">Medium tracking shot at mobile telemetry window.</span>
           </div>
         </div>
         <div class="rounded-lg overflow-hidden border border-[var(--border-subtle)] bg-[#14161c]">
-          <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=280&h=175&fit=crop&q=80" alt="Shot 3" class="w-full aspect-video object-cover"/>
+          <img src={seqShot3.src} alt="Shot 3: Sunset Pit Stop" class="w-full aspect-video object-cover"/>
           <div class="p-2 text-[10px]">
-            <span class="font-bold text-[var(--accent)] block">Shot 03: Conflict</span>
-            <span class="text-[var(--text-muted)]">Sudden skid at police roadblock, sparks flying off asphalt.</span>
+            <span class="font-bold text-[var(--accent)] block">Shot 03: Pit Action</span>
+            <span class="text-[var(--text-muted)]">Synchronized sunset tire change in the pit lane.</span>
           </div>
         </div>
         <div class="rounded-lg overflow-hidden border border-[var(--border-subtle)] bg-[#14161c]">
-          <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=280&h=175&fit=crop&q=80" alt="Shot 4" class="w-full aspect-video object-cover"/>
+          <img src={seqShot4.src} alt="Shot 4: Night Stint" class="w-full aspect-video object-cover"/>
           <div class="p-2 text-[10px]">
             <span class="font-bold text-[var(--accent)] block">Shot 04: Resolution</span>
-            <span class="text-[var(--text-muted)]">Courier slips into dark alley, briefcase securely handcuffed.</span>
+            <span class="text-[var(--text-muted)]">Intimate night close-up by the pit-lane brazier.</span>
           </div>
         </div>
       </div>

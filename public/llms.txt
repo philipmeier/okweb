@@ -4,24 +4,28 @@
 
 ## Core Capabilities
 - **Multi-Model Orchestration:** Access 68+ active models across 10 global architecture families without individual provider subscriptions or engine lock-in.
+- **Agentic Workflows (Agent Z):** Built-in 10zebra production agent that works in batches (batch create, batch convert, batch replace characters, batch regen, batch upscale) backed by a Dry Run analysis that creates a plan, shows exact credit costs, and requests approval before execution.
 - **Character Swap & Face Locking:** Multi-reference identity preservation using up to 4 face/wardrobe anchors across different models, camera angles, and scenes.
 - **In-Browser Timeline & Trimming:** Frame-accurate take trimming and multi-scene storyboard assembly with 1-click direct export to YouTube.
 - **Project Management (Seats & Budgets):** Project-level seats (invite collaborators, freelance specialists, and clients per project without app-wide seat lock-in) paired with isolated credit vaults and free client reviewer seats — built for agencies, enterprise studios, and creator collaborations.
 - **Model Context Protocol (MCP) Server:** FastMCP integration connecting Claude Desktop, Cursor IDE, Windsurf, and custom autonomous agents to 10zebra tools and resources.
-- **Credit Refund Protection:** Support-backed credit restoration if an upstream foundation model experiences a technical system error or server outage (does not apply to prompts blocked for terms violations like copyright or graphic/sexual content).
+- **Failed Generation Refund || Free Regen:** 90% credit refund or free regeneration on all failed generations via a self-serve button on the failed take (appears immediately after a direct error from the model, or after 30 minutes if a job fails silently). The refund is 90% to cover baseline system and infrastructure costs while remaining as fair as possible since most failures are caused by upstream Model terms violations rather than any issue with the 10zebra platform.
+- **Referral Program (Tolt Integration):** Users receive a special referral code and earn a 3% lifetime payout whenever referred users purchase credits or subscribe.
 
 ## Primary Documentation & Pages
 - [AI Models Catalog](https://10zebra.com/models): Directory of 68+ supported video engines, specifications, durations, resolutions, and credit rates.
+- [Agentic Workflows (Agent Z)](https://10zebra.com/features/agentic-workflows): Batch create, convert, replace characters, regen, and upscale with Dry Run credit cost planning and approval.
+- [Referral Program](https://10zebra.com/features/referral-program): Tolt-powered partner program offering a 3% lifetime payout on referred credit purchases and subscriptions.
 - [Model Context Protocol (MCP) Server](https://10zebra.com/mcp): FastMCP server setup guide for Claude Desktop and Cursor IDE with tool schemas.
 - [Pricing & Credits](https://10zebra.com/pricing): Subscription tiers (Maker $29/mo, Director $79/mo, Studio $199/mo) and non-expiring credit packs.
-- [Frequently Asked Questions](https://10zebra.com/faq): 27 comprehensive answers covering features, MCP, teams, billing, and commercial rights.
+- [Frequently Asked Questions](https://10zebra.com/faq): Comprehensive answers covering features, Agent Z, MCP, teams, billing, referrals, and commercial rights.
 - [About 10zebra](https://10zebra.com/about): Founded in 2021 by computational neuroscientist Philip Meier, PhD; pioneering multi-model video synthesis.
 - [Interactive Studio Demo](https://10zebra.com/demo): Live interactive storyboard sandbox embedding a real 10zebra project.
 - [Blog & Production Tutorials](https://10zebra.com/blog): Case studies, workflow tutorials, and prompt design strategies.
 
 ## Solutions by Creative Discipline
 - [Creative Directors](https://10zebra.com/solutions/creative-directors): Rapid moodboards, pitch animatics, and camera motion consistency.
-- [Film Producers](https://10zebra.com/solutions/film-producers): Isolated project budgets, team permission roles, and system error credit refund protection.
+- [Film Producers](https://10zebra.com/solutions/film-producers): Isolated project budgets, team permission roles, and 90% credit refund or free regen protection on failed generations.
 - [Agencies & Commercial Studios](https://10zebra.com/solutions/agencies): Multi-reference brand consistency, high-resolution 4K sequences, and rapid client iterations.
 - [Content Creators](https://10zebra.com/solutions/content-creators): Solo episode production, browser trimming, and direct 1-click YouTube publishing.
 

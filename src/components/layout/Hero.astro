@@ -1,16 +1,18 @@
 ---
 import { totalFamilies } from '/src/data/models';
+import heroPoster from '/src/assets/media/hero-poster-1970s.jpg';
+import heroVideo from '/src/assets/media/hero-1970s-pitcrew.mp4';
 ---
 <section class="relative min-h-screen flex items-center justify-center overflow-hidden" aria-labelledby="hero-heading">
 
-  <!-- Fullscreen background video -->
+  <!-- Fullscreen 1970s Endurance Motorsport Crew background video & poster -->
   <div class="absolute inset-0 z-0">
     <video
       autoplay loop muted playsinline
-      class="w-full h-full object-cover"
-      poster="https://images.unsplash.com/photo-1536240478700-b869070f9279?w=1920&h=1080&fit=crop&q=80"
+      class="w-full h-full object-cover hero-cinema-video"
+      poster={heroPoster.src}
     >
-      <source src="https://assets.mixkit.co/videos/1222/1222-720.mp4" type="video/mp4" />
+      <source src={heroVideo} type="video/mp4" />
     </video>
     <!-- Dark overlay -->
     <div class="absolute inset-0" style="background:linear-gradient(to bottom, rgba(12,13,16,0.65) 0%, rgba(12,13,16,0.5) 40%, rgba(12,13,16,0.8) 100%);"></div>

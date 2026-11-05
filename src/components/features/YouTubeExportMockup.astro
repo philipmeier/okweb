@@ -1,4 +1,12 @@
 ---
+import shot1Img from '/src/assets/media/take-a-1970s.jpg';
+import shot2Img from '/src/assets/media/take-b-1970s.jpg';
+import shot3Img from '/src/assets/media/take-c-1970s.jpg';
+import shot4Img from '/src/assets/media/take-d-1970s.jpg';
+import takeKlingVideo from '/src/assets/media/take-kling.mp4';
+import takeVeoVideo from '/src/assets/media/take-veo.mp4';
+import takeSoraVideo from '/src/assets/media/take-sora.mp4';
+import takeRunwayVideo from '/src/assets/media/take-runway.mp4';
 ---
 
 <div class="youtube-export-mockup w-full rounded-xl overflow-hidden bg-[#0e1014] border border-[var(--border-subtle)] shadow-2xl">
@@ -33,28 +41,36 @@
       <!-- Shot timeline cards -->
       <div class="grid grid-cols-4 gap-2 mb-3">
         <div class="rounded-lg overflow-hidden border border-[var(--border-subtle)] bg-black/60 relative group">
-          <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?w=240&h=135&fit=crop&q=80" alt="Shot 1" class="w-full aspect-video object-cover"/>
+          <video autoplay loop muted playsinline poster={shot1Img.src} class="w-full aspect-video object-cover">
+            <source src={takeKlingVideo} type="video/mp4" />
+          </video>
           <div class="p-1.5 text-[10px] bg-[#101216] flex justify-between items-center">
             <span class="font-mono text-white/90">01: Hook</span>
             <span class="text-[var(--accent)]">0:06</span>
           </div>
         </div>
         <div class="rounded-lg overflow-hidden border border-[var(--border-subtle)] bg-black/60 relative group">
-          <img src="https://images.unsplash.com/photo-1536240478700-b869070f9279?w=240&h=135&fit=crop&q=80" alt="Shot 2" class="w-full aspect-video object-cover"/>
+          <video autoplay loop muted playsinline poster={shot2Img.src} class="w-full aspect-video object-cover">
+            <source src={takeVeoVideo} type="video/mp4" />
+          </video>
           <div class="p-1.5 text-[10px] bg-[#101216] flex justify-between items-center">
             <span class="font-mono text-white/90">02: Wide</span>
             <span class="text-[var(--accent)]">0:08</span>
           </div>
         </div>
         <div class="rounded-lg overflow-hidden border border-[var(--border-subtle)] bg-black/60 relative group">
-          <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=240&h=135&fit=crop&q=80" alt="Shot 3" class="w-full aspect-video object-cover"/>
+          <video autoplay loop muted playsinline poster={shot3Img.src} class="w-full aspect-video object-cover">
+            <source src={takeSoraVideo} type="video/mp4" />
+          </video>
           <div class="p-1.5 text-[10px] bg-[#101216] flex justify-between items-center">
             <span class="font-mono text-white/90">03: Action</span>
             <span class="text-[var(--accent)]">0:10</span>
           </div>
         </div>
         <div class="rounded-lg overflow-hidden border border-[var(--border-subtle)] bg-black/60 relative group">
-          <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=240&h=135&fit=crop&q=80" alt="Shot 4" class="w-full aspect-video object-cover"/>
+          <video autoplay loop muted playsinline poster={shot4Img.src} class="w-full aspect-video object-cover">
+            <source src={takeRunwayVideo} type="video/mp4" />
+          </video>
           <div class="p-1.5 text-[10px] bg-[#101216] flex justify-between items-center">
             <span class="font-mono text-white/90">04: Payoff</span>
             <span class="text-[var(--accent)]">0:08</span>
@@ -82,7 +98,7 @@
           <input 
             type="text" 
             readonly 
-            value="The Neon Courier | Official 4K Cinematic Trailer (AI Generated)" 
+            value="24 Hours of Le Mans '71 | Official 4K Endurance Pit Stop Cut (10zebra)" 
             class="w-full px-3 py-2 rounded-lg bg-[#0e1014] border border-[var(--border-subtle)] text-xs text-[var(--text-primary)] font-medium"
           />
         </div>

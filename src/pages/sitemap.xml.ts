@@ -25,6 +25,7 @@ export const GET: APIRoute = async () => {
   // Feature Pages
   const featureSlugs = [
     'model-comparison',
+    'agentic-workflows',
     'character-swap',
     'text-to-sequence',
     'quick-start-tools',
@@ -34,6 +35,7 @@ export const GET: APIRoute = async () => {
     'multi-reference-edit',
     'produce-and-export',
     'team-management',
+    'referral-program',
   ];
   const featurePages = featureSlugs.map((slug) => ({
     url: `/features/${slug}`,

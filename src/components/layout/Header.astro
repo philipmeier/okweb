@@ -27,7 +27,7 @@ import { solutions } from "/src/data/solutions";
           {solutions.map((s) => (
             <a href={`/solutions/${s.slug}`} class="nav-dd__item" role="menuitem" style={`--sol:${s.accent}`} id={`nav-sol-${s.slug}`}>
               <span class="nav-dd__thumb">
-                <Image src={s.media.image} alt="" width={160} height={112} loading="lazy" />
+                <Image src={s.media.image} alt={s.media.alt} width={164} height={114} format="webp" loading="lazy" />
               </span>
               <span class="nav-dd__text">
                 <span class="nav-dd__label"><i class="nav-dd__dot" aria-hidden="true"></i>{s.label}</span>

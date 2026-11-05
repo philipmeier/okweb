@@ -1,4 +1,11 @@
 ---
+import fromScriptImg from '/src/assets/media/solutions/film-breakdown-1970s.jpg';
+import threeActsImg from '/src/assets/media/features/storyboard-1970s.jpg';
+import makeAnAdImg from '/src/assets/media/solutions/cd-explore-1970s.jpg';
+import locationsImg from '/src/assets/media/solutions/film-plates-1970s.jpg';
+import expressionsImg from '/src/assets/media/character-reference-1970s.jpg';
+import grokImg from '/src/assets/media/solutions/creator-host-1970s.jpg';
+
 interface Props {
   initialTool?: string;
 }
@@ -15,9 +22,9 @@ const tools = [
     summary: "Paste a script, treatment, or dialogue snippet. Choose your target shot count (3, 5, 10, 20, or 30 shots). 10zebra parses the narrative beats, generates cohesive prompts, and queues parallel takes.",
     route: "/t/from-script",
     shotCountOptions: ["3 Shots", "5 Shots", "10 Shots (Default)", "20 Shots", "30 Shots"],
-    samplePrompt: "INT. COFFEE SHOP - MORNING. A tired detective reviews surveillance stills while rain pounds the glass. The barista sets down a cup with a handwritten warning: 'They know you are here.'",
+    samplePrompt: "EXT. LE MANS PIT LANE - DAWN. Team Principal Marcus studies dual Heuer stopwatches as Lead Driver Elena Vance steps into the pit box. Mechanics prep the warm-up jacks.",
     systemPromptRule: "Create a compelling visual narrative for this script. Create an opening image that includes motion and invites a question, then sequence subsequent beats chronologically.",
-    previewImage: "https://images.unsplash.com/photo-1485846234645-a62644f84728?w=700&h=420&fit=crop&q=80",
+    previewImage: fromScriptImg.src,
     keyDetail: "Customizable shot density: 3, 5, 10, 20, up to 30 continuous shots."
   },
   {
@@ -29,9 +36,9 @@ const tools = [
     summary: "Break your story idea into Act I (Setup / Hook), Act II (Confrontation / Crisis), and Act III (Climax / Payoff). 10zebra locks visual taste, lighting, weather, and camera language across all 3 acts.",
     route: "/t/three-acts",
     shotCountOptions: ["3 Narrative Acts (Fixed)"],
-    samplePrompt: "A street violinist discovers their instrument case contains a mysterious encrypted hard drive. In scene two, dark sedans corner them in an underground tunnel. In scene three, they escape into a crowded subway station.",
+    samplePrompt: "Act I: An underdog 1970s endurance crew rebuilds their flat-12 gearbox by lantern light. Act II: A sudden midnight rainstorm triggers an unscheduled pit stop. Act III: Crossing the checkered flag at sunrise.",
     systemPromptRule: "Hold constant: Visual taste, Lighting, Camera, Narrative tone, Time, Weather. Include: 'Edit: fast paced cuts that advance the narrative'.",
-    previewImage: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=700&h=420&fit=crop&q=80",
+    previewImage: threeActsImg.src,
     keyDetail: "Guaranteed 3-act narrative continuity with constant lighting and camera rules."
   },
   {
@@ -43,9 +50,9 @@ const tools = [
     summary: "Built for advertising agencies and marketing teams. Emphasizes expert cinematography, crisp brand presence, high-energy editing cuts, and consistent product scale across every frame.",
     route: "/t/ad",
     shotCountOptions: ["3 Scenes (Ad Standard)"],
-    samplePrompt: "An advertisement for [HydraSpark Athletic Drink] where an ultramarathon runner pushes through desert heat at sunrise, splashing chilled electrolyte water in macro slow-motion.",
+    samplePrompt: "A 1970s heritage chronograph commercial where a timekeeper clicks a brushed-steel stopwatch on the pit wall at golden hour, macro slow-motion gear movement.",
     systemPromptRule: "Using compact language of expertise in cinematography, modern commercial art direction, and VFX, complete scene description holding brand aesthetic constant.",
-    previewImage: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=700&h=420&fit=crop&q=80",
+    previewImage: makeAnAdImg.src,
     keyDetail: "Optimized for brand aesthetics, product macro closeups, and rapid commercial cuts."
   },
   {
@@ -57,9 +64,9 @@ const tools = [
     summary: "Generate comprehensive environment reference packs: wide establishing shots, medium architectural framing, and novel angles (aerial, low floor perspective, dutch tilt) with zero human character bleed.",
     route: "/t/locations",
     shotCountOptions: ["3, 5, or 10 Location Angles"],
-    samplePrompt: "A brutalist concrete library nestled in a damp Pacific Northwest redwood forest, massive floor-to-ceiling glass, moss-covered cantilevered balconies, foggy diffused morning light.",
+    samplePrompt: "A 1970s European endurance racing paddock at dawn, vintage concrete pit boxes, pine forest lining the banked circuit, warm golden sunrise mist.",
     systemPromptRule: "Remove all descriptions of people and characters. Focus purely on environments, objects, lighting, architecture, and the natural world.",
-    previewImage: "https://images.unsplash.com/photo-1519608487953-e999c86e7455?w=700&h=420&fit=crop&q=80",
+    previewImage: locationsImg.src,
     keyDetail: "Environment-only prompt sanitizer prevents unwanted character generation."
   },
   {
@@ -71,9 +78,9 @@ const tools = [
     summary: "Upload a character portrait reference. Explore subtle micro-expressions, conflicted reactions, and emotional nuances where posture masks or contradicts overt facial expressions.",
     route: "/t/expressions",
     shotCountOptions: ["3, 5, or 10 Expressions"],
-    samplePrompt: "Detective Elena Vance receives news that her partner survived the bombing. Masking relief behind stoic professional composure, but her hand trembles slightly as she lowers the phone.",
+    samplePrompt: "Lead Driver Elena Vance receives the pit-board signal that her co-driver just set the fastest lap in the rain. Masking relief behind calm focus as she fastens her helmet strap.",
     systemPromptRule: "Lock 20-word character identity description. Add micro-details about posture, gaze, subtle muscle tensions, and emotional contradictions.",
-    previewImage: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=700&h=420&fit=crop&q=80",
+    previewImage: expressionsImg.src,
     keyDetail: "Anchored to reference photo with emotion-specific prompt engineering."
   },
   {
@@ -85,9 +92,9 @@ const tools = [
     summary: "Crafted specifically for viral social video. Native vertical composition, rapid narrative hooks, tight character closeups, dynamic mobile camera movement, and punchy on-screen dialogue.",
     route: "/t/grok",
     shotCountOptions: ["3 Scenes (Vertical Optimized)"],
-    samplePrompt: "Vertical microdrama: High school prodigy discovers an ancient cipher carved underneath the principal's desk. Dynamic handheld push-in, whispers dialogue 'It is not a school... it is a lock.'",
+    samplePrompt: "Vertical microdrama: Motorsport chronicler whispers from the pit wall as the #10 car enters the lane with 12 seconds left on the clock. Handheld push-in.",
     systemPromptRule: "Framing appropriate to vertical video (9:16). Include dynamic camera motion plausible from mobile video. Character closeups with snappy dialogue.",
-    previewImage: "https://images.unsplash.com/photo-1616530940355-351fabd9524b?w=700&h=420&fit=crop&q=80",
+    previewImage: grokImg.src,
     keyDetail: "Built from the ground up for 9:16 vertical social feeds and episodic microdramas."
   }
 ];

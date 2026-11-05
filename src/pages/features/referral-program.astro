@@ -1,0 +1,155 @@
+---
+import FeatureLandingLayout from "/src/layouts/FeatureLandingLayout.astro";
+import ReferralProgramMockup from "/src/components/features/ReferralProgramMockup.astro";
+
+const stats = [
+  { value: "3%", label: "Lifetime Payout", detail: "Earn 3% for the entire lifetime of every referred user" },
+  { value: "Credits + Plans", label: "All Purchases Qualify", detail: "Paid on credit top-up packs and subscriptions" },
+  { value: "Tolt", label: "Partner Attribution", detail: "Real-time referral code tracking & automated payouts" },
+  { value: "No Cap", label: "Unlimited Earnings", detail: "Zero ceiling on referrals or lifetime payouts" }
+];
+
+const workflowSteps = [
+  {
+    step: "Step 01",
+    title: "Grab Your Unique Referral Code",
+    description: "Sign in to 10zebra and open our Tolt-powered Referral Dashboard to get your custom referral code and shareable link.",
+    tag: "Tolt Integration"
+  },
+  {
+    step: "Step 02",
+    title: "Share With Creators, Directors & Studios",
+    description: "Drop your referral code in YouTube descriptions, tutorials, Discord communities, or share it directly with fellow filmmakers and agencies.",
+    tag: "Share Code"
+  },
+  {
+    step: "Step 03",
+    title: "Earn 3% Lifetime Payouts Automatically",
+    description: "Whenever a referred user purchases credit top-up packs or subscribes to any plan, you automatically earn 3% — for the lifetime of their account.",
+    tag: "3% Lifetime Payout"
+  }
+];
+
+const features = [
+  {
+    title: "3% Lifetime Payout on Every Credit Purchase & Subscription",
+    description: "Most affiliate programs cut you off after the first month or exclude top-up packs. 10zebra rewards you for the entire lifetime of every filmmaker, creator, or studio you bring to the platform:",
+    bullets: [
+      "<strong>Paid on all subscriptions:</strong> Earn 3% on every Maker ($29/mo), Director ($79/mo), and Studio ($199/mo) subscription &mdash; including every monthly or annual renewal for life.",
+      "<strong>Paid on all credit pack purchases:</strong> Whether a referred user stays on Pay-As-You-Go and buys top-up packs or tops up a large agency project vault, you earn 3% on every credit pack they ever purchase.",
+      "<strong>Zero earnings cap:</strong> Refer 5 solo creators or 50 commercial production agencies &mdash; there is no limit on how much you can earn."
+    ],
+    tag: "Lifetime Revenue"
+  },
+  {
+    title: "Seamless Attribution & Payouts Powered by Tolt",
+    description: "We partnered with Tolt to give every 10zebra user a transparent, real-time partner portal directly connected to our Stripe billing engine:",
+    bullets: [
+      "<strong>Custom referral codes &amp; links:</strong> Get a dedicated referral code and tracking link that attributes signups reliably across devices.",
+      "<strong>Real-time conversion ledger:</strong> Watch clicks, trial signups, subscription upgrades, and credit pack purchases appear in your Tolt dashboard as they happen.",
+      "<strong>Automated payouts:</strong> Track your accrued balance and receive streamlined payouts directly through Tolt with full invoice history."
+    ],
+    tag: "Tolt Integration"
+  },
+  {
+    title: "Built for AI Filmmakers, Educators & Production Communities",
+    description: "Because 10zebra unifies every top video model (Kling, Veo, Sora, Runway, Grok, Wan) in one workspace, your audience never outgrows the platform:",
+    bullets: [
+      "<strong>High retention &amp; repeat top-ups:</strong> Active creators and agencies continuously replenish project credit vaults for new client campaigns &mdash; compounding your 3% lifetime payout.",
+      "<strong>Easy entry for your audience:</strong> Every referred user starts with 200 free trial credits and no mandatory subscription, making it effortless for them to try 10zebra.",
+      "<strong>Shareable showcase projects:</strong> Pair your tutorials, YouTube exports, or storyboards with your referral code to turn viewers into long-term referrals."
+    ],
+    tag: "Creator Aligned"
+  }
+];
+
+const comparisonItems = [
+  {
+    feature: "Commission Duration",
+    zebra: "Lifetime payout (3% for the entire life of the referred account)",
+    competitor: "One-time bounty or expires after 30–90 days",
+    zebraAdvantage: true
+  },
+  {
+    feature: "Qualifying Purchases",
+    zebra: "Both credit top-up packs AND monthly/annual subscriptions",
+    competitor: "Initial subscription month only; credit top-ups excluded",
+    zebraAdvantage: true
+  },
+  {
+    feature: "Tracking & Attribution Infrastructure",
+    zebra: "Verified Tolt integration with dedicated referral code & real-time ledger",
+    competitor: "Manual spreadsheets or brittle cookie-only links",
+    zebraAdvantage: true
+  },
+  {
+    feature: "Audience Onboarding Friction",
+    zebra: "Referred users start free with 200 credits & convert when ready",
+    competitor: "Forced upfront paywall before testing the studio",
+    zebraAdvantage: true
+  }
+];
+
+const faqs = [
+  {
+    question: "How does the 10zebra Referral Program work?",
+    answer: "Through our <strong>Tolt integration</strong>, every 10zebra user receives a special referral code and shareable referral link. When someone signs up using your referral code or link, they are permanently attributed to you. Whenever that user purchases credits or subscribes to a plan, you earn a <strong>3% lifetime payout</strong>."
+  },
+  {
+    question: "Do I get paid on both credit pack purchases and subscriptions?",
+    answer: "<strong>Yes!</strong> You earn a 3% payout whether your referred user stays on Pay-As-You-Go and buys non-expiring credit top-up packs, subscribes to a monthly or annual plan (Maker, Director, or Studio), or buys extra credit packs on top of their subscription."
+  },
+  {
+    question: "What does 'lifetime payout of 3%' mean?",
+    answer: "It means your commission never expires after the first purchase or first year. For as long as your referred user remains a paying 10zebra customer &mdash; whether they renew their subscription every month or buy new project credit packs years later &mdash; you continue to earn 3% on every qualifying payment."
+  },
+  {
+    question: "How are referrals tracked and paid out?",
+    answer: "We use <strong>Tolt</strong> to power our referral tracking and partner payouts. Your Tolt dashboard displays real-time clicks, referred signups, subscription renewals, credit pack purchases, and your available payout balance."
+  }
+];
+
+const relatedFeatures = [
+  {
+    title: "Agentic Workflows (Agent Z)",
+    description: "Show your audience how Agent Z automates batch character replacement, conversion, and upscaling with Dry Run cost approval.",
+    href: "/features/agentic-workflows",
+    badge: "Agent Z"
+  },
+  {
+    title: "1-Click YouTube Publishing",
+    description: "Publish your AI videos straight to YouTube and drop your 10zebra referral code in the description.",
+    href: "/features/publish-to-youtube",
+    badge: "Instant Publish"
+  },
+  {
+    title: "Project Teams & Budgets",
+    description: "Refer commercial agencies and production studios that fund recurring multi-project credit vaults.",
+    href: "/features/project-management",
+    badge: "Teams & Budgets"
+  }
+];
+---
+
+<FeatureLandingLayout
+  title="10zebra Referral Program | 3% Lifetime Payout via Tolt"
+  description="Join the 10zebra Referral Program powered by Tolt. Get your special referral code and earn a 3% lifetime payout whenever referred users purchase credits or subscribe."
+  eyebrow="REFERRAL PROGRAM · POWERED BY TOLT"
+  headline="10zebra Referral Program:"
+  headlineHighlight="3% Lifetime Payout on Credits & Subscriptions."
+  subheadline="Share 10zebra with fellow filmmakers, creators, and agencies using your special Tolt referral code. Earn a 3% lifetime payout every time your referred users purchase credit packs or subscribe — for the entire life of their account."
+  badgeText="Tolt Partner Portal · 3% Lifetime Payout"
+  primaryCta={{ label: "Get Your Referral Code", href: "/signup?ref=partner" }}
+  secondaryCta={{ label: "View Pricing & Credit Packs", href: "/pricing" }}
+  stats={stats}
+  workflowSteps={workflowSteps}
+  features={features}
+  comparisonItems={comparisonItems}
+  faqs={faqs}
+  relatedFeatures={relatedFeatures}
+>
+  <div slot="hero-visual">
+    <ReferralProgramMockup />
+  </div>
+</FeatureLandingLayout>
+

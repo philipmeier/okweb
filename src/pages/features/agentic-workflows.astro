@@ -1,0 +1,156 @@
+---
+import FeatureLandingLayout from "/src/layouts/FeatureLandingLayout.astro";
+import AgenticWorkflowsMockup from "/src/components/features/AgenticWorkflowsMockup.astro";
+
+const stats = [
+  { value: "Agent Z", label: "10zebra Production Agent", detail: "Built-in storyboard & batch orchestrator" },
+  { value: "5+ Modes", label: "Batch Operations", detail: "Create, Convert, Replace, Regen & Upscale" },
+  { value: "Dry Run", label: "Cost & Plan Preview", detail: "Shows exact credit cost before executing" },
+  { value: "100%", label: "Approval-Gated Spend", detail: "Zero credits spent until you approve the plan" }
+];
+
+const workflowSteps = [
+  {
+    step: "Step 01",
+    title: "Select Shots & Command Agent Z",
+    description: "Select a scene, filtered group of takes, or your entire storyboard. Instruct Agent Z to batch create, batch convert, batch replace characters, batch regen, or batch upscale.",
+    tag: "Batch Directive"
+  },
+  {
+    step: "Step 02",
+    title: "Inspect the Dry Run Analysis & Credit Plan",
+    description: "Before a single credit is deducted, Agent Z performs a Dry Run analysis — building a shot-by-shot execution plan, calculating exact credit costs, and requesting your approval.",
+    tag: "Dry Run Analysis"
+  },
+  {
+    step: "Step 03",
+    title: "Approve & Execute in Parallel",
+    description: "Toggle individual tasks in the plan or approve the full batch in one click. Agent Z dispatches parallel cloud jobs non-destructively while preserving your original takes.",
+    tag: "Approved Execution"
+  }
+];
+
+const features = [
+  {
+    title: "Meet Agent Z: Work in Batches Across Your Entire Project",
+    description: "Stop repeating the same manual clicks across twenty browser tabs. Agent Z is the native 10zebra production agent engineered to execute multi-shot batch workflows across your storyboard in parallel:",
+    bullets: [
+      "<strong>Batch Create:</strong> Fan out scripts, beat sheets, or prompt variations into dozens of structured storyboard shots across Kling, Veo, Sora, Runway, and Grok at once.",
+      "<strong>Batch Replace Characters:</strong> Swap talent identity across every take in a scene or entire project using a single reference portrait while locking 100% of original camera motion and lighting.",
+      "<strong>Batch Convert:</strong> Convert aspect ratios (e.g. 16:9 widescreen to 9:16 vertical social), restyle footage via video-to-video, or migrate takes across foundation models in bulk.",
+      "<strong>Batch Regen:</strong> Re-roll rejected, alternate, or failed takes across new seeds or fallback engines simultaneously without re-entering prompts.",
+      "<strong>Batch Upscale:</strong> Enhance all approved sequence cuts to crisp 4K UHD resolution with temporal noise cleaning in a single background pass."
+    ],
+    tag: "Batch Engine"
+  },
+  {
+    title: "Dry Run Analysis: Creates a Plan, Shows Credit Costs & Requests Approval",
+    description: "Autonomous AI agents should never be a blank check on your credit balance. Every Agent Z workflow starts with a mandatory Dry Run analysis so you stay in complete creative and financial control:",
+    bullets: [
+      "<strong>Structured Execution Plan:</strong> Agent Z inspects your selected shots and generates an itemized step-by-step plan detailing every target shot, model engine, and parameter change.",
+      "<strong>Transparent Credit Cost Calculation:</strong> See the exact credit cost per operation and the total batch cost upfront &mdash; zero guesswork and zero surprise credit burn.",
+      "<strong>Explicit Approval Gate:</strong> Agent Z pauses and requests your approval before dispatching any compute. Deselect individual shots, switch engines to lower the cost, or click Approve to launch the batch.",
+      "<strong>Project Budget Verification:</strong> Automatically checks the projected batch total against your isolated project credit vault so a batch job never exceeds your client campaign cap."
+    ],
+    tag: "Dry Run Shield"
+  },
+  {
+    title: "Non-Destructive Versioning & Self-Serve Failure Recovery",
+    description: "High-volume batch production requires studio-grade safety nets for both your creative cuts and your credit budget:",
+    bullets: [
+      "<strong>Non-destructive take stacking:</strong> Every batch replace, convert, regen, or upscale is saved as a new versioned take alongside your original clip so you can A/B compare or revert anytime.",
+      "<strong>1-Click Refund or Retry on failed takes:</strong> If any job in a batch fails, a button appears directly on the failed generation (immediately after a direct model error, or after 30 minutes if a job fails silently) letting you choose a <strong>90% credit refund</strong> or a <strong>free regen</strong>.",
+      "<strong>Full audit trail:</strong> Every Agent Z batch plan, credit deduction, seed, and model choice is permanently logged in the project ledger."
+    ],
+    tag: "Studio Safety"
+  }
+];
+
+const comparisonItems = [
+  {
+    feature: "Multi-Shot Production Operations",
+    zebra: "Agent Z executes batch create, convert, replace, regen & upscale in parallel",
+    competitor: "Manual one-clip-at-a-time prompting and repetitive clicking",
+    zebraAdvantage: true
+  },
+  {
+    feature: "Project-Wide Character Replacement",
+    zebra: "Batch replace characters across all selected scenes with 100% motion lock",
+    competitor: "Re-prompting or manually inpainting every individual shot from scratch",
+    zebraAdvantage: true
+  },
+  {
+    feature: "Agent Cost & Spend Control",
+    zebra: "Dry Run analysis creates a plan, shows exact credit costs & requests approval",
+    competitor: "Opaque background loops that burn through credits without prior sign-off",
+    zebraAdvantage: true
+  },
+  {
+    feature: "Failed Generation Recovery",
+    zebra: "Self-serve button on failed jobs for 90% credit refund or free regen",
+    competitor: "Lost credits on silent timeouts or lengthy support ticket queues",
+    zebraAdvantage: true
+  }
+];
+
+const faqs = [
+  {
+    question: "What is Agent Z and what batch operations can it run?",
+    answer: "<strong>Agent Z</strong> is 10zebra's built-in production agent designed to automate repetitive multi-shot tasks across your storyboard. With Agent Z, you can work in batches across your entire project: <strong>batch create</strong> multi-shot sequences, <strong>batch replace characters</strong> across existing takes, <strong>batch convert</strong> aspect ratios or visual styles, <strong>batch regen</strong> takes with new seeds or models, and <strong>batch upscale</strong> approved cuts to 4K resolution."
+  },
+  {
+    question: "How does Agent Z's Dry Run analysis work?",
+    answer: "Whenever you trigger a batch workflow, Agent Z runs a <strong>Dry Run analysis</strong> first at zero credit cost. It analyzes the targeted scenes and takes, builds a complete step-by-step execution plan, calculates the exact credit cost for each item and the overall batch, verifies that the total fits within your project budget, and <strong>requests your explicit approval</strong> before running a single generation."
+  },
+  {
+    question: "How does 'batch replace characters' work inside Agentic Workflows?",
+    answer: "Select the scenes or takes where a character appears, provide a single target reference portrait, and ask Agent Z to batch replace the character. Agent Z maps out every matching take in a Dry Run plan, shows the total credit cost (15 credits per take), and once approved, replaces the character across all selected shots in parallel while preserving 100% of the original camera motion, acting, and lighting."
+  },
+  {
+    question: "What happens if a generation inside a batch fails or times out?",
+    answer: "You are protected on every take. If any generation fails, a button appears directly on the failed generation card &mdash; immediately when we receive a direct error from the model, or after 30 minutes if a job fails silently. You can click to choose either a <strong>90% credit refund</strong> or a <strong>free regen (retry)</strong>. (The refund is 90% to cover our baseline system and infrastructure costs, as most failures result from upstream Model terms violations rather than any issue with the 10zebra platform.)"
+  }
+];
+
+const relatedFeatures = [
+  {
+    title: "Character Swap & Agent Z",
+    description: "Deep dive into volumetric motion-locked character swapping for single takes and full projects.",
+    href: "/features/character-swap",
+    badge: "Zero Drift"
+  },
+  {
+    title: "Project Teams & Budgets",
+    description: "Pair Agent Z Dry Run approvals with isolated project credit vaults and spend caps.",
+    href: "/features/project-management",
+    badge: "Governance"
+  },
+  {
+    title: "Text-to-Sequence",
+    description: "Turn a script or treatment into a structured run of 3 to 30 storyboard shots.",
+    href: "/features/text-to-sequence",
+    badge: "Story Engine"
+  }
+];
+---
+
+<FeatureLandingLayout
+  title="Agentic Workflows with Agent Z | Batch AI Video & Dry Run Analysis | 10zebra"
+  description="Meet Agent Z, the 10zebra production agent. Work in batches — batch create, batch convert, batch replace characters, batch regen, and batch upscale — with Dry Run analysis that creates a plan, shows credit costs, and requests approval."
+  eyebrow="AGENTIC WORKFLOWS · AGENT Z"
+  headline="Agentic Workflows with Agent Z:"
+  headlineHighlight="Work in Batches. Approve Every Credit First."
+  subheadline="Direct across dozens of shots at once with Agent Z, the 10zebra agent. Batch create, batch convert, batch replace characters, batch regen, and batch upscale — backed by a Dry Run analysis that creates a full execution plan, shows exact credit costs, and requests your approval before spending a single credit."
+  badgeText="Agent Z · Batch Pipeline & Dry Run"
+  stats={stats}
+  workflowSteps={workflowSteps}
+  features={features}
+  comparisonItems={comparisonItems}
+  faqs={faqs}
+  relatedFeatures={relatedFeatures}
+>
+  <div slot="hero-visual">
+    <AgenticWorkflowsMockup />
+  </div>
+</FeatureLandingLayout>
+

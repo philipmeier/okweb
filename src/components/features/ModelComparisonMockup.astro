@@ -1,4 +1,13 @@
 ---
+import takeAImg from '/src/assets/media/take-a-1970s.jpg';
+import takeBImg from '/src/assets/media/take-b-1970s.jpg';
+import takeCImg from '/src/assets/media/take-c-1970s.jpg';
+import takeDImg from '/src/assets/media/take-d-1970s.jpg';
+import takeKlingVideo from '/src/assets/media/take-kling.mp4';
+import takeVeoVideo from '/src/assets/media/take-veo.mp4';
+import takeSoraVideo from '/src/assets/media/take-sora.mp4';
+import takeRunwayVideo from '/src/assets/media/take-runway.mp4';
+
 interface Props {
   interactive?: boolean;
 }
@@ -13,8 +22,9 @@ const models = [
     speed: "24s",
     cost: "12 credits",
     color: "#f97316",
-    image: "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=600&h=380&fit=crop&q=80",
-    caption: "Take #01: Hyper-realistic skin textures, micro-facial expressions, low-light volumetric fog."
+    image: takeAImg.src,
+    video: takeKlingVideo,
+    caption: "Take #01: Aerial tracking shot of the endurance pit stop, synchronized crew choreography and golden tungsten halation."
   },
   {
     id: "grok",
@@ -23,8 +33,9 @@ const models = [
     speed: "18s",
     cost: "10 credits",
     color: "#38bdf8",
-    image: "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=600&h=380&fit=crop&q=80",
-    caption: "Take #02: Bold contrast, kinetic camera pan, gritty neon cyberpunk grade."
+    image: takeBImg.src,
+    video: takeVeoVideo,
+    caption: "Take #02: Low-angle kinetic camera push at sunset, wheel-gun sparks and expressive pit-crew teamwork."
   },
   {
     id: "seedance",
@@ -33,8 +44,9 @@ const models = [
     speed: "35s",
     cost: "15 credits",
     color: "#a855f7",
-    image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=600&h=380&fit=crop&q=80",
-    caption: "Take #03: Fluid body choreography, long uninterrupted continuous camera push."
+    image: takeCImg.src,
+    video: takeSoraVideo,
+    caption: "Take #03: Fluid side-profile pan across the pit wall as the driver swaps helmets and the timekeeper clicks the Heuer."
   },
   {
     id: "veo",
@@ -43,8 +55,9 @@ const models = [
     speed: "29s",
     cost: "14 credits",
     color: "#10b981",
-    image: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=600&h=380&fit=crop&q=80",
-    caption: "Take #04: Photorealistic lens flare, anamorphic depth of field, warm golden hour."
+    image: takeDImg.src,
+    video: takeRunwayVideo,
+    caption: "Take #04: Dramatic rain-slicked dusk hairpin exit with anamorphic lens flare and authentic 35mm film grain."
   }
 ];
 ---
@@ -76,13 +89,13 @@ const models = [
         MASTER PROMPT
       </span>
       <p class="text-[var(--text-primary)] font-mono text-[11px] truncate">
-        "Cyberpunk detective enters rain-slicked alleyway, neon signage reflected in wet asphalt, anamorphic 35mm lens, atmospheric mist"
+        "1970s endurance racing pit crew executing a twilight driver change and tire service, 35mm Panavision anamorphic lens, golden halation"
       </p>
     </div>
     <div class="flex items-center gap-2 text-[var(--text-muted)] shrink-0 text-[11px]">
       <span class="text-[var(--text-secondary)] font-medium">Locked Reference:</span>
       <span class="px-2 py-0.5 rounded bg-[var(--bg-elevated)] border border-[var(--border-subtle)] text-[var(--text-primary)]">
-        detective_hero_ref.png
+        elena_vance_ref.jpg
       </span>
     </div>
   </div>
@@ -105,12 +118,13 @@ const models = [
 
         <!-- Video Simulation Box -->
         <div class="relative aspect-video overflow-hidden bg-black">
-          <img 
-            src={m.image} 
-            alt={m.name + " generation"} 
+          <video 
+            autoplay loop muted playsinline
+            poster={m.image} 
             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
-            loading="lazy"
-          />
+          >
+            <source src={m.video} type="video/mp4" />
+          </video>
           <!-- Badge overlay -->
           <div class="absolute top-2 left-2 px-1.5 py-0.5 rounded text-[10px] font-semibold bg-black/75 backdrop-blur-sm text-[var(--text-primary)] border border-white/10">
             {m.badge}

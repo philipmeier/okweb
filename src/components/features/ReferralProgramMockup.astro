@@ -1,0 +1,110 @@
+---
+// src/components/features/ReferralProgramMockup.astro
+---
+
+<div class="referral-mockup w-full rounded-xl overflow-hidden bg-[#0e1014] border border-[var(--border-subtle)] shadow-2xl text-left">
+  <!-- Window Top Bar -->
+  <div class="bg-[#16181e] px-4 py-3 border-b border-[var(--border-subtle)] flex items-center justify-between gap-2 flex-wrap">
+    <div class="flex items-center gap-2">
+      <span class="w-3 h-3 rounded-full bg-rose-500/80"></span>
+      <span class="w-3 h-3 rounded-full bg-amber-500/80"></span>
+      <span class="w-3 h-3 rounded-full bg-emerald-500/80"></span>
+      <span class="text-xs font-mono text-[var(--text-muted)] ml-2">10zebra Partner Portal &middot; Tolt Referral Attribution</span>
+    </div>
+    <div class="flex items-center gap-2">
+      <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+        Tolt Integration Active &middot; 3% Lifetime Payout
+      </span>
+    </div>
+  </div>
+
+  <!-- Main Dashboard Content -->
+  <div class="p-4 sm:p-5 space-y-4 bg-[#0a0b0e]">
+    <!-- Referral Link & Code Banner -->
+    <div class="rounded-xl border border-[rgba(249,115,22,0.35)] bg-[#13151b] p-4">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
+        <div>
+          <span class="text-[10px] font-mono uppercase tracking-wider text-[var(--accent)] font-bold block">Your Unique Referral Code &amp; Link</span>
+          <h4 class="text-sm font-bold text-white mt-0.5">Earn 3% for life on every credit pack &amp; subscription renewal</h4>
+        </div>
+        <span class="px-2.5 py-1 rounded-md bg-white/[0.05] border border-white/10 text-[11px] font-mono text-[var(--text-secondary)] shrink-0">
+          Code: <strong class="text-amber-300">ZEBRA-STUDIO</strong>
+        </span>
+      </div>
+
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+        <div class="flex-1 px-3.5 py-2 rounded-lg bg-[#0b0c10] border border-[var(--border-subtle)] font-mono text-xs text-white flex items-center justify-between">
+          <span>https://10zebra.com/?via=<span class="text-[var(--accent)] font-bold">zebra-studio</span></span>
+          <span class="text-[10px] text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">Tracked by Tolt</span>
+        </div>
+        <span class="px-4 py-2 rounded-lg text-xs font-black text-[#0c0d10] text-center shrink-0" style="background: linear-gradient(135deg, var(--accent), var(--accent-secondary));">
+          Copy Referral Link
+        </span>
+      </div>
+    </div>
+
+    <!-- Stats Row -->
+    <div class="grid grid-cols-3 gap-3">
+      <div class="rounded-xl border border-[var(--border-subtle)] bg-[#13151b] p-3">
+        <span class="text-[10px] font-mono uppercase tracking-wider text-[var(--text-muted)] block">Commission Rate</span>
+        <span class="text-xl sm:text-2xl font-black font-mono text-[var(--accent)] mt-0.5 block">3% Lifetime</span>
+        <span class="text-[10px] text-[var(--text-secondary)]">Credits + Subscriptions</span>
+      </div>
+      <div class="rounded-xl border border-[var(--border-subtle)] bg-[#13151b] p-3">
+        <span class="text-[10px] font-mono uppercase tracking-wider text-[var(--text-muted)] block">Referred Creators</span>
+        <span class="text-xl sm:text-2xl font-black font-mono text-white mt-0.5 block">48 Active</span>
+        <span class="text-[10px] text-emerald-400">100% recurring attribution</span>
+      </div>
+      <div class="rounded-xl border border-[var(--border-subtle)] bg-[#13151b] p-3">
+        <span class="text-[10px] font-mono uppercase tracking-wider text-[var(--text-muted)] block">Lifetime Payouts</span>
+        <span class="text-xl sm:text-2xl font-black font-mono text-emerald-400 mt-0.5 block">$1,428.60</span>
+        <span class="text-[10px] text-[var(--text-secondary)]">Auto-paid via Tolt</span>
+      </div>
+    </div>
+
+    <!-- Recent Referral Conversions Feed -->
+    <div class="rounded-xl border border-[var(--border-subtle)] bg-[#13151b] p-3.5">
+      <div class="flex items-center justify-between mb-2.5">
+        <span class="text-[10px] font-mono uppercase tracking-wider text-[var(--text-muted)] font-bold">Live Commission Ledger (Tolt Webhook Sync)</span>
+        <span class="text-[10px] font-mono text-[var(--text-muted)]">No Cap &middot; Never Expires</span>
+      </div>
+
+      <div class="space-y-1.5 text-[11px]">
+        <div class="flex items-center justify-between px-3 py-2 rounded-lg bg-[#0b0c10] border border-[var(--border-subtle)]">
+          <div class="flex items-center gap-2.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+            <div>
+              <span class="font-bold text-white">Director Subscription Renewal</span>
+              <span class="text-[var(--text-muted)] block text-[10px]">Referred Studio &middot; Monthly Plan ($79.00)</span>
+            </div>
+          </div>
+          <span class="font-mono font-bold text-emerald-400">+$2.37 (3%)</span>
+        </div>
+
+        <div class="flex items-center justify-between px-3 py-2 rounded-lg bg-[#0b0c10] border border-[var(--border-subtle)]">
+          <div class="flex items-center gap-2.5">
+            <span class="w-2 h-2 rounded-full bg-[var(--accent)]"></span>
+            <div>
+              <span class="font-bold text-white">Volume Credit Pack Purchase (5,200 cr)</span>
+              <span class="text-[var(--text-muted)] block text-[10px]">Referred Agency &middot; Top-Up Pack ($100.00)</span>
+            </div>
+          </div>
+          <span class="font-mono font-bold text-emerald-400">+$3.00 (3%)</span>
+        </div>
+
+        <div class="flex items-center justify-between px-3 py-2 rounded-lg bg-[#0b0c10] border border-[var(--border-subtle)]">
+          <div class="flex items-center gap-2.5">
+            <span class="w-2 h-2 rounded-full bg-sky-400"></span>
+            <div>
+              <span class="font-bold text-white">Annual Studio Plan + Extra Top-Ups</span>
+              <span class="text-[var(--text-muted)] block text-[10px]">Referred Production Team &middot; ($1,900.00)</span>
+            </div>
+          </div>
+          <span class="font-mono font-bold text-emerald-400">+$57.00 (3%)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

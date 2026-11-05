@@ -6,6 +6,7 @@ import Footer from "/src/components/layout/Footer.astro";
 import FinalCTA from "/src/components/FinalCTA.astro";
 import { Image } from "astro:assets";
 import philipImg from "/src/assets/media/philip.jpg";
+import sectionResourcesPress from "/src/assets/media/section-resources-press-1970s.jpg";
 import { totalFamilies, totalModels } from "/src/data/models";
 
 const pageTitle = "About 10zebra | Pioneering Multi-Model AI Video Production";
@@ -93,6 +94,28 @@ const jsonLd = {
           <p class="about-hero__lead">
             10zebra was founded on a simple conviction: the future of cinematic AI isn't a solitary chat prompt, but a collaborative production studio where directors orchestrate the world's best generative video models with true continuity, budget control, and creative autonomy.
           </p>
+
+          <!-- Archival 1970s Photojournalism Crew Banner -->
+          <div class="mt-10 max-w-4xl mx-auto relative rounded-2xl overflow-hidden border border-[var(--border-subtle)] shadow-2xl">
+            <Image
+              src={sectionResourcesPress}
+              alt="Archival 1970s photojournalism portrait of the endurance racing crew and drivers collaborating around a garage chalkboard"
+              width={1200}
+              height={675}
+              format="webp"
+              class="w-full h-56 sm:h-72 object-cover"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0c0d10] via-[#0c0d10]/30 to-transparent flex items-end justify-between p-5 text-left">
+              <div>
+                <span class="text-[10px] font-mono uppercase tracking-widest px-2 py-0.5 rounded bg-white/10 text-amber-200 border border-white/20">
+                  A Team Working Together to Win &bull; Studio Heritage
+                </span>
+                <p class="text-xs sm:text-sm text-white/90 font-medium mt-1.5">
+                  Every great production is a crew effort: directors, talent, strategists, and engineers moving in lockstep.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -126,8 +149,8 @@ const jsonLd = {
                 <span class="about-stat__label">Pioneering Roots</span>
               </div>
               <div class="about-stat">
-                <span class="about-stat__num">100%</span>
-                <span class="about-stat__label">System Error Refund</span>
+                <span class="about-stat__num">90%</span>
+                <span class="about-stat__label">Refund || Free Regen</span>
               </div>
             </div>
           </div>
@@ -285,7 +308,7 @@ const jsonLd = {
             </div>
             <h3>Film Producers</h3>
             <p>
-              Maintain tight financial control with project-isolated credit ledgers, multi-tier team permissions, and credit refund protection on upstream system errors.
+              Maintain tight financial control with project-isolated credit ledgers, multi-tier team permissions, and a 1-click 90% refund or free regen button on all failed generations.
             </p>
             <span class="about-persona-link">Explore Producer Solutions &rarr;</span>
           </a>

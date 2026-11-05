@@ -49,7 +49,7 @@ export const faqCategories: FaqCategory[] = [
     label: 'Billing & Credits',
     badge: 'Plans & Payments',
     icon: 'credit-card',
-    description: 'Subscriptions, non-expiring credit packs, credit refunds on system errors, and Stripe checkout.',
+    description: 'Subscriptions, non-expiring credit packs, 90% refund or free regen on failed generations, 3% lifetime referral payouts, and Stripe checkout.',
   },
   {
     id: 'terms',
@@ -68,15 +68,28 @@ export const allFaqs: FaqItem[] = [
     id: 'why-10zebra-vs-standalone',
     category: 'features',
     question: 'What makes 10zebra different from using standalone AI video platforms directly?',
-    shortAnswer: `10zebra is a non-linear production studio that unifies ${totalFamilies} model families (${totalModels}+ engines) into one canvas with character consistency, project credit controls, in-browser trimming, and system error credit refunds.`,
+    shortAnswer: `10zebra is a non-linear production studio that unifies ${totalFamilies} model families (${totalModels}+ engines) into one canvas with character consistency, Agent Z batch workflows, project credit controls, in-browser trimming, and 90% credit refunds or free regens on failed takes.`,
     answer: `<strong>10zebra eliminates engine lock-in and production fragmentation.</strong> Rather than juggling 5 different subscription tabs with disparate interfaces, 10zebra unifies ${totalFamilies} foundation model families (${totalModels}+ engines) into one browser workspace with:
 <ul>
   <li><strong>Multi-Model Comparison:</strong> Run the same prompt and camera trajectory across Kling, Veo 3, Sora, and Runway simultaneously to select the best take.</li>
+  <li><strong>Agentic Workflows (Agent Z):</strong> Work in batches across your project (batch create, batch convert, batch replace characters, batch regen, batch upscale) with Dry Run cost analysis and approval.</li>
   <li><strong>Multi-Reference Character Swap:</strong> Lock actor identity, wardrobe, and facial features across multiple scenes using up to 4 anchor references.</li>
   <li><strong>Production Timeline & Take Trimming:</strong> Set in/out cut points directly in the browser and assemble continuous multi-shot sequences without downloading to an NLE first.</li>
-  <li><strong>System Error Credit Protection:</strong> If an upstream engine experiences a system error or timeout, contact support and credits are returned to your project balance (refunds do not apply to prompts blocked for terms violations).</li>
+  <li><strong>90% Refund || Free Regen on All Failed Generations:</strong> A button appears directly on failed generations (after a direct error from the model, or after 30 minutes if a job fails silently) so you can easily choose a 90% credit refund or a free retry.</li>
 </ul>`,
-    keywords: ['comparison', 'runway', 'kling', 'veo', 'sora', 'difference', 'why 10zebra', 'benefits'],
+    keywords: ['comparison', 'runway', 'kling', 'veo', 'sora', 'difference', 'why 10zebra', 'benefits', 'agent z'],
+  },
+  {
+    id: 'agent-z-agentic-workflows',
+    category: 'features',
+    question: 'How do Agentic Workflows and Agent Z work in 10zebra?',
+    shortAnswer: 'Agent Z is the 10zebra production agent that executes batch operations (batch create, batch convert, batch replace characters, batch regen, batch upscale) backed by a Dry Run analysis that creates a plan, shows exact credit costs, and requests your approval first.',
+    answer: `<strong>Agent Z</strong> is 10zebra's native production agent designed to execute multi-shot operations across your storyboard in batches:
+<ul>
+  <li><strong>Work in Batches:</strong> Select multiple shots or scenes and command Agent Z to <strong>batch create</strong> new shots, <strong>batch replace characters</strong> across existing takes, <strong>batch convert</strong> aspect ratios or styles, <strong>batch regen</strong> takes across new seeds/models, or <strong>batch upscale</strong> approved cuts to 4K.</li>
+  <li><strong>Dry Run Analysis:</strong> Before spending a single credit, Agent Z performs a Dry Run analysis. It creates a structured execution plan, shows itemized and total credit costs, verifies your project budget cap, and requests your explicit approval before launching the batch.</li>
+</ul>`,
+    keywords: ['agent z', 'agentic workflows', 'batch replace characters', 'batch create', 'batch convert', 'batch regen', 'batch upscale', 'dry run'],
   },
   {
     id: 'supported-models-and-engines',
@@ -226,12 +239,12 @@ It also exposes <strong>5 live resources</strong> (such as <code>10z://models</c
     id: 'mcp-credit-safety-budget-caps',
     category: 'mcp',
     question: 'How does 10zebra prevent autonomous AI agents from burning through my credits via MCP?',
-    shortAnswer: 'MCP calls are bound to specific project workspaces with mandatory spend caps; all credit deductions are transacted with atomic Firestore safeguards and credit refund protection on system failures.',
+    shortAnswer: 'MCP calls are bound to specific project workspaces with mandatory spend caps; all credit deductions are transacted with atomic Firestore safeguards and 90% credit refund or free regen protection on failed generations.',
     answer: `We engineered the 10zebra MCP server with <strong>three distinct layers of financial protection</strong> for autonomous agent use:
 <ol>
   <li><strong>Project Spend Caps:</strong> You generate an MCP key bound to a specific project with an assigned credit ceiling (e.g., 300 credits). The MCP agent cannot access your account-wide balance or other projects.</li>
   <li><strong>Atomic Credit Pre-Checks:</strong> Every MCP <code>generate</code> call performs an atomic Firestore balance check. If the requested model requires 35 credits and only 20 remain, the server cleanly rejects the tool call before dispatching upstream.</li>
-  <li><strong>System Error Support:</strong> If an autonomous agent call fails due to an upstream technical error or server crash, reach out to support to have the deducted credits restored to your project pool (takes blocked by upstream moderation for terms violations are not refundable).</li>
+  <li><strong>90% Refund || Free Regen on Failed Generations:</strong> If any generation fails (immediately upon a direct model error, or after 30 minutes if a job fails silently), a button appears on the failed take in your storyboard allowing you to easily choose a 90% credit refund or a free retry.</li>
 </ol>`,
     keywords: ['mcp safety', 'spend caps', 'budget limit', 'runaway spending', 'agent safety', 'credit protection'],
   },
@@ -341,14 +354,30 @@ It also exposes <strong>5 live resources</strong> (such as <code>10z://models</c
   {
     id: 'failed-generation-refund-policy',
     category: 'payments',
-    question: 'What happens if an AI video generation fails, errors, or times out upstream?',
-    shortAnswer: 'If an upstream model fails due to a technical system error or timeout, you can request a credit refund for the take by contacting our support team.',
-    answer: `<strong>You are protected against technical and system errors on 10zebra.</strong>
+    question: 'What happens if an AI video generation fails, and why is the refund 90%?',
+    shortAnswer: 'We provide a 90% credit refund or a free regeneration on all failed generations via a self-serve button on the failed take (appearing after a direct model error or after 30m if a job fails silently). It is 90% to cover system and infrastructure costs while being as fair as possible since most failures stem from Model terms violations and not the 10z platform.',
+    answer: `<strong>We provide a 90% refund or free regen on all failed generations.</strong>
 <br /><br />
-If an upstream foundation model provider (like Kling, Veo, or Sora) experiences a technical server timeout, GPU cluster failure, or internal API outage, simply contact our team at <code>support@10zebra.com</code> or via our in-app chat. We will review the failed job and credit the deducted amount directly back to your project balance.
+<ul>
+  <li><strong>1-Click Refund or Retry Button:</strong> There is a button directly on failed generations so you can easily choose to <strong>Refund (90%)</strong> or <strong>Retry (Free Regen)</strong>. This option appears immediately after we receive a direct error from the model, or after <strong>30 minutes</strong> if a job fails silently.</li>
+  <li><strong>Why is the refund 90% instead of 100%?</strong> The refund is 90% because we have system and infrastructure costs that we need to cover on every dispatched job, and we are trying to be as fair as possible &mdash; as most failures are caused from upstream Model terms violations and not any issue with the 10z platform.</li>
+</ul>`,
+    keywords: ['failed generation', 'refund policy', '90% refund', 'free regen', 'retry button', '30m timeout', 'system costs', 'terms violations', 'failed takes'],
+  },
+  {
+    id: 'referral-program-tolt',
+    category: 'payments',
+    question: 'How does the 10zebra Referral Program work?',
+    shortAnswer: 'Through our Tolt integration, users get a special referral code and earn a 3% lifetime payout whenever referred users purchase credits or subscribe.',
+    answer: `<strong>Earn a 3% lifetime payout by sharing 10zebra with fellow creators and studios.</strong>
 <br /><br />
-<em>Important clarification:</em> Credit refund protection applies exclusively to technical system errors. Prompts or input media blocked or rejected by upstream models for terms-of-service violations (such as copyright infringement, unsupported graphic content, violence, or sexual content) are <strong>not</strong> eligible for credit refunds.`,
-    keywords: ['failed generation', 'refund policy', 'credit refund', 'system errors', 'timeouts', 'failed takes'],
+<ul>
+  <li><strong>Tolt Integration &amp; Special Referral Code:</strong> Every user gets a unique referral code and tracking link powered by our Tolt partner integration.</li>
+  <li><strong>Paid on Credits &amp; Subscriptions:</strong> You get paid whenever your referred users purchase credit top-up packs or subscribe to a monthly or annual plan.</li>
+  <li><strong>3% Lifetime Payout:</strong> Your 3% commission applies for the entire lifetime of the referred user's account &mdash; every subscription renewal and every future credit pack purchase.</li>
+</ul>
+Learn more on our <a href="/features/referral-program">Referral Program</a> page.`,
+    keywords: ['referral program', 'tolt', 'affiliate', '3% lifetime payout', 'referral code', 'earn money'],
   },
   {
     id: 'do-credits-expire',
@@ -443,31 +472,30 @@ We respect client confidentiality and production NDAs:
   {
     id: 'content-moderation-and-safety',
     category: 'terms',
-    question: 'How does content moderation work, and what happens if a take is flagged?',
-    shortAnswer: 'Prompts and images are checked against upstream foundation model trust and safety filters; prompts blocked by models for terms violations (such as copyright infringement or unsupported content) are not eligible for refunds.',
+    question: 'How does content moderation work, and what happens if a take fails or is flagged?',
+    shortAnswer: 'All failed generations include a self-serve button (after a direct model error or 30m silent timeout) to choose a 90% credit refund or free regen. The refund is 90% to cover system and infrastructure costs while staying fair, as most failures are caused by upstream Model terms violations rather than the 10z platform.',
     answer: `10zebra connects to industry-standard foundation models that enforce automated trust and safety filters (preventing copyright infringement, CSAM, real-person impersonation without consent, hate speech, graphic violence, and adult content).
 <br /><br />
-If a prompt or input image is flagged by an upstream provider:
+When any generation fails &mdash; whether from an upstream model error, safety filter, or silent timeout:
 <ul>
-  <li>The generation terminates safely and displays the provider's moderation notice.</li>
-  <li><strong>Terms of Service Violations:</strong> Prompts blocked by upstream models for violating their terms (such as copyright infringement, unsupported graphic content, or sexual content) are <strong>not</strong> eligible for credit refunds.</li>
-  <li><strong>Technical System Outages:</strong> If a job fails due to an upstream server crash or network timeout rather than a terms violation, reach out to support to have your credits restored.</li>
+  <li><strong>90% Refund || Free Regen Button:</strong> A button appears directly on the failed generation so you can easily choose to <strong>refund 90% of the credits</strong> or <strong>retry (free regen)</strong>. The option appears immediately after we receive a direct error from the model, or after <strong>30 minutes</strong> if a job fails silently.</li>
+  <li><strong>Why 90%?</strong> It is 90% because we have system and infrastructure costs that we need to cover, and we are trying to be as fair as possible as most failures are caused from Model terms violations and not any issue with the 10z platform.</li>
 </ul>`,
-    keywords: ['moderation', 'content filters', 'nsfw', 'safety', 'flagged prompt', 'copyright', 'terms violation'],
+    keywords: ['moderation', 'content filters', 'nsfw', 'safety', 'flagged prompt', 'copyright', 'terms violation', '90% refund', 'free regen'],
   },
   {
     id: 'refund-policy-details',
     category: 'terms',
-    question: 'What is your refund policy for subscriptions, top-up packs, and generation errors?',
-    shortAnswer: 'Generations that fail due to technical system or server errors are eligible for credit refunds upon contacting support. Prompts blocked by upstream models for terms violations are non-refundable.',
+    question: 'What is your refund policy for failed generations, subscriptions, and top-up packs?',
+    shortAnswer: 'All failed generations provide a self-serve button (immediately on a direct model error or after 30m if a job fails silently) for a 90% credit refund or a free regen. It is 90% because we have system and infrastructure costs to cover, and most failures stem from Model terms violations rather than the 10z platform.',
     answer: `Our refund policy is simple, fair, and transparent:
 <ul>
-  <li><strong>Technical & System Errors:</strong> If any job fails upstream due to a server error, GPU cluster crash, or API timeout, reach out to <code>support@10zebra.com</code> and our team will credit the deducted amount back to your project balance.</li>
-  <li><strong>Blocked Prompts & Terms Violations:</strong> We do not issue credit refunds for generations blocked by upstream models for violating their terms of service (such as copyright infringement, unsupported graphic content, or sexual content).</li>
+  <li><strong>Failed Generations (90% Refund || Free Regen):</strong> On all failed generations, a button appears directly on the failed take so you can easily choose a <strong>90% credit refund</strong> or a <strong>free regen (retry)</strong>. The button appears as soon as we receive a direct error from the model, or after <strong>30 minutes</strong> if a job fails silently.</li>
+  <li><strong>Why 90% on Failed Generations?</strong> The credit refund is 90% because we have system and infrastructure costs that we need to cover, and we are trying to be as fair as possible as most failures are caused from Model terms violations and not any issue with the 10z platform.</li>
   <li><strong>Monthly Subscriptions:</strong> If you signed up for a subscription by mistake or experienced technical issues, contact <code>support@10zebra.com</code> within 7 days of purchase. If you have not consumed substantial generation compute, we will gladly issue a full refund to your original payment method.</li>
   <li><strong>Credit Packs:</strong> Unused top-up credit packs never expire and remain in your account for future productions.</li>
 </ul>`,
-    keywords: ['refund policy', 'money back', 'satisfaction guarantee', 'subscription refund', 'system error refund'],
+    keywords: ['refund policy', 'money back', '90% refund', 'free regen', '30m', 'subscription refund', 'failed generation refund'],
   },
   {
     id: 'security-and-infrastructure',

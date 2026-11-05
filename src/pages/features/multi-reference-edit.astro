@@ -1,6 +1,9 @@
 ---
 import FeatureLandingLayout from "/src/layouts/FeatureLandingLayout.astro";
 import { catalog } from "/src/data/models";
+import refCharImg from "/src/assets/media/character-reference-1970s.jpg";
+import refLocImg from "/src/assets/media/shot-wide-forest-1970s.jpg";
+import refLightImg from "/src/assets/media/features/multi-reference-1970s.jpg";
 
 const stats = [
   { value: "3 References", label: "Multi-Anchor Blending", detail: "Face, wardrobe & environment" },
@@ -76,16 +79,16 @@ const faqs = [
 
 const relatedFeatures = [
   {
-    title: "Character Swap & 10z Agent",
+    title: "Character Swap & Agent Z",
     description: "Swap actors across existing video takes while preserving camera motion.",
     href: "/features/character-swap",
     badge: "Continuity"
   },
   {
-    title: "Side-by-Side Model Comparison",
-    description: "Compare video takes across Kling, Grok, and Seedance.",
-    href: "/features/model-comparison",
-    badge: "Models"
+    title: "Agentic Workflows (Agent Z)",
+    description: "Run batch character replacements and upscales with Dry Run cost approval.",
+    href: "/features/agentic-workflows",
+    badge: "Agent Z"
   }
 ];
 ---
@@ -113,15 +116,15 @@ const relatedFeatures = [
       </div>
       <div class="grid grid-cols-3 gap-2.5 mb-4">
         <div class="rounded-lg overflow-hidden border border-[var(--border-subtle)] bg-[#14161c]">
-          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&h=200&fit=crop&q=80" alt="Ref 1" class="w-full aspect-square object-cover"/>
+          <img src={refCharImg.src} alt="Ref 1: Lead Driver Elena Vance" class="w-full aspect-square object-cover"/>
           <div class="p-1.5 text-[10px] text-center font-bold text-[var(--text-secondary)]">Ref 1: Character</div>
         </div>
         <div class="rounded-lg overflow-hidden border border-[var(--border-subtle)] bg-[#14161c]">
-          <img src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?w=200&h=200&fit=crop&q=80" alt="Ref 2" class="w-full aspect-square object-cover"/>
+          <img src={refLocImg.src} alt="Ref 2: 1970s Paddock Location" class="w-full aspect-square object-cover"/>
           <div class="p-1.5 text-[10px] text-center font-bold text-[var(--text-secondary)]">Ref 2: Location</div>
         </div>
         <div class="rounded-lg overflow-hidden border border-[var(--border-subtle)] bg-[#14161c]">
-          <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=200&h=200&fit=crop&q=80" alt="Ref 3" class="w-full aspect-square object-cover"/>
+          <img src={refLightImg.src} alt="Ref 3: Dichromatic Amber & Cyan Grade" class="w-full aspect-square object-cover"/>
           <div class="p-1.5 text-[10px] text-center font-bold text-[var(--text-secondary)]">Ref 3: Lighting</div>
         </div>
       </div>

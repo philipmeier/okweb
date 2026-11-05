@@ -4,6 +4,8 @@
 import Layout from '/src/layouts/Layout.astro';
 import Header from '/src/components/layout/Header.astro';
 import Footer from '/src/components/layout/Footer.astro';
+import { Image } from 'astro:assets';
+import sectionModelsTeal from '/src/assets/media/section-models-teal-1970s.jpg';
 import { getModelFamilies, getModelFamily, type ModelFamily } from '/src/data/models';
 
 export async function getStaticPaths() {
@@ -195,8 +197,30 @@ const familySchema = {
               <div class="text-[0.65rem] text-[var(--text-muted)] uppercase tracking-wider font-semibold">Max Fidelity</div>
             </div>
             <div class="bg-[var(--bg-page)] p-3 rounded-xl border border-[var(--border-subtle)] text-center">
-              <div class="text-xl font-extrabold text-blue-400 font-mono">100%</div>
-              <div class="text-[0.65rem] text-[var(--text-muted)] uppercase tracking-wider font-semibold">System Fail Refund</div>
+              <div class="text-xl font-extrabold text-blue-400 font-mono">90%</div>
+              <div class="text-[0.65rem] text-[var(--text-muted)] uppercase tracking-wider font-semibold">Refund || Free Regen</div>
+            </div>
+          </div>
+
+          <!-- 1970s Anamorphic Teal & Silver-Halide Chrome Visual Showcase -->
+          <div class="mt-8 relative rounded-2xl overflow-hidden border border-teal-500/30 shadow-xl">
+            <Image
+              src={sectionModelsTeal}
+              alt={`1970s anamorphic teal and silver-halide chrome calibration bench for ${family.name} on 10zebra`}
+              width={1200}
+              height={675}
+              format="webp"
+              class="w-full h-48 sm:h-60 object-cover"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0c0d10] via-[#0c0d10]/30 to-transparent flex items-end justify-between p-4 text-left">
+              <div>
+                <span class="text-[10px] font-mono uppercase tracking-widest px-2 py-0.5 rounded bg-teal-500/20 text-teal-300 border border-teal-500/40">
+                  {family.name} Telemetry &bull; Multi-Model Calibration
+                </span>
+                <p class="text-xs text-white/90 font-medium mt-1">
+                  Run {family.name} side-by-side with Kling, Veo, Runway, SeeDance, and Sora in one unified storyboard.
+                </p>
+              </div>
             </div>
           </div>
         </div>

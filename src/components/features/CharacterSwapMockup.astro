@@ -1,4 +1,9 @@
 ---
+import sourceTakeImg from '/src/assets/media/solutions/film-cast-1970s.jpg';
+import refPortraitImg from '/src/assets/media/character-reference-1970s.jpg';
+import swappedTakeImg from '/src/assets/media/features/character-swap-1970s.jpg';
+import sourceTakeVideo from '/src/assets/media/solutions/film-cast.mp4';
+import swappedTakeVideo from '/src/assets/media/features/character-swap.mp4';
 ---
 
 <div class="character-swap-mockup w-full rounded-xl overflow-hidden bg-[#0e1014] border border-[var(--border-subtle)] shadow-2xl">
@@ -13,7 +18,7 @@
     <div class="flex items-center gap-2">
       <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30 flex items-center gap-1.5">
         <span class="w-2 h-2 rounded-full bg-amber-400"></span>
-        10z Agent Ready
+        Agent Z Ready
       </span>
     </div>
   </div>
@@ -26,17 +31,19 @@
         <span class="text-[10px] px-1.5 py-0.5 rounded bg-white/5 text-[var(--text-secondary)]">Motion Locked</span>
       </div>
       <div class="relative aspect-video rounded-lg overflow-hidden mb-2 bg-black">
-        <img 
-          src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=450&h=300&fit=crop&q=80" 
-          alt="Original actor in video take" 
+        <video 
+          autoplay loop muted playsinline
+          poster={sourceTakeImg.src}
           class="w-full h-full object-cover"
-        />
+        >
+          <source src={sourceTakeVideo} type="video/mp4" />
+        </video>
         <div class="absolute bottom-2 left-2 text-[10px] font-mono bg-black/80 px-2 py-0.5 rounded text-white/90">
-          Original Talent: Actor A
+          Original Talent: Driver A
         </div>
       </div>
       <p class="text-[11px] text-[var(--text-secondary)] leading-relaxed">
-        Full 8-second camera dolly with complex hand gesture and dynamic head turn.
+        Full 8-second anamorphic pit-lane dolly with helmet visor adjustment and dynamic head turn.
       </p>
     </div>
 
@@ -46,12 +53,12 @@
         <div class="text-[10px] font-mono text-[var(--text-muted)] uppercase mb-1">New Reference Photo</div>
         <div class="relative rounded-xl overflow-hidden border-2 border-[var(--accent)] shadow-lg shadow-orange-500/10 aspect-square">
           <img 
-            src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&h=300&fit=crop&q=80" 
-            alt="New character reference photo" 
+            src={refPortraitImg.src} 
+            alt="Elena Vance 1970s character reference portrait" 
             class="w-full h-full object-cover"
           />
           <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end justify-center p-2">
-            <span class="text-[10px] font-bold text-white tracking-wide">Target Character B</span>
+            <span class="text-[10px] font-bold text-white tracking-wide">Target: Elena Vance</span>
           </div>
         </div>
       </div>
@@ -63,10 +70,10 @@
         </div>
         <div class="p-2 rounded-lg bg-[var(--accent-subtle)] border border-[rgba(249,115,22,0.3)] text-left">
           <div class="text-[11px] font-bold text-[var(--text-primary)] flex items-center gap-1.5 mb-1">
-            <span class="text-[var(--accent)]">⚡</span> 10z Agent Automation:
+            <span class="text-[var(--accent)]">⚡</span> Agent Z Batch Automation:
           </div>
           <p class="text-[10px] text-[var(--text-secondary)] leading-tight">
-            Apply character swap across <strong>all 18 selected takes</strong> in this project with 1 click.
+            Batch replace character across <strong>all 18 selected takes</strong> with Dry Run cost preview.
           </p>
         </div>
       </div>
@@ -79,20 +86,22 @@
         <span class="text-[10px] px-2 py-0.5 rounded bg-[var(--accent)] text-[#0c0d10] font-black">Zero Drift</span>
       </div>
       <div class="relative aspect-video rounded-lg overflow-hidden mb-2 bg-black">
-        <img 
-          src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=450&h=300&fit=crop&q=80" 
-          alt="Swapped character with identical video motion" 
+        <video 
+          autoplay loop muted playsinline
+          poster={swappedTakeImg.src}
           class="w-full h-full object-cover"
-        />
+        >
+          <source src={swappedTakeVideo} type="video/mp4" />
+        </video>
         <div class="absolute bottom-2 left-2 text-[10px] font-mono bg-black/80 px-2 py-0.5 rounded text-orange-300">
-          Character B: Exact Original Dolly
+          Elena Vance: Exact Original Dolly
         </div>
         <div class="absolute top-2 right-2 text-xs font-bold bg-emerald-500 text-black px-1.5 py-0.5 rounded">
           Motion Preserved ✓
         </div>
       </div>
       <p class="text-[11px] text-[var(--text-secondary)] leading-relaxed">
-        Exact same lighting, background, and head movement &mdash; new identity flawlessly grafted.
+        Exact same tungsten halation, pit background, and head movement &mdash; new identity flawlessly grafted.
       </p>
     </div>
   </div>
@@ -101,10 +110,10 @@
   <div class="bg-[#121418] px-4 py-3 border-t border-[var(--border-subtle)] flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
     <div class="flex items-center gap-2 text-[var(--text-secondary)]">
       <span class="text-amber-400">★</span>
-      <span><strong>Batch Project Mode:</strong> The 10z agent scans your storyboard, identifies all cuts featuring Character A, and schedules parallel background re-renders.</span>
+      <span><strong>Agent Z Batch Mode:</strong> Agent Z scans your storyboard, builds a Dry Run plan with exact credit costs, and executes parallel re-renders once approved.</span>
     </div>
     <span class="px-2.5 py-1 rounded bg-[var(--bg-elevated)] border border-[var(--border-subtle)] text-[var(--text-primary)] font-mono text-[11px] shrink-0">
-      Project Agent: Active
+      Agent Z: Active
     </span>
   </div>
 </div>

@@ -143,7 +143,7 @@ export const solutions: Solution[] = [
       {
         tag: 'Character Swap',
         title: 'Lock cast & sets',
-        body: 'Anchor characters and environments to references. Recast across every take at once with the 10z Agent.',
+        body: 'Anchor characters and environments to references. Recast across every take at once with Agent Z.',
         media: media.filmCast,
       },
       {
@@ -153,7 +153,7 @@ export const solutions: Solution[] = [
         media: media.filmPlates,
       },
     ],
-    features: ['textToSequence', 'characterSwap', 'collaborativeStoryboard', 'modelComparison'],
+    features: ['textToSequence', 'characterSwap', 'agenticWorkflows', 'collaborativeStoryboard', 'modelComparison'],
     // PLACEHOLDER stats (first and last reflect product facts)
     stats: [
       { value: '3–30', label: 'shots from a single scene' },
@@ -229,7 +229,7 @@ export const solutions: Solution[] = [
         media: media.agencyFashion,
       },
     ],
-    features: ['projectBudgets', 'teamManagement', 'collaborativeStoryboard', 'publishYouTube'],
+    features: ['projectBudgets', 'teamManagement', 'agenticWorkflows', 'collaborativeStoryboard', 'publishYouTube'],
     // PLACEHOLDER stats
     stats: [
       { value: '0', label: 'cross-project budget bleed' },
