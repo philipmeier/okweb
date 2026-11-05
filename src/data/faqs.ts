@@ -376,7 +376,7 @@ It also exposes <strong>5 live resources</strong> (such as <code>10z://models</c
   <li><strong>Paid on Credits &amp; Subscriptions:</strong> You get paid whenever your referred users purchase credit top-up packs or subscribe to a monthly or annual plan.</li>
   <li><strong>3% Lifetime Payout:</strong> Your 3% commission applies for the entire lifetime of the referred user's account &mdash; every subscription renewal and every future credit pack purchase.</li>
 </ul>
-Learn more on our <a href="/features/referral-program">Referral Program</a> page.`,
+Learn more on our <a href="/features/referral-program/index.html">Referral Program</a> page.`,
     keywords: ['referral program', 'tolt', 'affiliate', '3% lifetime payout', 'referral code', 'earn money'],
   },
   {

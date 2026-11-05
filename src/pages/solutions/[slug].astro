@@ -58,14 +58,14 @@ const jsonLd = {
       <div class="wrap sp-hero__inner">
         <div class="sp-hero__copy">
           <nav class="sp-crumbs" aria-label="Breadcrumb">
-            <a href="/solutions">Solutions</a><span aria-hidden="true">/</span><span aria-current="page">{s.label}</span>
+            <a href="/solutions/index.html">Solutions</a><span aria-hidden="true">/</span><span aria-current="page">{s.label}</span>
           </nav>
           <span class="sp-kicker"><span class="sp-dot" aria-hidden="true"></span>For {s.label}</span>
           <h1 id="sp-heading">{s.pageTitle}</h1>
           <p class="sp-hero__sub">{s.heroSub}</p>
           <div class="sp-hero__ctas">
-            <a href="/signup" class="btn btn-primary btn-lg" id="sp-signup-btn">Start Free &mdash; 200 Credits</a>
-            <a href="/demo" class="btn btn-ghost btn-lg sp-ghost" id="sp-demo-btn">Watch the Demo &rarr;</a>
+            <a href="/signup/index.html" class="btn btn-primary btn-lg" id="sp-signup-btn">Start Free &mdash; 200 Credits</a>
+            <a href="/demo/index.html" class="btn btn-ghost btn-lg sp-ghost" id="sp-demo-btn">Watch the Demo &rarr;</a>
           </div>
           <ul class="sp-chips">{s.chips.map((c) => <li><span class="sp-dot" aria-hidden="true"></span>{c}</li>)}</ul>
         </div>
@@ -214,7 +214,7 @@ const jsonLd = {
       <div class="sp-more">
         {others.map((o, i) => <SolutionCard solution={o} variant="compact" class={`reveal reveal-d${i + 1}`} />)}
       </div>
-      <p class="sp-more__foot"><a href="/solutions" id="sp-all-solutions">All solutions &rarr;</a></p>
+      <p class="sp-more__foot"><a href="/solutions/index.html" id="sp-all-solutions">All solutions &rarr;</a></p>
     </section>
   </main>
 

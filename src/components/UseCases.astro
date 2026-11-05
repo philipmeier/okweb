@@ -58,14 +58,14 @@ const DURATION_MS = 7000;
             <ul class="uc-chips">
               {s.chips.map((c) => <li><span class="uc-chip-dot" aria-hidden="true"></span>{c}</li>)}
             </ul>
-            <a href={`/solutions/${s.slug}`} class="btn btn-primary" id={`uc-cta-${s.slug}`}>{s.cta} &rarr;</a>
+            <a href={`/solutions/${s.slug}/index.html`} class="btn btn-primary" id={`uc-cta-${s.slug}`}>{s.cta} &rarr;</a>
           </div>
         </article>
       ))}
     </div>
 
     <div class="uc-foot">
-      <a href="/solutions" id="uc-all-solutions">Explore all solutions &rarr;</a>
+      <a href="/solutions/index.html" id="uc-all-solutions">Explore all solutions &rarr;</a>
     </div>
   </div>
 </section>

@@ -14,7 +14,7 @@ const {
   title,
   label = "Coming Soon",
   description = "This page is under active development. Sign up to be notified when it launches.",
-  cta = { text: "Back to Home", href: "/" },
+  cta = { text: "Back to Home", href: "/index.html" },
 } = Astro.props;
 ---
 
@@ -27,7 +27,7 @@ const {
       <p class="text-[var(--text-secondary)] mb-8 leading-relaxed">{description}</p>
       <div class="flex gap-3 justify-center flex-wrap">
         <a href={cta.href} class="btn btn-primary btn-lg">{cta.text}</a>
-        <a href="/signup" class="btn btn-ghost btn-lg">Start Free &rarr;</a>
+        <a href="/signup/index.html" class="btn btn-ghost btn-lg">Start Free &rarr;</a>
       </div>
     </div>
   </main>

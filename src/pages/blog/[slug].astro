@@ -126,9 +126,9 @@ const schemaJsonLd = {
 
       <!-- Breadcrumbs -->
       <nav aria-label="Breadcrumbs" class="flex items-center gap-2 text-xs text-[var(--text-muted)] mb-8 font-mono overflow-x-auto whitespace-nowrap py-1">
-        <a href="/" class="hover:text-[var(--text-primary)] transition-colors no-underline">Home</a>
+        <a href="/index.html" class="hover:text-[var(--text-primary)] transition-colors no-underline">Home</a>
         <span>/</span>
-        <a href="/blog" class="hover:text-[var(--text-primary)] transition-colors no-underline">Blog</a>
+        <a href="/blog/index.html" class="hover:text-[var(--text-primary)] transition-colors no-underline">Blog</a>
         <span>/</span>
         <span class="text-[var(--accent)]">{category}</span>
       </nav>
@@ -279,10 +279,10 @@ const schemaJsonLd = {
             Generate across Kling, Google Veo, Runway, and Sora from one workspace. Set project budgets, lock consistent characters, and export YouTube-ready cuts.
           </p>
           <div class="flex flex-wrap items-center justify-center gap-4">
-            <a href="/signup" class="btn btn-primary btn-lg shadow-lg shadow-orange-500/20">
+            <a href="/signup/index.html" class="btn btn-primary btn-lg shadow-lg shadow-orange-500/20">
               Start Free with 200 Credits &rarr;
             </a>
-            <a href="/pricing" class="btn btn-ghost btn-lg">
+            <a href="/pricing/index.html" class="btn btn-ghost btn-lg">
               View Pricing
             </a>
           </div>
@@ -292,7 +292,7 @@ const schemaJsonLd = {
       <!-- Previous / Next Article Navigation -->
       <nav aria-label="Previous and Next Articles" class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-12 pt-8 border-t border-[var(--border-subtle)]">
         {prevPost ? (
-          <a href={`/blog/${(prevPost.slug || prevPost.id || '').replace(/\.md$/, '')}`} class="glass p-5 rounded-xl border border-[var(--border-subtle)] hover:border-orange-500/30 group transition-all no-underline block">
+          <a href={`/blog/${(prevPost.slug || prevPost.id || '').replace(/\.md$/, '')}/index.html`} class="glass p-5 rounded-xl border border-[var(--border-subtle)] hover:border-orange-500/30 group transition-all no-underline block">
             <span class="text-xs uppercase font-mono text-[var(--text-muted)] block mb-1">&larr; Older Article</span>
             <span class="text-sm font-semibold text-[var(--text-primary)] group-hover:text-[var(--accent)] transition-colors line-clamp-1">
               {prevPost.data.title}
@@ -301,7 +301,7 @@ const schemaJsonLd = {
         ) : <div />}
 
         {nextPost ? (
-          <a href={`/blog/${(nextPost.slug || nextPost.id || '').replace(/\.md$/, '')}`} class="glass p-5 rounded-xl border border-[var(--border-subtle)] hover:border-orange-500/30 group transition-all no-underline block text-right">
+          <a href={`/blog/${(nextPost.slug || nextPost.id || '').replace(/\.md$/, '')}/index.html`} class="glass p-5 rounded-xl border border-[var(--border-subtle)] hover:border-orange-500/30 group transition-all no-underline block text-right">
             <span class="text-xs uppercase font-mono text-[var(--text-muted)] block mb-1">Newer Article &rarr;</span>
             <span class="text-sm font-semibold text-[var(--text-primary)] group-hover:text-[var(--accent)] transition-colors line-clamp-1">
               {nextPost.data.title}

@@ -14,7 +14,7 @@ interface Props {
 }
 
 const { solution: s, variant = 'feature', class: className = '' } = Astro.props;
-const href = `/solutions/${s.slug}`;
+const href = `/solutions/${s.slug}/index.html`;
 ---
 
 {variant === 'feature' ? (

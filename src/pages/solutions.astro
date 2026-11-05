@@ -35,7 +35,7 @@ const matrix = matrixKeys.map((key) => ({
           <p>Four kinds of teams. One production workspace. Pick yours to see the workflow, tools, and results that matter to you.</p>
           <nav class="hub-jump" aria-label="Jump to a solution">
             {solutions.map((s) => (
-              <a href={`/solutions/${s.slug}`} style={`--sol:${s.accent}`} id={`hub-jump-${s.slug}`}>
+              <a href={`/solutions/${s.slug}/index.html`} style={`--sol:${s.accent}`} id={`hub-jump-${s.slug}`}>
                 <span class="hub-dot" aria-hidden="true"></span>{s.label}
               </a>
             ))}
@@ -44,7 +44,7 @@ const matrix = matrixKeys.map((key) => ({
 
         <div class="hub-mosaic" aria-hidden="true">
           {solutions.map((s, i) => (
-            <a href={`/solutions/${s.slug}`} class="hub-tile" style={`--i:${i}; --sol:${s.accent}`} tabindex="-1">
+            <a href={`/solutions/${s.slug}/index.html`} class="hub-tile" style={`--i:${i}; --sol:${s.accent}`} tabindex="-1">
               <MediaSlot slot={s.media} class="hub-fill" sizes="(max-width: 900px) 50vw, 300px" widths={[300, 600]} eager={i < 2} hideTag />
               <span class="hub-tile__label"><span class="hub-dot"></span>{s.label}</span>
             </a>
@@ -62,7 +62,7 @@ const matrix = matrixKeys.map((key) => ({
       <ul class="fit reveal">
         {solutions.map((s) => (
           <li>
-            <a href={`/solutions/${s.slug}`} class="fit-row" style={`--sol:${s.accent}`} id={`fit-${s.slug}`}>
+            <a href={`/solutions/${s.slug}/index.html`} class="fit-row" style={`--sol:${s.accent}`} id={`fit-${s.slug}`}>
               <MediaSlot slot={s.media} class="fit-thumb" sizes="120px" widths={[120, 240]} hideTag />
               <span class="fit-need">{s.need}</span>
               <span class="fit-who"><span class="hub-dot" aria-hidden="true"></span>{s.label}</span>
@@ -105,7 +105,7 @@ const matrix = matrixKeys.map((key) => ({
               <th scope="col" class="matrix-feature">Tool</th>
               {solutions.map((s) => (
                 <th scope="col" style={`--sol:${s.accent}`}>
-                  <a href={`/solutions/${s.slug}`}><span class="hub-dot" aria-hidden="true"></span>{s.label}</a>
+                  <a href={`/solutions/${s.slug}/index.html`}><span class="hub-dot" aria-hidden="true"></span>{s.label}</a>
                 </th>
               ))}
             </tr>
@@ -134,7 +134,7 @@ const matrix = matrixKeys.map((key) => ({
           </tbody>
         </table>
       </div>
-      <p class="matrix-foot reveal"><a href="/features" id="hub-all-features">Explore all features &rarr;</a></p>
+      <p class="matrix-foot reveal"><a href="/features/index.html" id="hub-all-features">Explore all features &rarr;</a></p>
     </section>
   </main>
 

@@ -93,8 +93,8 @@ const {
   subheadline,
   badgeText = "Feature Deep-Dive",
   stats = [],
-  primaryCta = { label: "Start Free with 200 Credits", href: "/signup" },
-  secondaryCta = { label: "Explore Feature Hub", href: "/features" },
+  primaryCta = { label: "Start Free with 200 Credits", href: "/signup/index.html" },
+  secondaryCta = { label: "Explore Feature Hub", href: "/features/index.html" },
   workflowTitle = "How It Works in 10zebra",
   workflowSubtitle = "From single direction to production-ready take in seconds.",
   workflowSteps = [],
@@ -176,7 +176,7 @@ const jsonLd = {
       <div class="wrap fl-hero__inner">
         <div class="fl-hero__copy">
           <nav class="fl-crumbs" aria-label="Breadcrumb">
-            <a href="/features">Features</a><span aria-hidden="true">/</span><span aria-current="page">{crumb}</span>
+            <a href="/features/index.html">Features</a><span aria-hidden="true">/</span><span aria-current="page">{crumb}</span>
           </nav>
           <span class="fl-kicker"><span class="fl-dot" aria-hidden="true"></span>{eyebrow}</span>
           <h1 id="fl-heading">
@@ -236,7 +236,7 @@ const jsonLd = {
     <!-- ================= PHASE BANNER ================= -->
     {feature && phase && (
       <section class="wrap fl-banner-wrap" aria-label={`${phase.label} phase`}>
-        <a href={`/features#phase-${feature.phase}`} class="fl-banner reveal">
+        <a href={`/features/index.html`} class="fl-banner reveal">
           <FeatureVisual feature={feature} class="fl-banner__media" sizes="(max-width: 1200px) 100vw, 1200px" />
           <div class="fl-banner__scrim" aria-hidden="true"></div>
           <div class="fl-banner__copy">
@@ -341,7 +341,7 @@ const jsonLd = {
           <div class="fl-who">
             {usedBy.map((s, i) => <SolutionCard solution={s} variant="compact" class={`reveal reveal-d${i + 1}`} />)}
           </div>
-          <p class="fl-foot"><a href="/solutions" id="fl-all-solutions">See all solutions &rarr;</a></p>
+          <p class="fl-foot"><a href="/solutions/index.html" id="fl-all-solutions">See all solutions &rarr;</a></p>
         </div>
       </section>
     )}
@@ -375,7 +375,7 @@ const jsonLd = {
               <span class="sect-label">More in the Workspace</span>
               <h2 id="fl-rel-heading">Pairs Well <span class="grad-text">With</span></h2>
             </div>
-            <a href="/features" class="fl-rel__all">View all features &rarr;</a>
+            <a href="/features/index.html" class="fl-rel__all">View all features &rarr;</a>
           </div>
 
           <div class="fl-rel">

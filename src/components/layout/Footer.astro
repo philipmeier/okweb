@@ -12,7 +12,7 @@ const modelFamilies = getModelFamilies().slice(0, 5);
 
       <!-- Brand -->
       <div class="col-span-2 md:col-span-1">
-        <a href="/" class="block mb-4 max-w-[160px]" aria-label="10zebra home">
+        <a href="/index.html" class="block mb-4 max-w-[160px]" aria-label="10zebra home">
           <Image src={logo} alt="10zebra" class="block w-full h-auto" />
         </a>
         <p class="text-sm text-[var(--text-muted)] leading-relaxed max-w-[280px]">
@@ -24,33 +24,33 @@ const modelFamilies = getModelFamilies().slice(0, 5);
       <div>
         <h4 class="text-[0.72rem] uppercase tracking-[1.5px] font-bold text-[var(--text-primary)] mb-4">Solutions</h4>
         {solutions.map((s) => (
-          <a href={`/solutions/${s.slug}`} class="block text-sm text-[var(--text-muted)] mb-2 hover:text-[var(--text-primary)] transition-colors no-underline">{s.label}</a>
+          <a href={`/solutions/${s.slug}/index.html`} class="block text-sm text-[var(--text-muted)] mb-2 hover:text-[var(--text-primary)] transition-colors no-underline">{s.label}</a>
         ))}
-        <a href="/solutions" class="block text-sm text-[var(--accent)] mb-2 hover:text-amber-300 transition-colors no-underline">All Solutions &rarr;</a>
+        <a href="/solutions/index.html" class="block text-sm text-[var(--accent)] mb-2 hover:text-amber-300 transition-colors no-underline">All Solutions &rarr;</a>
       </div>
 
       <!-- Features -->
       <div>
         <h4 class="text-[0.72rem] uppercase tracking-[1.5px] font-bold text-[var(--text-primary)] mb-4">Features</h4>
-        <a href="/features/model-comparison" class="block text-sm text-[var(--text-muted)] mb-2 hover:text-[var(--text-primary)] transition-colors no-underline">Model Comparison</a>
-        <a href="/features/agentic-workflows" class="block text-sm text-[var(--text-muted)] mb-2 hover:text-[var(--text-primary)] transition-colors no-underline">Agentic Workflows (Agent Z)</a>
-        <a href="/features/text-to-sequence" class="block text-sm text-[var(--text-muted)] mb-2 hover:text-[var(--text-primary)] transition-colors no-underline">Text-to-Sequence</a>
-        <a href="/features/character-swap" class="block text-sm text-[var(--text-muted)] mb-2 hover:text-[var(--text-primary)] transition-colors no-underline">Character Swap</a>
-        <a href="/features/quick-start-tools" class="block text-sm text-[var(--text-muted)] mb-2 hover:text-[var(--text-primary)] transition-colors no-underline">Quick Start Tools</a>
-        <a href="/features/project-management" class="block text-sm text-[var(--text-muted)] mb-2 hover:text-[var(--text-primary)] transition-colors no-underline">Project Teams &amp; Budgets</a>
-        <a href="/features/publish-to-youtube" class="block text-sm text-[var(--text-muted)] mb-2 hover:text-[var(--text-primary)] transition-colors no-underline">Publish to YouTube</a>
-        <a href="/features/referral-program" class="block text-sm text-[var(--text-muted)] mb-2 hover:text-[var(--text-primary)] transition-colors no-underline">Referral Program (3%)</a>
+        <a href="/features/model-comparison/index.html" class="block text-sm text-[var(--text-muted)] mb-2 hover:text-[var(--text-primary)] transition-colors no-underline">Model Comparison</a>
+        <a href="/features/agentic-workflows/index.html" class="block text-sm text-[var(--text-muted)] mb-2 hover:text-[var(--text-primary)] transition-colors no-underline">Agentic Workflows (Agent Z)</a>
+        <a href="/features/text-to-sequence/index.html" class="block text-sm text-[var(--text-muted)] mb-2 hover:text-[var(--text-primary)] transition-colors no-underline">Text-to-Sequence</a>
+        <a href="/features/character-swap/index.html" class="block text-sm text-[var(--text-muted)] mb-2 hover:text-[var(--text-primary)] transition-colors no-underline">Character Swap</a>
+        <a href="/features/quick-start-tools/index.html" class="block text-sm text-[var(--text-muted)] mb-2 hover:text-[var(--text-primary)] transition-colors no-underline">Quick Start Tools</a>
+        <a href="/features/project-management/index.html" class="block text-sm text-[var(--text-muted)] mb-2 hover:text-[var(--text-primary)] transition-colors no-underline">Project Teams &amp; Budgets</a>
+        <a href="/features/publish-to-youtube/index.html" class="block text-sm text-[var(--text-muted)] mb-2 hover:text-[var(--text-primary)] transition-colors no-underline">Publish to YouTube</a>
+        <a href="/features/referral-program/index.html" class="block text-sm text-[var(--text-muted)] mb-2 hover:text-[var(--text-primary)] transition-colors no-underline">Referral Program (3%)</a>
       </div>
 
       <!-- AI Models -->
       <div>
         <h4 class="text-[0.72rem] uppercase tracking-[1.5px] font-bold text-[var(--text-primary)] mb-4">AI Models</h4>
         {modelFamilies.map((f) => (
-          <a href={`/models/${f.slug}`} class="block text-sm text-[var(--text-muted)] mb-2 hover:text-[var(--text-primary)] transition-colors no-underline">
+          <a href={`/models/${f.slug}/index.html`} class="block text-sm text-[var(--text-muted)] mb-2 hover:text-[var(--text-primary)] transition-colors no-underline">
             {f.name}
           </a>
         ))}
-        <a href="/models" class="block text-sm text-[var(--accent)] mb-2 hover:text-amber-300 transition-colors no-underline">
+        <a href="/models/index.html" class="block text-sm text-[var(--accent)] mb-2 hover:text-amber-300 transition-colors no-underline">
           All {catalog.totalFamilies} Model Families &rarr;
         </a>
       </div>
@@ -58,17 +58,17 @@ const modelFamilies = getModelFamilies().slice(0, 5);
       <!-- Developers -->
       <div>
         <h4 class="text-[0.72rem] uppercase tracking-[1.5px] font-bold text-[var(--text-primary)] mb-4">Developers</h4>
-        <a href="/mcp" class="block text-sm text-[var(--text-muted)] mb-2 hover:text-[var(--text-primary)] transition-colors no-underline">MCP Server</a>
+        <a href="/mcp/index.html" class="block text-sm text-[var(--text-muted)] mb-2 hover:text-[var(--text-primary)] transition-colors no-underline">MCP Server</a>
       </div>
 
       <!-- Resources -->
       <div>
         <h4 class="text-[0.72rem] uppercase tracking-[1.5px] font-bold text-[var(--text-primary)] mb-4">Resources</h4>
-        <a href="/about" class="block text-sm text-[var(--text-muted)] mb-2 hover:text-[var(--text-primary)] transition-colors no-underline">About 10zebra</a>
-        <a href="/pricing" class="block text-sm text-[var(--text-muted)] mb-2 hover:text-[var(--text-primary)] transition-colors no-underline">Pricing &amp; Credits</a>
-        <a href="/blog" class="block text-sm text-[var(--text-muted)] mb-2 hover:text-[var(--text-primary)] transition-colors no-underline">Tutorials &amp; Blog</a>
-        <a href="/faq" class="block text-sm text-[var(--text-muted)] mb-2 hover:text-[var(--text-primary)] transition-colors no-underline">FAQs</a>
-        <a href="/demo" class="block text-sm text-[var(--text-muted)] mb-2 hover:text-[var(--text-primary)] transition-colors no-underline">Interactive Demo</a>
+        <a href="/about/index.html" class="block text-sm text-[var(--text-muted)] mb-2 hover:text-[var(--text-primary)] transition-colors no-underline">About 10zebra</a>
+        <a href="/pricing/index.html" class="block text-sm text-[var(--text-muted)] mb-2 hover:text-[var(--text-primary)] transition-colors no-underline">Pricing &amp; Credits</a>
+        <a href="/blog/index.html" class="block text-sm text-[var(--text-muted)] mb-2 hover:text-[var(--text-primary)] transition-colors no-underline">Tutorials &amp; Blog</a>
+        <a href="/faq/index.html" class="block text-sm text-[var(--text-muted)] mb-2 hover:text-[var(--text-primary)] transition-colors no-underline">FAQs</a>
+        <a href="/demo/index.html" class="block text-sm text-[var(--text-muted)] mb-2 hover:text-[var(--text-primary)] transition-colors no-underline">Interactive Demo</a>
       </div>
     </div>
 

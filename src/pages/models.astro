@@ -123,7 +123,7 @@ const schema = {
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {families.map((fam) => (
             <a
-              href={`/models/${fam.slug}`}
+              href={`/models/${fam.slug}/index.html`}
               class="group glass p-6 rounded-2xl border border-[var(--border-subtle)] hover:border-orange-500/40 hover:shadow-2xl hover:shadow-orange-950/20 transition-all duration-300 flex flex-col justify-between no-underline block relative overflow-hidden"
               style={`--family-accent: ${fam.accentColor};`}
             >
@@ -290,7 +290,7 @@ const schema = {
                 <!-- Top metadata: family pill & method badge -->
                 <div class="flex items-center justify-between gap-2 mb-2">
                   <a
-                    href={`/models/${m.family}`}
+                    href={`/models/${m.family}/index.html`}
                     class="text-[0.68rem] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-[var(--bg-elevated)] text-[var(--text-secondary)] hover:text-white transition-colors no-underline"
                   >
                     {m.family.toUpperCase()}
@@ -407,10 +407,10 @@ const schema = {
             Sign up for 10zebra and receive 200 free trial credits. Test Kling, Veo, SeeDance, Runway, Grok, and Wan from one unified timeline with zero setup.
           </p>
           <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="/signup" class="btn btn-primary btn-lg shadow-lg shadow-orange-500/20">
+            <a href="/signup/index.html" class="btn btn-primary btn-lg shadow-lg shadow-orange-500/20">
               Start Free &mdash; 200 Credits
             </a>
-            <a href="/pricing" class="btn btn-ghost btn-lg">
+            <a href="/pricing/index.html" class="btn btn-ghost btn-lg">
               View Credit Rates &rarr;
             </a>
           </div>
