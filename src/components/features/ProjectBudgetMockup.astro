@@ -1,4 +1,6 @@
 ---
+import { featureGates } from '/src/data/config';
+const showSubscriptions = featureGates.subscriptions;
 ---
 
 <div class="project-budget-mockup w-full rounded-xl overflow-hidden bg-[#0e1014] border border-[var(--border-subtle)] shadow-2xl">
@@ -12,7 +14,7 @@
     </div>
     <span class="text-[11px] font-mono text-[var(--accent)] font-semibold flex items-center gap-1">
       <span class="w-1.5 h-1.5 rounded-full bg-[var(--accent)]"></span>
-      Project Seats &amp; Budget Vaults
+      {showSubscriptions ? 'Maker (2 Seats) & Director (Unlimited)' : 'Free Collaborator Seats & Budget Vaults'}
     </span>
   </div>
 
@@ -128,8 +130,14 @@
 
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-3 text-xs">
         <div class="p-2.5 rounded-lg bg-[#0e1014] border border-[var(--border-subtle)]">
-          <span class="text-[10px] font-mono uppercase text-[var(--accent)] font-bold block mb-1">Project-Scoped Seats</span>
-          <p class="text-[11px] text-[var(--text-secondary)]">Invite editors or external clients to this project only. Zero visibility into other client work.</p>
+          <span class="text-[10px] font-mono uppercase text-[var(--accent)] font-bold block mb-1">
+            {showSubscriptions ? 'Project-Scoped Seats' : 'No-Cost Collaborator Seats'}
+          </span>
+          <p class="text-[11px] text-[var(--text-secondary)]">
+            {showSubscriptions
+              ? 'Maker includes 2 team seats per project; Director includes unlimited seats per project. Zero visibility into other client work.'
+              : 'Invite editors, co-directors, and clients to this project at $0/seat. Zero visibility into other client work.'}
+          </p>
         </div>
         <div class="p-2.5 rounded-lg bg-[#0e1014] border border-[var(--border-subtle)]">
           <span class="text-[10px] font-mono uppercase text-emerald-400 font-bold block mb-1">Dedicated Credit Bank</span>
@@ -145,7 +153,11 @@
 
   <!-- Bottom Comparison Callout -->
   <div class="bg-[#121418] px-4 py-3 border-t border-[var(--border-subtle)] flex items-center justify-between text-xs text-[var(--text-muted)]">
-    <span>Agency &amp; Studio Advantage: Invite team members and clients per project instead of paying for expensive app-wide seats. Zero cross-client bleed.</span>
+    <span>
+      {showSubscriptions
+        ? 'Agency & Studio Advantage: Maker includes 2 team seats/project and Director unlocks unlimited seats/project with free client Viewers.'
+        : 'Agency & Studio Advantage: Invite team collaborators and client reviewers at no seat cost — only pay for the generation credits your project uses.'}
+    </span>
     <span class="text-[var(--accent)] font-semibold shrink-0 ml-2">Project Governance &rarr;</span>
   </div>
 </div>

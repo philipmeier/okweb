@@ -1,5 +1,8 @@
 ---
 import { totalFamilies } from '/src/data/models';
+import { featureGates, mcpPartnerConfig } from '/src/data/config';
+
+const showSubscriptions = featureGates.subscriptions;
 
 const flow = [
   { icon: '&#129504;', label: 'Claude · ChatGPT · Cursor' },
@@ -11,10 +14,25 @@ const flow = [
 <section class="section py-16!" aria-labelledby="mcp-heading">
   <div class="glass mcp reveal">
     <div class="mcp-copy">
-      <span class="sect-label">MCP Integration</span>
+      <span class="sect-label">
+        {showSubscriptions ? 'MCP Integration · Director Plan' : 'MCP Integration · Partner Program'}
+      </span>
       <h2 id="mcp-heading">Generate From <span class="grad-text">Claude, ChatGPT &amp; Cursor</span></h2>
-      <p>Your LLM sends the request. Results land in your project, with budgets and permissions intact.</p>
-      <a href="/mcp/index.html" class="btn btn-ghost" id="mcp-setup-btn">Set up MCP &rarr;</a>
+      <p>
+        {showSubscriptions
+          ? 'Your LLM sends the request. Results land in your project, with budgets and permissions intact. Available on the Director plan.'
+          : 'Your LLM sends the request. Results land in your project, with budgets and permissions intact. Currently restricted to the 10zebra Partner Program.'}
+      </p>
+      <div class="flex flex-wrap items-center gap-3">
+        {!showSubscriptions && (
+          <a href={mcpPartnerConfig.mailtoUrl} class="btn btn-primary" id="mcp-partner-request-btn">
+            {mcpPartnerConfig.ctaLabel} &rarr;
+          </a>
+        )}
+        <a href="/mcp/index.html" class="btn btn-ghost" id="mcp-setup-btn">
+          {showSubscriptions ? 'Set up MCP \u2192' : 'Explore MCP Docs \u2192'}
+        </a>
+      </div>
     </div>
     <ol class="mcp-flow" aria-label="How MCP generation flows">
       {flow.map((f, i) => (

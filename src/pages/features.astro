@@ -16,12 +16,18 @@ import ShiftList from "/src/components/shared/ShiftList.astro";
 import ModelComparisonMockup from "/src/components/features/ModelComparisonMockup.astro";
 import CharacterSwapMockup from "/src/components/features/CharacterSwapMockup.astro";
 import AgenticWorkflowsMockup from "/src/components/features/AgenticWorkflowsMockup.astro";
+import HybridProductionMockup from "/src/components/features/HybridProductionMockup.astro";
 import QuickStartToolsExplorer from "/src/components/features/QuickStartToolsExplorer.astro";
 import ProjectBudgetMockup from "/src/components/features/ProjectBudgetMockup.astro";
 import YouTubeExportMockup from "/src/components/features/YouTubeExportMockup.astro";
 import { features, featureEntries, phases, type PhaseKey } from "/src/data/features";
 import { solutions } from "/src/data/solutions";
 import { catalog } from "/src/data/models";
+import { featureGates } from "/src/data/config";
+
+const showSubscriptions = featureGates.subscriptions;
+const showAgenticWorkflows = featureGates.agenticWorkflows;
+const showReferralProgram = featureGates.referralProgram;
 
 const phaseKeys = Object.keys(phases) as PhaseKey[];
 const byPhase = phaseKeys.map((key) => ({
@@ -33,7 +39,7 @@ const byPhase = phaseKeys.map((key) => ({
 // Hero mosaic tiles (grid areas a–f)
 const mosaic = [
   { area: "a", f: features.modelComparison },
-  { area: "b", f: features.agenticWorkflows },
+  { area: "b", f: showAgenticWorkflows ? features.agenticWorkflows : features.hybridProduction },
   { area: "c", f: features.characterSwap },
   { area: "d", f: features.textToSequence },
   { area: "e", f: features.quickStart },
@@ -43,28 +49,48 @@ const mosaic = [
 // Interactive demos (mockups will be rebuilt to mirror the app — see docs/ROADMAP.md)
 const demos = [
   { id: "compare", f: features.modelComparison, line: "Same prompt. Every model. You pick the take.", Comp: ModelComparisonMockup, props: {} },
-  { id: "agentz", f: features.agenticWorkflows, line: "Agent Z works in batches with Dry Run plan & credit approval.", Comp: AgenticWorkflowsMockup, props: {} },
+  ...(showAgenticWorkflows
+    ? [{ id: "agentz", f: features.agenticWorkflows, line: "Agent Z works in batches with Dry Run plan & credit approval.", Comp: AgenticWorkflowsMockup, props: {} }]
+    : [{ id: "hybrid", f: features.hybridProduction, line: "Combine live-action footage and real actors with AI-generated visuals or styles.", Comp: HybridProductionMockup, props: {} }]),
   { id: "swap", f: features.characterSwap, line: "Re-cast a finished take without re-shooting it.", Comp: CharacterSwapMockup, props: {} },
-  { id: "quickstart", f: features.quickStart, line: "Six launchpads, so you never start from a blank prompt.", Comp: QuickStartToolsExplorer, props: { initialTool: "from-script" } },
-  { id: "budgets", f: features.projectBudgets, line: "Project-level seats and isolated credit vaults for agencies, studios, and collaborations.", Comp: ProjectBudgetMockup, props: {} },
+  { id: "quickstart", f: features.quickStart, line: "Six launchpads to start a new storyboard or extend any scene in your project.", Comp: QuickStartToolsExplorer, props: { initialTool: "from-script" } },
+  {
+    id: "budgets",
+    f: features.projectBudgets,
+    line: showSubscriptions
+      ? "Project-level seats (Maker: 2, Director: Unlimited) and isolated credit vaults for agencies, studios, and collaborations."
+      : "No-cost team collaborator seats and isolated project credit vaults for agencies, studios, and collaborations.",
+    Comp: ProjectBudgetMockup,
+    props: {},
+  },
   { id: "publish", f: features.publishYouTube, line: "Cut, score, and publish straight from the storyboard.", Comp: YouTubeExportMockup, props: {} },
 ];
 
 const comparisonData = [
   { label: "Multi-Model Generation", after: "Kling, Grok, Seedance, Veo, Sora, Runway in 1 prompt", before: "Locked to 1 proprietary engine" },
-  { label: "Agentic Batch Workflows", after: "Agent Z batch creates, converts, replaces characters, regens & upscales with Dry Run cost approval", before: "Manual one-clip-at-a-time prompting & inpainting" },
+  { label: "Hybrid Live-Action + AI", after: "Upload real footage with auto shot split, AI style transfer & character swap on live actors", before: "Pure synthetic clips or isolated single-clip filters" },
+  ...(showAgenticWorkflows
+    ? [{ label: "Agentic Batch Workflows", after: "Agent Z batch creates, converts, replaces characters, regens & upscales with Dry Run cost approval", before: "Manual one-clip-at-a-time prompting & inpainting" }]
+    : []),
   { label: "Model Comparison", after: "Side-by-side synchronized take previewer", before: "Switch tabs and copy-paste prompts" },
-  { label: "Project Teams & Budgets", after: "Project-level seats & isolated credit vaults (zero client bleed)", before: "Rigid app-wide seats & pooled account credits" },
-  { label: "Failed Generation Recovery", after: "1-click 90% credit refund or free regen button on failed takes", before: "Lost credits on silent timeouts or moderation blocks" },
-  { label: "Referral Program (Tolt)", after: "3% lifetime payout on referred credit pack purchases & subscriptions", before: "One-time bounty or no creator referral payout" },
-  { label: "From a Script Fanout", after: "3, 5, 10, 20, or 30 cohesive shots from 1 prompt", before: "Generate 1 clip at a time" },
+  {
+    label: "Project Teams & Budgets",
+    after: showSubscriptions
+      ? "Project-level seats (Maker: 2/project, Director: Unlimited) & isolated credit vaults"
+      : "Team collaborators invited at no cost ($0/seat) & isolated project credit vaults",
+    before: "Rigid app-wide seats ($35+/mo) & pooled account credits",
+  },
+  ...(showReferralProgram
+    ? [{ label: "Referral Program (Tolt)", after: "3% lifetime payout on referred credit pack purchases & subscriptions", before: "One-time bounty or no creator referral payout" }]
+    : []),
+  { label: "Quick Start & Scene Extension", after: "6 tools to launch a new project or extend any existing scene (3–30 shots)", before: "Generate 1 isolated clip at a time" },
   { label: "YouTube Publishing", after: "1-click publish with audio mixdown & metadata", before: "Download locally, then upload manually" },
 ];
 ---
 
 <Layout
   title="10zebra Feature Hub | The Complete AI Video Production Suite"
-  description="Explore 10zebra's production features: side-by-side multi-model comparisons (Kling, Grok, Seedance), text-to-sequence, character swap with 10z agent, isolated project budgets, 6 quick-start tools, and 1-click YouTube publishing."
+  description="Explore 10zebra's production features: side-by-side multi-model comparisons (Kling, Grok, Seedance), hybrid live-action + AI production, text-to-sequence, character swap, isolated project budgets, 6 quick-start & scene-extension tools, and 1-click YouTube publishing."
   canonicalUrl="https://10zebra.com/features"
 >
   <Header />

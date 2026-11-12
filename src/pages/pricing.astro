@@ -11,6 +11,9 @@ import CreditPacks from "/src/components/pricing/CreditPacks.astro";
 import ModelRateCard from "/src/components/pricing/ModelRateCard.astro";
 import PlanComparison from "/src/components/pricing/PlanComparison.astro";
 import PricingFAQ from "/src/components/pricing/PricingFAQ.astro";
+import { featureGates } from "/src/data/config";
+
+const showSubscriptions = featureGates.subscriptions;
 
 const pricingSchema = {
   "@context": "https://schema.org",
@@ -18,7 +21,7 @@ const pricingSchema = {
     {
       "@type": "Product",
       "name": "10zebra AI Video Production Workspace",
-      "description": "Multi-model AI video production platform supporting Kling 3.0, Google Veo 3, OpenAI Sora, Runway Gen-4, and Grok with character consistency, project budgets, and MCP integration.",
+      "description": "Multi-model AI video production platform supporting Kling 3.0, Google Veo 3, OpenAI Sora, Runway Gen-4, and Grok with Hybrid Production, character consistency, project budgets, and MCP integration.",
       "brand": {
         "@type": "Brand",
         "name": "10zebra"
@@ -29,27 +32,31 @@ const pricingSchema = {
           "name": "Pay-As-You-Go",
           "price": "0",
           "priceCurrency": "USD",
-          "description": "200 free trial credits on signup, top up anytime with credits that never expire.",
+          "description": "200 free trial credits on signup, no subscription required, free project collaborator seats, top up anytime with credits that never expire.",
           "url": "https://10zebra.com/pricing"
         },
-        {
-          "@type": "Offer",
-          "name": "Maker Plan",
-          "price": "29",
-          "priceCurrency": "USD",
-          "billingDuration": "P1M",
-          "description": "1,200 monthly credits, 15% discount on top-ups, priority queue.",
-          "url": "https://10zebra.com/pricing"
-        },
-        {
-          "@type": "Offer",
-          "name": "Director Plan",
-          "price": "79",
-          "priceCurrency": "USD",
-          "billingDuration": "P1M",
-          "description": "3,500 monthly credits, 30% discount on top-ups, project-level budget controls, shared team pools, and full MCP server access for Claude and Cursor.",
-          "url": "https://10zebra.com/pricing"
-        }
+        ...(showSubscriptions
+          ? [
+              {
+                "@type": "Offer",
+                "name": "Maker Plan",
+                "price": "29",
+                "priceCurrency": "USD",
+                "billingDuration": "P1M",
+                "description": "1,200 monthly credits, 2 team seats per project, 15% discount on top-ups, priority queue.",
+                "url": "https://10zebra.com/pricing"
+              },
+              {
+                "@type": "Offer",
+                "name": "Director Plan",
+                "price": "79",
+                "priceCurrency": "USD",
+                "billingDuration": "P1M",
+                "description": "3,500 monthly credits, unlimited team seats per project, 30% discount on top-ups, project-level budget controls, and full MCP server access.",
+                "url": "https://10zebra.com/pricing"
+              }
+            ]
+          : [])
       ]
     },
     {
@@ -74,8 +81,8 @@ const pricingSchema = {
 ---
 
 <Layout
-  title="Pricing & Credits | AI Video Production Workspace | 10zebra"
-  description="Pay for what you create. Start free with 200 credits across Kling, Veo, Sora, Runway & Grok. Purchased top-ups never expire. Subscriptions include team budgets and up to 30% discounts."
+  title={showSubscriptions ? "Pricing & Credits | AI Video Production Workspace | 10zebra" : "Pay-As-You-Go Pricing & Credits | No Subscription Required | 10zebra"}
+  description={showSubscriptions ? "Pay for what you create. Start free with 200 credits across Kling, Veo, Sora, Runway & Grok. Purchased top-ups never expire. Subscriptions include team budgets and up to 30% discounts." : "Simple Pay-As-You-Go pricing with no subscription required. Start free with 200 credits across Kling, Veo, Sora, Runway & Grok, invite team collaborators at no cost, and buy non-expiring credit packs anytime."}
   canonicalUrl="https://10zebra.com/pricing"
 >
   <!-- Schema.org Structured Data -->
@@ -92,7 +99,7 @@ const pricingSchema = {
     >
       <div class="wrap flex items-center justify-center gap-2 sm:gap-4 min-w-max">
         <a href="#plans" class="px-3 py-1 rounded-full text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-white/[0.04] transition-colors">
-          Plans &amp; Tiers
+          {showSubscriptions ? "Plans & Tiers" : "Pay-As-You-Go"}
         </a>
         <span class="text-[var(--border-strong)]">&middot;</span>
         <a href="#calculator" class="px-3 py-1 rounded-full text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-white/[0.04] transition-colors">
@@ -106,10 +113,14 @@ const pricingSchema = {
         <a href="#rates" class="px-3 py-1 rounded-full text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-white/[0.04] transition-colors">
           Model Rate Card
         </a>
-        <span class="text-[var(--border-strong)]">&middot;</span>
-        <a href="#comparison" class="px-3 py-1 rounded-full text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-white/[0.04] transition-colors">
-          Feature Comparison
-        </a>
+        {showSubscriptions && (
+          <>
+            <span class="text-[var(--border-strong)]">&middot;</span>
+            <a href="#comparison" class="px-3 py-1 rounded-full text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-white/[0.04] transition-colors">
+              Feature Comparison
+            </a>
+          </>
+        )}
         <span class="text-[var(--border-strong)]">&middot;</span>
         <a href="#faq" class="px-3 py-1 rounded-full text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-white/[0.04] transition-colors">
           Billing FAQ
@@ -137,10 +148,12 @@ const pricingSchema = {
       <ModelRateCard />
     </div>
 
-    <!-- 5. Deep-dive Plan Comparison Table -->
-    <div id="comparison">
-      <PlanComparison />
-    </div>
+    <!-- 5. Deep-dive Plan Comparison Table (Only when subscriptions gate is enabled) -->
+    {showSubscriptions && (
+      <div id="comparison">
+        <PlanComparison />
+      </div>
+    )}
 
     <!-- 6. Billing & Pricing FAQ -->
     <div id="faq">

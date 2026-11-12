@@ -3,6 +3,7 @@ import { Image } from "astro:assets";
 import logo from "/src/assets/logo.png";
 import { solutions } from "/src/data/solutions";
 import { getModelFamilies, catalog } from "/src/data/models";
+import { featureGates } from "/src/data/config";
 
 const modelFamilies = getModelFamilies().slice(0, 5);
 ---
@@ -33,13 +34,18 @@ const modelFamilies = getModelFamilies().slice(0, 5);
       <div>
         <h4 class="text-[0.72rem] uppercase tracking-[1.5px] font-bold text-[var(--text-primary)] mb-4">Features</h4>
         <a href="/features/model-comparison/index.html" class="block text-sm text-[var(--text-muted)] mb-2 hover:text-[var(--text-primary)] transition-colors no-underline">Model Comparison</a>
-        <a href="/features/agentic-workflows/index.html" class="block text-sm text-[var(--text-muted)] mb-2 hover:text-[var(--text-primary)] transition-colors no-underline">Agentic Workflows (Agent Z)</a>
+        <a href="/features/hybrid-production/index.html" class="block text-sm text-[var(--text-muted)] mb-2 hover:text-[var(--text-primary)] transition-colors no-underline">Hybrid Production</a>
+        {featureGates.agenticWorkflows && (
+          <a href="/features/agentic-workflows/index.html" class="block text-sm text-[var(--text-muted)] mb-2 hover:text-[var(--text-primary)] transition-colors no-underline">Agentic Workflows (Agent Z)</a>
+        )}
         <a href="/features/text-to-sequence/index.html" class="block text-sm text-[var(--text-muted)] mb-2 hover:text-[var(--text-primary)] transition-colors no-underline">Text-to-Sequence</a>
         <a href="/features/character-swap/index.html" class="block text-sm text-[var(--text-muted)] mb-2 hover:text-[var(--text-primary)] transition-colors no-underline">Character Swap</a>
         <a href="/features/quick-start-tools/index.html" class="block text-sm text-[var(--text-muted)] mb-2 hover:text-[var(--text-primary)] transition-colors no-underline">Quick Start Tools</a>
         <a href="/features/project-management/index.html" class="block text-sm text-[var(--text-muted)] mb-2 hover:text-[var(--text-primary)] transition-colors no-underline">Project Teams &amp; Budgets</a>
         <a href="/features/publish-to-youtube/index.html" class="block text-sm text-[var(--text-muted)] mb-2 hover:text-[var(--text-primary)] transition-colors no-underline">Publish to YouTube</a>
-        <a href="/features/referral-program/index.html" class="block text-sm text-[var(--text-muted)] mb-2 hover:text-[var(--text-primary)] transition-colors no-underline">Referral Program (3%)</a>
+        {featureGates.referralProgram && (
+          <a href="/features/referral-program/index.html" class="block text-sm text-[var(--text-muted)] mb-2 hover:text-[var(--text-primary)] transition-colors no-underline">Referral Program (3%)</a>
+        )}
       </div>
 
       <!-- AI Models -->

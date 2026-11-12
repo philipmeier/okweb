@@ -7,6 +7,8 @@
  */
 import MediaSlot from './MediaSlot.astro';
 import { media } from '/src/data/media';
+import { featureGates } from '/src/data/config';
+const showAgenticWorkflows = featureGates.agenticWorkflows;
 
 const steps = [
   {
@@ -14,8 +16,8 @@ const steps = [
     num: '01',
     short: 'Generate',
     title: 'Generate across every model',
-    line: 'Render the same prompt in Kling, Veo, Sora, and Runway. Keep the best take.',
-    chips: ['Side-by-side takes', 'Text-to-sequence', 'Full prompt history'],
+    line: 'Start a new storyboard or extend any scene across Kling, Veo, Sora, and Runway. Keep the best take.',
+    chips: ['Side-by-side takes', 'Start or extend scenes', 'Full prompt history'],
     href: '/features/model-comparison/index.html',
     stageLabel: 'Shot 03 · 1970s Pit Stop · 4 takes',
   },
@@ -23,10 +25,14 @@ const steps = [
     id: 'lock',
     num: '02',
     short: 'Lock',
-    title: 'Lock characters & sets',
-    line: 'Anchor every shot to one reference, or run Agent Z in batches with Dry Run cost approval.',
-    chips: ['Reference portraits', 'Agent Z batch & Dry Run', 'Multi-reference edit'],
-    href: '/features/character-swap/index.html',
+    title: showAgenticWorkflows ? 'Lock characters & sets' : 'Hybrid live-action & character lock',
+    line: showAgenticWorkflows
+      ? 'Anchor every shot to one reference, or run Agent Z in batches with Dry Run cost approval.'
+      : 'Combine real live-action footage and actors with AI restyling, character swap, and locked visual references.',
+    chips: showAgenticWorkflows
+      ? ['Reference portraits', 'Agent Z batch & Dry Run', 'Multi-reference edit']
+      : ['Hybrid live-action + AI', 'Character swap on video', 'Multi-reference lock'],
+    href: showAgenticWorkflows ? '/features/character-swap/index.html' : '/features/hybrid-production/index.html',
     stageLabel: 'Character · Elena · Reference locked',
   },
   {

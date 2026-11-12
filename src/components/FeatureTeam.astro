@@ -1,12 +1,16 @@
 ---
 import MediaSlot from './MediaSlot.astro';
 import { media } from '/src/data/media';
+import { featureGates } from '/src/data/config';
+const showSubscriptions = featureGates.subscriptions;
 
 const perks = [
   {
     iconPath: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z',
-    title: 'Project-Level Seats',
-    body: 'Invite editors, clients, or freelancers per project — not rigid app-wide seats.',
+    title: showSubscriptions ? 'Project-Level Seats' : 'No-Cost Collaborator Seats',
+    body: showSubscriptions
+      ? 'Maker includes 2 team seats per project and Director unlocks unlimited seats per project.'
+      : 'Invite editors, co-directors, or freelancers to any project at no seat cost.',
   },
   {
     iconPath: 'M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4',
@@ -37,7 +41,11 @@ const fmt = (n: number) => n.toLocaleString('en-US');
   <div class="sect-head reveal">
     <span class="sect-label">Project Management</span>
     <h2 id="team-heading">Project Teams &amp; Budgets. <span class="grad-text">Built for Production.</span></h2>
-    <p>Project-level seats and isolated credit vaults &mdash; tailored for agencies, enterprise teams, and creator collaborations.</p>
+    <p>
+      {showSubscriptions
+        ? 'Project-level seats (2 on Maker, unlimited on Director) and isolated credit vaults \u2014 tailored for agencies, enterprise teams, and creator collaborations.'
+        : 'Invite team collaborators at no cost and govern every production with isolated credit vaults \u2014 tailored for agencies, enterprise teams, and creator collaborations.'}
+    </p>
   </div>
 
   <div class="grid grid-cols-1 lg:grid-cols-5 gap-4 reveal tb">
@@ -50,10 +58,12 @@ const fmt = (n: number) => n.toLocaleString('en-US');
           <span class="pulse-dot"></span> Only on 10zebra
         </span>
         <h3 class="text-2xl md:text-[1.75rem] font-extrabold leading-tight mb-3" style="font-family:var(--font-display);">
-          Project Seats &amp; Budgets Hand-in-Hand
+          {showSubscriptions ? 'Project Seats & Budgets Hand-in-Hand' : 'Free Team Collaborators & Project Budgets'}
         </h3>
         <p class="text-[var(--text-secondary)] text-sm leading-relaxed mb-6">
-          Traditional AI tools force expensive app-wide seats ($35&ndash;$100/mo) and pool credits into one vulnerable bucket. 10zebra scopes membership and budgets per project: invite clients, freelancers, and co-directors to specific productions with zero cross-client bleed or financial risk.
+          {showSubscriptions
+            ? 'Traditional AI tools force expensive app-wide seats ($35\u2013$100/mo) and pool credits into one vulnerable bucket. 10zebra scopes membership and budgets per project: Maker includes 2 team seats per project, Director unlocks unlimited team seats per project, and client Viewers are always free.'
+            : 'Traditional AI tools force expensive app-wide seats ($35\u2013$100/mo) and pool credits into one vulnerable bucket. On 10zebra, team collaborators and client reviewers are invited at no cost \u2014 you simply fund each project\u2019s dedicated credit vault with zero cross-client bleed or financial risk.'}
         </p>
       </div>
       <div class="flex gap-3 flex-wrap">

@@ -15,6 +15,9 @@ import {
   getMcpEnvVars,
 } from "/src/data/mcp";
 import { totalFamilies, totalModels } from "/src/data/models";
+import { featureGates, mcpPartnerConfig } from "/src/data/config";
+
+const showSubscriptions = featureGates.subscriptions;
 
 const tools = getMcpTools();
 const resources = getMcpResources();
@@ -22,8 +25,12 @@ const prompts = getMcpPrompts();
 const stats = getMcpStats();
 const envVars = getMcpEnvVars();
 
-const pageTitle = "10zebra MCP Server | Direct AI Video with Claude, Cursor & LLM Agents (Director Plan)";
-const pageDescription = "Connect Claude Desktop, Cursor, and LLM coding agents directly to 10zebra's multi-model AI video production pipeline via the Model Context Protocol (MCP). Requires Director subscription ($79/mo). Includes 11 tools, 5 resources, and project credit isolation.";
+const pageTitle = showSubscriptions
+  ? "10zebra MCP Server | Direct AI Video with Claude, Cursor & LLM Agents (Director Plan)"
+  : "10zebra MCP Server | Direct AI Video with Claude, Cursor & LLM Agents (Partner Program)";
+const pageDescription = showSubscriptions
+  ? "Connect Claude Desktop, Cursor, and LLM coding agents directly to 10zebra's multi-model AI video production pipeline via the Model Context Protocol (MCP). Requires Director subscription ($79/mo). Includes 11 tools, 5 resources, and project credit isolation."
+  : "Connect Claude Desktop, Cursor, and LLM coding agents directly to 10zebra's multi-model AI video production pipeline via the Model Context Protocol (MCP). Currently restricted to the 10zebra Partner Program. Includes 11 tools, 5 resources, and project credit isolation.";
 const canonicalUrl = "https://10zebra.com/mcp";
 
 // Comprehensive AEO & SEO Schema.org Graph
@@ -33,7 +40,7 @@ const jsonLd = {
     {
       "@type": "TechArticle",
       "headline": "10zebra Model Context Protocol (MCP) Server Architecture & Integration Guide",
-      "description": "Technical specification and guide for using 10zebra's FastMCP server to programmatically orchestrate multi-model AI video pipelines through Anthropic Claude Desktop, Cursor, and custom autonomous agents on the Director plan.",
+      "description": "Technical specification and guide for using 10zebra's FastMCP server to programmatically orchestrate multi-model AI video pipelines through Anthropic Claude Desktop, Cursor, and custom autonomous agents.",
       "url": canonicalUrl,
       "inLanguage": "en-US",
       "author": {
@@ -68,13 +75,21 @@ const jsonLd = {
       "name": "10zebra MCP Server",
       "applicationCategory": "MultimediaApplication",
       "operatingSystem": "Cross-platform (HTTP / stdio)",
-      "offers": {
-        "@type": "Offer",
-        "price": "79",
-        "priceCurrency": "USD",
-        "description": "Available exclusively with the 10zebra Director subscription ($79/month) or Studio enterprise tier.",
-        "url": "https://10zebra.com/pricing"
-      },
+      "offers": showSubscriptions
+        ? {
+            "@type": "Offer",
+            "price": "79",
+            "priceCurrency": "USD",
+            "description": "Available exclusively with the 10zebra Director subscription ($79/month) or Studio enterprise tier.",
+            "url": "https://10zebra.com/pricing"
+          }
+        : {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD",
+            "description": "Currently available through the 10zebra Partner Program.",
+            "url": "https://10zebra.com/mcp"
+          },
       "featureList": [
         "FastMCP Streamable HTTP & stdio transport",
         `Multi-tenant video project orchestration across ${stats.totalTools} callable tools`,
@@ -91,10 +106,14 @@ const jsonLd = {
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "Which subscription plan is required to access the 10zebra MCP server?",
+          "name": showSubscriptions
+            ? "Which subscription plan is required to access the 10zebra MCP server?"
+            : "How do I get access to the 10zebra MCP server?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Access to the 10zebra Model Context Protocol (MCP) server requires an active Director plan ($79/mo) or higher. Director subscribers receive their dedicated MCP API key and streamable-HTTP / stdio credentials, 3,500 monthly credits, 30% discount on credit top-ups, and project-level isolated budget controls to power autonomous workflows in Claude Desktop and Cursor."
+            "text": showSubscriptions
+              ? "Access to the 10zebra Model Context Protocol (MCP) server requires an active Director plan ($79/mo) or higher. Director subscribers receive their dedicated MCP API key and streamable-HTTP / stdio credentials, 3,500 monthly credits, unlimited team seats per project, 30% discount on credit top-ups, and project-level isolated budget controls."
+              : "Access to the 10zebra Model Context Protocol (MCP) server is currently restricted to our Partner Program. Approved partners receive dedicated MCP API keys, streamable-HTTP / stdio credentials, and project-level isolated budget controls to power autonomous workflows in Claude Desktop and Cursor."
           }
         },
         {
@@ -173,7 +192,11 @@ const jsonLd = {
         <div class="mcp-hero__content">
           <div class="mcp-badge">
             <span class="mcp-badge__dot"></span>
-            <span>FastMCP Streamable-HTTP &bull; Requires Director Plan ($79/mo)</span>
+            <span>
+              {showSubscriptions
+                ? "FastMCP Streamable-HTTP • Requires Director Plan ($79/mo)"
+                : "FastMCP Streamable-HTTP • Restricted to Partner Program"}
+            </span>
           </div>
 
           <h1 class="mcp-hero__title">
@@ -185,13 +208,23 @@ const jsonLd = {
           </p>
 
           <div class="mcp-hero__actions">
-            <a href="/signup/index.html?plan=director" class="btn btn-primary btn-lg">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M5 12h14"></path>
-                <path d="M12 5l7 7-7 7"></path>
-              </svg>
-              <span>Unlock MCP on Director Plan ($79/mo)</span>
-            </a>
+            {showSubscriptions ? (
+              <a href="/signup/index.html?plan=director" class="btn btn-primary btn-lg">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 12h14"></path>
+                  <path d="M12 5l7 7-7 7"></path>
+                </svg>
+                <span>Unlock MCP on Director Plan ($79/mo)</span>
+              </a>
+            ) : (
+              <a href={mcpPartnerConfig.mailtoUrl} class="btn btn-primary btn-lg">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+                <span>Request Partner Program Access</span>
+              </a>
+            )}
             <a href="/pricing/index.html" class="btn btn-ghost btn-lg">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <rect x="2" y="4" width="20" height="16" rx="2"></rect>
@@ -200,7 +233,7 @@ const jsonLd = {
                 <line x1="6" y1="12" x2="6" y2="12"></line>
                 <line x1="10" y1="12" x2="18" y2="12"></line>
               </svg>
-              <span>Compare Pricing &amp; Plans</span>
+              <span>{showSubscriptions ? "Compare Pricing & Plans" : "View Pay-As-You-Go Pricing"}</span>
             </a>
             <a href="#quickstart" class="btn btn-ghost btn-lg">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -234,8 +267,8 @@ const jsonLd = {
             </div>
             <div class="mcp-metric-divider"></div>
             <div class="mcp-metric-pill mcp-metric-pill--highlight">
-              <span class="mcp-metric-pill__num">Director</span>
-              <span class="mcp-metric-pill__label">Plan Required</span>
+              <span class="mcp-metric-pill__num">{showSubscriptions ? "Director" : "Partner"}</span>
+              <span class="mcp-metric-pill__label">{showSubscriptions ? "Plan Required" : "Program Access"}</span>
             </div>
           </div>
 
@@ -265,68 +298,128 @@ const jsonLd = {
     </section>
 
     {/* -------------------------------------------------------------
-        PLAN GATE CALLOUT BANNER: DIRECTOR SUBSCRIPTION REQUIRED
+        PLAN GATE CALLOUT BANNER: PARTNER PROGRAM OR DIRECTOR PLAN
     -------------------------------------------------------------- */}
     <section class="section mcp-plan-gate-section">
       <div class="wrap">
-        <div class="glass glow-border mcp-plan-gate-card">
-          <div class="mcp-plan-gate-left">
-            <div class="mcp-gate-badge">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-              </svg>
-              <span>Subscription Requirement</span>
+        {showSubscriptions ? (
+          <div class="glass glow-border mcp-plan-gate-card">
+            <div class="mcp-plan-gate-left">
+              <div class="mcp-gate-badge">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+                <span>Subscription Requirement</span>
+              </div>
+              <h2>Available Exclusively on the Director Plan ($79/mo)</h2>
+              <p>
+                Autonomous LLM agents generate high-volume takes, construct multi-scene storyboards, and execute frame-accurate renders in rapid sequence. To ensure high-throughput GPU queue priority and provide dedicated project-level credit pools, <strong>MCP server access is reserved exclusively for Director subscribers</strong>.
+              </p>
+              <div class="mcp-plan-perks-grid">
+                <div class="mcp-perk-item">
+                  <span class="mcp-perk-check">&check;</span>
+                  <span><strong>3,500 monthly credits</strong> included (approx. 87 Kling shots or 175 Veo 3 clips)</span>
+                </div>
+                <div class="mcp-perk-item">
+                  <span class="mcp-perk-check">&check;</span>
+                  <span><strong>Personal MCP API key</strong> &amp; streamable-HTTP endpoint access</span>
+                </div>
+                <div class="mcp-perk-item">
+                  <span class="mcp-perk-check">&check;</span>
+                  <span><strong>30% discount</strong> on all additional top-up credit packs</span>
+                </div>
+                <div class="mcp-perk-item">
+                  <span class="mcp-perk-check">&check;</span>
+                  <span><strong>Project-isolated credit ledgers</strong> preventing runaway agent spend</span>
+                </div>
+                <div class="mcp-perk-item">
+                  <span class="mcp-perk-check">&check;</span>
+                  <span><strong>Unlimited team seats per project</strong> with role-based permissions</span>
+                </div>
+                <div class="mcp-perk-item">
+                  <span class="mcp-perk-check">&check;</span>
+                  <span><strong>Dual-transport support</strong> (local stdio &amp; remote streamable-HTTP)</span>
+                </div>
+              </div>
             </div>
-            <h2>Available Exclusively on the Director Plan ($79/mo)</h2>
-            <p>
-              Autonomous LLM agents generate high-volume takes, construct multi-scene storyboards, and execute frame-accurate renders in rapid sequence. To ensure high-throughput GPU queue priority and provide dedicated project-level credit pools, <strong>MCP server access is reserved exclusively for Director subscribers</strong>.
-            </p>
-            <div class="mcp-plan-perks-grid">
-              <div class="mcp-perk-item">
-                <span class="mcp-perk-check">&check;</span>
-                <span><strong>3,500 monthly credits</strong> included (approx. 87 Kling shots or 175 Veo 3 clips)</span>
-              </div>
-              <div class="mcp-perk-item">
-                <span class="mcp-perk-check">&check;</span>
-                <span><strong>Personal MCP API key</strong> &amp; streamable-HTTP endpoint access</span>
-              </div>
-              <div class="mcp-perk-item">
-                <span class="mcp-perk-check">&check;</span>
-                <span><strong>30% discount</strong> on all additional top-up credit packs</span>
-              </div>
-              <div class="mcp-perk-item">
-                <span class="mcp-perk-check">&check;</span>
-                <span><strong>Project-isolated credit ledgers</strong> preventing runaway agent spend</span>
-              </div>
-              <div class="mcp-perk-item">
-                <span class="mcp-perk-check">&check;</span>
-                <span><strong>3 included team seats</strong> with role-based permissions</span>
-              </div>
-              <div class="mcp-perk-item">
-                <span class="mcp-perk-check">&check;</span>
-                <span><strong>90% credit refund || free regen</strong> on all failed generations</span>
-              </div>
-            </div>
-          </div>
 
-          <div class="mcp-plan-gate-right">
-            <div class="mcp-plan-box">
-              <span class="mcp-plan-kicker">Director Subscription</span>
-              <div class="mcp-plan-price">
-                <span class="mcp-price-val">$79</span>
-                <span class="mcp-price-sub">/ month</span>
+            <div class="mcp-plan-gate-right">
+              <div class="mcp-plan-box">
+                <span class="mcp-plan-kicker">Director Subscription</span>
+                <div class="mcp-plan-price">
+                  <span class="mcp-price-val">$79</span>
+                  <span class="mcp-price-sub">/ month</span>
+                </div>
+                <p class="mcp-plan-save">Or $63/mo billed annually (save $192/yr)</p>
+                <a href="/signup/index.html?plan=director" class="btn btn-primary btn-full btn-lg">
+                  Start Director Plan
+                </a>
+                <a href="/pricing/index.html" class="mcp-plan-link">
+                  View full feature comparison &rarr;
+                </a>
               </div>
-              <p class="mcp-plan-save">Or $63/mo billed annually (save $192/yr)</p>
-              <a href="/signup/index.html?plan=director" class="btn btn-primary btn-full btn-lg">
-                Start Director Plan
-              </a>
-              <a href="/pricing/index.html" class="mcp-plan-link">
-                View full feature comparison &rarr;
-              </a>
             </div>
           </div>
-        </div>
+        ) : (
+          <div class="glass glow-border mcp-plan-gate-card">
+            <div class="mcp-plan-gate-left">
+              <div class="mcp-gate-badge">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+                <span>Partner Program Access</span>
+              </div>
+              <h2>Currently Restricted to the 10zebra Partner Program</h2>
+              <p>
+                Autonomous LLM agents generate high-volume takes, construct multi-scene storyboards, and execute frame-accurate renders in rapid sequence. To ensure high-throughput GPU queue priority and dedicated support during our rollout, <strong>MCP server access is currently restricted to our Partner Program</strong>.
+              </p>
+              <div class="mcp-plan-perks-grid">
+                <div class="mcp-perk-item">
+                  <span class="mcp-perk-check">&check;</span>
+                  <span><strong>Personal MCP API key</strong> &amp; streamable-HTTP endpoint credentials</span>
+                </div>
+                <div class="mcp-perk-item">
+                  <span class="mcp-perk-check">&check;</span>
+                  <span><strong>Claude Desktop &amp; Cursor IDE</strong> native tool &amp; resource integration</span>
+                </div>
+                <div class="mcp-perk-item">
+                  <span class="mcp-perk-check">&check;</span>
+                  <span><strong>Project-isolated credit ledgers</strong> preventing runaway agent spend</span>
+                </div>
+                <div class="mcp-perk-item">
+                  <span class="mcp-perk-check">&check;</span>
+                  <span><strong>All {totalFamilies} model families ({totalModels}+ engines)</strong> callable from one MCP tool</span>
+                </div>
+                <div class="mcp-perk-item">
+                  <span class="mcp-perk-check">&check;</span>
+                  <span><strong>Free team collaborator seats</strong> with per-member credit budget caps</span>
+                </div>
+                <div class="mcp-perk-item">
+                  <span class="mcp-perk-check">&check;</span>
+                  <span><strong>Direct engineering onboarding</strong> with the 10zebra team</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="mcp-plan-gate-right">
+              <div class="mcp-plan-box">
+                <span class="mcp-plan-kicker">10zebra Partner Program</span>
+                <div class="mcp-plan-price">
+                  <span class="mcp-price-val">Partner</span>
+                </div>
+                <p class="mcp-plan-save">Building an AI agent workflow, studio pipeline, or creative integration? Request MCP credentials below.</p>
+                <a href={mcpPartnerConfig.mailtoUrl} class="btn btn-primary btn-full btn-lg">
+                  {mcpPartnerConfig.ctaLabel} &rarr;
+                </a>
+                <a href="/signup/index.html" class="mcp-plan-link">
+                  Or start free in the web studio (200 credits) &rarr;
+                </a>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </section>
 
@@ -665,10 +758,16 @@ const jsonLd = {
     <section id="quickstart" class="section mcp-setup-section">
       <div class="wrap">
         <div class="mcp-section-header">
-          <span class="mcp-eyebrow">Developer Setup &bull; Director Plan</span>
+          <span class="mcp-eyebrow">
+            {showSubscriptions ? 'Developer Setup \u2022 Director Plan' : 'Developer Setup \u2022 Partner Program'}
+          </span>
           <h2 class="mcp-section-title">Connect 10zebra MCP to Your Client in 3 Steps</h2>
           <p class="mcp-section-sub">
-            Copy the configuration block for your preferred assistant environment. Your <code>MCP_KEY</code> is available in your 10zebra Director account settings.
+            {showSubscriptions ? (
+              <>Copy the configuration block for your preferred assistant environment. Your <code>MCP_KEY</code> is available in your 10zebra Director account settings.</>
+            ) : (
+              <>Copy the configuration block for your preferred assistant environment once your <code>MCP_KEY</code> is provisioned via the <a href={mcpPartnerConfig.mailtoUrl} style="color:var(--accent); text-decoration:underline;">10zebra Partner Program</a>.</>
+            )}
           </p>
         </div>
 
@@ -761,16 +860,29 @@ python server.py
         <div class="mcp-faq-list">
           <details class="glass mcp-faq-item" open>
             <summary class="mcp-faq-item__q">
-              <span>Which plan is required for the Model Context Protocol (MCP) server?</span>
+              <span>{showSubscriptions ? 'Which plan is required for the Model Context Protocol (MCP) server?' : 'How do I get access to the Model Context Protocol (MCP) server?'}</span>
               <span class="mcp-faq-arrow">&darr;</span>
             </summary>
             <div class="mcp-faq-item__a">
-              <p>
-                Access to the 10zebra MCP server requires an active <strong>Director plan</strong> ($79/mo) or higher.
-              </p>
-              <p>
-                Because autonomous LLM agents can dispatch parallel renders and restructure multi-scene projects in seconds, the Director plan includes dedicated high-throughput cloud queues, 3,500 monthly credits, 30% discount on credit top-ups, and project-isolated budget controls so your agents never exceed their authorized spend.
-              </p>
+              {showSubscriptions ? (
+                <>
+                  <p>
+                    Access to the 10zebra MCP server requires an active <strong>Director plan</strong> ($79/mo) or higher.
+                  </p>
+                  <p>
+                    Because autonomous LLM agents can dispatch parallel renders and restructure multi-scene projects in seconds, the Director plan includes dedicated high-throughput cloud queues, 3,500 monthly credits, 30% discount on credit top-ups, and project-isolated budget controls so your agents never exceed their authorized spend.
+                  </p>
+                </>
+              ) : (
+                <>
+                  <p>
+                    The 10zebra MCP server is currently restricted to our <strong>Partner Program</strong> for approved agencies, studios, and technical creators.
+                  </p>
+                  <p>
+                    Because autonomous LLM agents can dispatch parallel renders and restructure multi-scene projects in seconds, we provision dedicated MCP API keys with project-isolated credit vaults. <a href={mcpPartnerConfig.mailtoUrl} style="color:var(--accent); font-weight:600; text-decoration:underline;">Request Partner Program access via email ({mcpPartnerConfig.email})</a> to receive your credentials.
+                  </p>
+                </>
+              )}
             </div>
           </details>
 
@@ -836,10 +948,12 @@ python server.py
     -------------------------------------------------------------- */}
     <FinalCTA
       title="Ready to Orchestrate AI Video with Claude &amp; Cursor?"
-      subtitle="Subscribe to the Director plan ($79/mo) to unlock your MCP credentials, 3,500 monthly production credits, and 30% off all top-up packs."
-      primaryBtnText="Get Started on Director Plan"
-      primaryBtnHref="/signup?plan=director"
-      secondaryBtnText="Compare All Plans"
+      subtitle={showSubscriptions
+        ? "Subscribe to the Director plan ($79/mo) to unlock your MCP credentials, 3,500 monthly production credits, and 30% off all top-up packs."
+        : "Apply to the 10zebra MCP Partner Program to receive your dedicated MCP API key and orchestrate multi-model AI video production from Claude, Cursor, or custom agent pipelines."}
+      primaryBtnText={showSubscriptions ? "Get Started on Director Plan" : "Request Partner Program Access"}
+      primaryBtnHref={showSubscriptions ? "/signup?plan=director" : mcpPartnerConfig.mailtoUrl}
+      secondaryBtnText={showSubscriptions ? "Compare All Plans" : "Explore Pay-As-You-Go Pricing"}
       secondaryBtnHref="/pricing"
     />
   </main>

@@ -1,9 +1,15 @@
 ---
 import FeatureLandingLayout from "/src/layouts/FeatureLandingLayout.astro";
 import ProjectBudgetMockup from "/src/components/features/ProjectBudgetMockup.astro";
+import { featureGates } from "/src/data/config";
+const showSubscriptions = featureGates.subscriptions;
 
 const stats = [
-  { value: "Project Seats", label: "Scoped Roles", detail: "Invite by production, not whole app" },
+  {
+    value: showSubscriptions ? "2 to ∞" : "$0 / Seat",
+    label: showSubscriptions ? "Project Seats" : "Free Collaborators",
+    detail: showSubscriptions ? "Maker: 2 seats/project · Director: Unlimited" : "Invite collaborators at no seat cost"
+  },
   { value: "Zero Bleed", label: "Credit Shield", detail: "No rogue teammate drain across clients" },
   { value: "Free Viewers", label: "Client Review Seats", detail: "Review & approve without paid licenses" },
   { value: "100%", label: "Audit Log Transparency", detail: "Complete model & cost ledger per shot" }
@@ -18,8 +24,10 @@ const workflowSteps = [
   },
   {
     step: "Step 02",
-    title: "Invite Teammates with Custom Roles",
-    description: "Grant Director, Editor, or free Client Viewer access. Teammates only see the project they are assigned to.",
+    title: showSubscriptions ? "Invite Teammates (Maker 2 / Director Unlimited)" : "Invite Teammates at No Seat Cost",
+    description: showSubscriptions
+      ? "Grant Director, Editor, or free Client Viewer access (2 team seats/project on Maker, unlimited on Director). Teammates only see the project they are assigned to."
+      : "Grant Director, Editor, or free Client Viewer access at no seat cost. Teammates only see the project they are assigned to.",
     tag: "Permissions"
   },
   {
@@ -32,10 +40,16 @@ const workflowSteps = [
 
 const features = [
   {
-    title: "Project-Level Seats: True Client & Contractor Isolation",
-    description: "Never expose your entire studio's projects or finances to external collaborators. Invite editors, freelancers, and clients to specific projects only:",
+    title: showSubscriptions
+      ? "Project-Level Seats: Maker (2 Seats) & Director (Unlimited)"
+      : "No-Cost Team Collaborator Seats: True Client & Contractor Isolation",
+    description: showSubscriptions
+      ? "Never expose your entire studio's projects or finances to external collaborators. Maker includes 2 team seats per project and Director unlocks unlimited team seats per project:"
+      : "Never expose your entire studio's projects or finances to external collaborators. Invite editors, freelancers, and clients to specific projects at no seat cost:",
     bullets: [
-      "<strong>No app-wide seat lock-in:</strong> Avoid paying $35–$100/mo app licenses for contractors who only work on a single sequence.",
+      showSubscriptions
+        ? "<strong>Tiered project seat capacity:</strong> Maker includes 2 team seats per project and Director includes unlimited team seats per project — avoiding $35–$100/mo per-user app licenses."
+        : "<strong>Team collaborators at no cost ($0/seat):</strong> Avoid paying $35–$100/mo app licenses for co-directors or contractors — invite collaborators for free and only fund shared generation credits.",
       "<strong>Free client review seats:</strong> Invite brand clients as Viewers to inspect takes, scrub animatics, and approve cuts at $0 spend.",
       "<strong>Agency multi-client security:</strong> Keep client accounts, references, and takes strictly cordoned off under client NDAs."
     ],
@@ -56,7 +70,9 @@ const features = [
 const comparisonItems = [
   {
     feature: "Seat Architecture",
-    zebra: "Project-level seats: invite collaborators & clients per project",
+    zebra: showSubscriptions
+      ? "Project-level seats: Maker includes 2 seats/project, Director includes unlimited seats/project"
+      : "Project-level seats: invite collaborators & clients per project at no seat cost ($0/seat)",
     competitor: "App-wide seats only ($35+/user) with full account visibility",
     zebraAdvantage: true
   },

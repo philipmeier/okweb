@@ -1,6 +1,10 @@
 ---
 import FeatureLandingLayout from "/src/layouts/FeatureLandingLayout.astro";
+import PlaceholderPage from "/src/layouts/PlaceholderPage.astro";
 import AgenticWorkflowsMockup from "/src/components/features/AgenticWorkflowsMockup.astro";
+import { featureGates } from "/src/data/config";
+const showAgenticWorkflows = featureGates.agenticWorkflows;
+const showFailedGenProtection = featureGates.failedGenerationProtection;
 
 const stats = [
   { value: "Agent Z", label: "10zebra Production Agent", detail: "Built-in storyboard & batch orchestrator" },
@@ -55,11 +59,13 @@ const features = [
     tag: "Dry Run Shield"
   },
   {
-    title: "Non-Destructive Versioning & Self-Serve Failure Recovery",
+    title: "Non-Destructive Versioning & Audit Trail",
     description: "High-volume batch production requires studio-grade safety nets for both your creative cuts and your credit budget:",
     bullets: [
       "<strong>Non-destructive take stacking:</strong> Every batch replace, convert, regen, or upscale is saved as a new versioned take alongside your original clip so you can A/B compare or revert anytime.",
-      "<strong>1-Click Refund or Retry on failed takes:</strong> If any job in a batch fails, a button appears directly on the failed generation (immediately after a direct model error, or after 30 minutes if a job fails silently) letting you choose a <strong>90% credit refund</strong> or a <strong>free regen</strong>.",
+      ...(showFailedGenProtection
+        ? ["<strong>1-Click Refund or Retry on failed takes:</strong> If any job in a batch fails, a button appears directly on the failed generation letting you choose a <strong>90% credit refund</strong> or a <strong>free regen</strong>."]
+        : []),
       "<strong>Full audit trail:</strong> Every Agent Z batch plan, credit deduction, seed, and model choice is permanently logged in the project ledger."
     ],
     tag: "Studio Safety"
@@ -85,12 +91,16 @@ const comparisonItems = [
     competitor: "Opaque background loops that burn through credits without prior sign-off",
     zebraAdvantage: true
   },
-  {
-    feature: "Failed Generation Recovery",
-    zebra: "Self-serve button on failed jobs for 90% credit refund or free regen",
-    competitor: "Lost credits on silent timeouts or lengthy support ticket queues",
-    zebraAdvantage: true
-  }
+  ...(showFailedGenProtection
+    ? [
+        {
+          feature: "Failed Generation Recovery",
+          zebra: "Self-serve button on failed jobs for 90% credit refund or free regen",
+          competitor: "Lost credits on silent timeouts or lengthy support ticket queues",
+          zebraAdvantage: true
+        }
+      ]
+    : [])
 ];
 
 const faqs = [
@@ -106,10 +116,14 @@ const faqs = [
     question: "How does 'batch replace characters' work inside Agentic Workflows?",
     answer: "Select the scenes or takes where a character appears, provide a single target reference portrait, and ask Agent Z to batch replace the character. Agent Z maps out every matching take in a Dry Run plan, shows the total credit cost (15 credits per take), and once approved, replaces the character across all selected shots in parallel while preserving 100% of the original camera motion, acting, and lighting."
   },
-  {
-    question: "What happens if a generation inside a batch fails or times out?",
-    answer: "You are protected on every take. If any generation fails, a button appears directly on the failed generation card &mdash; immediately when we receive a direct error from the model, or after 30 minutes if a job fails silently. You can click to choose either a <strong>90% credit refund</strong> or a <strong>free regen (retry)</strong>. (The refund is 90% to cover our baseline system and infrastructure costs, as most failures result from upstream Model terms violations rather than any issue with the 10zebra platform.)"
-  }
+  ...(showFailedGenProtection
+    ? [
+        {
+          question: "What happens if a generation inside a batch fails or times out?",
+          answer: "You are protected on every take. If any generation fails, a button appears directly on the failed generation card &mdash; immediately when we receive a direct error from the model, or after 30 minutes if a job fails silently. You can click to choose either a <strong>90% credit refund</strong> or a <strong>free regen (retry)</strong>."
+        }
+      ]
+    : [])
 ];
 
 const relatedFeatures = [
@@ -134,23 +148,31 @@ const relatedFeatures = [
 ];
 ---
 
-<FeatureLandingLayout
-  title="Agentic Workflows with Agent Z | Batch AI Video & Dry Run Analysis | 10zebra"
-  description="Meet Agent Z, the 10zebra production agent. Work in batches — batch create, batch convert, batch replace characters, batch regen, and batch upscale — with Dry Run analysis that creates a plan, shows credit costs, and requests approval."
-  eyebrow="AGENTIC WORKFLOWS · AGENT Z"
-  headline="Agentic Workflows with Agent Z:"
-  headlineHighlight="Work in Batches. Approve Every Credit First."
-  subheadline="Direct across dozens of shots at once with Agent Z, the 10zebra agent. Batch create, batch convert, batch replace characters, batch regen, and batch upscale — backed by a Dry Run analysis that creates a full execution plan, shows exact credit costs, and requests your approval before spending a single credit."
-  badgeText="Agent Z · Batch Pipeline & Dry Run"
-  stats={stats}
-  workflowSteps={workflowSteps}
-  features={features}
-  comparisonItems={comparisonItems}
-  faqs={faqs}
-  relatedFeatures={relatedFeatures}
->
-  <div slot="hero-visual">
-    <AgenticWorkflowsMockup />
-  </div>
-</FeatureLandingLayout>
+{showAgenticWorkflows ? (
+  <FeatureLandingLayout
+    title="Agentic Workflows with Agent Z | Batch AI Video & Dry Run Analysis | 10zebra"
+    description="Meet Agent Z, the 10zebra production agent. Work in batches — batch create, batch convert, batch replace characters, batch regen, and batch upscale — with Dry Run analysis that creates a plan, shows credit costs, and requests approval."
+    eyebrow="AGENTIC WORKFLOWS · AGENT Z"
+    headline="Agentic Workflows with Agent Z:"
+    headlineHighlight="Work in Batches. Approve Every Credit First."
+    subheadline="Direct across dozens of shots at once with Agent Z, the 10zebra agent. Batch create, batch convert, batch replace characters, batch regen, and batch upscale — backed by a Dry Run analysis that creates a full execution plan, shows exact credit costs, and requests your approval before spending a single credit."
+    badgeText="Agent Z · Batch Pipeline & Dry Run"
+    stats={stats}
+    workflowSteps={workflowSteps}
+    features={features}
+    comparisonItems={comparisonItems}
+    faqs={faqs}
+    relatedFeatures={relatedFeatures}
+  >
+    <div slot="hero-visual">
+      <AgenticWorkflowsMockup />
+    </div>
+  </FeatureLandingLayout>
+) : (
+  <PlaceholderPage
+    title="Agentic Workflows"
+    label="Coming Soon"
+    description="Multi-shot batch orchestration and Dry Run cost-approval workflows are currently in development. Explore Hybrid Production and Quick Start Tools in the meantime."
+  />
+)}
 

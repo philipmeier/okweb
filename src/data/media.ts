@@ -71,6 +71,9 @@ import featTeam from '/src/assets/media/features/team-1970s.jpg';
 import featProduce from '/src/assets/media/features/produce-export-1970s.jpg';
 import featAgentic from '/src/assets/media/features/agentic-workflows-1970s.jpg';
 import featReferral from '/src/assets/media/features/referral-program-1970s.jpg';
+import featHybridProduction from '/src/assets/media/features/hybrid-production-1970s.jpg';
+import featHybridLivePlate from '/src/assets/media/features/hybrid-live-plate-1970s.jpg';
+import featHybridStylizedTake from '/src/assets/media/features/hybrid-stylized-take-1970s.jpg';
 
 import featCharacterSwapVideo from '/src/assets/media/features/character-swap.mp4';
 import featMultiReferenceVideo from '/src/assets/media/features/multi-reference.mp4';
@@ -81,6 +84,7 @@ import featTeamVideo from '/src/assets/media/features/team.mp4';
 import featProduceVideo from '/src/assets/media/features/produce-export.mp4';
 import featAgenticVideo from '/src/assets/media/features/agentic-workflows.mp4';
 import featReferralVideo from '/src/assets/media/features/referral-program.mp4';
+import featHybridProductionVideo from '/src/assets/media/features/hybrid-production.mp4';
 
 // Section-specific 1970s photochemical banners
 import sectionModelsTeal from '/src/assets/media/section-models-teal-1970s.jpg';
@@ -345,6 +349,27 @@ export const media = {
     video: featReferralVideo,
     alt: '1970s dichromatic split-tone shot of two endurance racing team principals shaking hands across the pit wall and exchanging a brass VIP pass',
     brief: '16:9 loop, 5s, Dichromatic Split-Tone (Burnt Amber & Prussian Cyan). Two team principals exchanging an embossed brass paddock pass across the pit wall.',
+  }),
+  featHybridProduction: slot({
+    id: 'feat-hybrid-production',
+    image: featHybridProduction,
+    video: featHybridProductionVideo,
+    alt: '1970s dichromatic split-tone frame combining a live-action 35mm Panavision soundstage cockpit plate on the left with an AI-transformed night endurance race starring Elena Vance on the right',
+    brief: '16:9 loop, 5s, Dichromatic Split-Tone (Burnt Amber & Prussian Cyan). Hybrid Production split-screen transforming a live-action actor plate into an AI-restyled Le Mans night race.',
+  }),
+  featHybridLivePlate: slot({
+    id: 'feat-hybrid-live-plate',
+    image: featHybridLivePlate,
+    video: filmPlatesVideo,
+    alt: '1970s behind-the-scenes live-action film plate of an actor inside a stationary race car cockpit buck with a 35mm Panavision camera rig in a Prussian-cyan studio',
+    brief: '16:9 still/loop, Dichromatic Split-Tone (Prussian Cyan studio plate). Raw live-action source plate before AI transformation.',
+  }),
+  featHybridStylizedTake: slot({
+    id: 'feat-hybrid-stylized-take',
+    image: featHybridStylizedTake,
+    video: featCharacterSwapVideo,
+    alt: '1970s dichromatic split-tone AI-transformed output showing Lead Driver Elena Vance racing the #10 prototype through rain spray under burnt-amber floodlights',
+    brief: '16:9 still/loop, Dichromatic Split-Tone (Burnt Amber & Prussian Cyan). AI-restyled and character-swapped hybrid output take.',
   }),
 
   /* ---------- Section-Specific Photochemical Accent Plates ---------- */

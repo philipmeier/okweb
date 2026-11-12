@@ -11,6 +11,7 @@
 import { media, type MediaSlot } from './media';
 import type { FeatureKey } from './features';
 import { totalFamilies } from './models';
+import { featureGates } from './config';
 
 export interface Solution {
   slug: string;
@@ -143,17 +144,26 @@ export const solutions: Solution[] = [
       {
         tag: 'Character Swap',
         title: 'Lock cast & sets',
-        body: 'Anchor characters and environments to references. Recast across every take at once with Agent Z.',
+        body: featureGates.agenticWorkflows
+          ? 'Anchor characters and environments to references. Recast across every take at once with Agent Z.'
+          : 'Anchor characters and environments to references. Swap talent across AI takes or live-action plates.',
         media: media.filmCast,
       },
       {
-        tag: 'Hybrid Projects',
-        title: 'Cut in real plates',
-        body: 'Upload location footage, mix it with AI takes, and trim the sequence shot by shot.',
+        tag: 'Hybrid Production',
+        title: 'Cut in & restyle real plates',
+        body: 'Upload live-action footage and real actors, transform shots with AI visuals or styles, and cut beside AI takes.',
         media: media.filmPlates,
       },
     ],
-    features: ['textToSequence', 'characterSwap', 'agenticWorkflows', 'collaborativeStoryboard', 'modelComparison'],
+    features: [
+      'textToSequence',
+      'hybridProduction',
+      'characterSwap',
+      ...(featureGates.agenticWorkflows ? (['agenticWorkflows'] as FeatureKey[]) : []),
+      'collaborativeStoryboard',
+      'modelComparison',
+    ],
     // PLACEHOLDER stats (first and last reflect product facts)
     stats: [
       { value: '3–30', label: 'shots from a single scene' },
@@ -198,15 +208,28 @@ export const solutions: Solution[] = [
     pageTitle: 'AI Video Production for Agencies',
     need: 'Isolate clients with project seats & budgets',
     headline: 'Every client gets its own seats & budget.',
-    summary: 'Project-level seats and credit vaults keep client work cordoned, teams managed, and budgets strictly isolated.',
-    heroSub: 'Run every client in its own project with project-level seats, isolated credit vaults, and free client viewers — zero cross-client bleed and no expensive app-wide seat lock-in.',
-    chips: ['Project-level seats', 'Isolated credit vaults', 'Free client viewers'],
+    summary: featureGates.subscriptions
+      ? 'Project-level seats (2 on Maker, unlimited on Director) and credit vaults keep client work cordoned and budgets strictly isolated.'
+      : 'Add team collaborators at no cost with project-level seats and isolated credit vaults that keep client work strictly cordoned.',
+    heroSub: featureGates.subscriptions
+      ? 'Run every client in its own project with project-level seats (2 on Maker, unlimited on Director), isolated credit vaults, and free client viewers — zero cross-client bleed.'
+      : 'Run every client in its own project with no-cost collaborator seats, isolated credit vaults, and free client viewers — zero cross-client bleed and no per-seat fees.',
+    chips: [
+      featureGates.subscriptions ? 'Project-level seats' : 'Free collaborator seats',
+      'Isolated credit vaults',
+      'Free client viewers',
+    ],
     cta: 'See how agencies use 10zebra',
     accent: '#38bdf8',
     media: media.personaAgencies,
     pains: [
       { before: 'One shared credit pool for every client', after: 'Separate budgets per project, no bleed' },
-      { before: 'Paying expensive app-wide seats for contractors', after: 'Project-level seats: invite freelancers & clients per project' },
+      {
+        before: 'Paying expensive app-wide seats for contractors',
+        after: featureGates.subscriptions
+          ? 'Project-level seats: 2 on Maker, unlimited on Director'
+          : 'Collaborators at no cost: invite freelancers & clients free',
+      },
       { before: 'No idea who spent what, on which model', after: 'Every generation logged with user, model, and cost' },
     ],
     workflow: [
@@ -219,7 +242,9 @@ export const solutions: Solution[] = [
       {
         tag: 'Project Seats',
         title: 'Invite project-level team & clients',
-        body: 'Invite creatives, freelance specialists, and brand clients as free Viewers. Client work stays strictly cordoned.',
+        body: featureGates.subscriptions
+          ? 'Invite creatives (2 seats on Maker, unlimited on Director) and brand clients as free Viewers.'
+          : 'Invite creatives and freelance specialists at no cost, plus brand clients as free Viewers.',
         media: media.agencyTech,
       },
       {
@@ -229,11 +254,21 @@ export const solutions: Solution[] = [
         media: media.agencyFashion,
       },
     ],
-    features: ['projectBudgets', 'teamManagement', 'agenticWorkflows', 'collaborativeStoryboard', 'publishYouTube'],
+    features: [
+      'projectBudgets',
+      'teamManagement',
+      'hybridProduction',
+      ...(featureGates.agenticWorkflows ? (['agenticWorkflows'] as FeatureKey[]) : []),
+      'collaborativeStoryboard',
+      'publishYouTube',
+    ],
     // PLACEHOLDER stats
     stats: [
       { value: '0', label: 'cross-project budget bleed' },
-      { value: 'Per project', label: 'seats & client viewers' },
+      {
+        value: featureGates.subscriptions ? 'Per project' : '$0 / seat',
+        label: featureGates.subscriptions ? 'seats & client viewers' : 'free team collaborators',
+      },
       { value: '100%', label: 'of generations logged with cost' },
     ],
     // PLACEHOLDER testimonial
@@ -246,11 +281,13 @@ export const solutions: Solution[] = [
     faqs: [
       {
         q: 'Why are project-level seats better for agencies than app-wide seats?',
-        a: 'In competitor apps, you must pay $35–$100/mo for each person across your entire account, and they can see all your client projects. 10zebra scopes seats per project: invite team members, freelance artists, and clients strictly to the campaign they work on. They never see other client work, and clients can join as free Viewers for real-time review and sign-off.',
+        a: featureGates.subscriptions
+          ? 'In competitor apps, you must pay $35–$100/mo for each person across your entire account, and they can see all your client projects. 10zebra scopes seats per project (2 team seats per project on Maker, unlimited on Director): invite team members, freelance artists, and clients strictly to the campaign they work on. They never see other client work, and clients can join as free Viewers.'
+          : 'In competitor apps, you must pay $35–$100/mo for each person across your entire account, and they can see all your client projects. 10zebra scopes seats per project and includes team collaborators at no cost: invite team members, freelance artists, and clients strictly to the campaign they work on without paying per-seat fees.',
       },
       {
         q: 'How do project-level budgets work?',
-        a: 'Each project has its own credit pool. Owners choose whether members draw from project credits first, personal credits, or project credits only.',
+        a: 'Each project has its own credit pool and per-collaborator spend caps. Owners choose whether members draw from project credits first, personal credits, or project credits only.',
       },
       {
         q: 'Can I limit what freelancers can do?',
@@ -261,8 +298,12 @@ export const solutions: Solution[] = [
         a: 'Every generation is logged with who ran it, which model they used, and the credit cost, giving you a complete audit trail per project.',
       },
       {
-        q: 'Is there a plan built for agencies?',
-        a: 'The Director plan ($79/mo) includes 3,500 monthly credits, 30% off top-ups, project-level budget controls, and a shared reference library.',
+        q: featureGates.subscriptions
+          ? 'Is there a plan built for agencies?'
+          : 'Do agencies need a monthly subscription?',
+        a: featureGates.subscriptions
+          ? 'The Director plan ($79/mo) includes 3,500 monthly credits, unlimited team seats per project, 30% off top-ups, project-level budget controls, and a shared reference library.'
+          : 'No subscription is required. Agencies can run on our simple Pay-As-You-Go model with non-expiring credit top-up packs, free team collaborator seats per project, and per-member credit budget caps.',
       },
     ],
     seo: {

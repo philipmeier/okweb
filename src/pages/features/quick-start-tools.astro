@@ -4,38 +4,48 @@ import QuickStartToolsExplorer from "/src/components/features/QuickStartToolsExp
 
 const stats = [
   { value: "6 Engines", label: "Pre-Built Story Tools", detail: "Script, 3-Act, Ad, Locations, Expressions, Grok" },
-  { value: "3 to 30", label: "Shot Fanout Range", detail: "Generate full storyboards in 1 click" },
-  { value: "9:16 & 16:9", label: "Social & Cinema Framing", detail: "Optimized aspect ratio presets" },
-  { value: "100%", label: "Directorial Prompt Logic", detail: "Pre-tuned cinematic syntax & camera rules" }
+  { value: "Dual Mode", label: "New Project or Extend Scene", detail: "Launch from /new or 'Start Workflow' in any scene" },
+  { value: "3 to 30", label: "Shot Fanout Range", detail: "Generate full storyboards or new scenes in 1 click" },
+  { value: "Auto-Sync", label: "Style & Reference Inheritance", detail: "In-scene mode locks project style & RefManager" }
 ];
 
 const workflowSteps = [
   {
     step: "Step 01",
-    title: "Choose Your Story Engine",
-    description: "Select From a Script, Three Acts, Make an Ad, Explore Locations, Explore Expressions, or Grok Social.",
-    tag: "Select Tool"
+    title: "Start a New Project OR Click 'Start Workflow' in Any Scene",
+    description: "Launch any of the 6 tools from a blank canvas to build a new storyboard, OR click 'Start Workflow' right beside 'Add Scene' inside an existing project to extend your story.",
+    tag: "New or In-Scene"
   },
   {
     step: "Step 02",
-    title: "Input Core Narrative Parameters",
-    description: "Paste a script segment, describe an ad concept, or upload a character portrait. Select desired shot multiplier (up to 30 shots).",
-    tag: "Narrative Input"
+    title: "Inherit Project Style & Select Reference Takes",
+    description: "When extending an existing scene, the tool automatically inherits your project's active Visual Style and Aspect Ratio (16:9 or 9:16) and opens your Reference Manager to pick existing character or location takes.",
+    tag: "Context-Aware"
   },
   {
     step: "Step 03",
-    title: "Directorial Prompts & Takes Generated",
-    description: "10zebra's system prompts structure Hollywood-grade cinematic variables (lighting, grade, camera type, motion, coverage) and queue all takes.",
+    title: "Generate Storyboard or Insert New Scene Immediately",
+    description: "10zebra's directorial prompts structure camera rules, lighting, and coverage—either creating a brand-new storyboard or inserting a freshly populated scene right after your active scene.",
     tag: "Storyboard Ready"
   }
 ];
 
 const features = [
   {
-    title: "From a Script: 3 to 30 Cohesive Shots From One Prompt",
-    description: "Drop in your raw script, screenplay, or story outline. Select your target shot count &mdash; 3, 5, 10, 20, or up to 30 shots. 10zebra automatically extracts dramatic beats and queues a complete visual storyboard.",
+    title: "Dual-Context Workflow: Launch New Projects or Extend Any Scene",
+    description: "Quick Start tools aren't just for blank canvases. Every scene on your 10zebra storyboard includes a 'Start Workflow' button right next to 'Add Scene' so you can expand your story at any moment.",
     bullets: [
-      "<strong>Configurable density:</strong> Generate a quick 3-shot teaser or a full 30-shot scene from one single paste.",
+      "<strong>Automatic style &amp; format lock:</strong> Launching a tool inside an existing project automatically applies your project's active Visual Style and vertical/horizontal format.",
+      "<strong>Built-in Reference Manager (RefManager):</strong> Instead of re-uploading files from disk, pick any existing character portrait or shot take from your project library as the visual anchor.",
+      "<strong>Seamless scene insertion:</strong> Clicking 'Generate Workflow' inserts a brand-new scene immediately after the current scene and populates it with your generated shots."
+    ],
+    tag: "Start + Extend"
+  },
+  {
+    title: "From a Script: 3 to 30 Cohesive Shots From One Prompt",
+    description: "Drop in your raw script, screenplay, or story outline. Select your target shot count &mdash; 3, 5, 10, 20, or up to 30 shots. 10zebra automatically extracts dramatic beats and queues a complete visual storyboard or new scene.",
+    bullets: [
+      "<strong>Configurable density:</strong> Generate a quick 3-shot scene extension or a full 30-shot storyboard from one single paste.",
       "<strong>Dramatic pacing:</strong> Begins with an attention-grabbing hook shot and sequences subsequent actions logically.",
       "<strong>Parallel generation:</strong> All shots generate in parallel across your preferred AI video engines."
     ],
@@ -47,7 +57,7 @@ const features = [
     bullets: [
       "<strong>Constant world rules:</strong> Visual taste, lighting, camera type, narrative tone, time of day, and weather are held strictly constant.",
       "<strong>Pacing rule:</strong> System prompt embeds 'Edit: fast paced cuts that advance the narrative' to guarantee momentum.",
-      "<strong>Perfect for pitch reels:</strong> Turn story concepts into complete 3-beat visual treatments in under 60 seconds."
+      "<strong>Perfect for pitch reels &amp; subplots:</strong> Turn story concepts into complete 3-beat visual treatments or insert a 3-beat sequence mid-project."
     ],
     tag: "Dramatic Structure"
   },
@@ -67,37 +77,33 @@ const features = [
     bullets: [
       "<strong>Native 9:16 vertical composition:</strong> Zero cropping or pillar-boxing artifacts.",
       "<strong>Mobile camera movement:</strong> Dynamic push-ins, pans, and handheld energy typical of viral social content.",
-      "<strong>Dialogue & closeups:</strong> Snappy character closeups with dialogue prompts that hook viewers before they swipe."
+      "<strong>Dialogue &amp; closeups:</strong> Snappy character closeups with dialogue prompts that hook viewers before they swipe."
     ],
     tag: "Social 9:16"
   },
   {
-    title: "Explore Locations: Environment Bibles Without Character Drift",
-    description: "Build a rich location library for your film or commercial without characters cluttering the background.",
+    title: "Explore Locations & Explore Expressions: Build Your Visual Bible In-Project",
+    description: "Need new b-roll angles of your set or emotional reaction shots for your lead actor mid-edit? Run Explore Locations or Explore Expressions directly inside your storyboard.",
     bullets: [
-      "<strong>Character stripping:</strong> Prompts are sanitized to remove all human descriptions, focusing purely on architecture and nature.",
-      "<strong>Varied shot coverage:</strong> Generates wide establishing views, medium architectural perspectives, and novel angles (aerial, ground, dutch tilt).",
-      "<strong>Reference consistency:</strong> Use generated environments to anchor future scene backgrounds."
+      "<strong>Explore Locations (Environment-only):</strong> Sanitizes prompts to remove human descriptions, generating 3, 5, or 10 wide, medium, and novel architectural angles.",
+      "<strong>Explore Expressions (Acting spectrum):</strong> Anchors to your character reference to generate 3, 5, or 10 subtle micro-expressions, conflicted reactions, and closeups.",
+      "<strong>Instant scene coverage:</strong> Drop a new location or expression scene right into your active project and pull the best takes onto your timeline."
     ],
-    tag: "Environments"
-  },
-  {
-    title: "Explore Expressions: Emotional Spectrum with Face Lock",
-    description: "Direct your AI actor through complex emotional beats while keeping their face 100% consistent.",
-    bullets: [
-      "<strong>Reference anchored:</strong> Upload a character portrait to lock facial identity across all variations.",
-      "<strong>Subtle emotional nuance:</strong> Explore micro-expressions where posture or gaze subtly contradicts overt emotions.",
-      "<strong>Camera angle consistency:</strong> Generates matching closeups and medium shots across the entire emotional arc."
-    ],
-    tag: "Character Acting"
+    tag: "Coverage & Acting"
   }
 ];
 
 const comparisonItems = [
   {
-    feature: "Prompt Preparation",
-    zebra: "6 pre-built story tools with expert cinematic grammar baked into the system prompts",
-    competitor: "Empty text box; you must manually write 100-word prompt engineering recipes",
+    feature: "Where Workflow Tools Can Run",
+    zebra: "Use all 6 tools both to start a new storyboard from scratch AND to extend any scene inside an active project",
+    competitor: "One-off templates that only work on a blank project and cannot extend existing timelines",
+    zebraAdvantage: true
+  },
+  {
+    feature: "In-Project Style & Reference Continuity",
+    zebra: "In-scene 'Start Workflow' inherits project Visual Style, Aspect Ratio, and Reference Manager takes automatically",
+    competitor: "Forces you to re-upload references and re-type style prompts for every new scene",
     zebraAdvantage: true
   },
   {
@@ -107,35 +113,29 @@ const comparisonItems = [
     zebraAdvantage: true
   },
   {
-    feature: "Vertical Social Optimization",
-    zebra: "Dedicated 9:16 microdrama engine with mobile camera kinematics and snappy dialogue",
-    competitor: "Only basic aspect ratio toggle without social-tailored pacing or framing",
-    zebraAdvantage: true
-  },
-  {
-    feature: "Environment Isolation",
-    zebra: "Explore Locations automatically removes character descriptions to keep backdrops pure",
-    competitor: "Models frequently insert unwanted random background people and faces",
+    feature: "Environment & Expression Coverage",
+    zebra: "Dedicated Explore Locations and Explore Expressions engines for instant B-roll and reaction coverage",
+    competitor: "Models frequently insert unwanted background faces or lose actor identity on closeups",
     zebraAdvantage: true
   }
 ];
 
 const faqs = [
   {
+    question: "Can I use Quick Start tools inside an existing project, or only when starting a new one?",
+    answer: "Both! You can launch any of the 6 tools from /new to generate a brand-new storyboard from scratch, OR click the 'Start Workflow' button on any scene inside an existing project. When triggered inside a project, the tool automatically inherits your project's visual style and aspect ratio, lets you pick existing character/location takes from your Reference Manager, and inserts the generated shots as a new scene right after your current scene."
+  },
+  {
     question: "How many shots can I generate at once from a script?",
-    answer: "In the 'From a Script' tool, you can select 3, 5, 10, 20, or up to 30 shots from a single script paste. 10zebra decomposes the narrative into sequential beats and renders them concurrently."
+    answer: "In the 'From a Script' tool, you can select 3, 5, 10, 20, or up to 30 shots from a single script paste—whether you are creating a full project from scratch or adding a new scene to an active storyboard."
   },
   {
-    question: "What makes the 'Make an Ad' tool different from standard prompting?",
-    answer: "The 'Make an Ad' tool embeds high-level commercial art direction prompts: holding lighting, camera, time, weather, and grade strictly constant across three narrative scenes, with fast-paced cuts that emphasize product presence and brand vibe."
+    question: "How do I combine Quick Start tools within the same project?",
+    answer: "Start your project with 'From a Script' or 'Three Acts', then click 'Start Workflow' on any scene to run 'Explore Locations' (for establishing B-roll) or 'Explore Expressions' (for emotional closeups of your locked character)—all within the same storyboard."
   },
   {
-    question: "Can I combine quick start tools together?",
-    answer: "Yes! A common workflow is: 1) Generate your setting in Explore Locations, 2) Lock your actor's emotional range in Explore Expressions, and 3) Feed both into 'From a Script' or 'Three Acts' to generate your complete storyboard."
-  },
-  {
-    question: "Do quick start tools cost extra credits?",
-    answer: "No. Quick start tools only consume the standard credits for the video models you choose to generate with (e.g. Kling, Seedance, Grok). The prompt structuring and directorial system prompts are included for free."
+    question: "Do Quick Start and scene extension tools cost extra credits?",
+    answer: "No. Workflow tools only consume the standard credits for the video models you choose to generate with (e.g. Kling, SeeDance, Grok). The prompt structuring and directorial system prompts are included for free."
   }
 ];
 
@@ -162,13 +162,13 @@ const relatedFeatures = [
 ---
 
 <FeatureLandingLayout
-  title="Quick Start Tools | 10zebra Pre-Built AI Video Story Engines"
-  description="Accelerate your production with 6 pre-built quick start tools: From a Script (3-30 shots), Three Acts (60s arc), Make an Ad, Explore Locations, Explore Expressions, and Grok 9:16."
-  eyebrow="PRE-BUILT STORY ENGINES"
+  title="Quick Start & Scene Extension Tools | 10zebra AI Video Story Engines"
+  description="Start a new storyboard OR quickly extend any scene within an existing project using 6 guided tools: From a Script, Three Acts, Make an Ad, Explore Locations, Explore Expressions, and Grok 9:16."
+  eyebrow="START NEW OR EXTEND ANY SCENE"
   headline="Quick Start Tools:"
-  headlineHighlight="From Idea to Storyboard in Seconds."
-  subheadline="Never start from a blank prompt again. Choose from our 6 pre-built quick start tools &mdash; designed around Hollywood cinematic grammar, commercial advertising frameworks, and viral social microdramas."
-  badgeText="6 Pre-Tuned Story Engines"
+  headlineHighlight="Start a Storyboard or Extend Any Scene."
+  subheadline="Use our 6 guided workflow engines both to launch a brand-new project from scratch AND to quickly extend any scene inside an active storyboard—automatically inheriting your project's visual style, aspect ratio, and reference library."
+  badgeText="6 Pre-Tuned Story & Scene Engines"
   stats={stats}
   workflowSteps={workflowSteps}
   features={features}
@@ -180,8 +180,8 @@ const relatedFeatures = [
     <!-- Quick start tools hero teaser -->
     <div class="rounded-xl bg-[#0e1014] border border-[var(--border-subtle)] p-5 text-left">
       <div class="flex items-center justify-between pb-3 border-b border-[var(--border-subtle)] mb-4">
-        <span class="text-xs font-mono uppercase text-[var(--accent)] font-bold">10zebra Pre-Built Engine Suite</span>
-        <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-500/20">6 Tools Active</span>
+        <span class="text-xs font-mono uppercase text-[var(--accent)] font-bold">10zebra Dual-Mode Workflow Suite</span>
+        <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-500/20">New Project + In-Scene</span>
       </div>
 
       <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 mb-4">
@@ -212,7 +212,7 @@ const relatedFeatures = [
       </div>
 
       <div class="text-xs text-[var(--text-secondary)] leading-relaxed bg-[#121418] p-3 rounded-lg border border-white/5">
-        Each engine includes pre-calibrated system prompts with precise cinematography, lens types, lighting conditions, and camera movement syntax.
+        Launch from <code class="text-amber-300 font-mono">/new</code> to build a fresh storyboard, or click <strong class="text-white">"Start Workflow"</strong> on any scene inside a project to insert a new scene right after it using your project's active style and Reference Manager.
       </div>
     </div>
   </div>

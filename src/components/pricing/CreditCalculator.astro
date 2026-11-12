@@ -1,8 +1,11 @@
 ---
 // src/components/pricing/CreditCalculator.astro
+import { featureGates } from "/src/data/config";
+
+const showSubscriptions = featureGates.subscriptions;
 ---
 
-<section class="section py-16" aria-labelledby="calculator-heading">
+<section class="section py-16" aria-labelledby="calculator-heading" data-subscriptions={showSubscriptions ? "true" : "false"} id="credit-calculator-section">
   <div class="wrap">
     <div class="sect-head mb-10 text-center">
       <span class="sect-label">Production Estimator</span>
@@ -10,7 +13,9 @@
         Estimate Your <span class="grad-text">Credit Consumption</span>
       </h2>
       <p class="max-w-xl mx-auto text-[var(--text-secondary)] text-sm md:text-base mt-2">
-        Directing video requires multiple takes. Adjust your estimated shots and model preferences to see how many credits you need and which plan fits your workflow.
+        {showSubscriptions
+          ? "Directing video requires multiple takes. Adjust your estimated shots and model preferences to see how many credits you need and which plan fits your workflow."
+          : "Directing video requires multiple takes. Adjust your estimated shots and model preferences to see how many Pay-As-You-Go credits your project needs."}
       </p>
     </div>
 
@@ -117,24 +122,26 @@
         <!-- Output Column (5 cols) -->
         <div class="lg:col-span-5 flex flex-col justify-center p-6 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-elevated)]/60 relative">
           <div class="text-[0.72rem] uppercase tracking-wider font-bold text-[var(--text-muted)] mb-1">
-            Estimated Monthly Need
+            Estimated Credit Need
           </div>
           <div class="flex items-baseline gap-2 mb-3">
             <span id="calc-credits" class="text-4xl md:text-5xl font-black text-[var(--text-primary)] font-mono tracking-tight">
               1,500
             </span>
-            <span class="text-sm text-[var(--text-muted)] font-medium">credits / mo</span>
+            <span class="text-sm text-[var(--text-muted)] font-medium">credits</span>
           </div>
 
           <div class="p-3.5 rounded-lg bg-[var(--bg-surface)] border border-[var(--border-subtle)] mb-5 space-y-2">
             <div class="flex items-center justify-between text-xs">
               <span class="text-[var(--text-secondary)]">Recommended Setup:</span>
               <span id="calc-plan-badge" class="font-bold text-[var(--accent)] uppercase tracking-wider text-[0.7rem] px-2 py-0.5 rounded bg-[var(--accent-subtle)]">
-                Maker Plan
+                {showSubscriptions ? "Maker Plan" : "Studio Top-Up Pack"}
               </span>
             </div>
             <div class="text-xs text-[var(--text-muted)] leading-relaxed" id="calc-plan-desc">
-              Maker Plan (1,200 credits) + 1 Starter Top-up pack with 15% subscriber discount.
+              {showSubscriptions
+                ? "Maker Plan (1,200 credits) + 1 Starter Top-up pack with 15% subscriber discount."
+                : "Start free with 200 credits + 1 Studio Pack (2,400 non-expiring credits for $50)."}
             </div>
           </div>
 
@@ -149,7 +156,9 @@
             </div>
             <div class="flex justify-between items-center text-xs mt-1">
               <span class="text-[var(--text-primary)] font-semibold">10zebra all-in-one workspace:</span>
-              <span id="calc-cost" class="font-mono font-bold text-emerald-400 text-sm">$29/mo</span>
+              <span id="calc-cost" class="font-mono font-bold text-emerald-400 text-sm">
+                {showSubscriptions ? "$29/mo" : "$35–$50 Pay-As-You-Go"}
+              </span>
             </div>
           </div>
 
@@ -163,6 +172,8 @@
 </section>
 
 <script>
+  const sectionEl = document.getElementById("credit-calculator-section");
+  const showSubscriptions = sectionEl?.getAttribute("data-subscriptions") === "true";
   const shotsSlider = document.getElementById("shots-slider") as HTMLInputElement | null;
   const shotsVal = document.getElementById("shots-val");
   const takesVal = document.getElementById("takes-val");
@@ -212,9 +223,53 @@
   function recalculate() {
     if (!shotsSlider || !calcCredits) return;
     const shots = parseInt(shotsSlider.value, 10);
-    // Rough calculation: shots * takes * baseMultiplier
     const totalCredits = shots * takeMultiplier * baseMultiplier;
     calcCredits.textContent = totalCredits.toLocaleString();
+
+    if (!showSubscriptions) {
+      if (totalCredits <= 400) {
+        if (calcPlanBadge) calcPlanBadge.textContent = "Starter Pack ($10)";
+        if (calcPlanDesc) calcPlanDesc.textContent = "Start with 200 free signup credits + 1 Starter Pack (400 non-expiring credits). No subscription needed.";
+        if (calcCost) calcCost.textContent = "$10 One-Time";
+        if (calcCta) {
+          calcCta.textContent = "Start Free with 200 Credits";
+          calcCta.setAttribute("href", "/signup/index.html");
+        }
+      } else if (totalCredits <= 1100) {
+        if (calcPlanBadge) calcPlanBadge.textContent = "Pro Pack ($25)";
+        if (calcPlanDesc) calcPlanDesc.textContent = "1,100 non-expiring credits ($0.0227/cr) + 200 free signup credits. Includes free project collaborator seats.";
+        if (calcCost) calcCost.textContent = "$25 Pay-As-You-Go";
+        if (calcCta) {
+          calcCta.textContent = "Start Free — Top Up Anytime";
+          calcCta.setAttribute("href", "/signup/index.html");
+        }
+      } else if (totalCredits <= 2400) {
+        if (calcPlanBadge) calcPlanBadge.textContent = "Studio Pack ($50)";
+        if (calcPlanDesc) calcPlanDesc.textContent = "2,400 non-expiring credits ($0.0208/cr). Zero monthly commitment and free team collaborator seats.";
+        if (calcCost) calcCost.textContent = "$50 Pay-As-You-Go";
+        if (calcCta) {
+          calcCta.textContent = "Start Free — Top Up Anytime";
+          calcCta.setAttribute("href", "/signup/index.html");
+        }
+      } else if (totalCredits <= 5000) {
+        if (calcPlanBadge) calcPlanBadge.textContent = "Volume Pack ($100)";
+        if (calcPlanDesc) calcPlanDesc.textContent = "5,000 non-expiring credits ($0.020/cr) for full campaign & multi-seat studio productions.";
+        if (calcCost) calcCost.textContent = "$100 Pay-As-You-Go";
+        if (calcCta) {
+          calcCta.textContent = "Start Free — Top Up Anytime";
+          calcCta.setAttribute("href", "/signup/index.html");
+        }
+      } else {
+        if (calcPlanBadge) calcPlanBadge.textContent = "Multi-Pack / Custom Volume";
+        if (calcPlanDesc) calcPlanDesc.textContent = "Combine non-expiring $100 Volume Packs (5,000 credits each) or contact us for custom enterprise credit pools.";
+        if (calcCost) calcCost.textContent = "Custom Volume";
+        if (calcCta) {
+          calcCta.textContent = "Contact Production Sales";
+          calcCta.setAttribute("href", "mailto:sales@10zebra.com?subject=High-Volume%20Inquiry");
+        }
+      }
+      return;
+    }
 
     if (totalCredits <= 300) {
       if (calcPlanBadge) calcPlanBadge.textContent = "Pay-As-You-Go";
@@ -222,23 +277,23 @@
       if (calcCost) calcCost.textContent = "$0/mo + top-ups";
       if (calcCta) {
         calcCta.textContent = "Start Free with 200 Credits";
-        calcCta.setAttribute("href", "/signup");
+        calcCta.setAttribute("href", "/signup/index.html");
       }
     } else if (totalCredits <= 1500) {
       if (calcPlanBadge) calcPlanBadge.textContent = "Maker Plan";
-      if (calcPlanDesc) calcPlanDesc.textContent = "Maker ($29/mo) gives you 1,200 credits/mo, priority queues, plus a 15% discount on any extra top-ups.";
+      if (calcPlanDesc) calcPlanDesc.textContent = "Maker ($29/mo) gives you 1,200 credits/mo, 2 team seats per project, plus a 15% discount on any extra top-ups.";
       if (calcCost) calcCost.textContent = "$29/mo";
       if (calcCta) {
         calcCta.textContent = "Start Maker Plan";
-        calcCta.setAttribute("href", "/signup?plan=maker");
+        calcCta.setAttribute("href", "/signup/index.html?plan=maker");
       }
     } else if (totalCredits <= 4500) {
       if (calcPlanBadge) calcPlanBadge.textContent = "Director Plan";
-      if (calcPlanDesc) calcPlanDesc.textContent = "Director ($79/mo) covers 3,500 credits/mo, project budget controls, shared team pools, and 30% off all top-ups.";
+      if (calcPlanDesc) calcPlanDesc.textContent = "Director ($79/mo) covers 3,500 credits/mo, unlimited team seats per project, budget controls, and 30% off all top-ups.";
       if (calcCost) calcCost.textContent = "$79/mo";
       if (calcCta) {
         calcCta.textContent = "Start Director Plan";
-        calcCta.setAttribute("href", "/signup?plan=director");
+        calcCta.setAttribute("href", "/signup/index.html?plan=director");
       }
     } else {
       if (calcPlanBadge) calcPlanBadge.textContent = "Studio / Custom Volume";

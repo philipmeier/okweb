@@ -4,6 +4,7 @@ import refPortraitImg from '/src/assets/media/character-reference-1970s.jpg';
 import swappedTakeImg from '/src/assets/media/features/character-swap-1970s.jpg';
 import sourceTakeVideo from '/src/assets/media/solutions/film-cast.mp4';
 import swappedTakeVideo from '/src/assets/media/features/character-swap.mp4';
+import { featureGates } from '../../data/config';
 ---
 
 <div class="character-swap-mockup w-full rounded-xl overflow-hidden bg-[#0e1014] border border-[var(--border-subtle)] shadow-2xl">
@@ -18,7 +19,7 @@ import swappedTakeVideo from '/src/assets/media/features/character-swap.mp4';
     <div class="flex items-center gap-2">
       <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30 flex items-center gap-1.5">
         <span class="w-2 h-2 rounded-full bg-amber-400"></span>
-        Agent Z Ready
+        {featureGates.agenticWorkflows ? 'Agent Z Ready' : 'AI & Live-Action Ready'}
       </span>
     </div>
   </div>
@@ -27,7 +28,7 @@ import swappedTakeVideo from '/src/assets/media/features/character-swap.mp4';
     <!-- Original Video Take -->
     <div class="md:col-span-4 rounded-xl border border-[var(--border-subtle)] bg-[#14161c] p-3 text-left">
       <div class="flex items-center justify-between mb-2">
-        <span class="text-[11px] font-mono uppercase tracking-wider text-[var(--text-muted)]">Source Take (Kling 3.0)</span>
+        <span class="text-[11px] font-mono uppercase tracking-wider text-[var(--text-muted)]">Source Take (AI or Live Plate)</span>
         <span class="text-[10px] px-1.5 py-0.5 rounded bg-white/5 text-[var(--text-secondary)]">Motion Locked</span>
       </div>
       <div class="relative aspect-video rounded-lg overflow-hidden mb-2 bg-black">
@@ -69,12 +70,25 @@ import swappedTakeVideo from '/src/assets/media/features/character-swap.mp4';
           <span>Preserves 100% Motion &amp; Lighting</span>
         </div>
         <div class="p-2 rounded-lg bg-[var(--accent-subtle)] border border-[rgba(249,115,22,0.3)] text-left">
-          <div class="text-[11px] font-bold text-[var(--text-primary)] flex items-center gap-1.5 mb-1">
-            <span class="text-[var(--accent)]">⚡</span> Agent Z Batch Automation:
-          </div>
-          <p class="text-[10px] text-[var(--text-secondary)] leading-tight">
-            Batch replace character across <strong>all 18 selected takes</strong> with Dry Run cost preview.
-          </p>
+          {featureGates.agenticWorkflows ? (
+            <>
+              <div class="text-[11px] font-bold text-[var(--text-primary)] flex items-center gap-1.5 mb-1">
+                <span class="text-[var(--accent)]">⚡</span> Agent Z Batch Automation:
+              </div>
+              <p class="text-[10px] text-[var(--text-secondary)] leading-tight">
+                Batch replace character across <strong>all 18 selected takes</strong> with Dry Run cost preview.
+              </p>
+            </>
+          ) : (
+            <>
+              <div class="text-[11px] font-bold text-[var(--text-primary)] flex items-center gap-1.5 mb-1">
+                <span class="text-[var(--accent)]">🎬</span> Hybrid Production Ready:
+              </div>
+              <p class="text-[10px] text-[var(--text-secondary)] leading-tight">
+                Swap characters onto <strong>AI storyboard takes or uploaded live-action actor footage</strong>.
+              </p>
+            </>
+          )}
         </div>
       </div>
     </div>
@@ -106,14 +120,28 @@ import swappedTakeVideo from '/src/assets/media/features/character-swap.mp4';
     </div>
   </div>
 
-  <!-- Agent Execution Banner -->
+  <!-- Footer Banner -->
   <div class="bg-[#121418] px-4 py-3 border-t border-[var(--border-subtle)] flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
-    <div class="flex items-center gap-2 text-[var(--text-secondary)]">
-      <span class="text-amber-400">★</span>
-      <span><strong>Agent Z Batch Mode:</strong> Agent Z scans your storyboard, builds a Dry Run plan with exact credit costs, and executes parallel re-renders once approved.</span>
-    </div>
-    <span class="px-2.5 py-1 rounded bg-[var(--bg-elevated)] border border-[var(--border-subtle)] text-[var(--text-primary)] font-mono text-[11px] shrink-0">
-      Agent Z: Active
-    </span>
+    {featureGates.agenticWorkflows ? (
+      <>
+        <div class="flex items-center gap-2 text-[var(--text-secondary)]">
+          <span class="text-amber-400">★</span>
+          <span><strong>Agent Z Batch Mode:</strong> Agent Z scans your storyboard, builds a Dry Run plan with exact credit costs, and executes parallel re-renders once approved.</span>
+        </div>
+        <span class="px-2.5 py-1 rounded bg-[var(--bg-elevated)] border border-[var(--border-subtle)] text-[var(--text-primary)] font-mono text-[11px] shrink-0">
+          Agent Z: Active
+        </span>
+      </>
+    ) : (
+      <>
+        <div class="flex items-center gap-2 text-[var(--text-secondary)]">
+          <span class="text-amber-400">★</span>
+          <span><strong>Works on AI Takes &amp; Live Footage:</strong> Drop a character reference onto any generated shot or uploaded camera plate to lock identity without losing camera physics.</span>
+        </div>
+        <span class="px-2.5 py-1 rounded bg-[var(--bg-elevated)] border border-[var(--border-subtle)] text-[var(--text-primary)] font-mono text-[11px] shrink-0">
+          Identity Lock: Active
+        </span>
+      </>
+    )}
   </div>
 </div>

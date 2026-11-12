@@ -1,0 +1,140 @@
+---
+import FeatureLandingLayout from "/src/layouts/FeatureLandingLayout.astro";
+import HybridProductionMockup from "/src/components/features/HybridProductionMockup.astro";
+import { catalog } from "/src/data/models";
+
+const stats = [
+  { value: "Auto-Split", label: "Video Import to Panels", detail: "Every camera cut becomes a storyboard shot" },
+  { value: "vid2vid + Swap", label: "Real Actor Transformation", detail: "Restyle environments or swap talent" },
+  { value: `${catalog.totalFamilies} Families`, label: "AI + Live Intercutting", detail: `Mix camera plates with ${catalog.totalModels}+ AI engines` },
+  { value: "100%", label: "Performance Preserved", detail: "Keep real blocking, timing & lens motion" }
+];
+
+const workflowSteps = [
+  {
+    step: "Step 01",
+    title: "Import Live-Action Video or Camera Plates",
+    description: "Drop in a full live-action edit, smartphone blocking clip, or location plate. 10zebra can automatically detect cuts and split every shot into its own storyboard panel.",
+    tag: "Live Plate Import"
+  },
+  {
+    step: "Step 02",
+    title: "Transform with AI Visuals, Styles, or Character Swap",
+    description: "Use Video-to-Video restyling and Multi-Reference Character Swap to transform a raw garage or soundstage performance into any cinematic world while keeping the actor's real timing and motion.",
+    tag: "AI Transformation"
+  },
+  {
+    step: "Step 03",
+    title: "Cut Live Footage Alongside Pure AI Takes",
+    description: "Intercut your real camera plates, AI-transformed shots, and generated Kling/Veo/Sora takes on one non-linear timeline, trim heads and tails, add audio, and export the master cut.",
+    tag: "Unified Assembly"
+  }
+];
+
+const features = [
+  {
+    title: "Automatic Video Import & Scene Breakdown",
+    description: "Already have a rough cut, animatic, or live-action shoot? Import any video directly into 10zebra to turn every camera cut into a dedicated storyboard panel.",
+    bullets: [
+      "<strong>Automatic shot splitting:</strong> Every detected shot from an imported video becomes its own editable panel in your storyboard.",
+      "<strong>Replace or enhance selective shots:</strong> Keep the live-action close-ups that work and use AI to replace expensive wide establishing shots or VFX plates.",
+      "<strong>Extend any scene on the fly:</strong> Trigger Quick Start workflow tools right inside your imported project to generate new bridging scenes that match your footage."
+    ],
+    tag: "Story Import"
+  },
+  {
+    title: "Real Actors + AI-Generated Worlds & Styles",
+    description: "Direct real human performances with your camera or phone, then let 10zebra's foundation models transform the wardrobe, character identity, or environment around them.",
+    bullets: [
+      "<strong>Video-to-Video style transfer:</strong> Turn a rehearsal shot in a living room or parking lot into a rain-slicked 1970s Le Mans pit lane or anamorphic period set.",
+      "<strong>Character Swap on live performances:</strong> Act out the exact blocking, head turns, and emotion yourself, then swap in your locked hero character with zero facial drift.",
+      "<strong>Physical camera fidelity:</strong> Preserve organic handheld shake, whip pans, and lens breathing from your real camera while upgrading the visuals with AI."
+    ],
+    tag: "Live + AI Directing"
+  }
+];
+
+const comparisonItems = [
+  {
+    feature: "Importing Full Live-Action Videos",
+    zebra: "Automatically splits uploaded videos into individual storyboard shot panels ready for editing or AI transformation",
+    competitor: "Single-clip upload limits; requires manual slicing in an external NLE before uploading",
+    zebraAdvantage: true
+  },
+  {
+    feature: "Combining Real Footage & AI Takes",
+    zebra: "Real camera plates, vid2vid restyled clips, and pure AI generations sit side by side on one timeline",
+    competitor: "Isolated generation feeds that cannot mix live camera plates with generated sequences",
+    zebraAdvantage: true
+  },
+  {
+    feature: "Transforming Real Actor Performances",
+    zebra: "Swap character identity and restyle environments over live-action takes while locking original motion",
+    competitor: "Forces you to rely solely on text prompts to guess actor blocking and timing",
+    zebraAdvantage: true
+  },
+  {
+    feature: "Extending Imported Scenes",
+    zebra: "Click 'Start Workflow' on any imported scene to generate new matching shots using project references",
+    competitor: "No storyboard context or scene extension tools",
+    zebraAdvantage: true
+  }
+];
+
+const faqs = [
+  {
+    question: "How does importing a live-action video into a storyboard work?",
+    answer: "When you import a video into 10zebra, our scene-detection pipeline automatically identifies camera cuts and places each shot into its own panel on your storyboard. From there, you can keep shots as live-action, restyle specific panels with AI, or insert brand-new AI shots between them."
+  },
+  {
+    question: "Can I film myself or a stand-in actor to direct the AI performance?",
+    answer: "Yes! Many directors record quick blocking videos on a phone or camera to capture exact timing, gestures, and camera angles, then use 10zebra's Character Swap and Video-to-Video restyling to transform the stand-in into the locked hero character and cinematic set."
+  },
+  {
+    question: "Can I mix untouched live-action shots with AI-generated shots in the final export?",
+    answer: "Absolutely. 10zebra's storyboard and timeline treat uploaded live-action clips and AI-generated takes as first-class citizens. You can trim, reorder, score, and export a hybrid sequence without round-tripping through external software."
+  }
+];
+
+const relatedFeatures = [
+  {
+    title: "Character Swap",
+    description: "Swap talent across AI takes or live-action footage while preserving motion and lighting.",
+    href: "/features/character-swap/index.html",
+    badge: "Continuity"
+  },
+  {
+    title: "Multi-Reference Editing",
+    description: "Blend character, wardrobe, and environment references into a single cohesive frame.",
+    href: "/features/multi-reference-edit/index.html",
+    badge: "3-Point Lock"
+  },
+  {
+    title: "Quick Start & Scene Extension Tools",
+    description: "Start a new storyboard or extend any scene inside an active project with 6 guided tools.",
+    href: "/features/quick-start-tools/index.html",
+    badge: "6 Workflows"
+  }
+];
+---
+
+<FeatureLandingLayout
+  title="Hybrid Production: Combine Live-Action Footage & AI Visuals | 10zebra"
+  description="Combine live-action footage and real actors with AI-generated visuals, restyling, and character swaps on a unified storyboard."
+  eyebrow="HYBRID FILMMAKING & AI TRANSFORMATION"
+  headline="Hybrid Production:"
+  headlineHighlight="Real Actors & Footage Meet AI Worlds."
+  subheadline="Don't choose between physical cameras and generative AI. Import live-action footage into storyboard panels, transform real actor performances with AI visuals and styles, and cut live plates right beside Kling, Veo, and Sora takes."
+  badgeText="Live-Action + AI Studio"
+  stats={stats}
+  workflowSteps={workflowSteps}
+  features={features}
+  comparisonItems={comparisonItems}
+  faqs={faqs}
+  relatedFeatures={relatedFeatures}
+>
+  <div slot="hero-visual">
+    <HybridProductionMockup />
+  </div>
+</FeatureLandingLayout>
+

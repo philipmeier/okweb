@@ -4,6 +4,7 @@
 // Optimized for traditional SEO (Schema.org FAQPage) and AEO (Answer Engine Optimization).
 
 import { totalFamilies, totalModels } from './models';
+import { featureGates, mcpPartnerConfig } from './config';
 
 export interface FaqItem {
   id: string;
@@ -28,28 +29,34 @@ export const faqCategories: FaqCategory[] = [
     label: 'Studio & AI Models',
     badge: 'Core Features',
     icon: 'film',
-    description: `${totalFamilies} model families (${totalModels}+ engines), multi-engine comparison, character swap consistency, in-browser trimming, and YouTube export.`,
+    description: `${totalFamilies} model families (${totalModels}+ engines), multi-engine comparison, hybrid live-action + AI production, character swap, and scene extension tools.`,
   },
   {
     id: 'mcp',
     label: 'MCP & Agent API',
     badge: 'Developer Integration',
     icon: 'terminal',
-    description: 'Model Context Protocol, Claude Desktop / Cursor IDE integration, FastMCP tools, and Director tier access.',
+    description: featureGates.subscriptions
+      ? 'Model Context Protocol, Claude Desktop / Cursor IDE integration, FastMCP tools, and Director tier access.'
+      : 'Model Context Protocol, Claude Desktop / Cursor IDE integration, FastMCP tools, and 10zebra Partner Program access.',
   },
   {
     id: 'teams',
     label: 'Teams & Budgets',
     badge: 'Collaboration',
     icon: 'users',
-    description: 'Isolated project credit ledgers, multi-seat roles, spend caps, and shared reference libraries.',
+    description: featureGates.subscriptions
+      ? 'Project-level team seats (2 on Maker, unlimited on Director), isolated credit ledgers, spend caps, and shared libraries.'
+      : 'No-cost team collaborator seats, isolated project credit ledgers, per-member spend caps, and shared reference libraries.',
   },
   {
     id: 'payments',
     label: 'Billing & Credits',
     badge: 'Plans & Payments',
     icon: 'credit-card',
-    description: 'Subscriptions, non-expiring credit packs, 90% refund or free regen on failed generations, 3% lifetime referral payouts, and Stripe checkout.',
+    description: featureGates.subscriptions
+      ? 'Pay-As-You-Go & subscription tiers, non-expiring credit packs, subscriber discounts, and Stripe checkout.'
+      : 'Simple Pay-As-You-Go pricing with no subscription required, 200 free credits on signup, non-expiring top-up packs, and Stripe checkout.',
   },
   {
     id: 'terms',
@@ -68,29 +75,61 @@ export const allFaqs: FaqItem[] = [
     id: 'why-10zebra-vs-standalone',
     category: 'features',
     question: 'What makes 10zebra different from using standalone AI video platforms directly?',
-    shortAnswer: `10zebra is a non-linear production studio that unifies ${totalFamilies} model families (${totalModels}+ engines) into one canvas with character consistency, Agent Z batch workflows, project credit controls, in-browser trimming, and 90% credit refunds or free regens on failed takes.`,
-    answer: `<strong>10zebra eliminates engine lock-in and production fragmentation.</strong> Rather than juggling 5 different subscription tabs with disparate interfaces, 10zebra unifies ${totalFamilies} foundation model families (${totalModels}+ engines) into one browser workspace with:
+    shortAnswer: `10zebra is a non-linear production studio that unifies ${totalFamilies} model families (${totalModels}+ engines) into one canvas with Hybrid Production (live-action + AI), character consistency, Quick Start & scene extension workflows, project credit controls, and in-browser trimming.`,
+    answer: `<strong>10zebra eliminates engine lock-in and production fragmentation.</strong> Rather than juggling 5 different tabs with disparate interfaces, 10zebra unifies ${totalFamilies} foundation model families (${totalModels}+ engines) into one browser workspace with:
 <ul>
   <li><strong>Multi-Model Comparison:</strong> Run the same prompt and camera trajectory across Kling, Veo 3, Sora, and Runway simultaneously to select the best take.</li>
-  <li><strong>Agentic Workflows (Agent Z):</strong> Work in batches across your project (batch create, batch convert, batch replace characters, batch regen, batch upscale) with Dry Run cost analysis and approval.</li>
+  <li><strong>Hybrid Production (Live-Action + AI):</strong> Import real live-action footage and actors, automatically split shots into storyboard panels, and transform them with AI-generated visuals, styles, or character swaps alongside pure AI takes.</li>
+  <li><strong>Quick Start &amp; Scene Extension Tools:</strong> Use 6 guided tools (<em>From a Script</em>, <em>Three Acts</em>, <em>Make An Ad</em>, <em>Explore Locations</em>, <em>Explore Expressions</em>, <em>Grok</em>) both to launch a brand-new storyboard and to extend any scene inside an active project.</li>
   <li><strong>Multi-Reference Character Swap:</strong> Lock actor identity, wardrobe, and facial features across multiple scenes using up to 4 anchor references.</li>
-  <li><strong>Production Timeline & Take Trimming:</strong> Set in/out cut points directly in the browser and assemble continuous multi-shot sequences without downloading to an NLE first.</li>
-  <li><strong>90% Refund || Free Regen on All Failed Generations:</strong> A button appears directly on failed generations (after a direct error from the model, or after 30 minutes if a job fails silently) so you can easily choose a 90% credit refund or a free retry.</li>
+  ${featureGates.agenticWorkflows ? '<li><strong>Agentic Workflows (Agent Z):</strong> Work in batches across your project (batch create, batch convert, batch replace characters, batch regen, batch upscale) with Dry Run cost analysis and approval.</li>' : ''}
+  <li><strong>Production Timeline &amp; Take Trimming:</strong> Set in/out cut points directly in the browser and assemble continuous multi-shot sequences without downloading to an NLE first.</li>
+  ${featureGates.failedGenerationProtection ? '<li><strong>90% Refund || Free Regen on All Failed Generations:</strong> A button appears directly on failed generations (after a direct error from the model, or after 30 minutes if a job fails silently) so you can easily choose a 90% credit refund or a free retry.</li>' : ''}
 </ul>`,
-    keywords: ['comparison', 'runway', 'kling', 'veo', 'sora', 'difference', 'why 10zebra', 'benefits', 'agent z'],
+    keywords: ['comparison', 'runway', 'kling', 'veo', 'sora', 'difference', 'why 10zebra', 'benefits', 'hybrid production'],
   },
   {
-    id: 'agent-z-agentic-workflows',
+    id: 'hybrid-production',
     category: 'features',
-    question: 'How do Agentic Workflows and Agent Z work in 10zebra?',
-    shortAnswer: 'Agent Z is the 10zebra production agent that executes batch operations (batch create, batch convert, batch replace characters, batch regen, batch upscale) backed by a Dry Run analysis that creates a plan, shows exact credit costs, and requests your approval first.',
-    answer: `<strong>Agent Z</strong> is 10zebra's native production agent designed to execute multi-shot operations across your storyboard in batches:
+    question: 'How does Hybrid Production work to combine live-action footage and real actors with AI?',
+    shortAnswer: 'Hybrid Production lets you import live-action video (automatically splitting shots into storyboard panels), restyle real footage with AI visuals, swap characters onto live actor performances, and cut real camera plates alongside AI takes on one timeline.',
+    answer: `<strong>Hybrid Production bridges live-action filmmaking and generative AI on a single storyboard.</strong> Instead of treating AI video as an all-or-nothing replacement for cameras and actors, 10zebra lets you blend both seamlessly:
+<ul>
+  <li><strong>Automatic Video Import &amp; Shot Detection:</strong> Upload any live-action video file or rough cut; 10zebra automatically detects camera cuts and turns every shot into an editable panel on your storyboard.</li>
+  <li><strong>Video-to-Video AI Restyling:</strong> Transform real location plates, stunt rehearsal footage, or smartphone blocking videos into stylized cinema environments while preserving the exact physical camera movement and timing.</li>
+  <li><strong>Character Swap on Live-Action Performances:</strong> Act out a scene yourself or film a stand-in actor, then swap in your locked hero character while keeping every micro-expression, head turn, and lighting interaction intact.</li>
+  <li><strong>Unified Live + AI Timeline:</strong> Intercut raw 35mm/digital camera plates directly alongside Kling, Veo 3, Sora, and Runway takes, trim heads and tails in the browser, and export a cohesive master sequence.</li>
+</ul>`,
+    keywords: ['hybrid production', 'live action', 'real actors', 'video to video', 'vid2vid', 'import video', 'restyle footage', 'character swap'],
+  },
+  {
+    id: 'quick-start-and-scene-extension',
+    category: 'features',
+    question: 'Can Quick Start workflow tools be used to extend scenes inside an existing project as well as starting a new storyboard?',
+    shortAnswer: 'Yes. All 6 Quick Start tools can be launched from /new to build a new storyboard from scratch, OR triggered from any scene inside an active project via the "Start Workflow" button—automatically inheriting your project style and reference library.',
+    answer: `<strong>Yes — every Quick Start workflow tool works in two modes:</strong>
+<ul>
+  <li><strong>1. Start a New Storyboard:</strong> Launch <em>From a Script</em>, <em>Three Acts</em>, <em>Make An Ad</em>, <em>Explore Locations</em>, <em>Explore Expressions</em>, or <em>Grok</em> from the new-project screen to generate a multi-shot storyboard from scratch.</li>
+  <li><strong>2. Extend Any Scene Inside a Project ("Start Workflow"):</strong> Inside any active storyboard, click <strong>Start Workflow</strong> on any scene header. The tool opens in-context, automatically inherits your project's active <strong>Visual Style</strong> and <strong>Aspect Ratio</strong>, lets you pick existing character or location takes directly from your project's <strong>Reference Manager</strong>, and inserts the newly generated shots as the very next scene in your sequence.</li>
+</ul>`,
+    keywords: ['quick start tools', 'extend scene', 'start workflow', 'from a script', 'three acts', 'make an ad', 'explore locations', 'explore expressions'],
+  },
+  ...(featureGates.agenticWorkflows
+    ? [
+        {
+          id: 'agent-z-agentic-workflows' as const,
+          category: 'features' as const,
+          question: 'How do Agentic Workflows and Agent Z work in 10zebra?',
+          shortAnswer: 'Agent Z is the 10zebra production agent that executes batch operations (batch create, batch convert, batch replace characters, batch regen, batch upscale) backed by a Dry Run analysis that creates a plan, shows exact credit costs, and requests your approval first.',
+          answer: `<strong>Agent Z</strong> is 10zebra's native production agent designed to execute multi-shot operations across your storyboard in batches:
 <ul>
   <li><strong>Work in Batches:</strong> Select multiple shots or scenes and command Agent Z to <strong>batch create</strong> new shots, <strong>batch replace characters</strong> across existing takes, <strong>batch convert</strong> aspect ratios or styles, <strong>batch regen</strong> takes across new seeds/models, or <strong>batch upscale</strong> approved cuts to 4K.</li>
   <li><strong>Dry Run Analysis:</strong> Before spending a single credit, Agent Z performs a Dry Run analysis. It creates a structured execution plan, shows itemized and total credit costs, verifies your project budget cap, and requests your explicit approval before launching the batch.</li>
 </ul>`,
-    keywords: ['agent z', 'agentic workflows', 'batch replace characters', 'batch create', 'batch convert', 'batch regen', 'batch upscale', 'dry run'],
-  },
+          keywords: ['agent z', 'agentic workflows', 'batch replace characters', 'batch create', 'batch convert', 'batch regen', 'batch upscale', 'dry run'],
+        },
+      ]
+    : []),
   {
     id: 'supported-models-and-engines',
     category: 'features',
@@ -190,18 +229,32 @@ Instead of manually typing prompts into web forms, your AI assistant can:
   {
     id: 'mcp-plan-requirement',
     category: 'mcp',
-    question: 'Which subscription plan is required for MCP server access?',
-    shortAnswer: 'Access to the 10zebra MCP server requires an active Director subscription ($79/mo) or Studio subscription ($199/mo).',
-    answer: `Access to the 10zebra MCP server requires an active <strong>Director plan ($79/mo)</strong> or <strong>Studio plan ($199/mo)</strong>.
+    question: featureGates.subscriptions
+      ? 'Which subscription plan is required for MCP server access?'
+      : 'How do I get access to the 10zebra MCP server?',
+    shortAnswer: featureGates.subscriptions
+      ? 'Access to the 10zebra MCP server requires an active Director subscription ($79/mo) or Studio subscription ($199/mo).'
+      : 'The 10zebra MCP server is currently restricted to our Partner Program. You can request access directly via email.',
+    answer: featureGates.subscriptions
+      ? `Access to the 10zebra MCP server requires an active <strong>Director plan ($79/mo)</strong> or <strong>Studio plan ($199/mo)</strong>.
 <br /><br />
 The Pay-As-You-Go and Maker ($29/mo) plans do not include MCP credentials. Upgrading to Director unlocks:
 <ul>
   <li>Personal MCP Project API Keys (formatted <code>10z_...</code>).</li>
   <li>Dual-transport connectivity (stdio for local Claude Desktop and streamable-HTTP for remote server agents).</li>
-  <li>3,500 monthly included generation credits.</li>
+  <li>3,500 monthly included generation credits and unlimited project team seats.</li>
   <li>Project-isolated credit budgets with strict spend caps to prevent autonomous agents from overspending.</li>
-</ul>`,
-    keywords: ['mcp plan', 'director subscription', 'mcp access', 'pricing requirement', '79/mo', 'director tier'],
+</ul>`
+      : `The 10zebra MCP server is currently restricted to our <strong>Partner Program</strong>.
+<br /><br />
+Approved partners receive:
+<ul>
+  <li>Personal MCP Project API Keys (formatted <code>10z_...</code>).</li>
+  <li>Dual-transport connectivity (stdio for local Claude Desktop and streamable-HTTP for remote server agents).</li>
+  <li>Project-isolated credit budgets with strict spend caps to prevent autonomous agents from overspending.</li>
+</ul>
+<a href="${mcpPartnerConfig.mailtoUrl}" class="text-accent underline font-medium">Request Partner Program access via email &rarr;</a>`,
+    keywords: ['mcp plan', 'partner program', 'director subscription', 'mcp access', 'request access'],
   },
   {
     id: 'mcp-supported-clients',
@@ -239,12 +292,12 @@ It also exposes <strong>5 live resources</strong> (such as <code>10z://models</c
     id: 'mcp-credit-safety-budget-caps',
     category: 'mcp',
     question: 'How does 10zebra prevent autonomous AI agents from burning through my credits via MCP?',
-    shortAnswer: 'MCP calls are bound to specific project workspaces with mandatory spend caps; all credit deductions are transacted with atomic Firestore safeguards and 90% credit refund or free regen protection on failed generations.',
-    answer: `We engineered the 10zebra MCP server with <strong>three distinct layers of financial protection</strong> for autonomous agent use:
+    shortAnswer: 'MCP calls are bound to specific project workspaces with mandatory spend caps, and all credit deductions are transacted with atomic Firestore balance safeguards.',
+    answer: `We engineered the 10zebra MCP server with <strong>strict financial safeguards</strong> for autonomous agent use:
 <ol>
   <li><strong>Project Spend Caps:</strong> You generate an MCP key bound to a specific project with an assigned credit ceiling (e.g., 300 credits). The MCP agent cannot access your account-wide balance or other projects.</li>
   <li><strong>Atomic Credit Pre-Checks:</strong> Every MCP <code>generate</code> call performs an atomic Firestore balance check. If the requested model requires 35 credits and only 20 remain, the server cleanly rejects the tool call before dispatching upstream.</li>
-  <li><strong>90% Refund || Free Regen on Failed Generations:</strong> If any generation fails (immediately upon a direct model error, or after 30 minutes if a job fails silently), a button appears on the failed take in your storyboard allowing you to easily choose a 90% credit refund or a free retry.</li>
+  ${featureGates.failedGenerationProtection ? '<li><strong>90% Refund || Free Regen on Failed Generations:</strong> If any generation fails (immediately upon a direct model error, or after 30 minutes if a job fails silently), a button appears on the failed take in your storyboard allowing you to easily choose a 90% credit refund or a free retry.</li>' : ''}
 </ol>`,
     keywords: ['mcp safety', 'spend caps', 'budget limit', 'runaway spending', 'agent safety', 'credit protection'],
   },
@@ -256,27 +309,29 @@ It also exposes <strong>5 live resources</strong> (such as <code>10z://models</c
     id: 'project-level-seats-vs-app-seats',
     category: 'teams',
     question: 'How do project-level seats differ from traditional app-level seats?',
-    shortAnswer: 'Project-level seats allow you to invite team members, freelance specialists, and clients to specific projects only, avoiding expensive whole-account seat licenses and preventing cross-client visibility.',
+    shortAnswer: featureGates.subscriptions
+      ? 'Project-level seats allow you to invite team members, freelance specialists, and clients to specific projects only (2 seats/project on Maker, unlimited on Director), avoiding expensive whole-account seat licenses and preventing cross-client visibility.'
+      : 'Project-level seats allow you to invite team collaborators, freelance specialists, and clients to specific projects at no cost—avoiding per-seat license fees and preventing cross-client visibility.',
     answer: `<strong>Project-level seats eliminate the rigid cost and security issues of whole-account seat licenses.</strong>
 <ul>
+  ${!featureGates.subscriptions ? '<li><strong>Collaborators at No Cost:</strong> Adding team members to a project is completely free—there are no per-seat fees. Collaborators simply draw from the credit budget you allocate to them on that project.</li>' : '<li><strong>Flexible Project Seat Tiers:</strong> Maker includes <strong>2 team seats per project</strong>, and Director includes <strong>unlimited team seats per project</strong>.</li>'}
   <li><strong>Agency Client Isolation:</strong> In standard tools, adding someone gives them broad account visibility or forces separate logins. On 10zebra, you invite editors and clients strictly to the project they belong to. An agency can run 20 different brand clients with zero risk of NDA leaks or cross-client viewing.</li>
-  <li><strong>Free Client Reviewers:</strong> Clients and executive stakeholders can join any project as <strong>Viewers</strong> for free to scrub takes, leave feedback, and sign off without paying for a seat or consuming generation credits.</li>
-  <li><strong>Enterprise Departmental Walls:</strong> Large studios can isolate Marketing, R&D, and Production teams with independent seats and dedicated credit pools.</li>
-  <li><strong>Creator Collaborations:</strong> Co-direct with other creators or bring in a freelance colorist on a single sequence without sharing master account credentials or personal credit reserves.</li>
+  <li><strong>Free Client Reviewers:</strong> Clients and executive stakeholders can join any project as <strong>Viewers</strong> for free to scrub takes, leave feedback, and sign off without consuming generation credits.</li>
+  <li><strong>Creator Collaborations:</strong> Co-direct with other creators or bring in a freelance specialist on a single sequence without sharing master account credentials or personal credit reserves.</li>
 </ul>`,
-    keywords: ['project seats', 'app-level seats', 'agency collaboration', 'client viewers', 'enterprise teams', 'freelancers'],
+    keywords: ['project seats', 'app-level seats', 'free collaborators', 'agency collaboration', 'client viewers', 'freelancers'],
   },
   {
     id: 'project-credit-pools-and-budgets',
     category: 'teams',
     question: 'How do project-level credit pools and budget controls work?',
-    shortAnswer: 'Project owners assign dedicated credit limits to individual client or campaign folders; team members draw exclusively from that project pool without touching personal or master credits.',
-    answer: `<strong>Project credit pools prevent runaway spending across client campaigns.</strong> On the Director and Studio plans:
+    shortAnswer: 'Project owners assign dedicated credit limits to individual projects and collaborators; team members draw exclusively from that project allocation without touching personal or master credits.',
+    answer: `<strong>Project credit budgets prevent runaway spending across client campaigns and team collaborations:</strong>
 <ul>
-  <li>The studio owner or producer creates isolated project workspaces (e.g., "Nike Fall Commercial" or "Internal Previs").</li>
-  <li>You allocate a specific credit balance to that project (e.g., 1,500 credits).</li>
-  <li>Assigned editors and creative directors draw exclusively from that project's allocated pool.</li>
-  <li>Once the project pool reaches zero, generations pause automatically until the producer explicitly tops it up. Team members never have access to master billing cards or the company-wide balance.</li>
+  <li>The project owner or producer creates isolated project workspaces (e.g., "Fall Commercial" or "Episode 4 Previs").</li>
+  <li>You invite team collaborators ${featureGates.subscriptions ? '(up to 2 seats/project on Maker, or unlimited seats on Director)' : '<strong>at no cost</strong>'} and assign a specific credit budget cap to each member (e.g., 500 credits).</li>
+  <li>Assigned editors and creative directors draw exclusively from their allocated project budget.</li>
+  <li>Once a collaborator's cap is reached, generations pause automatically until the project owner raises their limit. Team members never have access to master billing cards or your account-wide reserve.</li>
 </ul>`,
     keywords: ['project budgets', 'credit pools', 'spend controls', 'client budgets', 'team spending', 'caps'],
   },
@@ -287,7 +342,7 @@ It also exposes <strong>5 live resources</strong> (such as <code>10z://models</c
     shortAnswer: '10zebra provides three granular role tiers: Owner/Admin (billing & credit allocation), Editor/Director (prompting, generating, and timeline trimming), and Viewer/Client (review and playback only).',
     answer: `10zebra includes <strong>three role tiers</strong> to streamline production collaboration:
 <ul>
-  <li><strong>Owner / Producer:</strong> Full administrative rights. Can create projects, allocate and reclaim project credit pools, manage payment methods, invite/remove members, and access MCP API keys.</li>
+  <li><strong>Owner / Producer:</strong> Full administrative rights. Can create projects, allocate and adjust collaborator credit budgets, manage payment methods, and invite/remove members.</li>
   <li><strong>Editor / Director:</strong> Can initiate generations across all ${totalFamilies} model families (${totalModels}+ engines), apply Character Swap anchors, trim takes, organize timelines, and export cuts within their assigned projects. Cannot alter billing or account credit pools.</li>
   <li><strong>Viewer / Client:</strong> Free review-only seats. Can inspect takes, play back storyboard animatics, leave timestamped feedback notes, and download approved cuts without spending credits.</li>
 </ul>`,
@@ -300,7 +355,7 @@ It also exposes <strong>5 live resources</strong> (such as <code>10z://models</c
     shortAnswer: 'Yes. You can generate private review links or invite clients as Viewers for free; viewing and playback never consume credits.',
     answer: `<strong>Yes.</strong> Viewing, streaming, and previewing generated takes never cost credits. You can:
 <ul>
-  <li>Invite clients directly to a project with the <strong>Viewer</strong> role at zero additional subscription cost.</li>
+  <li>Invite clients directly to a project with the <strong>Viewer</strong> role at zero cost.</li>
   <li>Generate password-protected or unlisted review links to share storyboard animatics and timeline cuts.</li>
   <li>Clients can review alternate takes and approve cuts directly in their browser without registering a paid account or consuming credits.</li>
 </ul>`,
@@ -314,23 +369,34 @@ It also exposes <strong>5 live resources</strong> (such as <code>10z://models</c
     answer: `To maintain visual continuity across multiple directors or remote animators, 10zebra includes <strong>Shared Project Libraries</strong>:
 <ul>
   <li>Upload approved actor reference headshots and wardrobe turnarounds once to the project library.</li>
-  <li>Any team member working on that project can select the locked character anchor in 1 click for Character Swap generations.</li>
-  <li>Save prompt templates, negative prompt presets, and visual style tags (e.g., "35mm anamorphic, golden hour, Arri Alexa Mini LF") to ensure all shots share the same cinematic look.</li>
+  <li>Any team member working on that project can select the locked character anchor in 1 click for Character Swap or scene extension generations.</li>
+  <li>Save visual style presets and aspect ratio settings at the project level so every new scene or workflow inherits the exact same cinematic look.</li>
 </ul>`,
     keywords: ['shared library', 'asset library', 'team references', 'shared character', 'style templates'],
   },
   {
     id: 'seat-limits-by-plan',
     category: 'teams',
-    question: 'How many team seats are included in each subscription plan?',
-    shortAnswer: 'Maker includes 1 seat; Director includes 5 production seats with unlimited free Viewer seats; Studio includes 15+ seats with custom enterprise options.',
-    answer: `Seat allocations across tiers:
+    question: featureGates.subscriptions
+      ? 'How many team seats are included in each subscription plan?'
+      : 'Does it cost anything to add team collaborators to a project?',
+    shortAnswer: featureGates.subscriptions
+      ? 'Pay-As-You-Go includes 1 personal seat; Maker includes 2 team seats per project; Director includes unlimited team seats per project, plus unlimited free Viewer seats.'
+      : 'No — team collaborators are included at no cost. You can invite co-directors, editors, and client reviewers to your projects without paying per-seat subscription fees.',
+    answer: featureGates.subscriptions
+      ? `Seat allocations across tiers:
 <ul>
-  <li><strong>Pay-As-You-Go & Maker ($29/mo):</strong> 1 active production seat. Ideal for solo creators and independent directors.</li>
-  <li><strong>Director ($79/mo):</strong> <strong>5 included production seats</strong> (Owner + 4 Editors), plus unlimited free Viewer/Client review seats. Additional editor seats can be added for $15/seat/month.</li>
-  <li><strong>Studio ($199/mo):</strong> <strong>15 included production seats</strong>, unlimited free Viewer seats, custom SSO/SAML integration, and dedicated production support.</li>
+  <li><strong>Pay-As-You-Go ($0/mo):</strong> 1 personal seat for solo directing and testing.</li>
+  <li><strong>Maker ($29/mo):</strong> <strong>2 team seats per project</strong> with per-member credit budget caps, plus free Viewer/Client review seats.</li>
+  <li><strong>Director ($79/mo):</strong> <strong>Unlimited team seats per project</strong> with isolated project credit caps and full role-based permissions, plus unlimited free Viewer/Client review seats.</li>
+</ul>`
+      : `<strong>No — team collaborator seats are completely free.</strong>
+<ul>
+  <li><strong>Zero Per-Seat Fees:</strong> Invite co-directors, editors, animators, and freelance specialists to your projects at no cost.</li>
+  <li><strong>Free Client Reviewers:</strong> Add unlimited <strong>Viewer</strong> seats so clients and stakeholders can review cuts without spending credits.</li>
+  <li><strong>Per-Member Credit Budgets:</strong> You only pay for the generation credits your project uses, and you can set strict credit caps for every collaborator.</li>
 </ul>`,
-    keywords: ['seats', 'team members', 'how many seats', 'seat limits', 'additional seats'],
+    keywords: ['seats', 'team members', 'how many seats', 'seat limits', 'free collaborators'],
   },
 
   // =========================================================================
@@ -346,30 +412,36 @@ It also exposes <strong>5 live resources</strong> (such as <code>10z://models</c
   <li><strong>Rapid Ideation & Drafts:</strong> Grok Video (10 credits/take), Kling Elements (15 credits/take), Wan 2.1 (20 credits/take).</li>
   <li><strong>Previs & Commercial Speed:</strong> Google Veo 3 Fast (20 credits/take), SeeDance 2.0 (25 credits/take), Runway Gen-3 Alpha (35 credits/take).</li>
   <li><strong>Ultra-High Fidelity & Physics:</strong> Google Veo 3 Ultra (45 credits/take), Kling 3.0 Pro 1080p (45 credits/take), OpenAI Sora (50 credits/take).</li>
-  <li><strong>Image Anchors:</strong> Flux Pro reference portraits (5 credits/image).</li>
+  <li><strong>Image Anchors:</strong> Flux Pro / NanoBanana reference portraits (5 credits/image).</li>
 </ul>
-1 credit costs between $0.015 and $0.025 depending on your plan and pack size.`,
+1 credit costs between $0.020 and $0.025 depending on your pack size.`,
     keywords: ['how credits work', 'credit rates', 'cost per video', 'model pricing', 'credit consumption'],
   },
-  {
-    id: 'failed-generation-refund-policy',
-    category: 'payments',
-    question: 'What happens if an AI video generation fails, and why is the refund 90%?',
-    shortAnswer: 'We provide a 90% credit refund or a free regeneration on all failed generations via a self-serve button on the failed take (appearing after a direct model error or after 30m if a job fails silently). It is 90% to cover system and infrastructure costs while being as fair as possible since most failures stem from Model terms violations and not the 10z platform.',
-    answer: `<strong>We provide a 90% refund or free regen on all failed generations.</strong>
+  ...(featureGates.failedGenerationProtection
+    ? [
+        {
+          id: 'failed-generation-refund-policy' as const,
+          category: 'payments' as const,
+          question: 'What happens if an AI video generation fails, and why is the refund 90%?',
+          shortAnswer: 'We provide a 90% credit refund or a free regeneration on all failed generations via a self-serve button on the failed take (appearing after a direct model error or after 30m if a job fails silently). It is 90% to cover system and infrastructure costs while being as fair as possible since most failures stem from Model terms violations and not the 10z platform.',
+          answer: `<strong>We provide a 90% refund or free regen on all failed generations.</strong>
 <br /><br />
 <ul>
   <li><strong>1-Click Refund or Retry Button:</strong> There is a button directly on failed generations so you can easily choose to <strong>Refund (90%)</strong> or <strong>Retry (Free Regen)</strong>. This option appears immediately after we receive a direct error from the model, or after <strong>30 minutes</strong> if a job fails silently.</li>
   <li><strong>Why is the refund 90% instead of 100%?</strong> The refund is 90% because we have system and infrastructure costs that we need to cover on every dispatched job, and we are trying to be as fair as possible &mdash; as most failures are caused from upstream Model terms violations and not any issue with the 10z platform.</li>
 </ul>`,
-    keywords: ['failed generation', 'refund policy', '90% refund', 'free regen', 'retry button', '30m timeout', 'system costs', 'terms violations', 'failed takes'],
-  },
-  {
-    id: 'referral-program-tolt',
-    category: 'payments',
-    question: 'How does the 10zebra Referral Program work?',
-    shortAnswer: 'Through our Tolt integration, users get a special referral code and earn a 3% lifetime payout whenever referred users purchase credits or subscribe.',
-    answer: `<strong>Earn a 3% lifetime payout by sharing 10zebra with fellow creators and studios.</strong>
+          keywords: ['failed generation', 'refund policy', '90% refund', 'free regen', 'retry button', '30m timeout', 'system costs', 'terms violations', 'failed takes'],
+        },
+      ]
+    : []),
+  ...(featureGates.referralProgram
+    ? [
+        {
+          id: 'referral-program-tolt' as const,
+          category: 'payments' as const,
+          question: 'How does the 10zebra Referral Program work?',
+          shortAnswer: 'Through our Tolt integration, users get a special referral code and earn a 3% lifetime payout whenever referred users purchase credits or subscribe.',
+          answer: `<strong>Earn a 3% lifetime payout by sharing 10zebra with fellow creators and studios.</strong>
 <br /><br />
 <ul>
   <li><strong>Tolt Integration &amp; Special Referral Code:</strong> Every user gets a unique referral code and tracking link powered by our Tolt partner integration.</li>
@@ -377,61 +449,94 @@ It also exposes <strong>5 live resources</strong> (such as <code>10z://models</c
   <li><strong>3% Lifetime Payout:</strong> Your 3% commission applies for the entire lifetime of the referred user's account &mdash; every subscription renewal and every future credit pack purchase.</li>
 </ul>
 Learn more on our <a href="/features/referral-program/index.html">Referral Program</a> page.`,
-    keywords: ['referral program', 'tolt', 'affiliate', '3% lifetime payout', 'referral code', 'earn money'],
-  },
+          keywords: ['referral program', 'tolt', 'affiliate', '3% lifetime payout', 'referral code', 'earn money'],
+        },
+      ]
+    : []),
   {
     id: 'do-credits-expire',
     category: 'payments',
-    question: 'Do purchased credits or monthly subscription credits ever expire?',
-    shortAnswer: 'Purchased top-up credit packs never expire. Monthly subscription credits refresh on each billing cycle, while top-up credits roll over forever.',
-    answer: `<strong>No, purchased top-up credits never expire.</strong>
+    question: featureGates.subscriptions
+      ? 'Do purchased credits or monthly subscription credits ever expire?'
+      : 'Do purchased credits ever expire?',
+    shortAnswer: featureGates.subscriptions
+      ? 'Purchased top-up credit packs never expire. Monthly subscription credits refresh on each billing cycle, while top-up credits roll over forever.'
+      : 'No, never. Every credit top-up pack you purchase remains in your account forever until you spend it.',
+    answer: featureGates.subscriptions
+      ? `<strong>No, purchased top-up credits never expire.</strong>
 <ul>
   <li><strong>Top-Up Credit Packs:</strong> Any credits purchased via top-up packs (Starter, Pro, Studio, Volume) remain in your account forever with zero clock anxiety.</li>
   <li><strong>Monthly Subscription Credits:</strong> Your plan's baseline credits (1,200 on Maker, 3,500 on Director) refresh on each monthly billing cycle date. When generating video, 10zebra automatically consumes monthly subscription credits first before dipping into your non-expiring top-up reserve.</li>
+</ul>`
+      : `<strong>No, purchased credits never expire.</strong>
+<ul>
+  <li><strong>Zero Clock Anxiety:</strong> Any credits purchased via top-up packs (Starter, Pro, Studio, Volume) remain in your account forever until you use them.</li>
+  <li><strong>No Monthly Forfeiture:</strong> Because 10zebra operates on a simple Pay-As-You-Go model with no required subscription, you never lose unused credits at the end of the month.</li>
 </ul>`,
     keywords: ['credits expire', 'credit rollover', 'do credits expire', 'top-up credits', 'validity'],
   },
   {
     id: 'subscription-vs-payg',
     category: 'payments',
-    question: 'What is the difference between a monthly subscription and Pay-As-You-Go?',
-    shortAnswer: 'Pay-As-You-Go lets you buy credits as needed with no recurring commitment; subscriptions provide steep credit discounts (up to 30%), higher monthly credit allowances, team features, and MCP access.',
-    answer: `We offer both flexible options depending on your production schedule:
+    question: featureGates.subscriptions
+      ? 'What is the difference between a monthly subscription and Pay-As-You-Go?'
+      : 'Do I need a monthly subscription to use 10zebra?',
+    shortAnswer: featureGates.subscriptions
+      ? 'Pay-As-You-Go lets you buy credits as needed with no recurring commitment; subscriptions provide steep credit discounts (up to 30%), higher monthly credit allowances, team seats (2 on Maker, unlimited on Director), and MCP access.'
+      : 'No subscription is required. 10zebra uses a simple Pay-As-You-Go model—start free with 200 credits and buy non-expiring credit packs only when you need them.',
+    answer: featureGates.subscriptions
+      ? `We offer both flexible options depending on your production schedule:
 <ul>
   <li><strong>Pay-As-You-Go:</strong> Zero monthly subscription fees. Simply buy credit packs whenever you have an active project. Ideal for occasional creators or one-off tests.</li>
-  <li><strong>Maker ($29/mo):</strong> Includes 1,200 monthly credits ($0.024/credit) + 15% discount on all top-up packs + priority queue.</li>
-  <li><strong>Director ($79/mo):</strong> Includes 3,500 monthly credits ($0.022/credit) + 30% top-up discount + full MCP Server access + 5 team seats with project spend controls.</li>
-  <li><strong>Studio ($199/mo):</strong> Includes 10,000 monthly credits ($0.019/credit) + 35% top-up discount + high-concurrency MCP + 15 team seats.</li>
+  <li><strong>Maker ($29/mo):</strong> Includes 1,200 monthly credits ($0.024/credit) + 2 team seats per project + 15% discount on all top-up packs + priority queue.</li>
+  <li><strong>Director ($79/mo):</strong> Includes 3,500 monthly credits ($0.022/credit) + unlimited team seats per project + 30% top-up discount + full MCP Server access + project spend controls.</li>
+  <li><strong>Studio ($199/mo):</strong> Includes 10,000 monthly credits ($0.019/credit) + 35% top-up discount + high-concurrency MCP + enterprise team controls.</li>
+</ul>`
+      : `<strong>No subscription is required.</strong> 10zebra is built on a straightforward <strong>Pay-As-You-Go</strong> model:
+<ul>
+  <li><strong>200 Free Credits on Signup:</strong> Test all ${totalFamilies} model families (${totalModels}+ engines) and workflow tools immediately at zero cost.</li>
+  <li><strong>Full Feature Access:</strong> Every account unlocks multi-model comparison, Hybrid Production, Character Swap, Quick Start &amp; scene extension tools, and no-cost project collaborator seats.</li>
+  <li><strong>Top Up Anytime:</strong> Purchase non-expiring credit packs starting at $10 (400 credits) up to $100 (5,000 credits) only when you have an active production.</li>
 </ul>`,
-    keywords: ['subscription vs payg', 'maker plan', 'director plan', 'pay as you go', 'which plan', 'compare plans'],
+    keywords: ['subscription vs payg', 'no subscription', 'pay as you go', 'which plan', 'pricing model'],
   },
-  {
-    id: 'subscriber-top-up-discounts',
-    category: 'payments',
-    question: 'How do subscriber top-up discounts work?',
-    shortAnswer: 'Active Maker subscribers receive an automatic 15% discount at checkout on all credit packs; Director subscribers receive a 30% discount, and Studio subscribers receive 35%.',
-    answer: `Whenever you need extra credits beyond your monthly allowance, active subscribers receive steep automatic discounts at checkout:
+  ...(featureGates.subscriptions
+    ? [
+        {
+          id: 'subscriber-top-up-discounts' as const,
+          category: 'payments' as const,
+          question: 'How do subscriber top-up discounts work?',
+          shortAnswer: 'Active Maker subscribers receive an automatic 15% discount at checkout on all credit packs; Director subscribers receive a 30% discount, and Studio subscribers receive 35%.',
+          answer: `Whenever you need extra credits beyond your monthly allowance, active subscribers receive steep automatic discounts at checkout:
 <ul>
   <li><strong>Maker Plan:</strong> 15% discount on all credit packs (e.g., $50 Studio Pack for $42.50).</li>
   <li><strong>Director Plan:</strong> 30% discount on all credit packs (e.g., $50 Studio Pack for $35.00).</li>
   <li><strong>Studio Plan:</strong> 35% discount on all credit packs (e.g., $100 Volume Pack for $65.00).</li>
 </ul>
 The discount is applied automatically in the billing modal as long as your subscription is active.`,
-    keywords: ['top-up discounts', 'credit discounts', 'cheaper credits', 'subscriber discount'],
-  },
+          keywords: ['top-up discounts', 'credit discounts', 'cheaper credits', 'subscriber discount'],
+        },
+      ]
+    : []),
   {
     id: 'payment-methods-and-cancellation',
     category: 'payments',
-    question: 'What payment methods do you accept, and can I cancel anytime?',
-    shortAnswer: 'We accept all major cards via Stripe, with ACH and wire transfers for Studio/Enterprise. You can cancel with one click anytime in settings with zero penalties.',
-    answer: `<strong>Payment Methods:</strong> We accept Visa, Mastercard, American Express, Discover, Apple Pay, and Google Pay through Stripe's encrypted payment gateway. For Studio and Enterprise accounts, we also support bank ACH transfers, wire transfers, and net-30 purchase order invoicing.
+    question: featureGates.subscriptions
+      ? 'What payment methods do you accept, and can I cancel anytime?'
+      : 'What payment methods do you accept for credit packs?',
+    shortAnswer: featureGates.subscriptions
+      ? 'We accept all major cards via Stripe, with ACH and wire transfers for Studio/Enterprise. You can cancel with one click anytime in settings with zero penalties.'
+      : 'We accept all major credit and debit cards, Apple Pay, and Google Pay via Stripe, with zero recurring charges.',
+    answer: featureGates.subscriptions
+      ? `<strong>Payment Methods:</strong> We accept Visa, Mastercard, American Express, Discover, Apple Pay, and Google Pay through Stripe's encrypted payment gateway. For Studio and Enterprise accounts, we also support bank ACH transfers, wire transfers, and net-30 purchase order invoicing.
 <br /><br />
 <strong>Cancellation Policy:</strong> You can cancel your subscription with 1 click at any time from your account settings. When you cancel:
 <ul>
   <li>Your subscription remains active until the end of your prepaid billing period.</li>
   <li>You will never be billed again.</li>
   <li>Any unused top-up credits you purchased remain in your account forever on the Pay-As-You-Go tier.</li>
-</ul>`,
+</ul>`
+      : `<strong>Payment Methods:</strong> We accept Visa, Mastercard, American Express, Discover, Apple Pay, and Google Pay through Stripe's encrypted payment gateway. Because all top-up credit packs are one-time Pay-As-You-Go purchases, there are <strong>no recurring monthly charges</strong> or subscriptions to cancel.`,
     keywords: ['payment methods', 'credit cards', 'stripe', 'cancel subscription', 'cancellation policy', 'ach'],
   },
 
@@ -451,7 +556,7 @@ All videos, audio, and images generated on 10zebra under paid plans or Pay-As-Yo
   <li>Broadcast finished sequences in national commercial campaigns, broadcast television, or theatrical releases.</li>
   <li>License or sell video takes to clients, stock footage libraries, or third parties.</li>
 </ul>
-Ownership is subject only to the standard acceptable use policies of underlying foundation models (e.g., no unlawful, deceptive, or non-consensual content).`,
+ Ownership is subject only to the standard acceptable use policies of underlying foundation models (e.g., no unlawful, deceptive, or non-consensual content).`,
     keywords: ['commercial rights', 'copyright', 'ownership', 'monetize', 'commercial use', 'youtube monetization'],
   },
   {
@@ -463,7 +568,7 @@ Ownership is subject only to the standard acceptable use policies of underlying 
 <br /><br />
 We respect client confidentiality and production NDAs:
 <ul>
-  <li>Your uploaded reference photos (actor portraits, wardrobe, concept art) and generated video assets are stored in private, isolated Google Cloud Storage buckets encrypted at rest (AES-256) and in transit (TLS 1.3).</li>
+  <li>Your uploaded reference photos (actor portraits, wardrobe, concept art), live-action plates, and generated video assets are stored in private, isolated Google Cloud Storage buckets encrypted at rest (AES-256) and in transit (TLS 1.3).</li>
   <li>10zebra <strong>does not train</strong> proprietary AI foundation models on your prompts, character anchors, or generated video outputs.</li>
   <li>We route model inference via enterprise zero-retention developer API agreements where foundation model providers do not train on user payloads.</li>
 </ul>`,
@@ -472,31 +577,41 @@ We respect client confidentiality and production NDAs:
   {
     id: 'content-moderation-and-safety',
     category: 'terms',
-    question: 'How does content moderation work, and what happens if a take fails or is flagged?',
-    shortAnswer: 'All failed generations include a self-serve button (after a direct model error or 30m silent timeout) to choose a 90% credit refund or free regen. The refund is 90% to cover system and infrastructure costs while staying fair, as most failures are caused by upstream Model terms violations rather than the 10z platform.',
-    answer: `10zebra connects to industry-standard foundation models that enforce automated trust and safety filters (preventing copyright infringement, CSAM, real-person impersonation without consent, hate speech, graphic violence, and adult content).
+    question: featureGates.failedGenerationProtection
+      ? 'How does content moderation work, and what happens if a take fails or is flagged?'
+      : 'How does content moderation and trust & safety work on 10zebra?',
+    shortAnswer: featureGates.failedGenerationProtection
+      ? 'All failed generations include a self-serve button (after a direct model error or 30m silent timeout) to choose a 90% credit refund or free regen. The refund is 90% to cover system and infrastructure costs while staying fair, as most failures are caused by upstream Model terms violations rather than the 10z platform.'
+      : '10zebra connects to foundation models that enforce automated trust and safety filters preventing non-consensual likeness, copyright infringement, CSAM, hate speech, and graphic violence.',
+    answer: featureGates.failedGenerationProtection
+      ? `10zebra connects to industry-standard foundation models that enforce automated trust and safety filters (preventing copyright infringement, CSAM, real-person impersonation without consent, hate speech, graphic violence, and adult content).
 <br /><br />
 When any generation fails &mdash; whether from an upstream model error, safety filter, or silent timeout:
 <ul>
   <li><strong>90% Refund || Free Regen Button:</strong> A button appears directly on the failed generation so you can easily choose to <strong>refund 90% of the credits</strong> or <strong>retry (free regen)</strong>. The option appears immediately after we receive a direct error from the model, or after <strong>30 minutes</strong> if a job fails silently.</li>
   <li><strong>Why 90%?</strong> It is 90% because we have system and infrastructure costs that we need to cover, and we are trying to be as fair as possible as most failures are caused from Model terms violations and not any issue with the 10z platform.</li>
-</ul>`,
-    keywords: ['moderation', 'content filters', 'nsfw', 'safety', 'flagged prompt', 'copyright', 'terms violation', '90% refund', 'free regen'],
+</ul>`
+      : `10zebra connects to industry-standard foundation models that enforce automated trust and safety filters (preventing copyright infringement, CSAM, real-person impersonation without consent, hate speech, graphic violence, and adult content). Prompts or uploaded references that violate upstream model safety policies are rejected before rendering.`,
+    keywords: ['moderation', 'content filters', 'nsfw', 'safety', 'flagged prompt', 'copyright', 'terms violation'],
   },
-  {
-    id: 'refund-policy-details',
-    category: 'terms',
-    question: 'What is your refund policy for failed generations, subscriptions, and top-up packs?',
-    shortAnswer: 'All failed generations provide a self-serve button (immediately on a direct model error or after 30m if a job fails silently) for a 90% credit refund or a free regen. It is 90% because we have system and infrastructure costs to cover, and most failures stem from Model terms violations rather than the 10z platform.',
-    answer: `Our refund policy is simple, fair, and transparent:
+  ...(featureGates.failedGenerationProtection
+    ? [
+        {
+          id: 'refund-policy-details' as const,
+          category: 'terms' as const,
+          question: 'What is your refund policy for failed generations, subscriptions, and top-up packs?',
+          shortAnswer: 'All failed generations provide a self-serve button (immediately on a direct model error or after 30m if a job fails silently) for a 90% credit refund or a free regen. It is 90% because we have system and infrastructure costs to cover, and most failures stem from Model terms violations rather than the 10z platform.',
+          answer: `Our refund policy is simple, fair, and transparent:
 <ul>
   <li><strong>Failed Generations (90% Refund || Free Regen):</strong> On all failed generations, a button appears directly on the failed take so you can easily choose a <strong>90% credit refund</strong> or a <strong>free regen (retry)</strong>. The button appears as soon as we receive a direct error from the model, or after <strong>30 minutes</strong> if a job fails silently.</li>
   <li><strong>Why 90% on Failed Generations?</strong> The credit refund is 90% because we have system and infrastructure costs that we need to cover, and we are trying to be as fair as possible as most failures are caused from Model terms violations and not any issue with the 10z platform.</li>
   <li><strong>Monthly Subscriptions:</strong> If you signed up for a subscription by mistake or experienced technical issues, contact <code>support@10zebra.com</code> within 7 days of purchase. If you have not consumed substantial generation compute, we will gladly issue a full refund to your original payment method.</li>
   <li><strong>Credit Packs:</strong> Unused top-up credit packs never expire and remain in your account for future productions.</li>
 </ul>`,
-    keywords: ['refund policy', 'money back', '90% refund', 'free regen', '30m', 'subscription refund', 'failed generation refund'],
-  },
+          keywords: ['refund policy', 'money back', '90% refund', 'free regen', '30m', 'subscription refund', 'failed generation refund'],
+        },
+      ]
+    : []),
   {
     id: 'security-and-infrastructure',
     category: 'terms',

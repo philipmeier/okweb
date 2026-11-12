@@ -1,18 +1,22 @@
 ---
 // src/components/pricing/CreditPacks.astro
 import { creditPacks } from "/src/data/pricing";
+import { featureGates } from "/src/data/config";
+
+const showSubscriptions = featureGates.subscriptions;
 ---
 
 <section class="section py-16 border-t border-[var(--border-subtle)]" aria-labelledby="packs-heading">
   <div class="wrap">
     <div class="sect-head mb-12 text-center">
-      <span class="sect-label">Flexible Top-Ups</span>
+      <span class="sect-label">Flexible Pay-As-You-Go Top-Ups</span>
       <h2 id="packs-heading" class="text-3xl md:text-4xl font-extrabold tracking-tight">
         Credits That <span class="grad-text">Never Expire</span>
       </h2>
       <p class="max-w-2xl mx-auto text-[var(--text-secondary)] text-sm md:text-base mt-2">
-        Tired of "use it or lose it" subscription traps? In 10zebra, all purchased top-up credits stay in your account forever.
-        Plus, active Maker and Director subscribers unlock up to 30% off every single top-up pack.
+        {showSubscriptions
+          ? 'Tired of "use it or lose it" subscription traps? In 10zebra, all purchased top-up credits stay in your account forever. Plus, active Maker and Director subscribers unlock up to 30% off every single top-up pack.'
+          : 'Tired of "use it or lose it" subscription traps? In 10zebra, there is no required monthly subscription—simply buy credit packs whenever you have an active production, and your credits stay in your account forever.'}
       </p>
     </div>
 
@@ -28,15 +32,27 @@ import { creditPacks } from "/src/data/pricing";
         </div>
       </div>
 
-      <div class="p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] flex items-start gap-3">
-        <div class="w-8 h-8 rounded-lg bg-[var(--accent-subtle)] border border-[var(--accent)]/30 flex items-center justify-center text-[var(--accent)] font-bold shrink-0 text-sm">
-          %
+      {showSubscriptions ? (
+        <div class="p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] flex items-start gap-3">
+          <div class="w-8 h-8 rounded-lg bg-[var(--accent-subtle)] border border-[var(--accent)]/30 flex items-center justify-center text-[var(--accent)] font-bold shrink-0 text-sm">
+            %
+          </div>
+          <div>
+            <h3 class="text-xs font-bold text-[var(--text-primary)]">Stacked Subscriber Savings</h3>
+            <p class="text-[0.78rem] text-[var(--text-secondary)] mt-0.5">Maker members save 15% on all top-ups. Director members save 30% on all top-ups.</p>
+          </div>
         </div>
-        <div>
-          <h3 class="text-xs font-bold text-[var(--text-primary)]">Stacked Subscriber Savings</h3>
-          <p class="text-[0.78rem] text-[var(--text-secondary)] mt-0.5">Maker members save 15% on all top-ups. Director members save 30% on all top-ups.</p>
+      ) : (
+        <div class="p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] flex items-start gap-3">
+          <div class="w-8 h-8 rounded-lg bg-[var(--accent-subtle)] border border-[var(--accent)]/30 flex items-center justify-center text-[var(--accent)] font-bold shrink-0 text-sm">
+            $0
+          </div>
+          <div>
+            <h3 class="text-xs font-bold text-[var(--text-primary)]">No Subscription Required</h3>
+            <p class="text-[0.78rem] text-[var(--text-secondary)] mt-0.5">Pay only for the credits you use with zero recurring monthly fees or lock-in.</p>
+          </div>
         </div>
-      </div>
+      )}
 
       <div class="p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] flex items-start gap-3">
         <div class="w-8 h-8 rounded-lg bg-blue-500/15 border border-blue-500/30 flex items-center justify-center text-blue-400 font-bold shrink-0 text-sm">
@@ -44,17 +60,23 @@ import { creditPacks } from "/src/data/pricing";
         </div>
         <div>
           <h3 class="text-xs font-bold text-[var(--text-primary)]">Project Budget Allocation</h3>
-          <p class="text-[0.78rem] text-[var(--text-secondary)] mt-0.5">Assign top-up packs directly to specific client projects to keep billing transparent.</p>
+          <p class="text-[0.78rem] text-[var(--text-secondary)] mt-0.5">Assign credit caps per collaborator on each project so team spending stays on target.</p>
         </div>
       </div>
 
       <div class="p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] flex items-start gap-3">
         <div class="w-8 h-8 rounded-lg bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400 font-bold shrink-0 text-sm">
-          &#8635;
+          +
         </div>
         <div>
-          <h3 class="text-xs font-bold text-[var(--text-primary)]">90% Refund || Free Regen</h3>
-          <p class="text-[0.78rem] text-[var(--text-secondary)] mt-0.5">1-click button on failed generations (after a direct model error or 30m silent timeout) to refund 90% or retry free.</p>
+          <h3 class="text-xs font-bold text-[var(--text-primary)]">
+            {showSubscriptions ? "2 to Unlimited Team Seats" : "Free Team Collaborators"}
+          </h3>
+          <p class="text-[0.78rem] text-[var(--text-secondary)] mt-0.5">
+            {showSubscriptions
+              ? "Maker includes 2 team seats per project; Director includes unlimited team seats."
+              : "Invite co-directors, editors, and client reviewers to your projects at no cost."}
+          </p>
         </div>
       </div>
     </div>
@@ -100,17 +122,32 @@ import { creditPacks } from "/src/data/pricing";
           <!-- Price comparison breakdown -->
           <div class="p-3 rounded-lg bg-[var(--bg-elevated)] border border-[var(--border-subtle)] space-y-1.5 mb-5 text-xs">
             <div class="flex justify-between items-center text-[var(--text-secondary)]">
-              <span>Standard Price:</span>
+              <span>{showSubscriptions ? "Standard Price:" : "Pack Price:"}</span>
               <span class="font-bold text-[var(--text-primary)] font-mono">{pack.basePrice}</span>
             </div>
-            <div class="flex justify-between items-center text-xs text-[var(--accent)]">
-              <span>With Maker (-15%):</span>
-              <span class="font-bold font-mono">{pack.makerPrice}</span>
-            </div>
-            <div class="flex justify-between items-center text-xs text-amber-400">
-              <span>With Director (-30%):</span>
-              <span class="font-bold font-mono">{pack.directorPrice}</span>
-            </div>
+            {showSubscriptions ? (
+              <>
+                <div class="flex justify-between items-center text-xs text-[var(--accent)]">
+                  <span>With Maker (-15%):</span>
+                  <span class="font-bold font-mono">{pack.makerPrice}</span>
+                </div>
+                <div class="flex justify-between items-center text-xs text-amber-400">
+                  <span>With Director (-30%):</span>
+                  <span class="font-bold font-mono">{pack.directorPrice}</span>
+                </div>
+              </>
+            ) : (
+              <>
+                <div class="flex justify-between items-center text-xs text-emerald-400">
+                  <span>Effective Rate:</span>
+                  <span class="font-bold font-mono">{pack.unitPrice}</span>
+                </div>
+                <div class="flex justify-between items-center text-xs text-[var(--text-muted)]">
+                  <span>Expiration:</span>
+                  <span class="font-mono">Never expires</span>
+                </div>
+              </>
+            )}
           </div>
 
           <a

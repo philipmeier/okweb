@@ -1,11 +1,16 @@
 ---
 import { totalFamilies, totalModels } from '/src/data/models';
+import { featureGates } from '/src/data/config';
+const showSubscriptions = featureGates.subscriptions;
+const showFailedGenProtection = featureGates.failedGenerationProtection;
+const showReferralProgram = featureGates.referralProgram;
+const showAgenticWorkflows = featureGates.agenticWorkflows;
 ---
 <section class="section" aria-labelledby="compare-heading">
   <div class="sect-head reveal">
     <span class="sect-label">Comparison</span>
     <h2 id="compare-heading">Why Teams Choose <span class="grad-text">10zebra</span></h2>
-    <p>The only workspace built for multi-model, multi-person production.</p>
+    <p>The only workspace built for multi-model, hybrid live-action + AI, and multi-person production.</p>
   </div>
 
   <div class="glass overflow-x-auto p-2 reveal">
@@ -37,8 +42,8 @@ import { totalFamilies, totalModels } from '/src/data/models';
           <td class="p-3 text-[var(--text-muted)]">&#10007;</td>
         </tr>
         <tr class="border-b border-[rgba(46,50,59,0.4)]">
-          <td class="p-3 text-[var(--text-primary)] font-medium">Text-to-sequence (auto multi-shot storyboard)</td>
-          <td class="p-3 text-[var(--accent)] font-semibold">&#10003;</td>
+          <td class="p-3 text-[var(--text-primary)] font-medium">Quick Start tools to start a project or extend any scene</td>
+          <td class="p-3 text-[var(--accent)] font-semibold">&#10003; Start or extend in-scene</td>
           <td class="p-3 text-[var(--text-muted)]">&#10007;</td>
           <td class="p-3 text-[var(--text-muted)]">&#10007;</td>
           <td class="p-3 text-[var(--text-muted)]">&#10007;</td>
@@ -46,8 +51,14 @@ import { totalFamilies, totalModels } from '/src/data/models';
         <!-- Group: Team & Project Management -->
         <tr><td colspan="5" class="px-3 pt-5 pb-2 text-[0.7rem] uppercase tracking-[1.5px] text-[var(--text-muted)] font-bold border-b border-[var(--border-subtle)] bg-white/[0.01]">Project Management (Teams &amp; Budgets)</td></tr>
         <tr class="border-b border-[rgba(46,50,59,0.4)]">
-          <td class="p-3 text-[var(--text-primary)] font-medium">Project-level seats (invite per project, not whole app)</td>
-          <td class="p-3 text-[var(--accent)] font-semibold">&#10003; Per-project seats</td>
+          <td class="p-3 text-[var(--text-primary)] font-medium">
+            {showSubscriptions
+              ? 'Project-level seats (Maker: 2 seats/project, Director: Unlimited)'
+              : 'Project-level seats (collaborators invited at no cost)'}
+          </td>
+          <td class="p-3 text-[var(--accent)] font-semibold">
+            {showSubscriptions ? '\u2713 Maker 2 / Director Unlimited' : '\u2713 Free collaborator seats'}
+          </td>
           <td class="p-3 text-[var(--text-muted)]">&#10007; App-wide only ($35+/mo)</td>
           <td class="p-3 text-[var(--text-muted)]">&#10007; Single user</td>
           <td class="p-3 text-[var(--text-muted)]">&#10007; Single user</td>
@@ -81,24 +92,35 @@ import { totalFamilies, totalModels } from '/src/data/models';
           <td class="p-3 text-[var(--text-muted)]">&#10007;</td>
         </tr>
         <!-- Group: Production -->
-        <tr><td colspan="5" class="px-3 pt-5 pb-2 text-[0.7rem] uppercase tracking-[1.5px] text-[var(--text-muted)] font-bold border-b border-[var(--border-subtle)] bg-white/[0.01]">Production Pipeline &amp; Agent Z</td></tr>
+        <tr><td colspan="5" class="px-3 pt-5 pb-2 text-[0.7rem] uppercase tracking-[1.5px] text-[var(--text-muted)] font-bold border-b border-[var(--border-subtle)] bg-white/[0.01]">Production Pipeline &amp; Hybrid Filmmaking</td></tr>
         <tr class="border-b border-[rgba(46,50,59,0.4)]">
-          <td class="p-3 text-[var(--text-primary)] font-medium">Agent Z batch workflows (create, convert, replace characters, regen, upscale)</td>
-          <td class="p-3 text-[var(--accent)] font-semibold">&#10003; Batch engine</td>
-          <td class="p-3 text-[var(--text-muted)]">&#10007; Single clip only</td>
-          <td class="p-3 text-[var(--text-muted)]">&#10007; Single clip only</td>
-          <td class="p-3 text-[var(--text-muted)]">&#10007; Single clip only</td>
-        </tr>
-        <tr class="border-b border-[rgba(46,50,59,0.4)]">
-          <td class="p-3 text-[var(--text-primary)] font-medium">Agent Z Dry Run analysis (plan, credit cost preview &amp; approval)</td>
-          <td class="p-3 text-[var(--accent)] font-semibold">&#10003; Approval-gated</td>
-          <td class="p-3 text-[var(--text-muted)]">&#10007;</td>
+          <td class="p-3 text-[var(--text-primary)] font-medium">Hybrid Production (combine live-action footage &amp; real actors with AI styles/visuals)</td>
+          <td class="p-3 text-[var(--accent)] font-semibold">&#10003; Auto shot split + AI restyle</td>
+          <td class="p-3 text-[var(--text-muted)] italic">Single clip V2V only</td>
           <td class="p-3 text-[var(--text-muted)]">&#10007;</td>
           <td class="p-3 text-[var(--text-muted)]">&#10007;</td>
         </tr>
+        {showAgenticWorkflows && (
+          <>
+            <tr class="border-b border-[rgba(46,50,59,0.4)]">
+              <td class="p-3 text-[var(--text-primary)] font-medium">Agent Z batch workflows (create, convert, replace characters, regen, upscale)</td>
+              <td class="p-3 text-[var(--accent)] font-semibold">&#10003; Batch engine</td>
+              <td class="p-3 text-[var(--text-muted)]">&#10007; Single clip only</td>
+              <td class="p-3 text-[var(--text-muted)]">&#10007; Single clip only</td>
+              <td class="p-3 text-[var(--text-muted)]">&#10007; Single clip only</td>
+            </tr>
+            <tr class="border-b border-[rgba(46,50,59,0.4)]">
+              <td class="p-3 text-[var(--text-primary)] font-medium">Agent Z Dry Run analysis (plan, credit cost preview &amp; approval)</td>
+              <td class="p-3 text-[var(--accent)] font-semibold">&#10003; Approval-gated</td>
+              <td class="p-3 text-[var(--text-muted)]">&#10007;</td>
+              <td class="p-3 text-[var(--text-muted)]">&#10007;</td>
+              <td class="p-3 text-[var(--text-muted)]">&#10007;</td>
+            </tr>
+          </>
+        )}
         <tr class="border-b border-[rgba(46,50,59,0.4)]">
-          <td class="p-3 text-[var(--text-primary)] font-medium">Character consistency across shots</td>
-          <td class="p-3 text-[var(--accent)] font-semibold">&#10003;</td>
+          <td class="p-3 text-[var(--text-primary)] font-medium">Character consistency &amp; actor swap across shots</td>
+          <td class="p-3 text-[var(--accent)] font-semibold">&#10003; Reference lock &amp; swap</td>
           <td class="p-3 text-[var(--text-muted)] italic">Limited</td>
           <td class="p-3 text-[var(--text-muted)]">&#10007;</td>
           <td class="p-3 text-[var(--text-muted)]">&#10007;</td>
@@ -111,10 +133,10 @@ import { totalFamilies, totalModels } from '/src/data/models';
           <td class="p-3 text-[var(--text-muted)]">&#10007;</td>
         </tr>
         <!-- Group: Pricing -->
-        <tr><td colspan="5" class="px-3 pt-5 pb-2 text-[0.7rem] uppercase tracking-[1.5px] text-[var(--text-muted)] font-bold border-b border-[var(--border-subtle)] bg-white/[0.01]">Pricing, Refunds &amp; Referrals</td></tr>
+        <tr><td colspan="5" class="px-3 pt-5 pb-2 text-[0.7rem] uppercase tracking-[1.5px] text-[var(--text-muted)] font-bold border-b border-[var(--border-subtle)] bg-white/[0.01]">Pricing &amp; Credit Model</td></tr>
         <tr class="border-b border-[rgba(46,50,59,0.4)]">
-          <td class="p-3 text-[var(--text-primary)] font-medium">No subscription required (PAYG)</td>
-          <td class="p-3 text-[var(--accent)] font-semibold">&#10003; $0 to start</td>
+          <td class="p-3 text-[var(--text-primary)] font-medium">No subscription required (simple Pay-As-You-Go)</td>
+          <td class="p-3 text-[var(--accent)] font-semibold">&#10003; $0 to start (200 free credits)</td>
           <td class="p-3 text-[var(--text-muted)]">&#10007; $15/mo min</td>
           <td class="p-3 text-[var(--text-muted)]">&#10007; $9/mo min</td>
           <td class="p-3 text-[var(--text-muted)]">&#10007; $14.99/mo</td>
@@ -126,20 +148,24 @@ import { totalFamilies, totalModels } from '/src/data/models';
           <td class="p-3 text-[var(--text-muted)]">&#10007;</td>
           <td class="p-3 text-[var(--text-muted)]">&#10007;</td>
         </tr>
-        <tr class="border-b border-[rgba(46,50,59,0.4)]">
-          <td class="p-3 text-[var(--text-primary)] font-medium">Failed generation protection (1-click refund or retry button)</td>
-          <td class="p-3 text-[var(--accent)] font-semibold">&#10003; 90% refund || free regen</td>
-          <td class="p-3 text-[var(--text-muted)]">&#10007;</td>
-          <td class="p-3 text-[var(--text-muted)]">&#10007;</td>
-          <td class="p-3 text-[var(--text-muted)]">&#10007;</td>
-        </tr>
-        <tr>
-          <td class="p-3 text-[var(--text-primary)] font-medium">Referral program on credit packs &amp; subscriptions (Tolt)</td>
-          <td class="p-3 text-[var(--accent)] font-semibold">&#10003; 3% lifetime payout</td>
-          <td class="p-3 text-[var(--text-muted)]">&#10007;</td>
-          <td class="p-3 text-[var(--text-muted)]">&#10007;</td>
-          <td class="p-3 text-[var(--text-muted)]">&#10007;</td>
-        </tr>
+        {showFailedGenProtection && (
+          <tr class="border-b border-[rgba(46,50,59,0.4)]">
+            <td class="p-3 text-[var(--text-primary)] font-medium">Failed generation protection (1-click refund or retry button)</td>
+            <td class="p-3 text-[var(--accent)] font-semibold">&#10003; 90% refund || free regen</td>
+            <td class="p-3 text-[var(--text-muted)]">&#10007;</td>
+            <td class="p-3 text-[var(--text-muted)]">&#10007;</td>
+            <td class="p-3 text-[var(--text-muted)]">&#10007;</td>
+          </tr>
+        )}
+        {showReferralProgram && (
+          <tr>
+            <td class="p-3 text-[var(--text-primary)] font-medium">Referral program on credit packs &amp; subscriptions (Tolt)</td>
+            <td class="p-3 text-[var(--accent)] font-semibold">&#10003; 3% lifetime payout</td>
+            <td class="p-3 text-[var(--text-muted)]">&#10007;</td>
+            <td class="p-3 text-[var(--text-muted)]">&#10007;</td>
+            <td class="p-3 text-[var(--text-muted)]">&#10007;</td>
+          </tr>
+        )}
       </tbody>
     </table>
   </div>

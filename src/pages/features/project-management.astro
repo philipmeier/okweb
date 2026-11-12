@@ -1,9 +1,15 @@
 ---
 import FeatureLandingLayout from "/src/layouts/FeatureLandingLayout.astro";
 import ProjectBudgetMockup from "/src/components/features/ProjectBudgetMockup.astro";
+import { featureGates } from "/src/data/config";
+const showSubscriptions = featureGates.subscriptions;
 
 const stats = [
-  { value: "Per-Project", label: "Scoped Seats", detail: "Invite by project, not whole app" },
+  {
+    value: showSubscriptions ? "2 to ∞" : "$0 / Seat",
+    label: showSubscriptions ? "Project Team Seats" : "Free Collaborators",
+    detail: showSubscriptions ? "Maker: 2 seats/project · Director: Unlimited" : "Invite team collaborators at no seat cost",
+  },
   { value: "$0 Bleed", label: "Credit Vault Isolation", detail: "Projects never share credit balances" },
   { value: "Free Viewers", label: "Client Review Seats", detail: "Clients review & approve for $0" },
   { value: "100%", label: "Per-Shot Audit Trail", detail: "Track who generated what & at what cost" }
@@ -18,8 +24,10 @@ const workflowSteps = [
   },
   {
     step: "Step 02",
-    title: "Invite Project-Level Seats & Assign Roles",
-    description: "Invite directors, freelance animators, and agency clients directly to this specific project with discrete roles (Director, Editor, or free Client Viewer).",
+    title: showSubscriptions ? "Invite Project-Level Seats (Maker 2 / Director Unlimited)" : "Invite Team Collaborators at No Seat Cost",
+    description: showSubscriptions
+      ? "Invite directors, freelance animators, and agency clients directly to this specific project with discrete roles (2 team seats per project on Maker, unlimited on Director, plus free Client Viewers)."
+      : "Invite directors, freelance animators, and agency clients directly to this specific project at no seat cost — with discrete roles (Director, Editor, or free Client Viewer).",
     tag: "Project Seats"
   },
   {
@@ -32,12 +40,18 @@ const workflowSteps = [
 
 const features = [
   {
-    title: "Project-Level Seats vs. App-Level Seats: Built for Agencies, Enterprises & Collabs",
-    description: "Traditional AI tools force you to pay for expensive whole-account seat licenses ($35–$100/mo) for anyone you invite, and once added, they either have account-wide exposure or require separate logins. 10zebra scopes membership per project:",
+    title: showSubscriptions
+      ? "Project-Level Seats vs. App-Level Seats: Maker (2 Seats) & Director (Unlimited)"
+      : "No-Cost Team Collaborators vs. Expensive App-Level Seats",
+    description: showSubscriptions
+      ? "Traditional AI tools force you to pay for expensive whole-account seat licenses ($35–$100/mo) for anyone you invite, and once added, they have account-wide exposure. 10zebra scopes membership per project — Maker includes 2 team seats per project and Director unlocks unlimited team seats per project:"
+      : "Traditional AI tools force you to pay for expensive whole-account seat licenses ($35–$100/mo) for anyone you invite. On 10zebra, team collaborators are invited at no cost and scoped strictly per project:",
     bullets: [
+      showSubscriptions
+        ? "<strong>Flexible project seat tiers:</strong> Maker plans include 2 team seats per project, while Director plans unlock unlimited team seats per project."
+        : "<strong>Team collaborators at no cost ($0/seat):</strong> Invite co-directors, editors, and VFX artists to any project without paying monthly seat fees — you only fund the shared generation credits your project uses.",
       "<strong>Agency client isolation:</strong> Keep Client A (e.g. Automotive) completely cordoned off from Client B (e.g. Fragrance) with zero risk of NDA leaks or cross-client visibility.",
       "<strong>Free client review seats:</strong> Invite brand stakeholders as Viewers to inspect takes, scrub animatics, and approve cuts without paying for an extra seat or giving them generation access.",
-      "<strong>Bigger companies & studios:</strong> Departmental teams (Marketing, Previs, Social) manage their own rosters and projects without cross-team chaos or credit interference.",
       "<strong>Creator collaborations:</strong> Team up with guest directors, VFX specialists, or sound designers on a single production without handing over your personal studio credentials or billing."
     ],
     tag: "Project Membership"
@@ -67,7 +81,9 @@ const features = [
 const comparisonItems = [
   {
     feature: "Seat Architecture",
-    zebra: "Project-level seats: invite collaborators & clients per project",
+    zebra: showSubscriptions
+      ? "Project-level seats: Maker includes 2 seats/project, Director includes unlimited seats/project"
+      : "Project-level seats: invite team collaborators & clients at no seat cost ($0/seat)",
     competitor: "App-wide seats only ($35+/user) with full account visibility",
     zebraAdvantage: true
   },
@@ -99,8 +115,12 @@ const comparisonItems = [
 
 const faqs = [
   {
-    question: "Why are project-level seats better than app-level seats?",
-    answer: "App-level seats lock you into paying for team members across your entire organization, giving them access to all your work. Project-level seats allow you to add collaborators, freelance artists, and clients strictly to the specific project they are working on. They have zero visibility into your other client projects, and you don't have to purchase expensive account-wide licenses."
+    question: showSubscriptions
+      ? "How many team seats are included per project on Maker and Director?"
+      : "Are team collaborators really free to invite to a project?",
+    answer: showSubscriptions
+      ? "Maker plans include 2 team seats per project, and Director plans include unlimited team seats per project. In addition, client and stakeholder Viewer seats are always free across all projects. Because seats are scoped per project rather than across your whole account, collaborators only see the specific production they are invited to."
+      : "Yes. Team collaborators and client reviewers are invited at no seat cost ($0/seat). You simply fund the project's shared credit vault (or set per-member credit budgets) so collaborators only consume the generation credits you authorize for that specific production."
   },
   {
     question: "How do project-level seats and budgets work together for agencies?",

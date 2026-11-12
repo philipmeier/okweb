@@ -1,5 +1,7 @@
 ---
 import charImg from '/src/assets/media/features/character-swap-1970s.jpg';
+import { featureGates } from '/src/data/config';
+const showAgenticWorkflows = featureGates.agenticWorkflows;
 ---
 <section class="section" aria-labelledby="consistency-heading">
   <div class="split reveal">
@@ -9,7 +11,7 @@ import charImg from '/src/assets/media/features/character-swap-1970s.jpg';
       <p>When you prompt Kling or Runway directly, your character&rsquo;s face shifts between takes. 10zebra&rsquo;s image-first reference pipeline locks it.</p>
       <ul class="feat-list">
         <li><span class="check-icon">&#10003;</span> <span><strong>Reference portraits</strong> &mdash; generate a character image once, then anchor every subsequent shot to it automatically.</span></li>
-        <li><span class="check-icon">&#10003;</span> <span><strong>Character Swap &amp; Agent Z</strong> &mdash; drop in a reference photo to replace the person in a single video or batch-replace across your sequence while preserving all original motion.</span></li>
+        <li><span class="check-icon">&#10003;</span> <span><strong>{showAgenticWorkflows ? 'Character Swap & Agent Z' : 'Character Swap & Hybrid Footage'}</strong> &mdash; {showAgenticWorkflows ? 'drop in a reference photo to replace the person in a single video or batch-replace across your sequence while preserving all original motion.' : 'drop in a reference photo to replace the actor in any AI take or uploaded live-action video while preserving 100% of original motion.'}</span></li>
         <li><span class="check-icon">&#10003;</span> <span><strong>Environment locking</strong> &mdash; maintain lighting, color palette, and art direction across your whole storyboard.</span></li>
         <li><span class="check-icon">&#10003;</span> <span><strong>Multi-reference editing</strong> &mdash; blend up to 3 references (character, costume, environment) into a single new frame.</span></li>
       </ul>

@@ -9,6 +9,7 @@
  * strip (3) or 2×2 grid (4) instead, e.g. the same prompt across 4 models.
  */
 import { media, type MediaSlot } from './media';
+import { featureGates } from './config';
 
 export type PhaseKey = 'generate' | 'direct' | 'finish' | 'manage';
 
@@ -68,17 +69,34 @@ export const features = {
   quickStart: {
     title: 'Quick Start Tools',
     short: 'Quick Start',
-    blurb: 'From a Script, Three Acts, Make an Ad, and more.',
+    blurb: 'Start a new storyboard or extend any scene in-project with 6 guided tools.',
     href: '/features/quick-start-tools/index.html',
     icon: 'M13 10V3L4 14h7v7l9-11h-7z',
     phase: 'generate',
     badge: '6 Tools',
     media: media.featQuickStart,
   },
+  hybridProduction: {
+    title: 'Hybrid Production',
+    short: 'Hybrid Production',
+    blurb: 'Combine live-action footage and real actors with AI-generated visuals or styles.',
+    href: '/features/hybrid-production/index.html',
+    icon: 'M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z',
+    phase: 'direct',
+    badge: 'Live + AI',
+    media: media.featHybridProduction,
+    gallery: [
+      { slot: media.featHybridLivePlate, label: 'Live-Action Plate' },
+      { slot: media.featHybridStylizedTake, label: 'AI Restyled Take' },
+      { slot: media.featCharacterSwap, label: 'Character Swap' },
+    ],
+  },
   characterSwap: {
-    title: 'Character Swap & Agent Z',
+    title: featureGates.agenticWorkflows ? 'Character Swap & Agent Z' : 'Character Swap',
     short: 'Character Swap',
-    blurb: 'Swap talent in any take, or batch-swap a whole project.',
+    blurb: featureGates.agenticWorkflows
+      ? 'Swap talent in any take, or batch-swap a whole project.'
+      : 'Swap talent in AI takes or live-action footage while preserving motion.',
     href: '/features/character-swap/index.html',
     icon: 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z',
     phase: 'direct',
@@ -128,17 +146,21 @@ export const features = {
   projectBudgets: {
     title: 'Project Teams & Budgets',
     short: 'Teams & Budgets',
-    blurb: 'Project-level seats and isolated credit vaults for agencies, studios, and collaborations.',
+    blurb: featureGates.subscriptions
+      ? 'Maker gets 2 team seats/project; Director gets unlimited seats & isolated credit vaults.'
+      : 'Add team collaborators at no cost with project-level seats and isolated credit budgets.',
     href: '/features/project-management/index.html',
     icon: 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
     phase: 'manage',
-    badge: 'Teams & Budgets',
+    badge: featureGates.subscriptions ? 'Teams & Budgets' : 'Free Collaborators',
     media: media.featBudgets,
   },
   teamManagement: {
     title: 'Team Roles & Permissions',
     short: 'Team Roles',
-    blurb: 'Decide who can generate, edit, or manage, per project.',
+    blurb: featureGates.subscriptions
+      ? '2 team seats/project on Maker, unlimited on Director, plus free client review seats.'
+      : 'Collaborate at no extra cost—decide who can generate, edit, or review per project.',
     href: '/features/team-management/index.html',
     icon: 'M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z',
     phase: 'manage',
@@ -169,13 +191,20 @@ export const features = {
 
 export type FeatureKey = keyof typeof features;
 
-export const featureEntries = Object.entries(features) as [FeatureKey, FeatureRef][];
+export const allFeatureEntries = Object.entries(features) as [FeatureKey, FeatureRef][];
 
-/** Look up a feature by its page URL (trailing slash tolerant). */
+export const featureEntries: [FeatureKey, FeatureRef][] = allFeatureEntries.filter(([key]) => {
+  if (key === 'agenticWorkflows' && !featureGates.agenticWorkflows) return false;
+  if (key === 'referralProgram' && !featureGates.referralProgram) return false;
+  return true;
+});
+
+/** Look up a feature by its page URL (trailing slash & index.html tolerant). */
 export const getFeatureByHref = (href: string): [FeatureKey, FeatureRef] | undefined => {
-  const clean = href.replace(/\/+$/, '');
+  const normalize = (u: string) => u.replace(/\/index\.html$/, '').replace(/\/+$/, '');
+  const clean = normalize(href);
   if (clean === '/referral-program' || clean === '/referrals') {
     return ['referralProgram', features.referralProgram];
   }
-  return featureEntries.find(([, f]) => f.href === clean);
+  return allFeatureEntries.find(([, f]) => normalize(f.href) === clean);
 };

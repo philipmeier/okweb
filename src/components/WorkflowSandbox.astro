@@ -12,8 +12,10 @@ import prod1 from '/src/assets/media/take-b-1970s.jpg';
 import prod2 from '/src/assets/media/features/storyboard-1970s.jpg';
 import prod3 from '/src/assets/media/features/produce-export-1970s.jpg';
 import team1 from '/src/assets/media/features/project-budgets-1970s.jpg';
-import team2 from '/src/assets/media/features/agentic-workflows-1970s.jpg';
+import team2 from '/src/assets/media/features/hybrid-production-1970s.jpg';
 import team3 from '/src/assets/media/features/team-1970s.jpg';
+import { featureGates } from '/src/data/config';
+const showAgenticWorkflows = featureGates.agenticWorkflows;
 
 const workflowsData = {
   sequence: [
@@ -22,9 +24,9 @@ const workflowsData = {
     { title: 'Auto → Shot 3: The Payoff',    desc: 'Closing shot with consistent setting and crew — ready to export.',                                   img: seq3.src },
   ],
   swap: [
-    { title: 'Original Video',  desc: 'Source video with original talent — any Kling, Runway, or uploaded clip.',           img: swap1.src },
+    { title: 'Original Video',  desc: 'Source video with original talent — any Kling, Runway, or uploaded live-action clip.', img: swap1.src },
     { title: 'Reference Photo', desc: 'Drop in a single reference portrait of Lead Driver Elena Vance to swap in.',         img: swap2.src },
-    { title: 'Swapped Output',  desc: 'Same motion, same background — new character. Batch-ready with Agent Z.',            img: swap3.src },
+    { title: 'Swapped Output',  desc: showAgenticWorkflows ? 'Same motion, same background — new character. Batch-ready with Agent Z.' : 'Same motion, same background — new character with 100% motion lock.', img: swap3.src },
   ],
   multiref: [
     { title: 'Ref 1: Character',   desc: 'Character portrait — locks face and Nomex suit across the edit.',                    img: ref1.src },
@@ -37,8 +39,8 @@ const workflowsData = {
     { title: 'Export to YouTube', desc: 'One-click export — download your finished video or share a preview link.',           img: prod3.src },
   ],
   team: [
-    { title: 'Owner Funds Project', desc: 'Project owner sets a credit budget and adds team members with specific roles.',    img: team1.src },
-    { title: 'Agent Z & Team Run',  desc: 'Members generate takes and run Agent Z Dry Run batches using project credits.',    img: team2.src },
+    { title: 'Owner Funds Project', desc: 'Project owner sets a credit budget and invites collaborators with specific roles.', img: team1.src },
+    { title: showAgenticWorkflows ? 'Agent Z & Team Run' : 'Team Collaborates Live', desc: showAgenticWorkflows ? 'Members generate takes and run Agent Z Dry Run batches using project credits.' : 'Members generate AI takes and hybrid live-action shots using shared project credits.', img: team2.src },
     { title: 'Owner Reviews',       desc: 'Owner reviews takes, checks costs, selects best outputs, and exports the final cut.',img: team3.src },
   ],
 };

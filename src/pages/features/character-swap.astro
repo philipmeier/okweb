@@ -1,10 +1,16 @@
 ---
 import FeatureLandingLayout from "/src/layouts/FeatureLandingLayout.astro";
 import CharacterSwapMockup from "/src/components/features/CharacterSwapMockup.astro";
+import { featureGates } from "/src/data/config";
+const showAgenticWorkflows = featureGates.agenticWorkflows;
 
 const stats = [
   { value: "100%", label: "Motion Preservation", detail: "Retains exact camera dolly & posture" },
-  { value: "1 Click", label: "Project-Wide Agent Swap", detail: "Automated batch storyboard re-render" },
+  {
+    value: showAgenticWorkflows ? "1 Click" : "Live + AI",
+    label: showAgenticWorkflows ? "Project-Wide Agent Swap" : "Hybrid Footage Support",
+    detail: showAgenticWorkflows ? "Automated batch storyboard re-render" : "Swap on real camera clips or AI takes"
+  },
   { value: "Zero", label: "Face Drift Across Shots", detail: "Locked identity via reference portrait" },
   { value: "12s", label: "Full Motion Sequences", detail: "Compatible with long takes & Seedance" }
 ];
@@ -24,9 +30,11 @@ const workflowSteps = [
   },
   {
     step: "Step 03",
-    title: "Swap Single Shot or Deploy 10z Agent",
-    description: "Execute a single take swap, or command the 10z Agent to automatically propagate the new character across every selected shot in your project.",
-    tag: "Batch Automation"
+    title: showAgenticWorkflows ? "Swap Single Shot or Deploy 10z Agent" : "Render Motion-Locked Character Swap",
+    description: showAgenticWorkflows
+      ? "Execute a single take swap, or command the 10z Agent to automatically propagate the new character across every selected shot in your project."
+      : "Execute the swap directly from the take menu or in-scene Start Workflow dialog while preserving your original take for side-by-side comparison.",
+    tag: showAgenticWorkflows ? "Batch Automation" : "Motion Transfer"
   }
 ];
 
@@ -41,16 +49,27 @@ const features = [
     ],
     tag: "Motion Lock"
   },
-  {
-    title: "The 10z Project Agent: Automated Project-Wide Swaps",
-    description: "Re-casting a project in traditional AI workflows takes days of re-prompting and manual matching. The 10z Agent automates the entire process in background tasks.",
-    bullets: [
-      "<strong>Project-wide detection:</strong> The 10z agent scans your entire timeline and storyboard to identify all takes featuring the original character.",
-      "<strong>Parallel batch rendering:</strong> Automatically queues swap generations in the background using project credits.",
-      "<strong>Non-destructive versioning:</strong> Original takes are safely preserved as alternative takes so you can revert or A/B test with clients anytime."
-    ],
-    tag: "10z Agent"
-  }
+  showAgenticWorkflows
+    ? {
+        title: "The 10z Project Agent: Automated Project-Wide Swaps",
+        description: "Re-casting a project in traditional AI workflows takes days of re-prompting and manual matching. The 10z Agent automates the entire process in background tasks.",
+        bullets: [
+          "<strong>Project-wide detection:</strong> The 10z agent scans your entire timeline and storyboard to identify all takes featuring the original character.",
+          "<strong>Parallel batch rendering:</strong> Automatically queues swap generations in the background using project credits.",
+          "<strong>Non-destructive versioning:</strong> Original takes are safely preserved as alternative takes so you can revert or A/B test with clients anytime."
+        ],
+        tag: "10z Agent"
+      }
+    : {
+        title: "Hybrid Live-Action & In-Scene Storyboard Swaps",
+        description: "Combine real actor performances with AI characters or re-cast shots mid-project without re-shooting a single frame.",
+        bullets: [
+          "<strong>Swap on real camera footage:</strong> Upload live-action footage of a real actor or stunt double and transform them into your locked character reference.",
+          "<strong>Launch from any scene:</strong> Trigger Swap Character from a new project or click Start Workflow inside any existing storyboard scene to extend your sequence.",
+          "<strong>Non-destructive versioning:</strong> Original takes are safely preserved as alternative takes so you can revert or A/B test with clients anytime."
+        ],
+        tag: "Hybrid Production"
+      }
 ];
 
 const comparisonItems = [
@@ -60,12 +79,16 @@ const comparisonItems = [
     competitor: "Re-prompt from scratch; character face, motion, and background change",
     zebraAdvantage: true
   },
-  {
-    feature: "Project-Wide Character Updates",
-    zebra: "10z Agent propagates new character across all selected storyboard takes",
-    competitor: "Must manually re-create every individual shot one by one",
-    zebraAdvantage: true
-  },
+  ...(showAgenticWorkflows
+    ? [
+        {
+          feature: "Project-Wide Character Updates",
+          zebra: "10z Agent propagates new character across all selected storyboard takes",
+          competitor: "Must manually re-create every individual shot one by one",
+          zebraAdvantage: true
+        }
+      ]
+    : []),
   {
     feature: "Motion Artifacts & Drift",
     zebra: "Trained motion transfer preserves micro-gestures and physical eyelines",
@@ -73,7 +96,7 @@ const comparisonItems = [
     zebraAdvantage: true
   },
   {
-    feature: "External Video Support",
+    feature: "External Live-Action Video Support",
     zebra: "Upload live-action footage or footage from any AI tool to swap characters",
     competitor: "Restricted strictly to the platform's internal proprietary generator",
     zebraAdvantage: true
@@ -89,23 +112,34 @@ const faqs = [
     question: "What kind of reference image gives the best swap quality?",
     answer: "A well-lit, front-facing or 3/4 angle portrait photograph with clear view of the eyes, nose, and facial structure. You only need one high-resolution reference photo."
   },
-  {
-    question: "How does the 10z Agent perform project-wide character swaps?",
-    answer: "Inside your Project Settings or Storyboard, click 'Batch Character Swap with 10z Agent'. Upload your target character portrait, select which scenes or characters to replace, and confirm. The agent will schedule parallel generation tasks across your project without disturbing your active workspace."
-  },
+  ...(showAgenticWorkflows
+    ? [
+        {
+          question: "How does the 10z Agent perform project-wide character swaps?",
+          answer: "Inside your Project Settings or Storyboard, click 'Batch Character Swap with 10z Agent'. Upload your target character portrait, select which scenes or characters to replace, and confirm. The agent will schedule parallel generation tasks across your project without disturbing your active workspace."
+        }
+      ]
+    : []),
   {
     question: "Can I swap characters on uploaded real-world videos?",
-    answer: "Yes! You can upload an MP4 of a real human actor performing a stunt or monologue, upload a reference portrait, and 10zebra will render the scene with your synthetic or animated character in their place."
+    answer: "Yes! As part of 10zebra's Hybrid Production workflow, you can upload an MP4 of a real human actor performing a stunt or monologue, upload a reference portrait, and 10zebra will render the scene with your synthetic or stylized character in their place."
   }
 ];
 
 const relatedFeatures = [
-  {
-    title: "Agentic Workflows (Agent Z)",
-    description: "Batch create, convert, replace characters, regen, and upscale across your storyboard with Dry Run cost approval.",
-    href: "/features/agentic-workflows/index.html",
-    badge: "Agent Z"
-  },
+  showAgenticWorkflows
+    ? {
+        title: "Agentic Workflows (Agent Z)",
+        description: "Batch create, convert, replace characters, regen, and upscale across your storyboard with Dry Run cost approval.",
+        href: "/features/agentic-workflows/index.html",
+        badge: "Agent Z"
+      }
+    : {
+        title: "Hybrid Production (Live-Action + AI)",
+        description: "Upload live-action video with automatic shot splitting and transform real actors with AI visuals or styles.",
+        href: "/features/hybrid-production/index.html",
+        badge: "Hybrid Studio"
+      },
   {
     title: "Multi-Reference Edit",
     description: "Blend up to 3 references (character, environment, and costume) into a single keyframe.",
@@ -114,7 +148,7 @@ const relatedFeatures = [
   },
   {
     title: "Project-Level Budgets",
-    description: "Run large batch character swaps with confidence under hard project budget caps.",
+    description: "Manage character swaps and team collaborations under isolated project credit caps.",
     href: "/features/project-management/index.html",
     badge: "Governance"
   }
@@ -122,13 +156,17 @@ const relatedFeatures = [
 ---
 
 <FeatureLandingLayout
-  title="Character Swap & 10z Agent | Consistent AI Video Characters"
-  description="Regenerate existing takes with a new character reference while preserving 100% of camera motion. Use the 10z Agent to batch swap characters across your entire project."
+  title={showAgenticWorkflows ? "Character Swap & 10z Agent | Consistent AI Video Characters" : "Character Swap | Consistent AI Video Characters & Live-Action Casting"}
+  description={showAgenticWorkflows
+    ? "Regenerate existing takes with a new character reference while preserving 100% of camera motion. Use the 10z Agent to batch swap characters across your entire project."
+    : "Regenerate existing takes or live-action actor footage with a new character reference while preserving 100% of camera motion, lighting, and physical acting."}
   eyebrow="CHARACTER CONTINUITY"
-  headline="Character Swap &amp; 10z Agent:"
+  headline={showAgenticWorkflows ? "Character Swap & 10z Agent:" : "Character Swap:"}
   headlineHighlight="Zero Drift. 100% Motion Lock."
-  subheadline="Regenerate an existing take with a new character reference while preserving camera moves, lighting, and pacing. Or deploy the 10z Agent to automatically propagate the new character across all selected takes in your project."
-  badgeText="10z Agent Project Automation"
+  subheadline={showAgenticWorkflows
+    ? "Regenerate an existing take with a new character reference while preserving camera moves, lighting, and pacing. Or deploy the 10z Agent to automatically propagate the new character across all selected takes in your project."
+    : "Regenerate any AI take or uploaded live-action performance with a new character reference while preserving 100% of camera moves, lighting, and physical acting."}
+  badgeText={showAgenticWorkflows ? "10z Agent Project Automation" : "Volumetric Motion-Locked Swap"}
   stats={stats}
   workflowSteps={workflowSteps}
   features={features}

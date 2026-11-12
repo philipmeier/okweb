@@ -3,6 +3,7 @@ import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
 import { getModelFamilies } from '/src/data/models';
 import { solutions } from '/src/data/solutions';
+import { featureEntries } from '/src/data/features';
 
 export const GET: APIRoute = async () => {
   const baseUrl = 'https://10zebra.com';
@@ -22,23 +23,9 @@ export const GET: APIRoute = async () => {
     { url: '/blog', priority: '0.8', changefreq: 'daily' },
   ];
 
-  // Feature Pages
-  const featureSlugs = [
-    'model-comparison',
-    'agentic-workflows',
-    'character-swap',
-    'text-to-sequence',
-    'quick-start-tools',
-    'project-management',
-    'publish-to-youtube',
-    'collaborative-storyboard',
-    'multi-reference-edit',
-    'produce-and-export',
-    'team-management',
-    'referral-program',
-  ];
-  const featurePages = featureSlugs.map((slug) => ({
-    url: `/features/${slug}`,
+  // Feature Pages (automatically filtered by featureGates via featureEntries)
+  const featurePages = featureEntries.map(([, f]) => ({
+    url: f.href.replace(/\/index\.html$/, ''),
     priority: '0.8',
     changefreq: 'weekly',
   }));

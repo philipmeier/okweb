@@ -9,6 +9,7 @@
  */
 
 import { totalFamilies, totalModels } from './models';
+import { featureGates, mcpPartnerConfig } from './config';
 
 export interface PricingPlan {
   id: 'payg' | 'maker' | 'director';
@@ -47,9 +48,10 @@ export const plans: PricingPlan[] = [
       '200 Free Trial Credits on signup',
       `All ${totalFamilies} model families (${totalModels}+ engines: Kling, Veo, Sora, Runway, etc.)`,
       'Purchased top-up credits never expire',
-      '90% credit refund || free regen on failed takes',
+      'Hybrid Production: combine live-action footage & AI styles',
+      'Quick Start & in-scene workflow extension tools',
       'Full prompt, seed & generation history',
-      '3% lifetime referral payout via Tolt',
+      ...(featureGates.referralProgram ? ['3% lifetime referral payout via Tolt'] : []),
       'Standard generation queue',
     ],
     cta: 'Start Free — 200 Credits',
@@ -60,8 +62,8 @@ export const plans: PricingPlan[] = [
   {
     id: 'maker',
     name: 'Maker',
-    kicker: 'Active Creators & Editors',
-    desc: 'For YouTubers, digital directors, and solo creators producing regular video content.',
+    kicker: 'Active Creators & Small Teams',
+    desc: 'For YouTubers, digital directors, and small teams producing regular video content.',
     price: '$29',
     annualPrice: '$23',
     annualBilled: 'Billed annually ($276/yr)',
@@ -71,12 +73,12 @@ export const plans: PricingPlan[] = [
     approx: 'Approx. 30 Kling shots or 60 Veo 3 Fast clips',
     features: [
       '1,200 Monthly Credits (refreshes each cycle)',
+      '2 team seats per project & per-member budget caps',
       '15% Discount on all extra top-up packs',
       'Purchased top-up credits never expire',
       'Priority generation queue (faster render times)',
-      'Agent Z batch workflows & Dry Run cost approval',
-      'Character Swap & multi-reference locks',
-      '90% credit refund || free regen on failed takes',
+      ...(featureGates.agenticWorkflows ? ['Agent Z batch workflows & Dry Run cost approval'] : []),
+      'Hybrid Production, Character Swap & multi-reference locks',
       '1080p & 4K upscaled video export',
     ],
     cta: 'Start Maker Plan',
@@ -88,8 +90,8 @@ export const plans: PricingPlan[] = [
   {
     id: 'director',
     name: 'Director',
-    kicker: 'Agencies & Production Teams',
-    desc: 'For commercial agencies, previs supervisors, and studios running client projects.',
+    kicker: 'Agencies & Production Studios',
+    desc: 'For commercial agencies, previs supervisors, and studios running multi-seat client projects.',
     price: '$79',
     annualPrice: '$63',
     annualBilled: 'Billed annually ($756/yr)',
@@ -99,13 +101,15 @@ export const plans: PricingPlan[] = [
     approx: 'Approx. 87 Kling shots or 175 Veo 3 Fast clips',
     features: [
       '3,500 Monthly Credits (refreshes each cycle)',
+      'Unlimited team seats per project & budget caps',
       'Full MCP Server Access (Claude Desktop, Cursor & Agent API)',
-      'Agent Z project-wide batch workflows & Dry Run analysis',
+      ...(featureGates.agenticWorkflows
+        ? ['Agent Z project-wide batch workflows & Dry Run analysis']
+        : []),
       '30% Discount on all extra top-up packs',
       'Project-level budget controls & spend caps',
-      'Multi-seat collaboration with role-based permissions',
+      'Role-based permissions & free client review seats',
       'Shared team reference library & credit pools',
-      '90% credit refund || free regen on failed takes',
       '1-click sequence mixdown & direct YouTube publishing',
     ],
     cta: 'Start Director Plan',
@@ -276,18 +280,31 @@ export interface ToolRate {
 
 export const toolRates: ToolRate[] = [
   {
-    tool: 'Agent Z Character Swap & Batch Workflows',
-    desc: 'Re-cast talent, batch create, batch convert, batch regen, or batch upscale across a sequence while preserving motion.',
-    cost: '15 credits / take',
-  },
-  {
-    tool: 'Agent Z Dry Run Analysis',
-    desc: 'Generate a pre-flight batch execution plan with per-take credit costs and budget check before spending a credit.',
+    tool: 'Hybrid Video Upload & Auto Shot Splitting',
+    desc: 'Upload real camera footage and automatically split cuts into editable storyboard panels.',
     cost: 'Free (0 credits)',
   },
   {
-    tool: 'Text-to-Sequence Story Engine',
-    desc: 'Turn 1 narrative prompt into 3 to 30 cohesive, ordered shot prompts with camera choreography.',
+    tool: featureGates.agenticWorkflows
+      ? 'Agent Z Character Swap & Batch Workflows'
+      : 'Character Swap & Hybrid Video Restyling',
+    desc: featureGates.agenticWorkflows
+      ? 'Re-cast talent, batch create, batch convert, batch regen, or batch upscale across a sequence while preserving motion.'
+      : 'Re-cast talent in any AI take or live-action clip, or transform real footage with AI styles while preserving 100% of camera motion.',
+    cost: '15 credits / take',
+  },
+  ...(featureGates.agenticWorkflows
+    ? [
+        {
+          tool: 'Agent Z Dry Run Analysis',
+          desc: 'Generate a pre-flight batch execution plan with per-take credit costs and budget check before spending a credit.',
+          cost: 'Free (0 credits)',
+        },
+      ]
+    : []),
+  {
+    tool: 'Text-to-Sequence & Quick Start Workflows',
+    desc: 'Start a new storyboard or extend any existing scene with 3 to 30 cohesive, ordered shot prompts and camera choreography.',
     cost: '10 credits / script run',
   },
   {
@@ -390,34 +407,46 @@ export const comparisonSections: ComparisonSection[] = [
         studio: '✓',
       },
       {
-        name: 'Agent Z Character Swap',
-        hint: 'Re-cast a character in a finished video while preserving original motion',
+        name: 'Hybrid Production (live-action footage + AI visuals & styles)',
+        hint: 'Import real actor video plates, split shots into storyboard panels, and transform them with AI styles or character swaps',
+        payg: '✓',
+        maker: '✓',
+        director: '✓',
+        studio: '✓',
+      },
+      {
+        name: 'Character Swap (AI & live-action plates)',
+        hint: 'Re-cast a character in a finished video or live-action plate while preserving original motion',
         payg: 'Pay per swap (15 cr)',
         maker: '✓ Priority',
         director: '✓ Priority',
         studio: '✓ Batch pipeline',
       },
-      {
-        name: 'Agent Z batch workflows (create, convert, replace, regen, upscale)',
-        hint: 'Execute batch character replacement, batch create, batch convert, batch regen, and batch 4K upscale across an entire sequence',
-        payg: 'Up to 3 takes / batch',
-        maker: 'Up to 10 takes / batch',
-        director: '✓ Full sequence batching',
-        studio: '✓ Unlimited + API batching',
-      },
-      {
-        name: 'Agent Z Dry Run analysis (plan, credit cost & approval)',
-        hint: 'Pre-flight execution plan showing itemized credit costs and requesting explicit approval before any credits are spent',
-        payg: '✓ Free Dry Run',
-        maker: '✓ Free Dry Run',
-        director: '✓ Free Dry Run + Vault check',
-        studio: '✓ Free Dry Run + Policy gates',
-      },
+      ...(featureGates.agenticWorkflows
+        ? [
+            {
+              name: 'Agent Z batch workflows (create, convert, replace, regen, upscale)',
+              hint: 'Execute batch character replacement, batch create, batch convert, batch regen, and batch 4K upscale across an entire sequence',
+              payg: 'Up to 3 takes / batch',
+              maker: 'Up to 10 takes / batch',
+              director: '✓ Full sequence batching',
+              studio: '✓ Unlimited + API batching',
+            },
+            {
+              name: 'Agent Z Dry Run analysis (plan, credit cost & approval)',
+              hint: 'Pre-flight execution plan showing itemized credit costs and requesting explicit approval before any credits are spent',
+              payg: '✓ Free Dry Run',
+              maker: '✓ Free Dry Run',
+              director: '✓ Free Dry Run + Vault check',
+              studio: '✓ Free Dry Run + Policy gates',
+            },
+          ]
+        : []),
       {
         name: 'Shared team character & wardrobe library',
         hint: 'Save locked character models for reuse across team storyboards',
         payg: '—',
-        maker: 'Personal library',
+        maker: '✓ Project team library',
         director: '✓ Team library',
         studio: '✓ Enterprise DAM sync',
       },
@@ -430,23 +459,23 @@ export const comparisonSections: ComparisonSection[] = [
         name: 'Project-level seats & collaborator invites',
         hint: 'Invite team members, freelancers, and clients per project with zero cross-project bleed',
         payg: '1 user (personal)',
-        maker: '1 user',
-        director: '✓ Unlimited project collaborators',
+        maker: '2 team seats per project',
+        director: '✓ Unlimited team seats',
         studio: '✓ Multi-org & enterprise teams',
       },
       {
         name: 'Project-level isolated budget vaults',
-        hint: 'Fund each project with its own independent credit pool to prevent overspend',
+        hint: 'Fund each project with its own independent credit pool and per-member caps to prevent overspend',
         payg: '—',
-        maker: '—',
-        director: '✓ Independent caps',
+        maker: '✓ Per-member caps (2 seats)',
+        director: '✓ Independent caps (Unlimited)',
         studio: '✓ Multi-department pools',
       },
       {
         name: 'Free client & stakeholder review seats',
         hint: 'Invite external brand clients as Viewers to inspect takes and leave notes with zero credit spend',
         payg: '—',
-        maker: '—',
+        maker: '✓ Free Viewers',
         director: '✓ Free unlimited Viewers',
         studio: '✓ Free unlimited Viewers',
       },
@@ -454,7 +483,7 @@ export const comparisonSections: ComparisonSection[] = [
         name: 'Role-based permissions per project',
         hint: 'Granular Owner, Editor/Director, and Viewer roles scoped to each production',
         payg: 'Owner only',
-        maker: 'Owner only',
+        maker: '✓ Owner, Editor, Viewer',
         director: '✓ Owner, Editor, Viewer',
         studio: '✓ Custom RBAC + SSO',
       },
@@ -524,22 +553,30 @@ export const comparisonSections: ComparisonSection[] = [
         director: '✓ Full access (Included)',
         studio: '✓ High-concurrency MCP',
       },
-      {
-        name: 'Failed generation protection',
-        hint: 'Self-serve button on failed generations (after a direct model error or 30m silent timeout) to choose a 90% credit refund or free regen',
-        payg: '✓ 90% refund || free regen',
-        maker: '✓ 90% refund || free regen',
-        director: '✓ 90% refund || free regen',
-        studio: '✓ 90% refund || free regen',
-      },
-      {
-        name: 'Referral Program (Tolt integration)',
-        hint: 'Unique referral code & link with 3% lifetime cash payout on referred users’ credit purchases and subscriptions',
-        payg: '✓ 3% lifetime payout',
-        maker: '✓ 3% lifetime payout',
-        director: '✓ 3% lifetime payout',
-        studio: '✓ 3% lifetime payout',
-      },
+      ...(featureGates.failedGenerationProtection
+        ? [
+            {
+              name: 'Failed generation protection',
+              hint: 'Self-serve button on failed generations (after a direct model error or 30m silent timeout) to choose a 90% credit refund or free regen',
+              payg: '✓ 90% refund || free regen',
+              maker: '✓ 90% refund || free regen',
+              director: '✓ 90% refund || free regen',
+              studio: '✓ 90% refund || free regen',
+            },
+          ]
+        : []),
+      ...(featureGates.referralProgram
+        ? [
+            {
+              name: 'Referral Program (Tolt integration)',
+              hint: 'Unique referral code & link with 3% lifetime cash payout on referred users’ credit purchases and subscriptions',
+              payg: '✓ 3% lifetime payout',
+              maker: '✓ 3% lifetime payout',
+              director: '✓ 3% lifetime payout',
+              studio: '✓ 3% lifetime payout',
+            },
+          ]
+        : []),
       {
         name: 'Support channel',
         hint: 'Customer and technical support response level',
@@ -559,32 +596,60 @@ export interface PricingFaq {
 
 export const pricingFaqs: PricingFaq[] = [
   {
+    q: 'How does 10zebra pricing work? Is a subscription required?',
+    a: featureGates.subscriptions
+      ? 'You can start free on <strong>Pay-As-You-Go</strong> with 200 free trial credits and purchase non-expiring top-up packs anytime, or subscribe to <strong>Maker ($29/mo)</strong> or <strong>Director ($79/mo)</strong> for recurring monthly credit bundles, team project seats, and 15%–30% discounts on extra top-ups.'
+      : '<strong>No subscription is required.</strong> 10zebra uses a simple, transparent <strong>Pay-As-You-Go</strong> model. Every account starts with <strong>200 free credits on signup</strong> and full access to all AI models, workflow tools, and team collaboration features. Whenever you need more credits, simply pick up a non-expiring top-up pack starting at $10.',
+  },
+  {
     q: 'Do purchased credits ever expire?',
-    a: '<strong>No, never.</strong> All credit top-up packs you purchase remain in your account forever. There is zero clock anxiety or end-of-month panic. Monthly subscription credits (1,200 on Maker, 3,500 on Director) refresh on each billing cycle date, while top-up credits roll over indefinitely.',
+    a: featureGates.subscriptions
+      ? '<strong>No, never.</strong> All credit top-up packs you purchase remain in your account forever. There is zero clock anxiety or end-of-month panic. Monthly subscription credits (1,200 on Maker, 3,500 on Director) refresh on each billing cycle date, while top-up credits roll over indefinitely.'
+      : '<strong>No, never.</strong> Every credit top-up pack you purchase remains in your account forever until you spend it. There is zero monthly clock anxiety, forced auto-renewal, or end-of-month credit forfeiture.',
+  },
+  {
+    q: 'Does it cost extra to invite team collaborators to my projects?',
+    a: featureGates.subscriptions
+      ? 'On the <strong>Maker</strong> plan, you get <strong>2 team seats per project</strong> included, and on the <strong>Director</strong> plan you get <strong>unlimited team seats per project</strong>. External client and stakeholder <strong>Viewer</strong> seats are always free.'
+      : '<strong>No — team collaborators are included at no cost.</strong> You can invite co-directors, editors, freelancers, and view-only client reviewers directly to any project without paying per-seat fees. Collaborators simply draw from the credit budget you allocate to them on that project.',
   },
   {
     q: 'How do project-level budget controls protect my team?',
-    a: "On the Director tier, project owners can assign an independent credit pool to each specific project (e.g., 500 credits for Client A, 1,200 credits for Campaign B). Team members draw only from their assigned project's pool. Once a project hits its cap, generations pause until the project owner explicitly adds more credits — preventing runaway team spending.",
+    a: 'Project owners can assign an independent credit budget cap to each collaborator on a project (e.g., 400 credits for an editor, 800 credits for a lead animator). Team members draw only from that project’s allocated credits, and once a member reaches their cap, further generations pause until the project owner raises their limit — preventing accidental overspending.',
   },
+  ...(featureGates.subscriptions
+    ? [
+        {
+          q: 'Can I cancel, upgrade, or downgrade anytime?',
+          a: 'Yes, you can change your subscription tier or cancel at any time with one click from your billing settings. If you cancel, your plan stays active until the end of your prepaid period. Any top-up credits you purchased remain yours forever and can still be used on the Pay-As-You-Go tier.',
+        },
+        {
+          q: 'How do subscriber top-up discounts work?',
+          a: 'Active Maker plan members automatically receive a <strong>15% discount</strong> on all top-up packs. Director plan members receive a <strong>30% discount</strong>. The discount applies automatically at checkout as long as your subscription is active.',
+        },
+      ]
+    : []),
+  ...(featureGates.failedGenerationProtection
+    ? [
+        {
+          q: 'What happens if an AI video generation fails, and why is the refund 90%?',
+          a: 'We provide a <strong>90% credit refund or free regen on all failed generations</strong>. There is a button directly on failed generations so you can easily choose to refund (90%) or retry (free regen) — the option appears immediately after we receive a direct error from the model, or after 30 minutes if a job fails silently. The refund is 90% because we have system and infrastructure costs that we need to cover, and we are trying to be as fair as possible as most failures are caused from Model terms violations and not any issue with the 10z platform.',
+        },
+      ]
+    : []),
+  ...(featureGates.referralProgram
+    ? [
+        {
+          q: 'How does the 10zebra Referral Program work?',
+          a: 'Through our <strong>Tolt integration</strong>, every user gets a special referral code and link. When referred users purchase credits or subscribe, you earn a <strong>lifetime payout of 3%</strong> on all of their qualifying purchases.',
+        },
+      ]
+    : []),
   {
-    q: 'Can I cancel, upgrade, or downgrade anytime?',
-    a: 'Yes, you can change your subscription tier or cancel at any time with one click from your billing settings. If you cancel, your plan stays active until the end of your prepaid period. Any top-up credits you purchased remain yours forever and can still be used on the Pay-As-You-Go tier.',
-  },
-  {
-    q: 'What happens if an AI video generation fails, and why is the refund 90%?',
-    a: 'We provide a <strong>90% credit refund or free regen on all failed generations</strong>. There is a button directly on failed generations so you can easily choose to refund (90%) or retry (free regen) — the option appears immediately after we receive a direct error from the model, or after 30 minutes if a job fails silently. The refund is 90% because we have system and infrastructure costs that we need to cover, and we are trying to be as fair as possible as most failures are caused from Model terms violations and not any issue with the 10z platform.',
-  },
-  {
-    q: 'How does the 10zebra Referral Program work?',
-    a: 'Through our <strong>Tolt integration</strong>, every user gets a special referral code and link. When referred users purchase credits or subscribe, you earn a <strong>lifetime payout of 3%</strong> on all of their qualifying purchases.',
-  },
-  {
-    q: 'Which plan is required for the Model Context Protocol (MCP) server?',
-    a: `Access to the 10zebra MCP server requires an active <strong>Director plan</strong> ($79/mo) or higher. On the Director tier, you receive your dedicated MCP API key and streamable-HTTP / stdio credentials to connect Claude Desktop, Cursor IDE, Windsurf, or custom autonomous agents directly to 10zebra's ${totalFamilies} model families (${totalModels}+ engines).`,
-  },
-  {
-    q: 'How do subscriber top-up discounts work?',
-    a: 'Active Maker plan members automatically receive a <strong>15% discount</strong> on all top-up packs. Director plan members receive a <strong>30% discount</strong>. The discount applies automatically at checkout as long as your subscription is active.',
+    q: 'How do I get access to the Model Context Protocol (MCP) server?',
+    a: featureGates.subscriptions
+      ? `Access to the 10zebra MCP server requires an active <strong>Director plan</strong> ($79/mo) or higher. On the Director tier, you receive your dedicated MCP API key and streamable-HTTP / stdio credentials to connect Claude Desktop, Cursor IDE, Windsurf, or custom autonomous agents directly to 10zebra's ${totalFamilies} model families (${totalModels}+ engines).`
+      : `The 10zebra MCP server is currently restricted to our <strong>Partner Program</strong>. Approved partners receive dedicated MCP credentials to connect Claude Desktop, Cursor IDE, and custom agents directly to 10zebra's ${totalFamilies} model families (${totalModels}+ engines). <a href="${mcpPartnerConfig.mailtoUrl}" class="text-accent underline">Request Partner Program access via email</a>.`,
   },
   {
     q: 'Do I have commercial rights to the videos I produce?',

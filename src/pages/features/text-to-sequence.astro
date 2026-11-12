@@ -1,5 +1,6 @@
 ---
 import FeatureLandingLayout from "/src/layouts/FeatureLandingLayout.astro";
+import { featureGates } from "/src/data/config";
 import seqShot1 from "/src/assets/media/shot-wide-forest-1970s.jpg";
 import seqShot2 from "/src/assets/media/shot-medium-train-1970s.jpg";
 import seqShot3 from "/src/assets/media/take-b-1970s.jpg";
@@ -104,17 +105,24 @@ const faqs = [
 
 const relatedFeatures = [
   {
-    title: "Quick Start Tools: From a Script",
-    description: "Explore the dedicated script tool with 3, 5, 10, 20, and 30-shot multipliers.",
+    title: "Quick Start & Scene Extension Tools",
+    description: "Start a new storyboard or extend any existing scene with 3, 5, 10, 20, or 30-shot sequences.",
     href: "/features/quick-start-tools/index.html",
     badge: "Tool"
   },
-  {
-    title: "Agentic Workflows (Agent Z)",
-    description: "Batch create, convert, replace characters, or upscale across your sequence with Dry Run cost approval.",
-    href: "/features/agentic-workflows/index.html",
-    badge: "Agent Z"
-  },
+  featureGates.agenticWorkflows
+    ? {
+        title: "Agentic Workflows (Agent Z)",
+        description: "Batch create, convert, replace characters, or upscale across your sequence with Dry Run cost approval.",
+        href: "/features/agentic-workflows/index.html",
+        badge: "Agent Z"
+      }
+    : {
+        title: "Hybrid Production (Live-Action + AI)",
+        description: "Upload live-action footage with automatic shot splitting and blend real actors with AI sequences.",
+        href: "/features/hybrid-production/index.html",
+        badge: "Hybrid Studio"
+      },
   {
     title: "Publish to YouTube",
     description: "Take your finished sequence, trim clips, add audio, and publish directly.",

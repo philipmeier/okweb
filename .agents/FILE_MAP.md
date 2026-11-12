@@ -22,16 +22,24 @@ This document provides a complete architectural breakdown of all files, data cat
 
 The site uses a single-source-of-truth data layer in `src/data/` so changes propagate automatically to hubs, landing pages, comparison tables, and JSON-LD schemas.
 
+### `src/data/config.ts`
+Centralized feature gate and partner program configuration.
+- **Types & Interfaces:**
+  - `FeatureGates`: `{ subscriptions: boolean; failedGenerationProtection: boolean; referralProgram: boolean; agenticWorkflows: boolean }`
+- **Exports:**
+  - `featureGates`: Feature flags controlling visibility of subscription tiers/discounts (`false` by default — Pay-As-You-Go highlighted), failed generation protection (`false`), referral program (`false`), and Agent Z agentic workflows (`false`).
+  - `mcpPartnerConfig`: Partner Program access email, pre-filled subject, and `mailtoUrl` used when `featureGates.subscriptions` is `false`.
+
 ### `src/data/features.ts`
 Single source of truth for the 4-phase production pipeline, feature cards, hero backdrops, and cross-links.
 - **Types & Interfaces:**
   - `PhaseKey`: `'generate' | 'direct' | 'finish' | 'manage'`
   - `FeatureRef`: `{ title, short, blurb, href, icon, phase, badge, media, gallery? }`
-  - `FeatureKey`: Union of keys in `features` (`modelComparison`, `textToSequence`, `quickStart`, `characterSwap`, `agenticWorkflows`, `multiReference`, `produceExport`, `publishYouTube`, `projectBudgets`, `teamManagement`, `collaborativeStoryboard`, `referralProgram`)
+  - `FeatureKey`: Union of keys in `features` (`modelComparison`, `textToSequence`, `quickStart`, `hybridProduction`, `characterSwap`, `agenticWorkflows`, `multiReference`, `produceExport`, `publishYouTube`, `projectBudgets`, `teamManagement`, `collaborativeStoryboard`, `referralProgram`)
 - **Exports & Functions:**
   - `phases`: Metadata (`num`, `label`, `line`) for each of the 4 production phases.
   - `features`: Keyed catalog of all `FeatureRef` definitions.
-  - `featureEntries`: Typed array of `[FeatureKey, FeatureRef]` tuples.
+  - `featureEntries`: Typed array of `[FeatureKey, FeatureRef]` tuples (filtered by `featureGates`).
   - `getFeatureByHref(href: string): [FeatureKey, FeatureRef] | undefined` — Normalizes trailing slashes and resolves a feature entry by its route path (including `/referral-program` and `/referrals` aliases).
 
 ### `src/data/models.ts` & `src/data/models.json`
@@ -147,8 +155,9 @@ Helper functions for filtering, sorting, formatting, and recommending blog posts
 All pages use `FeatureLandingLayout.astro`:
 | File | Route | Focus |
 | :--- | :--- | :--- |
-| `agentic-workflows.astro` | `/features/agentic-workflows` | **Agent Z** (the 10zebra agent): batch create, batch convert, batch replace characters, batch regen, batch upscale, and mandatory **Dry Run analysis** (creates execution plan, calculates exact credit costs, and requests user approval). |
-| `character-swap.astro` | `/features/character-swap` | Single-take motion-locked Character Swap and project-wide batch replacement with Agent Z. |
+| `agentic-workflows.astro` | `/features/agentic-workflows` | **Agent Z** (the 10zebra agent, gated by `featureGates.agenticWorkflows`): batch create, batch convert, batch replace characters, batch regen, batch upscale, and mandatory **Dry Run analysis**. |
+| `hybrid-production.astro` | `/features/hybrid-production` | **Hybrid Production (Live-Action + AI)**: upload real camera video with automatic shot splitting, video-to-video AI restyling, motion-locked character swap on live actors, and cutting real plates with AI takes. |
+| `character-swap.astro` | `/features/character-swap` | Single-take motion-locked Character Swap on AI takes or live-action footage. |
 | `collaborative-storyboard.astro` | `/features/collaborative-storyboard` | Real-time shared storyboard canvas, persistent story settings, and camera rules. |
 | `model-comparison.astro` | `/features/model-comparison` | Side-by-side multi-model generation and synchronized playback scrubbing across Kling, Veo, Sora, Runway, Grok, and Seedance. |
 | `multi-reference-edit.astro` | `/features/multi-reference-edit` | Blending character, wardrobe, and environment references into cohesive frames. |
@@ -184,6 +193,7 @@ All pages use `FeatureLandingLayout.astro`:
 - `FeatureCard.astro`: Visual card representing a feature from `src/data/features.ts` with badge, phase tag, and `FeatureVisual`.
 - `FeatureVisual.astro`: Renders either a single `MediaSlot` or a multi-slot gallery (3-strip or 2×2 model grid) for a feature.
 - `AgenticWorkflowsMockup.astro`: Studio UI mockup for **Agent Z** showing batch modes (`Batch Create`, `Batch Replace Characters`, `Batch Convert`, `Batch Regen`, `Batch Upscale`) and the **Dry Run Analysis** panel with itemized credit costs and approval button.
+- `HybridProductionMockup.astro`: Interactive 3-tab UI mockup (`Auto Shot Split & Ingest`, `AI Style & VFX Transform`, `Live Actor Character Swap`) showcasing 1970s Dichromatic Split-Tone live-action + AI hybrid production.
 - `CharacterSwapMockup.astro`: UI mockup demonstrating source take + reference portrait → motion-locked swapped result.
 - `ModelComparisonMockup.astro`: UI mockup showing 4 synchronized model takes (Kling, Veo, Sora, Runway) from one prompt.
 - `ProjectBudgetMockup.astro`: UI mockup illustrating isolated project credit vaults, spend caps, and project-level roles.

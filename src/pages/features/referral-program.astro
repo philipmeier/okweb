@@ -1,6 +1,9 @@
 ---
 import FeatureLandingLayout from "/src/layouts/FeatureLandingLayout.astro";
+import PlaceholderPage from "/src/layouts/PlaceholderPage.astro";
 import ReferralProgramMockup from "/src/components/features/ReferralProgramMockup.astro";
+import { featureGates } from "/src/data/config";
+const showReferralProgram = featureGates.referralProgram;
 
 const stats = [
   { value: "3%", label: "Lifetime Payout", detail: "Earn 3% for the entire lifetime of every referred user" },
@@ -131,25 +134,33 @@ const relatedFeatures = [
 ];
 ---
 
-<FeatureLandingLayout
-  title="10zebra Referral Program | 3% Lifetime Payout via Tolt"
-  description="Join the 10zebra Referral Program powered by Tolt. Get your special referral code and earn a 3% lifetime payout whenever referred users purchase credits or subscribe."
-  eyebrow="REFERRAL PROGRAM · POWERED BY TOLT"
-  headline="10zebra Referral Program:"
-  headlineHighlight="3% Lifetime Payout on Credits & Subscriptions."
-  subheadline="Share 10zebra with fellow filmmakers, creators, and agencies using your special Tolt referral code. Earn a 3% lifetime payout every time your referred users purchase credit packs or subscribe — for the entire life of their account."
-  badgeText="Tolt Partner Portal · 3% Lifetime Payout"
-  primaryCta={{ label: "Get Your Referral Code", href: "/signup/index.html?ref=partner" }}
-  secondaryCta={{ label: "View Pricing & Credit Packs", href: "/pricing/index.html" }}
-  stats={stats}
-  workflowSteps={workflowSteps}
-  features={features}
-  comparisonItems={comparisonItems}
-  faqs={faqs}
-  relatedFeatures={relatedFeatures}
->
-  <div slot="hero-visual">
-    <ReferralProgramMockup />
-  </div>
-</FeatureLandingLayout>
+{showReferralProgram ? (
+  <FeatureLandingLayout
+    title="10zebra Referral Program | 3% Lifetime Payout via Tolt"
+    description="Join the 10zebra Referral Program powered by Tolt. Get your special referral code and earn a 3% lifetime payout whenever referred users purchase credits or subscribe."
+    eyebrow="REFERRAL PROGRAM · POWERED BY TOLT"
+    headline="10zebra Referral Program:"
+    headlineHighlight="3% Lifetime Payout on Credits & Subscriptions."
+    subheadline="Share 10zebra with fellow filmmakers, creators, and agencies using your special Tolt referral code. Earn a 3% lifetime payout every time your referred users purchase credit packs or subscribe — for the entire life of their account."
+    badgeText="Tolt Partner Portal · 3% Lifetime Payout"
+    primaryCta={{ label: "Get Your Referral Code", href: "/signup/index.html?ref=partner" }}
+    secondaryCta={{ label: "View Pricing & Credit Packs", href: "/pricing/index.html" }}
+    stats={stats}
+    workflowSteps={workflowSteps}
+    features={features}
+    comparisonItems={comparisonItems}
+    faqs={faqs}
+    relatedFeatures={relatedFeatures}
+  >
+    <div slot="hero-visual">
+      <ReferralProgramMockup />
+    </div>
+  </FeatureLandingLayout>
+) : (
+  <PlaceholderPage
+    title="Creator Referral Program"
+    label="Coming Soon"
+    description="The 10zebra Creator Referral Program is coming soon. Start directing free today with 200 trial credits."
+  />
+)}
 

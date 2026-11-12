@@ -1,33 +1,50 @@
 ---
+import { featureGates, mcpPartnerConfig } from '/src/data/config';
+
 const faqs = [
   {
     q: "How does 10zebra keep characters consistent across shots?",
     a: "10zebra uses an image-first reference pipeline. You generate or upload a character portrait first, then use it as a locked visual anchor across all subsequent video prompts and camera angles. Models like Karakter also let you swap a person in an existing video using a single reference photo &mdash; preserving all original motion.",
   },
   {
+    q: "What is Hybrid Production on 10zebra?",
+    a: "Hybrid Production lets you combine live-action footage and real actors with AI-generated visuals or styles. Upload real camera video and 10zebra automatically detects cuts and splits it into editable storyboard shots &mdash; where you can restyle real footage via video-to-video, swap characters onto live actor performances, extend scenes with Quick Start workflows, or intercut real camera plates alongside AI takes.",
+  },
+  {
     q: "What AI video models does 10zebra support?",
     a: "10zebra supports Kling 3.0, Google Veo 3, OpenAI Sora, Runway Gen-4, Grok, SeeDance 2.0, Wan, and Flux Pro &mdash; all within a single project workspace. You can generate multiple takes from different models on the same shot and pick the best one.",
   },
   {
-    q: "Can I set a budget for a specific project?",
-    a: "Yes. Project owners can fund each project with its own credit pool and set spending policies per project. Team members draw from project credits, and owners control who can generate, edit, or manage members &mdash; all at the project level, not the account level.",
+    q: "Can I set a budget for a specific project and invite team collaborators?",
+    a: featureGates.subscriptions
+      ? "Yes. Project owners can fund each project with its own credit pool and set spending policies per project. Maker plans include <strong>2 team seats per project</strong>, Director plans include <strong>unlimited team seats per project</strong>, and client/reviewer Viewer seats are always free."
+      : "Yes. Project owners can fund each project with its own credit pool and set spending policies per project. Better yet, <strong>team collaborators and client reviewers are invited at no seat cost</strong> &mdash; you only fund the shared generation credits your project uses.",
   },
   {
     q: "How does 10zebra\u0027s MCP server work?",
-    a: "10zebra\u0027s MCP server lets you generate AI video from Claude, ChatGPT, Cursor, or any MCP-compatible client. Your LLM sends generation requests to 10zebra\u0027s secure cloud pipeline, and the results land directly in your project &mdash; without exposing your local files or workspace. Project budgets and team permissions still apply.",
-  },
-  {
-    q: "How is 10zebra different from Runway or Higgsfield?",
-    a: "Runway and Higgsfield are primarily generation tools &mdash; you prompt a model and get output. 10zebra is a production workspace: you generate takes from multiple models side-by-side, manage project-level budgets and team permissions, track full prompt history for every generation, and export finished sequences with audio.",
+    a: featureGates.subscriptions
+      ? "10zebra\u0027s MCP server (available on the Director plan) lets you generate AI video from Claude, ChatGPT, Cursor, or any MCP-compatible client. Your LLM sends generation requests to 10zebra\u0027s secure cloud pipeline, and the results land directly in your project &mdash; with full project budget and team permission enforcement."
+      : `10zebra's MCP server lets you generate AI video from Claude, ChatGPT, Cursor, or any MCP-compatible client while enforcing project budgets and permissions. MCP access is currently available through our <strong>Partner Program</strong> &mdash; <a href="${mcpPartnerConfig.mailtoUrl}" class="text-[var(--accent)] underline">request Partner Program access</a> to get your API credentials.`,
   },
   {
     q: "Do I need a monthly subscription?",
-    a: "No. Every account starts on the Pay-As-You-Go tier with 200 free trial credits &mdash; enough for approximately 5 Kling shots or 20 Grok clips. You can buy additional credit top-ups anytime with no recurring commitment. Credits you purchase never expire. Optional subscription plans (Maker $29/mo, Director $79/mo) add monthly credits and discounts.",
+    a: featureGates.subscriptions
+      ? "No. Every account starts on the Pay-As-You-Go tier with 200 free trial credits &mdash; enough for approximately 5 Kling shots or 20 Grok clips. You can buy additional credit top-ups anytime with no recurring commitment. Credits you purchase never expire. Optional subscription plans (Maker $29/mo, Director $79/mo) add monthly credits and discounts."
+      : "No &mdash; 10zebra operates on a <strong>simple Pay-As-You-Go model with no subscription required</strong>. Every account starts with 200 free trial credits, and you can purchase non-expiring credit top-up packs whenever a production needs them. All studio features and project collaborator seats are included.",
   },
-  {
-    q: "How does prompt history, regeneration, and failed generation protection work?",
-    a: "Every generation in 10zebra logs its exact prompt, model, settings, and reference images so you can regenerate or compare outputs anytime. If a generation fails, a button appears directly on the failed take (immediately upon a direct model error, or after 30 minutes if a job fails silently) letting you choose a <strong>90% credit refund</strong> or a <strong>free regen (retry)</strong>. The refund is 90% because we have system and infrastructure costs to cover, and we strive to be as fair as possible since most failures are caused by upstream Model terms violations rather than the 10z platform.",
-  },
+  ...(featureGates.failedGenerationProtection
+    ? [
+        {
+          q: "How does prompt history, regeneration, and failed generation protection work?",
+          a: "Every generation in 10zebra logs its exact prompt, model, settings, and reference images so you can regenerate or compare outputs anytime. If a generation fails, a button appears directly on the failed take (immediately upon a direct model error, or after 30 minutes if a job fails silently) letting you choose a <strong>90% credit refund</strong> or a <strong>free regen (retry)</strong>. The refund is 90% because we have system and infrastructure costs to cover, and we strive to be as fair as possible since most failures are caused by upstream Model terms violations rather than the 10z platform.",
+        },
+      ]
+    : [
+        {
+          q: "Can Quick Start tools be used inside an existing project?",
+          a: "Yes. Every Quick Start tool &mdash; Text to Sequence, Video From Ingredients, Multi-Angle Coverage, Swap Character, Extend Video, and Shorts With Me &mdash; can be used both to launch a brand-new storyboard from scratch and to <strong>quickly extend any scene within an existing project</strong> via the in-scene <em>Start Workflow</em> button, inheriting your project\u0027s visual style and reference takes.",
+        },
+      ]),
 ];
 ---
 <section class="section" aria-labelledby="faq-heading">
