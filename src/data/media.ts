@@ -85,6 +85,7 @@ import featProduceVideo from '/src/assets/media/features/produce-export.mp4';
 import featAgenticVideo from '/src/assets/media/features/agentic-workflows.mp4';
 import featReferralVideo from '/src/assets/media/features/referral-program.mp4';
 import featHybridProductionVideo from '/src/assets/media/features/hybrid-production.mp4';
+import featHybridStylizedTakeVideo from '/src/assets/media/features/hybrid-stylized-take.mp4';
 
 // Section-specific 1970s photochemical banners
 import sectionModelsTeal from '/src/assets/media/section-models-teal-1970s.jpg';
@@ -367,9 +368,9 @@ export const media = {
   featHybridStylizedTake: slot({
     id: 'feat-hybrid-stylized-take',
     image: featHybridStylizedTake,
-    video: featCharacterSwapVideo,
-    alt: '1970s dichromatic split-tone AI-transformed output showing Lead Driver Elena Vance racing the #10 prototype through rain spray under burnt-amber floodlights',
-    brief: '16:9 still/loop, Dichromatic Split-Tone (Burnt Amber & Prussian Cyan). AI-restyled and character-swapped hybrid output take.',
+    video: featHybridStylizedTakeVideo,
+    alt: '1970s dichromatic split-tone AI-transformed output showing Lead Driver Elena Vance racing the full-scale #10 endurance prototype through rain spray under burnt-amber floodlights',
+    brief: '16:9 still/loop, Dichromatic Split-Tone (Burnt Amber & Prussian Cyan). AI-restyled hybrid output take (`hybrid-stylized-take.mp4`).',
   }),
 
   /* ---------- Section-Specific Photochemical Accent Plates ---------- */

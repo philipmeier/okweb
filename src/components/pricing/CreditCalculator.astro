@@ -135,13 +135,13 @@ const showSubscriptions = featureGates.subscriptions;
             <div class="flex items-center justify-between text-xs">
               <span class="text-[var(--text-secondary)]">Recommended Setup:</span>
               <span id="calc-plan-badge" class="font-bold text-[var(--accent)] uppercase tracking-wider text-[0.7rem] px-2 py-0.5 rounded bg-[var(--accent-subtle)]">
-                {showSubscriptions ? "Maker Plan" : "Studio Top-Up Pack"}
+                {showSubscriptions ? "Maker Plan" : "Director Pack ($42)"}
               </span>
             </div>
             <div class="text-xs text-[var(--text-muted)] leading-relaxed" id="calc-plan-desc">
               {showSubscriptions
-                ? "Maker Plan (1,200 credits) + 1 Starter Top-up pack with 15% subscriber discount."
-                : "Start free with 200 credits + 1 Studio Pack (2,400 non-expiring credits for $50)."}
+                ? "Maker Plan (1,200 credits) + 1 Influencer Top-up pack with 15% subscriber discount."
+                : "Start free with 200 credits + 1 Director Pack (2,400 non-expiring credits for $42)."}
             </div>
           </div>
 
@@ -157,7 +157,7 @@ const showSubscriptions = featureGates.subscriptions;
             <div class="flex justify-between items-center text-xs mt-1">
               <span class="text-[var(--text-primary)] font-semibold">10zebra all-in-one workspace:</span>
               <span id="calc-cost" class="font-mono font-bold text-emerald-400 text-sm">
-                {showSubscriptions ? "$29/mo" : "$35–$50 Pay-As-You-Go"}
+                {showSubscriptions ? "$29/mo" : "$42 Pay-As-You-Go"}
               </span>
             </div>
           </div>
@@ -227,41 +227,33 @@ const showSubscriptions = featureGates.subscriptions;
     calcCredits.textContent = totalCredits.toLocaleString();
 
     if (!showSubscriptions) {
-      if (totalCredits <= 400) {
-        if (calcPlanBadge) calcPlanBadge.textContent = "Starter Pack ($10)";
-        if (calcPlanDesc) calcPlanDesc.textContent = "Start with 200 free signup credits + 1 Starter Pack (400 non-expiring credits). No subscription needed.";
-        if (calcCost) calcCost.textContent = "$10 One-Time";
+      if (totalCredits <= 1000) {
+        if (calcPlanBadge) calcPlanBadge.textContent = "Influencer Pack ($14)";
+        if (calcPlanDesc) calcPlanDesc.textContent = "Start with 200 free signup credits + 1 Influencer Pack (800 non-expiring credits for $14). No subscription needed.";
+        if (calcCost) calcCost.textContent = "$14 Pay-As-You-Go";
         if (calcCta) {
           calcCta.textContent = "Start Free with 200 Credits";
           calcCta.setAttribute("href", "/signup/index.html");
         }
-      } else if (totalCredits <= 1100) {
-        if (calcPlanBadge) calcPlanBadge.textContent = "Pro Pack ($25)";
-        if (calcPlanDesc) calcPlanDesc.textContent = "1,100 non-expiring credits ($0.0227/cr) + 200 free signup credits. Includes free project collaborator seats.";
-        if (calcCost) calcCost.textContent = "$25 Pay-As-You-Go";
+      } else if (totalCredits <= 2600) {
+        if (calcPlanBadge) calcPlanBadge.textContent = "Director Pack ($42)";
+        if (calcPlanDesc) calcPlanDesc.textContent = "2,400 non-expiring credits ($42) + 200 free signup credits. Zero monthly commitment and free team collaborator seats.";
+        if (calcCost) calcCost.textContent = "$42 Pay-As-You-Go";
         if (calcCta) {
           calcCta.textContent = "Start Free — Top Up Anytime";
           calcCta.setAttribute("href", "/signup/index.html");
         }
-      } else if (totalCredits <= 2400) {
-        if (calcPlanBadge) calcPlanBadge.textContent = "Studio Pack ($50)";
-        if (calcPlanDesc) calcPlanDesc.textContent = "2,400 non-expiring credits ($0.0208/cr). Zero monthly commitment and free team collaborator seats.";
-        if (calcCost) calcCost.textContent = "$50 Pay-As-You-Go";
-        if (calcCta) {
-          calcCta.textContent = "Start Free — Top Up Anytime";
-          calcCta.setAttribute("href", "/signup/index.html");
-        }
-      } else if (totalCredits <= 5000) {
-        if (calcPlanBadge) calcPlanBadge.textContent = "Volume Pack ($100)";
-        if (calcPlanDesc) calcPlanDesc.textContent = "5,000 non-expiring credits ($0.020/cr) for full campaign & multi-seat studio productions.";
-        if (calcCost) calcCost.textContent = "$100 Pay-As-You-Go";
+      } else if (totalCredits <= 8200) {
+        if (calcPlanBadge) calcPlanBadge.textContent = "Producer Pack ($140)";
+        if (calcPlanDesc) calcPlanDesc.textContent = "8,000 non-expiring credits ($140) for full campaign & multi-seat studio productions with free collaborator seats.";
+        if (calcCost) calcCost.textContent = "$140 Pay-As-You-Go";
         if (calcCta) {
           calcCta.textContent = "Start Free — Top Up Anytime";
           calcCta.setAttribute("href", "/signup/index.html");
         }
       } else {
         if (calcPlanBadge) calcPlanBadge.textContent = "Multi-Pack / Custom Volume";
-        if (calcPlanDesc) calcPlanDesc.textContent = "Combine non-expiring $100 Volume Packs (5,000 credits each) or contact us for custom enterprise credit pools.";
+        if (calcPlanDesc) calcPlanDesc.textContent = "Combine non-expiring $140 Producer Packs (8,000 credits each) or contact us for custom enterprise credit pools.";
         if (calcCost) calcCost.textContent = "Custom Volume";
         if (calcCta) {
           calcCta.textContent = "Contact Production Sales";
@@ -273,7 +265,7 @@ const showSubscriptions = featureGates.subscriptions;
 
     if (totalCredits <= 300) {
       if (calcPlanBadge) calcPlanBadge.textContent = "Pay-As-You-Go";
-      if (calcPlanDesc) calcPlanDesc.textContent = "Start with 200 free trial credits. Grab one $10 Starter Top-Up (400 credits) whenever needed. Credits never expire.";
+      if (calcPlanDesc) calcPlanDesc.textContent = "Start with 200 free trial credits. Grab an Influencer Pack (800 credits / $14) whenever needed. Credits never expire.";
       if (calcCost) calcCost.textContent = "$0/mo + top-ups";
       if (calcCta) {
         calcCta.textContent = "Start Free with 200 Credits";

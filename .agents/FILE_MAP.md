@@ -74,7 +74,7 @@ Single source of truth for subscription plans, top-up credit packs, model/tool c
   - `PricingPlan`, `CreditPack`, `ModelRate`, `ToolRate`, `ComparisonFeature`, `ComparisonSection`, `PricingFaq`
 - **Exports:**
   - `plans`: Subscription tiers (`payg`, `maker`, `director`).
-  - `creditPacks`: Non-expiring credit top-up packs (`Starter Pack`, `Pro Pack`, `Studio Pack`, `Volume Pack`) with subscriber discount breakdowns.
+  - `creditPacks`: Non-expiring credit top-up packs (`Influencer` 800/$14, `Director` 2,400/$42, `Producer` 8,000/$140) with subscriber discount breakdowns.
   - `modelRates`: Representative per-take credit costs across flagship models.
   - `toolRates`: Credit costs for studio tools (Character Swap, Text-to-Sequence, 4K Upscale, YouTube Export).
   - `comparisonSections`: Multi-category feature comparison table rows across Pay-As-You-Go, Maker, Director, and Studio.
@@ -202,8 +202,8 @@ All pages use `FeatureLandingLayout.astro`:
 - `YouTubeExportMockup.astro`: UI mockup for in-browser timeline mixdown and 1-click YouTube OAuth publishing.
 
 ### Pricing Components (`src/components/pricing/`)
-- `CreditCalculator.astro`: Interactive estimator allowing users to select models and shot counts to calculate required credits and best plan/pack.
-- `CreditPacks.astro`: Displays the 4 non-expiring credit top-up packs with standard, Maker (-15%), and Director (-30%) pricing.
+- `CreditCalculator.astro`: Interactive estimator allowing users to select models and shot counts to calculate required credits and best plan/pack (`Influencer`, `Director`, `Producer`).
+- `CreditPacks.astro`: Displays the 3 non-expiring credit top-up packs (`Influencer` 800/$14, `Director` 2,400/$42, `Producer` 8,000/$140) with standard and gated subscriber pricing.
 - `ModelRateCard.astro`: Tabular rate card of credit costs across foundation models and studio tools.
 - `PlanComparison.astro`: Expandable/full feature comparison matrix across Pay-As-You-Go, Maker, Director, and Studio.
 - `PricingFAQ.astro`: Accordion FAQ section for `/pricing` driven by `pricingFaqs`.
@@ -246,7 +246,7 @@ All pages use `FeatureLandingLayout.astro`:
 | `src/assets/media/character-reference-1970s.jpg`, `shot-wide-forest-1970s.jpg`, `shot-medium-train-1970s.jpg`, `shot-closeup-campfire-1970s.jpg` & `public/media/shot-*.mp4` | Homepage (Kodak 5254 Technicolor) | Lead Driver Elena Vance character reference portrait and 3 locked continuity shots + video loops across locations and lighting. |
 | `src/assets/media/take-a-1970s.jpg` .. `take-d-1970s.jpg` & `public/media/take-*.mp4` | Homepage (Kodak 5254 Technicolor) | 4 multi-model takes & video loops of the same 1970s pit-stop prompt across Kling 3.0, Veo 3, Sora, and Runway Gen-4. |
 | `src/assets/media/solutions/*-1970s.jpg` & `public/media/solutions/*.mp4` | Solutions (Warm Golden Sepia & Kodachrome) | 12 workflow frames & video loops across Creative Directors (`cd-*`), Film Producers (`film-*`), Agencies (`agency-*`), and Content Creators (`creator-*`). |
-| `src/assets/media/features/*-1970s.jpg` & `public/media/features/*.mp4` | Features (1970s Dichromatic Burnt Amber & Prussian Cyan) | 9 feature hero plates & video loops (`agentic-workflows`, `character-swap`, `multi-reference`, `produce-export`, `project-budgets`, `quick-start`, `referral-program`, `storyboard`, `team`). |
+| `src/assets/media/features/*-1970s.jpg` & `src/assets/media/features/*.mp4` | Features (1970s Dichromatic Burnt Amber & Prussian Cyan) | Feature hero plates & video loops (`agentic-workflows`, `character-swap`, `hybrid-production`, `hybrid-live-plate`, `hybrid-stylized-take`, `multi-reference`, `produce-export`, `project-budgets`, `quick-start`, `referral-program`, `storyboard`, `team`). |
 | `src/assets/media/section-models-teal-1970s.jpg` | AI Models (Anamorphic Teal & Silver-Halide Chrome) | Master engine tuner calibrating 4 synchronized tachometers on `/models` and `/models/[slug]`. |
 | `src/assets/media/section-mcp-phosphor-1970s.jpg` | Developer / MCP (1970s Control-Room Amber Phosphor & Charcoal) | Race telemetry control room with amber/emerald CRT oscilloscopes and patch bay on `/mcp`. |
 | `src/assets/media/section-resources-press-1970s.jpg` | Resources (Archival 1970s Photojournalism) | *LIFE* / *Magnum* style candid crew photograph around the garage chalkboard on `/about`. |

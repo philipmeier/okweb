@@ -29,11 +29,35 @@ const pricingSchema = {
       "offers": [
         {
           "@type": "Offer",
-          "name": "Pay-As-You-Go",
+          "name": "Pay-As-You-Go Free Starter",
           "price": "0",
           "priceCurrency": "USD",
           "description": "200 free trial credits on signup, no subscription required, free project collaborator seats, top up anytime with credits that never expire.",
           "url": "https://10zebra.com/pricing"
+        },
+        {
+          "@type": "Offer",
+          "name": "Influencer Credit Pack",
+          "price": "14",
+          "priceCurrency": "USD",
+          "description": "800 non-expiring production credits ($0.0175/credit).",
+          "url": "https://10zebra.com/pricing#top-ups"
+        },
+        {
+          "@type": "Offer",
+          "name": "Director Credit Pack",
+          "price": "42",
+          "priceCurrency": "USD",
+          "description": "2,400 non-expiring production credits ($0.0175/credit).",
+          "url": "https://10zebra.com/pricing#top-ups"
+        },
+        {
+          "@type": "Offer",
+          "name": "Producer Credit Pack",
+          "price": "140",
+          "priceCurrency": "USD",
+          "description": "8,000 non-expiring production credits ($0.0175/credit).",
+          "url": "https://10zebra.com/pricing#top-ups"
         },
         ...(showSubscriptions
           ? [

@@ -496,7 +496,7 @@ Learn more on our <a href="/features/referral-program/index.html">Referral Progr
 <ul>
   <li><strong>200 Free Credits on Signup:</strong> Test all ${totalFamilies} model families (${totalModels}+ engines) and workflow tools immediately at zero cost.</li>
   <li><strong>Full Feature Access:</strong> Every account unlocks multi-model comparison, Hybrid Production, Character Swap, Quick Start &amp; scene extension tools, and no-cost project collaborator seats.</li>
-  <li><strong>Top Up Anytime:</strong> Purchase non-expiring credit packs starting at $10 (400 credits) up to $100 (5,000 credits) only when you have an active production.</li>
+  <li><strong>Top Up Anytime:</strong> Purchase non-expiring credit packs — <strong>Influencer (800 credits / $14)</strong>, <strong>Director (2,400 credits / $42)</strong>, or <strong>Producer (8,000 credits / $140)</strong> — only when you have an active production.</li>
 </ul>`,
     keywords: ['subscription vs payg', 'no subscription', 'pay as you go', 'which plan', 'pricing model'],
   },
@@ -509,9 +509,9 @@ Learn more on our <a href="/features/referral-program/index.html">Referral Progr
           shortAnswer: 'Active Maker subscribers receive an automatic 15% discount at checkout on all credit packs; Director subscribers receive a 30% discount, and Studio subscribers receive 35%.',
           answer: `Whenever you need extra credits beyond your monthly allowance, active subscribers receive steep automatic discounts at checkout:
 <ul>
-  <li><strong>Maker Plan:</strong> 15% discount on all credit packs (e.g., $50 Studio Pack for $42.50).</li>
-  <li><strong>Director Plan:</strong> 30% discount on all credit packs (e.g., $50 Studio Pack for $35.00).</li>
-  <li><strong>Studio Plan:</strong> 35% discount on all credit packs (e.g., $100 Volume Pack for $65.00).</li>
+  <li><strong>Maker Plan:</strong> 15% discount on all credit packs (e.g., $42 Director Pack for $35.70).</li>
+  <li><strong>Director Plan:</strong> 30% discount on all credit packs (e.g., $42 Director Pack for $29.40).</li>
+  <li><strong>Studio Plan:</strong> 35% discount on all credit packs (e.g., $140 Producer Pack for $91.00).</li>
 </ul>
 The discount is applied automatically in the billing modal as long as your subscription is active.`,
           keywords: ['top-up discounts', 'credit discounts', 'cheaper credits', 'subscriber discount'],
