@@ -8,6 +8,10 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "build:dev": "node scripts/deploy.mjs dev --build-only",
+    "build:prod": "node scripts/deploy.mjs prod --build-only",
+    "deploy:dev": "node scripts/deploy.mjs dev",
+    "deploy:prod": "node scripts/deploy.mjs prod",
     "preview": "astro preview",
     "astro": "astro",
     "sync": "node scripts/sync-app.mjs",

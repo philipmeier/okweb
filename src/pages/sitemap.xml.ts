@@ -21,6 +21,9 @@ export const GET: APIRoute = async () => {
     { url: '/solutions', priority: '0.8', changefreq: 'weekly' },
     { url: '/features', priority: '0.8', changefreq: 'weekly' },
     { url: '/blog', priority: '0.8', changefreq: 'daily' },
+    { url: '/patents', priority: '0.6', changefreq: 'monthly' },
+    { url: '/privacy-policy', priority: '0.5', changefreq: 'monthly' },
+    { url: '/terms-and-conditions', priority: '0.5', changefreq: 'monthly' },
   ];
 
   // Feature Pages (automatically filtered by featureGates via featureEntries)

@@ -55,7 +55,7 @@ function gcsBucketIndexLinks() {
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://mid-10z-dev-1.storage.googleapis.com',
+  site: process.env.SITE_URL || 'https://mid-10z-dev-1.storage.googleapis.com',
   integrations: [gcsBucketIndexLinks()],
   vite: {
     plugins: [tailwindcss()],

@@ -22,6 +22,9 @@
 - [About 10zebra](https://10zebra.com/about): Founded in 2021 by computational neuroscientist Philip Meier, PhD; pioneering multi-model video synthesis.
 - [Interactive Studio Demo](https://10zebra.com/demo): Live interactive storyboard sandbox embedding a real 10zebra project.
 - [Blog & Production Tutorials](https://10zebra.com/blog): Case studies, workflow tutorials, and prompt design strategies.
+- [Patents & Intellectual Property](https://10zebra.com/patents): 10zebra U.S. patent notice (35 U.S.C. § 287(a)), online distribution patent coverage, MCP builder licensing, and film/TV inquiries.
+- [Privacy Policy & CCPA Notice](https://10zebra.com/privacy-policy): 10z, LLC privacy practices, data protection, and California Consumer Privacy Act (CCPA) disclosures.
+- [Terms & Conditions](https://10zebra.com/terms-and-conditions): 10z, LLC terms of service and acceptable use policies.
 
 ## Solutions by Creative Discipline
 - [Creative Directors](https://10zebra.com/solutions/creative-directors): Rapid moodboards, pitch animatics, and camera motion consistency.

@@ -1,0 +1,528 @@
+---
+// src/pages/terms-and-conditions.astro
+import Layout from "/src/layouts/Layout.astro";
+import Header from "/src/components/layout/Header.astro";
+import Footer from "/src/components/layout/Footer.astro";
+
+const pageTitle = "Terms & Conditions | 10zebra";
+const pageDescription =
+  "Read the Terms and Conditions ('Terms') governing your access to and use of the 10z, LLC ('10zebra') platform, website services, user interfaces, products, and associated content and software applications.";
+const canonicalUrl = "https://10zebra.com/terms-and-conditions";
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": canonicalUrl,
+      "url": canonicalUrl,
+      "name": pageTitle,
+      "description": pageDescription,
+      "inLanguage": "en-US",
+      "isPartOf": {
+        "@id": "https://10zebra.com/#website"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://10zebra.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Terms & Conditions",
+          "item": canonicalUrl
+        }
+      ]
+    }
+  ]
+};
+---
+
+<Layout title={pageTitle} description={pageDescription} canonicalUrl={canonicalUrl}>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+  <Header />
+
+  <main id="main-content" class="py-12 md:py-20 relative overflow-hidden">
+    <div
+      class="absolute top-24 left-1/2 -translate-x-1/2 w-[650px] h-[300px] pointer-events-none rounded-full blur-[140px] opacity-20"
+      style="background: radial-gradient(ellipse, var(--accent) 0%, rgba(251,191,36,0.25) 50%, transparent 80%);"
+      aria-hidden="true"
+    ></div>
+
+    <div class="wrap relative z-10 max-w-4xl mx-auto">
+      <!-- Legal & IP Navigation Tabs -->
+      <nav aria-label="Legal and intellectual property pages" class="flex flex-wrap items-center gap-2 mb-8">
+        <a
+          href="/privacy-policy/index.html"
+          class="px-4 py-1.5 rounded-full text-xs font-semibold border border-[var(--border-subtle)] bg-[var(--bg-card)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-[var(--border-strong)] transition-colors no-underline"
+        >
+          Privacy Policy
+        </a>
+        <a
+          href="/terms-and-conditions/index.html"
+          aria-current="page"
+          class="px-4 py-1.5 rounded-full text-xs font-bold border border-[var(--accent)] bg-[var(--accent-subtle)] text-[var(--accent)] transition-colors no-underline"
+        >
+          Terms &amp; Conditions
+        </a>
+        <a
+          href="/patents/index.html"
+          class="px-4 py-1.5 rounded-full text-xs font-semibold border border-[var(--border-subtle)] bg-[var(--bg-card)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-[var(--border-strong)] transition-colors no-underline"
+        >
+          Patents
+        </a>
+      </nav>
+
+      <!-- Header -->
+      <div class="mb-10">
+        <span class="sect-label">10z, LLC &middot; Terms of Service</span>
+        <h1 class="text-[clamp(2rem,4vw,3rem)] font-extrabold tracking-tight text-[var(--text-primary)] mt-1" style="font-family:var(--font-display);">
+          Terms &amp; Conditions
+        </h1>
+        <p class="text-xs font-mono text-[var(--text-muted)] mt-2">
+          Last modified: February, 2023.
+        </p>
+      </div>
+
+      <!-- Content Card -->
+      <article class="glass p-7 sm:p-10 rounded-2xl border border-[var(--border-subtle)] space-y-8 text-[var(--text-secondary)] leading-relaxed text-sm sm:text-base">
+        <!-- Intro -->
+        <div class="space-y-4">
+          <p>
+            Hello, and welcome to 10z, LLC (&ldquo;10z&rdquo;, &ldquo;we&rdquo;, &ldquo;us&rdquo; or &ldquo;our&rdquo;) and our Terms and Conditions (the &ldquo;Terms&rdquo;). These Terms govern your access to and use of the 10z platform, website services, user interfaces, products, as well as all content and software applications associated with our services, or any videos or other content or material that is made available through 10z (collectively, the &ldquo;10z&rdquo; Services&rdquo;).
+          </p>
+          <p class="p-4 rounded-xl bg-[rgba(12,13,16,0.65)] border border-[var(--border-subtle)] text-xs sm:text-sm font-semibold text-[var(--text-primary)]">
+            BY SIGNING UP TO, ACCESSING AND/OR USING THE 10Z SERVICES, YOU ACKNOWLEDGE, ACCEPT AND AGREE TO BE BOUND AND ABIDE BY THESE TERMS, OUR PRIVACY POLICY (THE <a href="/privacy-policy/index.html" class="text-[var(--accent)] underline hover:text-amber-300">&ldquo;PRIVACY POLICY&rdquo;</a>). THE PRIVACY POLICY IS INCORPORATED HEREIN BY REFERENCE.
+          </p>
+          <p>
+            If you do not wish to agree to these Terms, the <a href="/privacy-policy/index.html" class="text-[var(--accent)] underline hover:text-amber-300">Privacy Policy</a>, you must not access or use the 10z Services. These Terms apply to all visitors, users, and others who access the 10z Services.
+          </p>
+        </div>
+
+        <!-- 1. 10z Services -->
+        <section class="space-y-3">
+          <h2 class="text-lg sm:text-xl font-bold text-[var(--text-primary)]" style="font-family:var(--font-display);">
+            1. 10z Services
+          </h2>
+          <p>
+            The 10z Services provide software, website, and a variety of platforms for the development, distribution, usage, training, and commercialization of machine learning models. Your right to access and use the 10z Services is contingent upon your access and use of the 10z Services solely in accordance with these Terms. The 10z Services are in public beta form.
+          </p>
+        </section>
+
+        <!-- 2. Use of the 10z Services -->
+        <section class="space-y-3">
+          <h2 class="text-lg sm:text-xl font-bold text-[var(--text-primary)]" style="font-family:var(--font-display);">
+            2. Use of the 10z Services
+          </h2>
+          <p>
+            The 10z Services are offered and available to users who are 13 years of age or older and who are not barred from receiving 10z Services under the laws of the United States or other countries, including the country in which you are a resident or from which you use the 10z Services. By using the 10z Services, you represent and warrant that you are at least 13 years of age and meet all of the foregoing eligibility requirements. If you do not meet all of these requirements, you must not access or use the 10z Service.
+          </p>
+          <p>
+            You agree and acknowledge that your access and use the 10z Services is not contingent on the delivery of any future functionality or features or dependent on any oral or written public comments made by 10z or any of its affiliates regarding future functionality or features.
+          </p>
+        </section>
+
+        <!-- 3. Accessing the 10z Services; Account Security -->
+        <section class="space-y-3">
+          <h2 class="text-lg sm:text-xl font-bold text-[var(--text-primary)]" style="font-family:var(--font-display);">
+            3. Accessing the 10z Services; Account Security
+          </h2>
+          <p>
+            We reserve the right to withdraw or amend these Terms and/or the 10z Services at any time, and any other service or material we provide in connection therewith, in our sole discretion without notice. We will not be liable if for any reason all or any part of the 10z Services are unavailable at any time or for any period. From time to time, we may restrict access to some parts of the 10z Services, or all of the 10z Services, to users, including registered users.
+          </p>
+          <p>You are responsible for both:</p>
+          <ul class="list-disc pl-6 space-y-1.5">
+            <li>Making all arrangements necessary for you to have access to the 10z Services; and</li>
+            <li>Ensuring that all persons who access the 10z Services through your internet connection are aware of these Terms and comply with them.</li>
+          </ul>
+        </section>
+
+        <!-- 4. Your Account and Use of the 10z Services -->
+        <section class="space-y-4">
+          <h2 class="text-lg sm:text-xl font-bold text-[var(--text-primary)]" style="font-family:var(--font-display);">
+            4. Your Account and Use of the 10z Services
+          </h2>
+          <p>
+            To access the 10z Services, you may be asked to provide certain registration details or other information. It is a condition of your use of the 10z Services that all of the information that you provide is correct, current, and complete. You agree that all information that you provide to register in connection with your use of the 10z Services or otherwise is governed by the <a href="/privacy-policy/index.html" class="text-[var(--accent)] underline hover:text-amber-300">Privacy Policy</a> and you consent to all actions we take with respect to your information consistent with our <a href="/privacy-policy/index.html" class="text-[var(--accent)] underline hover:text-amber-300">Privacy Policy</a>.
+          </p>
+          <p>
+            If you choose, or are provided with, a username, password, or any other piece of information as part of our security procedures, you must treat such information as confidential, and you must not disclose it to any other person or entity. You also acknowledge that your account is personal to you and agree not to provide any other person with access to the 10z Services or portions of it using your username, password, or other security information. You agree to notify us immediately of any unauthorized access to or use of your username or password or any other breach of security. You also agree to ensure that you exit from your account at the end of each session. You should use particular caution when accessing your account from a public or shared computer, so that others are not able to view or record your password or other personal information.
+          </p>
+          <p>
+            You must provide accurate and complete registration information whenever you register to use the 10z Services. You are responsible for the security of your password and for any use of your account. If you become aware of any unauthorized use of your password or of your account, you must notify 10z immediately at <a href="mailto:support@10zebra.com" class="text-[var(--accent)] underline hover:text-amber-300">support@10zebra.com</a>.
+          </p>
+          <p>
+            Your access and use of the 10z Services must comply with all applicable laws, regulations and ordinances, including any laws regarding the export of data or software.
+          </p>
+          <p>
+            You agree not to (a) access (or attempt to access) the administrative interface of the 10z Services by any means other than through the interface that is provided by 10z, unless you have been specifically permitted do so by us in a separate agreement with 10z; or (b) engage in any activity that interferes with or disrupts the 10z Services (or the servers and networks that are connected to the 10z Services) or that violates these Terms.
+          </p>
+          <p>
+            You may not access the 10z Services for the purpose of bringing an intellectual property infringement claim against 10z or for the purpose of creating a product or service competitive with the 10z Services.
+          </p>
+          <p>
+            If you create a 10z account on behalf of a legal entity, such as your business or employer, you represent that you have the legal authority to bind that entity to these Terms.
+          </p>
+          <p>
+            Subject to your acceptance of, and compliance with, these Terms, you may use the 10z Services for the sole purposes of testing the 10z Services and providing Feedback (as defined below).
+          </p>
+          <p>
+            You are responsible for all activity that occurs under your 10z account. You may receive notifications associated with your 10z account if we believe that you need to be notified of certain changes, developments or modifications to the 10z Services. We may also send you 10z Service notifications by other means. If the 10z Services are canceled (whether by you or us), your right to access the 10z Services will immediately cease. In addition, we have the right to delete all data associated with your account and use of the 10z Services (except to the extent prohibited by applicable law).
+          </p>
+          <p>
+            If we reasonably suspect that your 10z account is being used by a third party fraudulently or that violates our <a href="/privacy-policy/index.html" class="text-[var(--accent)] underline hover:text-amber-300">Privacy Policy</a>, 10z may suspend your account immediately without notice.
+          </p>
+        </section>
+
+        <!-- 5. User Contributions -->
+        <section class="space-y-4">
+          <h2 class="text-lg sm:text-xl font-bold text-[var(--text-primary)]" style="font-family:var(--font-display);">
+            5. User Contributions
+          </h2>
+          <p>
+            You retain ownership of your User Content. However, in order to provide the Service to you and others we need certain rights from you, as more fully described below. You alone are responsible for any of your User Content that may be lost or unrecoverable through your use of the Service. Accordingly, we encourage you to archive your User Content regularly and frequently. We have no obligation to store, maintain, or provide you a copy of your User Content. By providing User Content to the Service, you grant 10z (including our third party hosting providers acting on our behalf) a non-exclusive, royalty-free, transferable, sub-licensable, worldwide right and license to use, modify, reproduce, display, and distribute your User Content on the Service for the limited purposes of operating and providing the Service to you (&ldquo;User Content License&rdquo;). You understand and agree that the Service is a public platform and other users may search for, see, use, and/or re-post any User Content that you make publicly available on the Internet via the Service.
+          </p>
+          <p>
+            The 10z Services may contain message boards, chat rooms, personal web pages or profiles, forums, bulletin boards, code repositories, documentation, and other interactive features (collectively, &ldquo;Interactive Services&rdquo;) that may allow you to post, submit, publish, display, or transmit to other users or other persons (each, a &ldquo;post&rdquo;) content, data (including, without limitation, data used for machine learning models), information, text, images, audio, video or other content or materials (collectively, &ldquo;User Contributions&rdquo;) on or through the 10z Services. Any User Contribution to the 10z Services will be considered non-confidential and non-proprietary. By providing any User Contribution, you grant us and our affiliates and service providers, and each of their and our respective licensees, successors, and assigns a royalty-free right the right to use, reproduce, modify, perform, display, distribute, post, publish, translate, adapt, and otherwise disclose to third parties any such material for any purpose and in any form, format, media, or channels now known or later developed. You agree that your User Contribution may appear in demonstrations or materials that promote the 10z Services. The rights you grant to 10z under this section shall survive termination of these Terms.
+          </p>
+          <p>You represent, warrant and covenant that:</p>
+          <ul class="list-disc pl-6 space-y-1.5">
+            <li>You own or control all rights in and to the User Contributions and have the right to grant the rights granted above to us and our affiliates and service providers, and each of their and our respective licensees, successors, and assigns; and</li>
+            <li>All of your User Contributions do and will comply with these Terms.</li>
+          </ul>
+          <p>
+            You understand and acknowledge that you are responsible for any User Contributions that you submit or contribute, and you, not 10z, have full responsibility for such content, including its legality, reliability, accuracy, and appropriateness.
+          </p>
+          <p>
+            We are not responsible or liable to any third party for the content or accuracy of any User Contributions posted by you or any other user of the 10z Services.
+          </p>
+        </section>
+
+        <!-- 6. Use Policy -->
+        <section class="space-y-4">
+          <h2 class="text-lg sm:text-xl font-bold text-[var(--text-primary)]" style="font-family:var(--font-display);">
+            6. Use Policy
+          </h2>
+          <p>
+            These content standards apply to any and all User Contributions and use of the 10z Services. User Contributions must in their entirety comply with all applicable federal, state, local, and international laws and regulations. Without limiting the foregoing, User Contributions or any related content must not:
+          </p>
+          <ul class="list-disc pl-6 space-y-1.5">
+            <li>Contain any material that is defamatory, obscene, indecent, abusive, offensive, harassing, violent, hateful, hate-related, inflammatory, or otherwise objectionable;</li>
+            <li>Promote sexually explicit or pornographic material, violence, or discrimination based on race, sex, religion, nationality, disability, sexual orientation, or age;</li>
+            <li>Infringe any patent, trademark, trade secret, copyright, or other intellectual property or other rights of any other person;</li>
+            <li>Violate the legal rights (including the rights of publicity and privacy) of others or contain any material that could give rise to any civil or criminal liability under applicable laws or regulations or that otherwise may be in conflict with these Terms, our <a href="/privacy-policy/index.html" class="text-[var(--accent)] underline hover:text-amber-300">Privacy Policy</a>;</li>
+            <li>Be likely to deceive any person;</li>
+            <li>Promote any illegal activity, or advocate, promote, or assist any unlawful act;</li>
+            <li>Cause annoyance, inconvenience, or needless anxiety or be likely to upset, embarrass, alarm, or annoy any other person;</li>
+            <li>Impersonate any person, or misrepresent your identity or affiliation with any person or organization;</li>
+            <li>Involve commercial activities or sales, such as contests, sweepstakes, and other sales promotions, barter, or advertising;</li>
+            <li>Give the impression that they emanate from or are endorsed by us or any other person or entity, if this is not the case;</li>
+            <li>Intend to advocate or advance computer hacking or cracking, phishing; and</li>
+            <li>Include other material, products or services that violate or encourage conduct that would violate any criminal laws, any other applicable laws, or any third-party rights.</li>
+          </ul>
+
+          <p>Further, you agree not to use the 10z Services to:</p>
+          <ul class="list-disc pl-6 space-y-1.5">
+            <li>
+              Generate or facilitate unsolicited commercial email. Such activity includes, but is not limited to:
+              <ul class="list-circle pl-6 mt-1.5 space-y-1">
+                <li>Send email in violation of the CAN-SPAM Act, as amended, or any other applicable anti-spam law;</li>
+                <li>Imitate or impersonating another person or his, her, their or its email address, or creating false accounts for the purpose of sending spam;</li>
+                <li>Data mine any web property (including 10z) to find email addresses or other user account information;</li>
+                <li>Send unauthorized mail via open, third-party servers;</li>
+                <li>Send emails to users who have requested to be removed from a mailing list;</li>
+                <li>Sell, exchange or distribute to a third party the email addresses of any person without such person&rsquo;s knowing and continued consent to such disclosure;</li>
+                <li>Send unsolicited emails to significant numbers of email addresses belonging to individuals and/or entities with whom you have no preexisting relationship;</li>
+              </ul>
+            </li>
+            <li>Send, upload, distribute or disseminate or offer to do the same with respect to any unlawful, defamatory, harassing, abusive, fraudulent, infringing, obscene, or otherwise objectionable content;</li>
+            <li>Intentionally distribute viruses, worms, defects, Trojan horses, corrupted files, hoaxes, or any other items of a destructive or deceptive nature;</li>
+            <li>Conduct or forward pyramid schemes and the like;</li>
+            <li>Transmit content that may be harmful to minors;</li>
+            <li>Impersonate another person (via the use of an email address or otherwise) or otherwise misrepresent yourself or the source of any email;</li>
+            <li>Using the 10z Services to violate the legal rights (such as rights of privacy and publicity) of others.</li>
+          </ul>
+
+          <p>Additionally, you will not engage in the following activities in connection with your access to and/or use of the 10z Services:</p>
+          <ul class="list-disc pl-6 space-y-1.5">
+            <li>Promotion or encouragement of illegal activity;</li>
+            <li>Interference with other users&rsquo; enjoyment of the 10z Services;</li>
+            <li>Sell, trade, resell or otherwise exploit the 10z Services for any unauthorized commercial purpose;</li>
+            <li>Modify, adapt, translate, or reverse engineer any portion of the 10z Services;</li>
+            <li>Remove any copyright, trademark or other proprietary rights notices contained in or on the 10z Services;</li>
+            <li>Reformat or frame any portion of the web pages that are part of the 10z Services&rsquo; administration display;</li>
+            <li>Use the 10z Services in connection with illegal peer-to-peer file sharing;</li>
+            <li>Display any content on the 10z Services that contains any hate-related or violent content or contains any other material, products or services that violate or encourage conduct that would violate any criminal laws, any other applicable laws, or any third-party rights; and</li>
+            <li>Use the 10z Services, or any interfaces provided with the 10z Services, to access any 10z product or service in a manner that violates these Terms, our <a href="/privacy-policy/index.html" class="text-[var(--accent)] underline hover:text-amber-300">Privacy Policy</a> or other terms and conditions for access to and/or use of the 10z Services.</li>
+          </ul>
+
+          <p>Finally, you agree not to:</p>
+          <ul class="list-disc pl-6 space-y-1.5">
+            <li>Use the 10z Services in any manner that could disable, overburden, damage, or impair the 10z Services or interfere with any other party&rsquo;s use of the 10z Services, including their ability to engage in real time activities through the 10z Services;</li>
+            <li>Use any robot, spider, or other automatic device, process, or means to access the 10z Services for any purpose, including monitoring or copying any of the material on the 10z Services;</li>
+            <li>Use any manual process to monitor or copy any of the material on the 10z Services, or for any other purpose not expressly authorized in these Terms, the <a href="/privacy-policy/index.html" class="text-[var(--accent)] underline hover:text-amber-300">Privacy Policy</a>, without our prior written consent;</li>
+            <li>Use any device, software, or routine that interferes with the proper working of the 10z Services;</li>
+            <li>Introduce any viruses, Trojan horses, worms, logic bombs, or other material that is malicious or technologically harmful;</li>
+            <li>Attempt to gain unauthorized access to, interfere with, damage, or disrupt any parts of the 10z Services, the server (or servers) on which the 10z Services is stored, or any server, computer, or database connected to the 10z Services; and</li>
+            <li>Attack the 10z Services via a denial-of-service attack or a distributed denial-of-service attack;</li>
+            <li>Harvest or scrape any User Contribution;</li>
+            <li>Use the 10z Services to mine cybercurrency;</li>
+            <li>Use the 10z Services for high risk activities, including but not limited to the operation of nuclear facilities, air traffic control, life support systems, or any other use where the failure of the service could lead to death, personal injury, or environmental damage;</li>
+            <li>Otherwise attempt to interfere with the proper working of the 10z Services; and</li>
+            <li>Take any action in violation of this these Terms and the <a href="/privacy-policy/index.html" class="text-[var(--accent)] underline hover:text-amber-300">Privacy Policy</a>.</li>
+          </ul>
+        </section>
+
+        <!-- 7. Monitoring and Enforcement; Termination -->
+        <section class="space-y-4">
+          <h2 class="text-lg sm:text-xl font-bold text-[var(--text-primary)]" style="font-family:var(--font-display);">
+            7. Monitoring and Enforcement; Termination
+          </h2>
+          <p>
+            We are continually developing the 10z Services to provide you with the best possible experience. You acknowledge and agree that the form and nature of the 10z Services may change from time to time without prior notice to you. Changes to the form and nature of the 10z Services will be effective with respect to all versions of the 10z Services; examples of changes to the form and nature of the 10z Services include (without limitation) changes to security patches, added functionality, changes to fee and payment policies (if applicable) and any other enhancements.
+          </p>
+          <p>
+            10z reserves the right to suspend or terminate your access to all or a portion of the 10z Services at any time, without notice, for any reason whatsoever. You may discontinue your use of the 10z Services at any time. The 10z Services are in early public beta intended for gathering feedback and are not production-ready. The 10z Services may be unavailable from time to time, and 10z may change the 10z Services at any time. The 10z Services and any updates to the 10z Services may be unreliable. You may experience errors, bugs, unexpected interruptions, delays or periods of inaccessibility, and loss of data. You assume all risks associated with your use of the Service. We have no obligation to provide any support services for the 10z Services. 10z is not liable for any disruption or loss you may suffer as a result or a disruption in the 10z Services. We recommend that you regularly backup any data you store on the 10z Services.
+          </p>
+          <p>Without limiting the foregoing, 10z has the right to:</p>
+          <ul class="list-disc pl-6 space-y-1.5">
+            <li>Remove or refuse to post any User Contributions for any or no reason in its sole discretion;</li>
+            <li>Take any action with respect to any User Contribution that 10z deems necessary or appropriate in its sole discretion, including if 10z believes that such User Contribution violates these Terms, including the <a href="/privacy-policy/index.html" class="text-[var(--accent)] underline hover:text-amber-300">Privacy Policy</a>, infringes any intellectual property right or other right of any person or entity, threatens the personal safety of users of the 10z Services or the public, or could create liability for 10z;</li>
+            <li>Subject to applicable law, disclose your identity or other information about you to any third party who claims that material posted by you violates their rights, including their intellectual property rights or their right to privacy;</li>
+            <li>Take appropriate legal action, including without limitation, referral to law enforcement, for any illegal or unauthorized use of the 10z Services; and</li>
+            <li>Terminate or suspend your access to all or part of the 10z Services for any or no reason, including without limitation, any violation of these Terms.</li>
+          </ul>
+          <p>
+            Without limiting the foregoing and as further stated in the <a href="/privacy-policy/index.html" class="text-[var(--accent)] underline hover:text-amber-300">Privacy Policy</a>, 10z has the right to cooperate fully with any law enforcement authorities or court order requesting or directing us to disclose the identity or other information of anyone posting any materials on or through the 10z Services.
+          </p>
+          <p class="font-semibold text-[var(--text-primary)]">
+            YOU WAIVE AND HOLD HARMLESS 10Z AND ITS AFFILIATES, LICENSEES, AND SERVICE PROVIDERS FROM ANY CLAIMS RESULTING FROM ANY ACTION TAKEN ANY OF THE FOREGOING PARTIES DURING, OR TAKEN AS A CONSEQUENCE OF, INVESTIGATIONS BY EITHER SUCH PARTIES OR LAW ENFORCEMENT AUTHORITIES.
+          </p>
+          <p>
+            However, 10z cannot and does not undertake to review any User Contribution before it is posted on its website or any other part of the 10z Services, and cannot ensure prompt removal of objectionable material after it has been posted. Accordingly, we assume no liability for any action or inaction regarding transmissions, communications, or content provided by any user or third party. 10z has no liability or responsibility to anyone for performance or nonperformance of the activities described herein.
+          </p>
+        </section>
+
+        <!-- 8. Reservation of Rights; Feedback -->
+        <section class="space-y-3">
+          <h2 class="text-lg sm:text-xl font-bold text-[var(--text-primary)]" style="font-family:var(--font-display);">
+            8. Reservation of Rights; Feedback
+          </h2>
+          <p>
+            10z does not grant you a license or any other rights of any type under any patents, know-how, copyrights, trade secrets, trademarks or other intellectual property owned or controlled by 10z or any related entity, including but not limited to any name, trade dress, logo or equivalents. You waive any right that you may have in any idea, proposal, suggestion or feedback, including without limitation ideas for new products, technologies, promotions, product names, product feedback and product improvements (&ldquo;Feedback&rdquo;) in connection with your use and/or access of the 10z Services, in each case, without charge, royalties or other obligation to you, the right to make, have made, create derivative works, use, share and commercialize your Feedback in any way and for any purpose. You will not give Feedback that is subject to a license that requires 10z to license its platform, technologies or documentation to any third party because 10z includes your Feedback in them.
+          </p>
+        </section>
+
+        <!-- 9. Using Third-Party Software and Services -->
+        <section class="space-y-3">
+          <h2 class="text-lg sm:text-xl font-bold text-[var(--text-primary)]" style="font-family:var(--font-display);">
+            9. Using Third-Party Software and Services
+          </h2>
+          <p>
+            The 10z Services may allow you to export and connect models to software and services provided by independent third parties (collectively, &ldquo;Third-Party Services&rdquo;). Third-Party Services may be subject to additional terms, which you should review. Any additional terms do not modify any of these Terms. You are responsible for your dealings with third parties. 10z does not license any intellectual property to you as part of any Third-Party Services and is not responsible or liable to you or others for information or services provided by any Third-Party Services.
+          </p>
+        </section>
+
+        <!-- 10. Reliance on Information -->
+        <section class="space-y-3">
+          <h2 class="text-lg sm:text-xl font-bold text-[var(--text-primary)]" style="font-family:var(--font-display);">
+            10. Reliance on Information
+          </h2>
+          <p>
+            The information presented on or through the 10z Services is made available solely for general information purposes. We do not warrant the accuracy, completeness, or usefulness of this information. Any reliance you place on such information is strictly at your own risk. We disclaim all liability and responsibility arising from any reliance placed on such materials by you or any other user of the 10z Services, or by anyone who may be informed of any of its contents.
+          </p>
+        </section>
+
+        <!-- 11. Exclusion of Warranties -->
+        <section class="space-y-4">
+          <h2 class="text-lg sm:text-xl font-bold text-[var(--text-primary)]" style="font-family:var(--font-display);">
+            11. Exclusion of Warranties
+          </h2>
+          <p>
+            You understand that we cannot and do not guarantee or warrant that files available for downloading from the internet or the 10z Services will be free of viruses or other destructive code. You are responsible for implementing sufficient procedures and checkpoints to satisfy your particular requirements for anti-virus protection and accuracy of data input and output, and for maintaining a means external to our site for any reconstruction of any lost data.
+          </p>
+          <p class="text-xs sm:text-sm font-semibold text-[var(--text-primary)]">
+            TO THE FULLEST EXTENT PROVIDED BY LAW, 10Z, ITS EMPLOYEES, OFFICERS, DIRECTORS, ADVISORS AND ITS AFFILIATES WILL NOT BE LIABLE FOR ANY LOSS OR DAMAGE CAUSED BY A DISTRIBUTED DENIAL-OF-SERVICE ATTACK, VIRUSES, OR OTHER TECHNOLOGICALLY HARMFUL MATERIAL THAT MAY INFECT YOUR COMPUTER EQUIPMENT, COMPUTER PROGRAMS, DATA, OR OTHER PROPRIETARY MATERIAL DUE TO YOUR USE OF THE 10Z SERVICES OR ITEMS OBTAINED THROUGH THE 10Z SERVICES OR TO YOUR DOWNLOADING OF ANY MATERIAL POSTED ON IT, OR ON ANY WEBSITE LINKED TO IT.
+          </p>
+          <p class="text-xs sm:text-sm font-semibold text-[var(--text-primary)]">
+            YOUR USE OF THE 10Z SERVICES OR ITEMS OBTAINED THEREFROM IS AT YOUR OWN RISK. THE 10Z SERVICES OR ITEMS OBTAINED THEREFROM ARE PROVIDED ON AN &ldquo;AS IS&rdquo; AND &ldquo;AS AVAILABLE&rdquo; BASIS, WITHOUT ANY WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED. NEITHER 10Z NOR ANY PERSON ASSOCIATED WITH 10Z MAKES ANY WARRANTY OR REPRESENTATION WITH RESPECT TO THE COMPLETENESS, SECURITY, RELIABILITY, QUALITY, ACCURACY, OR AVAILABILITY OF THE 10Z SERVICES. WITHOUT LIMITING THE FOREGOING, NEITHER 10Z NOR ANYONE ASSOCIATED WITH 10Z REPRESENTS OR WARRANTS THAT THE 10Z SERVICES, THEIR CONTENT, OR ITEMS OBTAINED THROUGH THE 10Z SERVICES WILL BE ACCURATE, RELIABLE, ERROR-FREE, OR UNINTERRUPTED, THAT DEFECTS WILL BE CORRECTED, THAT THE 10Z SERVICES OR THE SERVER THAT RUNS THE 10Z SERVICES AVAILABLE ARE FREE OF VIRUSES OR OTHER HARMFUL COMPONENTS, OR THAT THE 10Z SERVICES WILL OTHERWISE MEET YOUR NEEDS OR EXPECTATIONS. TO THE FULLEST EXTENT PROVIDED BY LAW, 10Z HEREBY DISCLAIMS ALL WARRANTIES OF ANY KIND, WHETHER EXPRESS OR IMPLIED, STATUTORY, OR OTHERWISE, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF MERCHANTABILITY, NON-INFRINGEMENT, AND FITNESS FOR PARTICULAR PURPOSE.
+          </p>
+          <p class="text-xs sm:text-sm font-semibold text-[var(--text-primary)]">
+            THE FOREGOING DOES NOT AFFECT ANY WARRANTIES THAT CANNOT BE EXCLUDED OR LIMITED UNDER APPLICABLE LAW.
+          </p>
+        </section>
+
+        <!-- 12. Limitation on Liability -->
+        <section class="space-y-4">
+          <h2 class="text-lg sm:text-xl font-bold text-[var(--text-primary)]" style="font-family:var(--font-display);">
+            12. Limitation on Liability
+          </h2>
+          <p class="text-xs sm:text-sm font-semibold text-[var(--text-primary)]">
+            TO THE FULLEST EXTENT PROVIDED BY LAW, IN NO EVENT WILL 10Z, ITS AFFILIATES, OR THEIR LICENSORS, SERVICE PROVIDERS, EMPLOYEES, AGENTS, OFFICERS, OR DIRECTORS BE LIABLE FOR DAMAGES OF ANY KIND, UNDER ANY LEGAL THEORY, ARISING OUT OF OR IN CONNECTION WITH YOUR USE, OR INABILITY TO USE, THE 10Z SERVICES, ANY WEBSITES LINKED TO THEM, ANY CONTENT OF OR ON THE 10Z SERVICES OR SUCH OTHER WEBSITES, INCLUDING ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING BUT NOT LIMITED TO, PERSONAL INJURY, PAIN AND SUFFERING, EMOTIONAL DISTRESS, LOSS OF REVENUE, LOSS OF PROFITS, LOSS OF BUSINESS OR ANTICIPATED SAVINGS, LOSS OF USE, LOSS OF GOODWILL, LOSS OF DATA, AND WHETHER CAUSED BY TORT (INCLUDING NEGLIGENCE), BREACH OF CONTRACT, OR OTHERWISE, EVEN IF FORESEEABLE.
+          </p>
+          <p class="text-xs sm:text-sm font-semibold text-[var(--text-primary)]">
+            THE LIMITATIONS ON 10Z&rsquo;S LIABILITY TO YOU IN THE PARAGRAPH ABOVE SHALL APPLY WHETHER OR NOT 10Z HAS BEEN ADVISED OF OR SHOULD HAVE BEEN AWARE OF THE POSSIBILITY OF ANY SUCH LOSSES ARISING.
+          </p>
+        </section>
+
+        <!-- 13. Indemnification -->
+        <section class="space-y-3">
+          <h2 class="text-lg sm:text-xl font-bold text-[var(--text-primary)]" style="font-family:var(--font-display);">
+            13. Indemnification
+          </h2>
+          <p>
+            You agree to defend, indemnify, and hold harmless 10z, its affiliates, licensors, and service providers, and its and their respective officers, directors, employees, contractors, agents, licensors, suppliers, successors, and assigns from and against any claims, liabilities, damages, judgments, awards, losses, costs, expenses, or fees (including reasonable attorneys&rsquo; fees) arising out of or relating to your violation of these Terms or your use of the 10z Services, including, but not limited to, your User Contributions, any use of the 10z Services&rsquo; content, other than as expressly authorized in these Terms, or your use of the 10z Services or of any information obtained from the 10z Services.
+          </p>
+        </section>
+
+        <!-- 14. Intellectual Property Rights -->
+        <section class="space-y-4">
+          <h2 class="text-lg sm:text-xl font-bold text-[var(--text-primary)]" style="font-family:var(--font-display);">
+            14. Intellectual Property Rights
+          </h2>
+          <p>
+            The 10z Services and their entire contents, features, and functionality (including but not limited to all information, software, text, displays, images, video, and audio, and the design, selection, and arrangement thereof) are owned by 10z, its licensors, or other providers of such material and are protected by United States and international copyright, trademark, patent, trade secret, and other intellectual property or proprietary rights laws.
+          </p>
+          <p>These Terms permit you to use the 10z Services. You must not:</p>
+          <ul class="list-disc pl-6 space-y-1.5">
+            <li>Modify copies of any materials relating to the 10z Services;</li>
+            <li>Use any illustrations, photographs, video or audio sequences, or any graphics separately from the accompanying text; and</li>
+            <li>Delete or alter any copyright, trademark, or other proprietary rights notices from copies of materials from the 10z Services.</li>
+          </ul>
+          <p>
+            If you wish to make any use of material relating to the 10z Services other than that set out in this section, please address your request to <a href="mailto:support@10zebra.com" class="text-[var(--accent)] underline hover:text-amber-300">support@10zebra.com</a>.
+          </p>
+          <p>
+            If you print, copy, modify, download, or otherwise use or provide any other person with access to any part of the 10z Services in breach of these Terms, your right to use the 10z Services will stop immediately and you must, at our option, return or destroy any copies of the materials you have made. No right, title, or interest in or to the 10z Services is transferred to you, and all rights not expressly granted are reserved by 10z. Any use of the Terms not expressly permitted by these Terms is a breach of these Terms and may violate copyright, trademark, and other laws. Our legal name, logo and all related, product and service names, designs, and slogans are owned by 10z or our affiliates or licensors. You must not use them without our prior written permission. All other names, logos, product and service names, designs, and slogans on the 10z Services are the trademarks of their respective owners.
+          </p>
+        </section>
+
+        <!-- 15. Other Content -->
+        <section class="space-y-3">
+          <h2 class="text-lg sm:text-xl font-bold text-[var(--text-primary)]" style="font-family:var(--font-display);">
+            15. Other Content
+          </h2>
+          <p>
+            The 10z Services may include hyperlinks to other websites or content or resources or email content. 10z may have no control over any websites or resources which are provided by companies or persons other than 10z. You acknowledge and agree that 10z has no control over these websites or resources and is not responsible for the availability of any such external sites or resources, and does not endorse any advertising, products or other materials on or available from such websites or resources.
+          </p>
+          <p>
+            You acknowledge and agree that 10z is not liable for any loss or damage which may be incurred by you as a result of the availability of those external sites or resources, or as a result of any reliance placed by you on the completeness, accuracy or existence of any advertising, products or other materials on, or available from, such websites or resources. If you decide to access any of the third-party websites that may be linked to the 10z Services, you do so entirely at your own risk and subject to the terms and conditions of use for such websites.
+          </p>
+        </section>
+
+        <!-- 16. Confidentiality -->
+        <section class="space-y-4">
+          <h2 class="text-lg sm:text-xl font-bold text-[var(--text-primary)]" style="font-family:var(--font-display);">
+            16. Confidentiality
+          </h2>
+          <p>As used herein, &ldquo;Confidential Information&rdquo; means non-public information, know-how, or trade secrets in any form, that:</p>
+          <ul class="list-disc pl-6 space-y-1">
+            <li>Are designated by 10z as being confidential; and/or</li>
+            <li>A reasonable person knows or reasonably should understand to be confidential.</li>
+          </ul>
+          <p>
+            Confidential Information includes, without limitation, any non-public information about 10z or the Service that is disclosed to you in connection with these Terms.
+          </p>
+          <p>Confidential Information does not include the following types of information, however marked. Information that:</p>
+          <ul class="list-disc pl-6 space-y-1">
+            <li>is, or becomes, publicly available without a breach of these Terms;</li>
+            <li>was lawfully known to you without an obligation to keep it confidential;</li>
+            <li>is received from another source who can disclose it lawfully and without an obligation to keep it confidential;</li>
+            <li>is independently developed; or</li>
+            <li>is Feedback.</li>
+          </ul>
+          <p>
+            You agree to not disclose Confidential Information to third parties unless you are required to do so by a court order or law.
+          </p>
+          <p>
+            You agree to use Confidential Information only for the purposes of your use of the 10z Services. You agree to take reasonable steps to protect the Confidential Information. These steps must be at least as protective as the steps you take to protect your (or your company&rsquo;s) own confidential information. You may disclose Confidential Information if required by a court order or other government demand that has the force of law.
+          </p>
+          <p>
+            Prior to disclosure, you must: (i) seek the highest level of protection available; and (ii) to the extent not prohibited by applicable law, give 10z reasonable prior notice to allow us to seek a protective order. You will notify 10z if you learn of any disclosure of Confidential Information and will help prevent further disclosure. Monetary damages may not sufficiently compensate a disclosure of Confidential Information. We may seek court orders to stop the disclosure of Confidential Information in breach of these Terms without the obligation of posting a bond.
+          </p>
+        </section>
+
+        <!-- 17. Export Laws -->
+        <section class="space-y-3">
+          <h2 class="text-lg sm:text-xl font-bold text-[var(--text-primary)]" style="font-family:var(--font-display);">
+            17. Export Laws
+          </h2>
+          <p>
+            You must comply with all domestic and international export laws and regulations that apply to the 10z Services, which include restrictions on destinations, end users, and end use.
+          </p>
+        </section>
+
+        <!-- 18. Governing Law; Jurisdiction -->
+        <section class="space-y-3">
+          <h2 class="text-lg sm:text-xl font-bold text-[var(--text-primary)]" style="font-family:var(--font-display);">
+            18. Governing Law; Jurisdiction
+          </h2>
+          <p>
+            These Terms, the <a href="/privacy-policy/index.html" class="text-[var(--accent)] underline hover:text-amber-300">Privacy Policy</a> are governed by, and construed in accordance with, the laws of the State of California, without reference to its conflicts of law principles. It is agreed that any action, suit or proceeding arising out of or based upon use of and/or access to the 10z Services will be brought in the United States District Court for the Southern District of California or any court of the State of California of competent jurisdiction located in such District. You agree to (i) waive, to the fullest extent it may legally and effectively do so, any objection which you may now or hereafter have to the laying of venue of any suit, action or proceeding arising out of or relating to the 10z Services in any California State court or in any such Federal court, and (ii) waive, to the fullest extent permitted by law, the defense of an inconvenient forum to the maintenance of such suit, action or proceeding in any such court. California. The provisions of the 1980 U.N. Convention on Contracts for the International Sale of Goods do not apply.
+          </p>
+        </section>
+
+        <!-- 19. Waiver and Severability -->
+        <section class="space-y-3">
+          <h2 class="text-lg sm:text-xl font-bold text-[var(--text-primary)]" style="font-family:var(--font-display);">
+            19. Waiver and Severability
+          </h2>
+          <p>
+            No waiver by 10z of any term or condition set out in these Terms shall be deemed a further or continuing waiver of such term or condition or a waiver of any other term or condition, and any failure of 10z to assert a right or provision under these Terms shall not constitute a waiver of such right or provision.
+          </p>
+        </section>
+
+        <!-- 20. Entire Agreement -->
+        <section class="space-y-3">
+          <h2 class="text-lg sm:text-xl font-bold text-[var(--text-primary)]" style="font-family:var(--font-display);">
+            20. Entire Agreement
+          </h2>
+          <p>
+            These Terms constitute the sole and entire agreement between 10z and you regarding the 10z Services and your access to and/or use of the 10z Services, and supersede all prior and contemporaneous understandings, agreements, representations, and warranties, both written and oral, regarding the 10z Services.
+          </p>
+        </section>
+
+        <!-- 21. Your Comments and Concerns -->
+        <section class="space-y-3">
+          <h2 class="text-lg sm:text-xl font-bold text-[var(--text-primary)]" style="font-family:var(--font-display);">
+            21. Your Comments and Concerns
+          </h2>
+          <p>
+            The 10z Services (including this website) are operated by 10z, LLC, San Diego, CA 92037. All feedback, comments, requests for technical support, and other communications relating to the 10z Services should be directed to <a href="mailto:support@10zebra.com" class="text-[var(--accent)] underline hover:text-amber-300">support@10zebra.com</a>.
+          </p>
+        </section>
+
+        <!-- 22. Changes to these Terms -->
+        <section class="space-y-3">
+          <h2 class="text-lg sm:text-xl font-bold text-[var(--text-primary)]" style="font-family:var(--font-display);">
+            22. Changes to these Terms
+          </h2>
+          <p>
+            We may modify or update these Terms from time to time to reflect the changes in our business and practices, and so you should review this page periodically. When we change these Terms, we will let you know by updating the &ldquo;last modified&rdquo; date at the bottom of this page. You are responsible for ensuring we have an up-to-date active and deliverable email address for you, and for periodically accessing and using the 10z Services and these Terms to check for any changes.
+          </p>
+          <p class="text-xs font-mono text-[var(--text-muted)]">
+            These Terms were last modified in February, 2023.
+          </p>
+        </section>
+
+        <!-- Footer Meta -->
+        <div class="pt-6 border-t border-[var(--border-subtle)] flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs text-[var(--text-muted)]">
+          <div>&copy; 2023&ndash;2026 10z, LLC. All Rights Reserved.</div>
+          <a href="mailto:support@10zebra.com" class="text-[var(--accent)] font-semibold hover:underline">
+            Questions? Contact support@10zebra.com &rarr;
+          </a>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
+

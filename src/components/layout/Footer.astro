@@ -61,10 +61,15 @@ const modelFamilies = getModelFamilies().slice(0, 5);
         </a>
       </div>
 
-      <!-- Developers -->
+      <!-- Developers & Legal -->
       <div>
         <h4 class="text-[0.72rem] uppercase tracking-[1.5px] font-bold text-[var(--text-primary)] mb-4">Developers</h4>
         <a href="/mcp/index.html" class="block text-sm text-[var(--text-muted)] mb-2 hover:text-[var(--text-primary)] transition-colors no-underline">MCP Server</a>
+
+        <h4 class="text-[0.72rem] uppercase tracking-[1.5px] font-bold text-[var(--text-primary)] mt-6 mb-4">Legal</h4>
+        <a href="/privacy-policy/index.html" class="block text-sm text-[var(--text-muted)] mb-2 hover:text-[var(--text-primary)] transition-colors no-underline">Privacy Policy</a>
+        <a href="/terms-and-conditions/index.html" class="block text-sm text-[var(--text-muted)] mb-2 hover:text-[var(--text-primary)] transition-colors no-underline">Terms and Conditions</a>
+        <a href="/patents/index.html" class="block text-sm text-[var(--text-muted)] mb-2 hover:text-[var(--text-primary)] transition-colors no-underline">Patents</a>
       </div>
 
       <!-- Resources -->
@@ -78,8 +83,17 @@ const modelFamilies = getModelFamilies().slice(0, 5);
       </div>
     </div>
 
-    <div class="text-center text-xs text-[var(--text-muted)] border-t border-[var(--border-subtle)] pt-8">
-      &copy; 2026 10zebra.com &mdash; Direct AI video like a producer. Not a prompter.
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[var(--text-muted)] border-t border-[var(--border-subtle)] pt-8">
+      <div>
+        &copy; 2026 10zebra.com &mdash; Direct AI video like a producer. Not a prompter.
+      </div>
+      <div class="flex flex-wrap items-center justify-center gap-4">
+        <a href="/privacy-policy/index.html" class="text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors no-underline">Privacy Policy</a>
+        <span class="text-[var(--border-strong)]">&middot;</span>
+        <a href="/terms-and-conditions/index.html" class="text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors no-underline">Terms and Conditions</a>
+        <span class="text-[var(--border-strong)]">&middot;</span>
+        <a href="/patents/index.html" class="text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors no-underline">Patents</a>
+      </div>
     </div>
   </div>
 </footer>

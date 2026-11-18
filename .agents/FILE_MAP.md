@@ -96,7 +96,7 @@ Comprehensive SEO/AEO FAQ repository driving `/faq` and Schema.org `FAQPage` str
 ### `src/data/solutions.ts`
 Persona / ICP data driving the homepage use-case rotator, `/solutions` hub, and `/solutions/[slug]` landing pages.
 - **Types & Interfaces:**
-  - `Solution`: `{ slug, label, pageTitle, need, headline, summary, heroSub, chips, cta, accent, media, pains, workflow, features, stats, testimonial, faqs, seo }`
+  - `Solution`: `{ slug, label, pageTitle, need, headline, summary, heroSub, chips, cta, accent, media, pains, workflow, features, stats, testimonial?, faqs, seo }`
 - **Exports & Functions:**
   - `solutions`: Array of persona definitions (`creative-directors`, `film-producers`, `agencies`, `content-creators`).
   - `getSolution(slug: string): Solution | undefined` — Looks up a solution definition by slug.
@@ -150,6 +150,9 @@ Helper functions for filtering, sorting, formatting, and recommending blog posts
 | `src/pages/faq.astro` | `/faq` | Interactive Help Center & FAQ page driven by `src/data/faqs.ts` with live keyword search, category filter pills, expand/collapse controls, copyable deep-link anchors, and `FAQPage` JSON-LD. |
 | `src/pages/about.astro` | `/about` | Company story, founding heritage (Philip Meier, PhD), 10zebra timeline, architecture pillars, and team mission. |
 | `src/pages/demo.astro` | `/demo` | Interactive studio demo page embedding a live 10zebra storyboard sandbox and walkthrough. |
+| `src/pages/patents.astro` | `/patents` | 10z, LLC Patents & Intellectual Property notice (35 U.S.C. § 287(a)), artist advocacy statement, online generation patent coverage, MCP builder licensing, and film/TV inquiry info. |
+| `src/pages/privacy-policy.astro` | `/privacy-policy` | 10z, LLC Privacy Policy (Sections 1–12) and California Consumer Privacy Act (`#ccpa`) Privacy Notice (Sections 1–6 including Categories A–K table). |
+| `src/pages/terms-and-conditions.astro` | `/terms-and-conditions` | 10z, LLC Terms & Conditions (Sections 1–22 covering 10z Services, eligibility, account security, User Contributions, Use Policy, warranties, liability, IP, and California governing law). |
 | `src/pages/referral-program.astro` | `/referral-program` | Direct top-level alias route that renders `src/pages/features/referral-program.astro`. |
 | `src/pages/sitemap.xml.ts` | `/sitemap.xml` | Dynamic XML sitemap generator (`GET` APIRoute) combining static pages, `/features/*` slugs, `/solutions/*` slugs, `/models/*` slugs, and `/blog/*` posts. |
 
@@ -232,6 +235,7 @@ All pages use `FeatureLandingLayout.astro`:
 
 | Script | Function |
 | :--- | :--- |
+| `scripts/deploy.mjs`, `scripts/deploy-dev.sh`, `scripts/deploy-prod.sh` | Builds the Astro site with the target environment's `SITE_URL` and syncs `dist/` to the Dev (`gs://mid-10z-dev-2`) or Prod (`gs://mid-10z-dev-1`) Google Cloud Storage bucket via `gcloud storage rsync`, updating HTML `Cache-Control` headers. |
 | `scripts/sync-models.mjs` | Reads model definitions from the sibling production app (`../10z/src/utils/config.js`), groups variants by model family, and writes `src/data/models.json`. |
 | `scripts/sync-app.mjs` | Syncs both AI models (`models.json`) and FastMCP server metadata (`mcp.json`) from the sibling `../10z` repository. |
 | `scripts/migrate-webflow.cjs` & `scripts/run-migration.cjs` | Utilities used to migrate legacy Webflow blog exports and assets into `src/content/blog/` and `src/assets/blogs/`. |

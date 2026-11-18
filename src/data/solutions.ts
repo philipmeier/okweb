@@ -34,7 +34,7 @@ export interface Solution {
   workflow: { tag: string; title: string; body: string; media: MediaSlot }[];
   features: FeatureKey[];
   stats: { value: string; label: string }[];
-  testimonial: { quote: string; name: string; title: string; company: string };
+  testimonial?: { quote: string; name: string; title?: string; company: string };
   faqs: { q: string; a: string }[];
   seo: { title: string; description: string };
 }
@@ -85,12 +85,11 @@ export const solutions: Solution[] = [
       { value: 'Same day', label: 'concept to animatic' },
       { value: `${totalFamilies}`, label: 'model families in one workspace' },
     ],
-    // PLACEHOLDER testimonial
     testimonial: {
-      quote: 'We walked into the pitch with three animated directions instead of one static board. The client picked in ten minutes.',
-      name: 'Jamie L.',
-      title: 'Creative Director',
-      company: 'Company Name',
+      quote: "Of course humans need to storyboard. That's how you get a better story",
+      name: 'Monica Monique',
+      title: 'Founder',
+      company: 'Chain Reaction',
     },
     faqs: [
       {
@@ -170,12 +169,10 @@ export const solutions: Solution[] = [
       { value: '100%', label: 'of prompts and takes on record' },
       { value: `${totalFamilies}`, label: 'model families per shot' },
     ],
-    // PLACEHOLDER testimonial
     testimonial: {
-      quote: 'We previs’d the whole sequence before the scout. Same lead, same ship, every shot, and the director could finally see it.',
-      name: 'Dana V.',
-      title: 'Producer',
-      company: 'Production Company Name',
+      quote: 'relatively self-explanatory, excellent character recognition, decent actual dialogue … quite beautiful graphics and visuals overall',
+      name: 'Rebecca Scott',
+      company: 'Blood and Whiskey Films',
     },
     faqs: [
       {
@@ -271,13 +268,7 @@ export const solutions: Solution[] = [
       },
       { value: '100%', label: 'of generations logged with cost' },
     ],
-    // PLACEHOLDER testimonial
-    testimonial: {
-      quote: 'Each client has its own budget and its own team. I finally know what every campaign cost before the invoice goes out.',
-      name: 'Marcus R.',
-      title: 'Head of Production',
-      company: 'Agency Name',
-    },
+    // Testimonial hidden until agency-specific quote is collected
     faqs: [
       {
         q: 'Why are project-level seats better for agencies than app-wide seats?',
@@ -358,13 +349,7 @@ export const solutions: Solution[] = [
       { value: '9:16', label: 'social microdrama tool' },
       { value: '1-click', label: 'publish to YouTube' },
     ],
-    // PLACEHOLDER testimonial
-    testimonial: {
-      quote: 'Script to finished episode in one place. My recurring character actually looks the same every single week.',
-      name: 'Sara K.',
-      title: 'YouTube Creator',
-      company: 'Channel Name',
-    },
+    // Testimonial hidden until creator-specific quote is collected
     faqs: [
       {
         q: 'Can I publish directly to YouTube?',

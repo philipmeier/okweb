@@ -1,33 +1,23 @@
 ---
 /**
- * PLACEHOLDER CONTENT — testimonials and stats below are not real yet.
- * Replace name / title / company / quote (and optionally add `avatar` and
- * `logo`) once real customer quotes are collected.
+ * Customer testimonials and platform stats.
  */
 const testimonials = [
   {
-    id: 'JL',
-    quote: 'I used to bounce between Runway and Kling for every shot. Now I A/B both in seconds and keep my talent consistent.',
-    name: 'Jamie L.',
-    title: 'Creative Director',
-    company: 'Company Name',
-    persona: 'Creative Directors',
+    id: 'MM',
+    quote: "Of course humans need to storyboard. That's how you get a better story",
+    name: 'Monica Monique',
+    title: 'Founder',
+    company: 'Chain Reaction',
+    persona: 'Creative Direction & Storyboarding',
   },
   {
-    id: 'MR',
-    quote: 'Each client project has its own budget. My team generates freely, and no project raids another’s credits.',
-    name: 'Marcus R.',
-    title: 'Head of Production',
-    company: 'Agency Name',
-    persona: 'Agencies',
-  },
-  {
-    id: 'SK',
-    quote: 'Script to finished episode in one place. The recurring characters actually look the same every week.',
-    name: 'Sara K.',
-    title: 'YouTube Creator',
-    company: 'Channel Name',
-    persona: 'Content Creators',
+    id: 'RS',
+    quote: 'relatively self-explanatory, excellent character recognition, decent actual dialogue … quite beautiful graphics and visuals overall',
+    name: 'Rebecca Scott',
+    title: '',
+    company: 'Blood and Whiskey Films',
+    persona: 'Film & Narrative Production',
   },
 ];
 
@@ -54,19 +44,27 @@ const stats = [
     ))}
   </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 reveal">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto reveal">
     {testimonials.map((t) => (
-      <figure class="glass p-6 flex flex-col">
+      <figure class="glass p-6 sm:p-8 flex flex-col">
         <span class="text-[0.65rem] uppercase tracking-[1.5px] font-bold text-[var(--accent)] mb-3">{t.persona}</span>
-        <blockquote class="text-[0.95rem] text-[var(--text-primary)] leading-relaxed mb-6 flex-1">&ldquo;{t.quote}&rdquo;</blockquote>
+        <blockquote class="text-[0.95rem] sm:text-base text-[var(--text-primary)] leading-relaxed mb-6 flex-1">&ldquo;{t.quote}&rdquo;</blockquote>
         <figcaption class="flex items-center gap-3">
           <div class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold shrink-0"
             style="background:linear-gradient(135deg,var(--accent),var(--accent-secondary)); color:#0c0d10;">
             {t.id}
           </div>
           <div>
-            <div class="text-sm font-semibold">{t.name}</div>
-            <div class="text-xs text-[var(--text-muted)]">{t.title}, <span class="text-[var(--text-secondary)] font-medium">{t.company}</span></div>
+            <div class="text-sm font-semibold text-[var(--text-primary)]">{t.name}</div>
+            <div class="text-xs text-[var(--text-muted)]">
+              {t.title ? (
+                <>
+                  {t.title} @ <span class="text-[var(--text-secondary)] font-medium">{t.company}</span>
+                </>
+              ) : (
+                <span class="text-[var(--text-secondary)] font-medium">{t.company}</span>
+              )}
+            </div>
           </div>
         </figcaption>
       </figure>

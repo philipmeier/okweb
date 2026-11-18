@@ -166,24 +166,25 @@ const jsonLd = {
     </section>
 
     <!-- ================= TESTIMONIAL ================= -->
-    <section class="wrap pb-24" aria-label="Customer story">
-      <!-- PLACEHOLDER testimonial — replace in src/data/solutions.ts -->
-      <figure class="sp-quote reveal">
-        <MediaSlot slot={s.workflow[2].media} class="sp-fill" sizes="100vw" widths={[800, 1400]} hideTag />
-        <div class="sp-quote__scrim" aria-hidden="true"></div>
-        <div class="sp-quote__body">
-          <span class="sp-quote__mark" aria-hidden="true">&ldquo;</span>
-          <blockquote>{s.testimonial.quote}</blockquote>
-          <figcaption>
-            <span class="sp-quote__avatar" aria-hidden="true">{s.testimonial.name.split(' ').map((n) => n[0]).join('')}</span>
-            <span>
-              <strong>{s.testimonial.name}</strong>
-              <span>{s.testimonial.title}, {s.testimonial.company}</span>
-            </span>
-          </figcaption>
-        </div>
-      </figure>
-    </section>
+    {s.testimonial && (
+      <section class="wrap pb-24" aria-label="Customer story">
+        <figure class="sp-quote reveal">
+          <MediaSlot slot={s.workflow[2].media} class="sp-fill" sizes="100vw" widths={[800, 1400]} hideTag />
+          <div class="sp-quote__scrim" aria-hidden="true"></div>
+          <div class="sp-quote__body">
+            <span class="sp-quote__mark" aria-hidden="true">&ldquo;</span>
+            <blockquote>{s.testimonial.quote}</blockquote>
+            <figcaption>
+              <span class="sp-quote__avatar" aria-hidden="true">{s.testimonial.name.split(' ').map((n) => n[0]).join('')}</span>
+              <span>
+                <strong>{s.testimonial.name}</strong>
+                <span>{s.testimonial.title ? `${s.testimonial.title} @ ${s.testimonial.company}` : s.testimonial.company}</span>
+              </span>
+            </figcaption>
+          </div>
+        </figure>
+      </section>
+    )}
 
     <div class="sect-divider"></div>
 
