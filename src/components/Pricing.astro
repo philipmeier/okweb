@@ -1,6 +1,6 @@
 ---
 // src/components/Pricing.astro
-import { plans, creditPacks } from "/src/data/pricing";
+import { plans, creditPacks, paygStudioCard, samplePaygRates } from "/src/data/pricing";
 import { totalFamilies, totalModels } from "/src/data/models";
 import { featureGates } from "/src/data/config";
 
@@ -198,7 +198,7 @@ const showSubscriptions = featureGates.subscriptions;
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch reveal pt-2">
         <!-- Left: Free Starter + Full Studio Unlock Card -->
         <div
-          class="lg:col-span-5 glass relative flex flex-col justify-between p-8 border-[var(--accent)] glow-border"
+          class="lg:col-span-5 glass relative flex flex-col justify-between p-7 sm:p-8 border-[var(--accent)] glow-border"
           id={`${idPrefix}-payg`}
           style="background: linear-gradient(180deg, rgba(249,115,22,0.08) 0%, rgba(26,28,33,0.8) 45%);"
         >
@@ -206,130 +206,186 @@ const showSubscriptions = featureGates.subscriptions;
             class="absolute -top-[12px] right-6 z-10 text-[0.65rem] font-black px-3 py-1 rounded-full uppercase tracking-wider shadow-lg"
             style="background: linear-gradient(135deg, var(--accent), var(--accent-secondary)); color:#0c0d10;"
           >
-            No Subscription Required
+            {paygStudioCard.badge}
           </div>
 
           <div>
             <span class="text-[0.72rem] uppercase tracking-wider font-bold block mb-1 text-[var(--accent)]">
-              Zero Monthly Commitment
+              {paygStudioCard.kicker}
             </span>
             <h3 class="text-2xl sm:text-3xl font-extrabold text-[var(--text-primary)]" style="font-family:var(--font-display);">
-              Pay-As-You-Go Studio
+              {paygStudioCard.title}
             </h3>
             <p class="text-sm text-[var(--text-secondary)] mt-1.5 leading-relaxed">
-              Every feature, AI model, and collaborative workflow unlocked from day one. Start with 200 free credits and top up only when you direct.
+              {paygStudioCard.desc}
             </p>
 
             <div class="mt-5 mb-5 p-4 rounded-xl bg-[rgba(12,13,16,0.65)] border border-[var(--border-subtle)] flex items-baseline justify-between gap-4">
               <div>
                 <div class="flex items-baseline gap-1.5">
-                  <span class="text-4xl font-extrabold text-[var(--text-primary)]" style="font-family:var(--font-display);">$0</span>
-                  <span class="text-xs font-mono uppercase tracking-wider text-emerald-400 font-bold">To Start Free</span>
+                  <span class="text-4xl font-extrabold text-[var(--text-primary)]" style="font-family:var(--font-display);">
+                    {paygStudioCard.startPrice}
+                  </span>
+                  <span class="text-xs font-mono uppercase tracking-wider text-emerald-400 font-bold">
+                    {paygStudioCard.startLabel}
+                  </span>
                 </div>
-                <span class="text-xs text-[var(--text-muted)] block mt-0.5">Includes 200 free signup credits</span>
+                <span class="text-xs text-[var(--text-muted)] block mt-0.5">{paygStudioCard.startSubtext}</span>
               </div>
-              <div class="text-right">
-                <span class="text-xs font-bold text-[var(--accent)] block">Top-Ups From $10</span>
-                <span class="text-[11px] text-[var(--text-muted)] block">Credits never expire</span>
+              <div class="text-right shrink-0">
+                <span class="text-xs font-bold text-[var(--accent)] block">{paygStudioCard.topUpsFrom}</span>
+                <span class="text-[11px] text-[var(--text-muted)] block">{paygStudioCard.topUpsSubtext}</span>
               </div>
             </div>
 
             <ul class="feat-list space-y-2.5 mb-6">
-              <li>
-                <span class="check-icon">&#10003;</span>
-                <span><strong>200 Free Credits</strong> on signup (no credit card needed)</span>
-              </li>
-              <li>
-                <span class="check-icon">&#10003;</span>
-                <span>All <strong>{totalFamilies} model families ({totalModels}+ engines)</strong>: Kling, Veo, Sora, Runway &amp; more</span>
-              </li>
-              <li>
-                <span class="check-icon">&#10003;</span>
-                <span><strong>Team collaborators at no cost</strong> ($0/seat) + per-member credit budgets</span>
-              </li>
-              <li>
-                <span class="check-icon">&#10003;</span>
-                <span><strong>Hybrid Production:</strong> combine live-action footage &amp; AI styles</span>
-              </li>
-              <li>
-                <span class="check-icon">&#10003;</span>
-                <span><strong>Quick Start &amp; Scene Extension</strong> workflow tools included</span>
-              </li>
-              <li>
-                <span class="check-icon">&#10003;</span>
-                <span><strong>Purchased credits never expire</strong> — zero monthly forfeiture</span>
-              </li>
+              {paygStudioCard.highlights.map((item) => (
+                <li>
+                  <span class="check-icon">&#10003;</span>
+                  <span>
+                    <strong>{item.strong}</strong> {item.rest}
+                  </span>
+                </li>
+              ))}
             </ul>
           </div>
 
           <div>
             <a
-              href="/signup/index.html"
+              href={paygStudioCard.ctaHref}
               class="btn btn-primary btn-full py-3.5 text-sm font-bold shadow-lg"
               id={`${idPrefix}-payg-cta`}
             >
-              Start Free — 200 Credits &rarr;
+              {paygStudioCard.cta}
             </a>
             <p class="text-[0.72rem] text-center text-[var(--text-muted)] mt-2.5">
-              No credit card required &middot; Full commercial rights included
+              {paygStudioCard.ctaNote}
             </p>
           </div>
         </div>
 
-        <!-- Right: Non-Expiring Credit Top-Up Packs -->
+        <!-- Right: Stacked Non-Expiring Credit Top-Up Packs + Sample Rate Card -->
         <div class="lg:col-span-7 flex flex-col justify-between gap-4">
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 flex-1">
+          <!-- Stacked Horizontal Credit Pack Cards -->
+          <div class="space-y-3.5">
             {creditPacks.map((pack) => (
               <div
-                class={`glass p-5 flex flex-col justify-between relative transition-all duration-200 hover:-translate-y-1 ${
-                  pack.popular ? 'border-[var(--accent)] ring-1 ring-[var(--accent)]/30' : 'border-[var(--border-subtle)]'
+                class={`glass p-5 rounded-2xl relative transition-all duration-200 hover:-translate-y-0.5 ${
+                  pack.popular
+                    ? "border-[var(--accent)] ring-1 ring-[var(--accent)]/30"
+                    : "border-[var(--border-subtle)] hover:border-[var(--border-strong)]"
                 }`}
+                style={pack.popular ? "background: linear-gradient(90deg, rgba(249,115,22,0.07) 0%, rgba(26,28,33,0.85) 55%);" : ""}
               >
                 {pack.popular && (
                   <span
-                    class="absolute -top-2.5 right-4 text-[0.62rem] font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider"
+                    class="absolute -top-2.5 right-5 text-[0.62rem] font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider shadow"
                     style="background: linear-gradient(135deg, var(--accent), var(--accent-secondary)); color:#0c0d10;"
                   >
                     Most Popular
                   </span>
                 )}
-                <div>
-                  <div class="flex items-center justify-between gap-2 mb-1">
-                    <span class="text-xs font-bold uppercase tracking-wider text-[var(--text-muted)]">{pack.name}</span>
-                    <span class="text-xs font-mono text-emerald-400 font-semibold">{pack.unitPrice}</span>
-                  </div>
-                  <div class="flex items-baseline justify-between gap-2 my-2">
-                    <div>
-                      <span class="text-2xl sm:text-3xl font-extrabold text-[var(--accent)]" style="font-family:var(--font-display);">
-                        {pack.credits}
-                      </span>
-                      <span class="text-xs font-semibold text-[var(--text-secondary)] ml-1">credits</span>
-                    </div>
-                    <span class="text-2xl font-extrabold text-[var(--text-primary)]" style="font-family:var(--font-display);">
-                      {pack.basePrice}
-                    </span>
-                  </div>
-                  <p class="text-xs text-[var(--text-secondary)] mt-1">{pack.approx}</p>
-                </div>
 
-                <div class="mt-4 pt-3 border-t border-[var(--border-subtle)] flex items-center justify-between text-[11px] text-[var(--text-muted)]">
-                  <span>{pack.idealFor}</span>
-                  <span class="text-emerald-400 font-semibold">Never expires</span>
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <!-- Pack Identity & Capacity -->
+                  <div class="space-y-1 min-w-0">
+                    <div class="flex flex-wrap items-center gap-2">
+                      <span class="text-xs font-extrabold uppercase tracking-wider text-[var(--text-primary)]">
+                        {pack.name} Pack
+                      </span>
+                      <span class="text-[0.68rem] font-mono px-2 py-0.5 rounded-full bg-emerald-500/12 text-emerald-400 border border-emerald-500/25 font-semibold">
+                        Never expires
+                      </span>
+                      <span class="text-[0.72rem] text-[var(--text-muted)] hidden md:inline">
+                        &middot; {pack.idealFor}
+                      </span>
+                    </div>
+
+                    <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                      <div class="flex items-baseline gap-1.5">
+                        <span
+                          class="text-2xl sm:text-3xl font-extrabold text-[var(--accent)] tracking-tight"
+                          style="font-family:var(--font-display);"
+                        >
+                          {pack.credits}
+                        </span>
+                        <span class="text-xs font-semibold text-[var(--text-secondary)]">credits</span>
+                      </div>
+                      <span class="text-xs text-[var(--text-secondary)]">
+                        {pack.approx}
+                      </span>
+                    </div>
+
+                    <p class="text-[0.72rem] text-[var(--text-muted)] md:hidden">
+                      {pack.idealFor}
+                    </p>
+                  </div>
+
+                  <!-- Pack Price & Action -->
+                  <div class="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center gap-3 sm:gap-1.5 pt-2.5 sm:pt-0 border-t sm:border-t-0 border-[var(--border-subtle)] shrink-0">
+                    <div class="flex items-baseline gap-2 sm:gap-1.5">
+                      <span
+                        class="text-2xl sm:text-3xl font-extrabold text-[var(--text-primary)] tracking-tight"
+                        style="font-family:var(--font-display);"
+                      >
+                        {pack.basePrice}
+                      </span>
+                      <span class="text-[0.7rem] font-mono text-emerald-400 font-semibold whitespace-nowrap">
+                        {pack.unitPrice}
+                      </span>
+                    </div>
+                    <a
+                      href="/signup/index.html"
+                      class={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-colors whitespace-nowrap ${
+                        pack.popular
+                          ? "bg-[var(--accent)] text-[#0c0d10] hover:opacity-95"
+                          : "bg-white/[0.06] text-[var(--text-primary)] border border-[var(--border-subtle)] hover:border-[var(--accent)] hover:text-[var(--accent)]"
+                      }`}
+                    >
+                      Get {pack.credits} Credits &rarr;
+                    </a>
+                  </div>
                 </div>
               </div>
             ))}
           </div>
 
-          <div class="p-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[var(--text-secondary)]">
-            <div class="flex items-center gap-2.5">
-              <span class="w-2 h-2 rounded-full bg-emerald-400 shrink-0"></span>
-              <span>
-                <strong>Pay only for what you generate:</strong> Invite co-directors, editors, and client reviewers to your projects for free, and top up credits anytime with one click.
-              </span>
+          <!-- Sample Model & Workflow Credit Rates Box -->
+          <div class="p-4 sm:p-5 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] flex flex-col justify-between gap-3.5">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 shrink-0"></span>
+                <span class="text-xs font-bold uppercase tracking-wider text-[var(--text-primary)]">
+                  What Your Credits Create &middot; Sample Model Rates
+                </span>
+              </div>
+              <a href="/pricing/index.html#rates" class="text-xs text-[var(--accent)] font-semibold hover:underline shrink-0">
+                Full Model Rate Card &rarr;
+              </a>
             </div>
-            <a href="/pricing/index.html#rates" class="text-[var(--accent)] font-semibold hover:underline shrink-0">
-              See Model Rate Card &rarr;
-            </a>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+              {samplePaygRates.map((rate) => (
+                <div class="px-3 py-2 rounded-xl bg-[rgba(12,13,16,0.6)] border border-[var(--border-subtle)] flex items-center justify-between gap-2">
+                  <div class="min-w-0">
+                    <div class="text-xs font-bold text-[var(--text-primary)] truncate">{rate.label}</div>
+                    <div class="text-[0.68rem] text-[var(--text-muted)] truncate">{rate.sub}</div>
+                  </div>
+                  <span class="text-xs font-mono font-bold text-[var(--accent)] whitespace-nowrap shrink-0">
+                    {rate.cost}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            <div class="pt-2.5 border-t border-[var(--border-subtle)] flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-[0.74rem] text-[var(--text-secondary)]">
+              <span>
+                <strong>Free team collaboration:</strong> Invite co-directors, editors &amp; client reviewers at $0/seat and assign per-project credit caps.
+              </span>
+              <a href="/pricing/index.html#calculator" class="text-[var(--text-primary)] hover:text-[var(--accent)] font-semibold whitespace-nowrap shrink-0">
+                Estimate Project Credits &rarr;
+              </a>
+            </div>
           </div>
         </div>
       </div>

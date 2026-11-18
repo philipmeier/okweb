@@ -69,12 +69,14 @@ Single source of truth for the 10zebra FastMCP Server specification (tools, reso
   - `getMcpEnvVars(): McpEnvVar[]` — Returns configurable environment variables for local/remote MCP deployment.
 
 ### `src/data/pricing.ts`
-Single source of truth for subscription plans, top-up credit packs, model/tool credit rate cards, full plan comparison matrix, and pricing FAQs.
+Single source of truth for subscription plans, Pay-As-You-Go studio showcase, top-up credit packs, model/tool credit rate cards, full plan comparison matrix, and pricing FAQs.
 - **Types & Interfaces:**
-  - `PricingPlan`, `CreditPack`, `ModelRate`, `ToolRate`, `ComparisonFeature`, `ComparisonSection`, `PricingFaq`
+  - `PricingPlan`, `CreditPack`, `PaygStudioHighlight`, `PaygStudioCard`, `SampleRateItem`, `ModelRate`, `ToolRate`, `ComparisonFeature`, `ComparisonSection`, `PricingFaq`
 - **Exports:**
   - `plans`: Subscription tiers (`payg`, `maker`, `director`).
   - `creditPacks`: Non-expiring credit top-up packs (`Influencer` 800/$14, `Director` 2,400/$42, `Producer` 8,000/$140) with subscriber discount breakdowns.
+  - `paygStudioCard`: Copy and dynamic starter/top-up metadata (`Top-Ups From $14`) for the Pay-As-You-Go Studio card when `featureGates.subscriptions` is `false`.
+  - `samplePaygRates`: 6-item model & workflow rate preview displayed alongside the horizontal credit pack cards when `featureGates.subscriptions` is `false`.
   - `modelRates`: Representative per-take credit costs across flagship models.
   - `toolRates`: Credit costs for studio tools (Character Swap, Text-to-Sequence, 4K Upscale, YouTube Export).
   - `comparisonSections`: Multi-category feature comparison table rows across Pay-As-You-Go, Maker, Director, and Studio.

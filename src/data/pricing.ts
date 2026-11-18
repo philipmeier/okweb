@@ -167,6 +167,83 @@ export const creditPacks: CreditPack[] = [
   },
 ];
 
+export interface PaygStudioHighlight {
+  strong: string;
+  rest: string;
+}
+
+export interface PaygStudioCard {
+  badge: string;
+  kicker: string;
+  title: string;
+  desc: string;
+  startPrice: string;
+  startLabel: string;
+  startSubtext: string;
+  topUpsFrom: string;
+  topUpsSubtext: string;
+  highlights: PaygStudioHighlight[];
+  cta: string;
+  ctaHref: string;
+  ctaNote: string;
+}
+
+export const paygStudioCard: PaygStudioCard = {
+  badge: 'No Subscription Required',
+  kicker: 'Zero Monthly Commitment',
+  title: 'Pay-As-You-Go Studio',
+  desc: 'Every feature, AI model, and collaborative workflow unlocked from day one. Start with 200 free credits and top up only when you direct.',
+  startPrice: '$0',
+  startLabel: 'To Start Free',
+  startSubtext: 'Includes 200 free signup credits',
+  topUpsFrom: `Top-Ups From ${creditPacks[0].basePrice}`,
+  topUpsSubtext: 'Credits never expire',
+  highlights: [
+    {
+      strong: '200 Free Credits',
+      rest: 'on signup (no credit card needed)',
+    },
+    {
+      strong: `All ${totalFamilies} model families (${totalModels}+ engines):`,
+      rest: 'Kling, Veo, Sora, Runway & more',
+    },
+    {
+      strong: 'Team collaborators at no cost',
+      rest: '($0/seat) + per-member credit budgets',
+    },
+    {
+      strong: 'Hybrid Production:',
+      rest: 'combine live-action footage & AI styles',
+    },
+    {
+      strong: 'Quick Start & Scene Extension',
+      rest: 'workflow tools included',
+    },
+    {
+      strong: 'Purchased credits never expire',
+      rest: '— zero monthly forfeiture',
+    },
+  ],
+  cta: 'Start Free — 200 Credits →',
+  ctaHref: '/signup/index.html',
+  ctaNote: 'No credit card required · Full commercial rights included',
+};
+
+export interface SampleRateItem {
+  label: string;
+  sub: string;
+  cost: string;
+}
+
+export const samplePaygRates: SampleRateItem[] = [
+  { label: 'Kling 3.0', sub: '5s cinema take', cost: '40 cr' },
+  { label: 'Veo 3 Fast', sub: '5s rapid previs', cost: '20 cr' },
+  { label: 'Runway Gen-4', sub: '5s motion take', cost: '35 cr' },
+  { label: 'OpenAI Sora', sub: '5s world physics', cost: '50 cr' },
+  { label: 'Grok Video', sub: '4s draft clip', cost: '10 cr' },
+  { label: 'Character Swap', sub: 'Motion-locked swap', cost: '15 cr' },
+];
+
 export interface ModelRate {
   name: string;
   badge: string;
