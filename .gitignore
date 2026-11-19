@@ -1,1 +1,91 @@
+# Build outputs
+dist/
+# Build outputs
+dist/
 dist*
+.output/
+
+# Astro generated cache, types & logs
+.astro/
+
+# Dependencies
+node_modules/
+
+# Environment variables & secrets
+.env
+.env.*
+!.env.example
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS & filesystem metadata
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# IDEs & editors
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*~
+
+# Temporary & cache directories
+.cache/
+.temp/
+.tmp/
+.vercel/
+.netlify/
+.output/
+
+# Astro generated cache, types & logs
+.astro/
+
+# Dependencies
+node_modules/
+
+# Environment variables & secrets
+.env
+.env.*
+!.env.example
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS & filesystem metadata
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# IDEs & editors
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*~
+
+# Temporary & cache directories
+.cache/
+.temp/
+.tmp/
+.vercel/
+.netlify/
